@@ -49,4 +49,24 @@ final class TestTweetsAPI: XCTestCase {
     
     print(isDeleted)
   }
+  
+  func testFetchTimeLine() async throws {
+    let userID = "2244994945"
+    let sweet = Sweet.exampleSweet()
+    let tweets = try await sweet.fetchTimeLine(by: userID)
+    
+    tweets.forEach {
+      print($0.text)
+    }
+  }
+  
+  func testFetchMentions() async throws {
+    let userID = "2244994945"
+    let sweet = Sweet.exampleSweet()
+    let tweets = try await sweet.fetchMentions(by: userID)
+    
+    tweets.forEach {
+      print($0.text)
+    }
+  }
 }
