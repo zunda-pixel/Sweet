@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TestUsersAPI.swift
 //  
 //
 //  Created by zunda on 2022/01/14.
@@ -10,9 +10,10 @@ import XCTest
 
 @available(macOS 12.0, iOS 13.0, *)
 final class TestUsersAPI: XCTestCase {
+  let testMyUserID = "1048032521361866752"
   
   func testUnFollow() async throws {
-    let fromUserID = "1048032521361866752"
+    let fromUserID = testMyUserID
     let toUserID = "2244994945"
     
     let sweet = Sweet.exampleSweet()
@@ -22,7 +23,7 @@ final class TestUsersAPI: XCTestCase {
   }
   
   func testFollow() async throws {
-    let fromUserID = "1048032521361866752"
+    let fromUserID = testMyUserID
     let toUserID = "2244994945"
     
     let sweet = Sweet.exampleSweet()
@@ -104,7 +105,7 @@ final class TestUsersAPI: XCTestCase {
   }
   
   func testFetchBlockUser() async throws {
-    let userID = "1048032521361866752"
+    let userID = testMyUserID
     let sweet = Sweet.exampleSweet()
     let userModels = try await sweet.fetchBlocking(by: userID)
     
@@ -114,7 +115,7 @@ final class TestUsersAPI: XCTestCase {
   }
   
   func testUnBlockUser() async throws {
-    let fromUserID = "1048032521361866752"
+    let fromUserID = testMyUserID
     let toUserID = "2244994945"
     let sweet = Sweet.exampleSweet()
     let userModel = try await sweet.unBlockUser(from: fromUserID, to: toUserID)
@@ -123,16 +124,15 @@ final class TestUsersAPI: XCTestCase {
   }
   
   func testMuteUser() async throws {
-    let fromUserID = "1048032521361866752"
+    let fromUserID = testMyUserID
     let toUserID = "2244994945"
     let sweet = Sweet.exampleSweet()
     let userModel = try await sweet.muteUser(from: fromUserID, to: toUserID)
     print(userModel)
   }
   
-  
   func testFetchMutingUser() async throws {
-    let userID = "1048032521361866752"
+    let userID = testMyUserID
     let sweet = Sweet.exampleSweet()
     let userModels = try await sweet.fetchMuting(by: userID)
     
@@ -142,7 +142,7 @@ final class TestUsersAPI: XCTestCase {
   }
   
   func testUnMuteUser() async throws {
-    let fromUserID = "1048032521361866752"
+    let fromUserID = testMyUserID
     let toUserID = "2244994945"
     let sweet = Sweet.exampleSweet()
     let userModel = try await sweet.unMuteUser(from: fromUserID, to: toUserID)
