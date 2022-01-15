@@ -7,7 +7,21 @@
 
 struct TweetModel: Decodable {
   let id: String
-  let author_id: String
   let text: String
-  let created_at: String
+}
+
+struct TweetsResponseModel: Decodable {
+  let tweets: [TweetModel]
+
+  private enum CodingKeys: String, CodingKey {
+    case tweets = "data"
+  }
+}
+
+struct TweetResponseModel: Decodable {
+  let tweet: TweetModel
+
+  private enum CodingKeys: String, CodingKey {
+    case tweet = "data"
+  }
 }
