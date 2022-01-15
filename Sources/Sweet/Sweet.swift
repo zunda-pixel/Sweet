@@ -15,7 +15,3 @@ public struct Sweet {
   
   let bearerToken: String
 }
-
-    public init() {
-    }
-}
