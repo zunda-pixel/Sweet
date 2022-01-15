@@ -31,4 +31,22 @@ final class TestTweetsAPI: XCTestCase {
     
     print(tweet)
   }
+  
+  func testCreateTweet() async throws {
+    let text = UUID().uuidString
+    
+    let sweet = Sweet.exampleSweet()
+    let tweet = try await sweet.createTweet(text: text)
+    
+    print(tweet)
+  }
+  
+  func testDeleteTweet() async throws {
+    let tweetID = "1482357307178577923"
+    
+    let sweet = Sweet.exampleSweet()
+    let isDeleted = try await sweet.deleteTweet(by: tweetID)
+    
+    print(isDeleted)
+  }
 }
