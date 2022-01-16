@@ -242,4 +242,12 @@ final class TestTweetsAPI: XCTestCase {
     let liked = try await sweet.unLike(userID: userID, tweetID: tweetID)
     print(liked)
   }
+  
+  func testHideReply() async throws {
+    let tweetID = "1482717178143326210"
+    
+    let sweet = Sweet.exampleSweet()
+    let hidden = try await sweet.hideReply(tweetID: tweetID, hidden: true)
+    print(hidden)
+  }
 }
