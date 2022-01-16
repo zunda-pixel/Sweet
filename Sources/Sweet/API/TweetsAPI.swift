@@ -170,4 +170,24 @@ extension Sweet {
     
     return countTweetResponseModel.countTweetModels
   }
+  
+  func fetchCountTweet(by query: String) async throws -> [CountTweetModel] {
+    // 動作しない
+    
+    // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
+    
+    let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/all")!
+    
+    let queries = ["query": query]
+    
+    let httpMethod: HTTPMethod = .GET
+    
+    let headers = bearerHeaders
+  
+    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers, queries: queries)
+                    
+    let countTweetResponseModel = try JSONDecoder().decode(CountTweetResponseModel.self, from: data)
+    
+    return countTweetResponseModel.countTweetModels
+  }
 }

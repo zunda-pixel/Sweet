@@ -99,4 +99,15 @@ final class TestTweetsAPI: XCTestCase {
       print($0.countTweet)
     }
   }
+  
+  func testFetchCountTweet() async throws {
+    let query = "lakers"
+    
+    let sweet = Sweet.exampleSweet()
+    let tweets = try await sweet.fetchCountTweet(by: query)
+    
+    tweets.forEach {
+      print($0.text)
+    }
+  }
 }
