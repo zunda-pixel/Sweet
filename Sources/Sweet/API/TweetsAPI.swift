@@ -7,7 +7,6 @@
 
 import Foundation
 
-@available(macOS 12.0, *)
 extension Sweet {
   func lookUpTweets(by ids: [String]) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets

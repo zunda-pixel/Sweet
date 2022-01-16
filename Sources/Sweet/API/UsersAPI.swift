@@ -7,7 +7,6 @@
 
 import Foundation
 
-@available(macOS 12.0, iOS 13.0, *)
 extension Sweet {
   func follow(from fromUserID: String, to toUserID: String) async throws -> (Bool, Bool) {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following

@@ -5,7 +5,6 @@
 //  Created by zunda on 2022/01/14.
 //
 
-@available(macOS 10.15, *)
 @available(iOS, introduced: 13.0, deprecated: 15.0, message: "Use the built-in API instead")
 extension URLSession {
   func data(from url: URL) async throws -> (Data, URLResponse) {
@@ -37,7 +36,6 @@ public enum HTTPMethod : String {
   case PATCH
 }
 
-@available(macOS 12.0, iOS 13.0,*)
 struct HTTPClient {
   private static let timeout: Double = 60.0
   
