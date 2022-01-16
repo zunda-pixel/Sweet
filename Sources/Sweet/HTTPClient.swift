@@ -5,39 +5,8 @@
 //  Created by zunda on 2022/01/14.
 //
 
-@available(macOS 10.15, *)
-@available(iOS, introduced: 13.0, deprecated: 15.0, message: "Use the built-in API instead")
-extension URLSession {
-  func data(from url: URL) async throws -> (Data, URLResponse) {
-    try await withCheckedThrowingContinuation { continuation in
-      self.dataTask(with: url) { data, response, error in
-        if let error = error {
-          return continuation.resume(throwing: error)
-        }
-        guard let data = data, let response = response else {
-          return continuation.resume(throwing: URLError(.badServerResponse))
-        }
-        continuation.resume(returning: (data, response))
-      }.resume()
-    }
-  }
-}
-
 import Foundation
 
-public enum HTTPMethod : String {
-  case GET
-  case HEAD
-  case POST
-  case PUT
-  case DELETE
-  case CONNECT
-  case OPTIONS
-  case TRACE
-  case PATCH
-}
-
-@available(macOS 12.0, iOS 13.0,*)
 struct HTTPClient {
   private static let timeout: Double = 60.0
   
@@ -65,4 +34,47 @@ struct HTTPClient {
   public static func delete(url: URL, body: Data? = nil , headers: [String: String] = [:], queries: [String: String] = [:], timeout: Double = timeout) async throws -> (Data, URLResponse) {
     return try await request(method: .DELETE, url: url, body: body, headers: headers, queries: queries, timeout: timeout)
   }
+}
+
+@available(iOS, introduced: 13.0, deprecated: 15.0, message: "Use the built-in API instead")
+extension URLSession {
+  func data(from url: URL) async throws -> (Data, URLResponse) {
+    try await withCheckedThrowingContinuation { continuation in
+      self.dataTask(with: url) { data, response, error in
+        if let error = error {
+          return continuation.resume(throwing: error)
+        }
+        guard let data = data, let response = response else {
+          return continuation.resume(throwing: URLError(.badServerResponse))
+        }
+        continuation.resume(returning: (data, response))
+      }.resume()
+    }
+  }
+  
+  func data(for request: URLRequest) async throws -> (Data, URLResponse) {
+    try await withCheckedThrowingContinuation { continuation in
+      self.dataTask(with: request) { data, response, error in
+        if let error = error {
+          return continuation.resume(throwing: error)
+        }
+        guard let data = data, let response = response else {
+          return continuation.resume(throwing: URLError(.badServerResponse))
+        }
+        continuation.resume(returning: (data, response))
+      }.resume()
+    }
+  }
+}
+
+public enum HTTPMethod : String {
+  case GET
+  case HEAD
+  case POST
+  case PUT
+  case DELETE
+  case CONNECT
+  case OPTIONS
+  case TRACE
+  case PATCH
 }

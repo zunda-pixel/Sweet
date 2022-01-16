@@ -8,7 +8,6 @@
 import XCTest
 @testable import Sweet
 
-@available(macOS 12.0, iOS 13.0, *)
 final class TestUsersAPI: XCTestCase {
   let testMyUserID = "1048032521361866752"
   

@@ -8,7 +8,6 @@
 import Foundation
 
 
-@available(macOS 12.0, iOS 13.0, *)
 extension Sweet {
   var oauth1: Oauth1 {
     let oauth1 = Oauth1(consumerKey: consumerKey, consumerSecretKey: consumerSecretKey, oauthToken: oauthToken, oauthSecretToken: oauthSecretToken)
