@@ -107,7 +107,59 @@ final class TestTweetsAPI: XCTestCase {
     let tweets = try await sweet.fetchCountTweet(by: query)
     
     tweets.forEach {
-      print($0.text)
+      print($0.countTweet)
     }
+  }
+  
+  func testFetchStreamRule() async throws {
+    let sweet = Sweet.exampleSweet()
+    let streamRuleModels = try await sweet.fetchStreamRule()
+    
+    streamRuleModels.forEach {
+      print($0.id, $0.value)
+    }
+  }
+  
+  func testFetchStream() async throws {
+    let sweet = Sweet.exampleSweet()
+    let streamRuleModels = try await sweet.fetchStream()
+    
+    streamRuleModels.forEach {
+      print($0.value)
+    }
+  }
+  
+  func testCreateStreamRule() async throws {
+    let streamModels: [StreamRuleModel] = [
+      .init(value: "cat has:media", tag: "cats with media"),
+    ]
+    
+    let sweet = Sweet.exampleSweet()
+    let streamRuleModels = try await sweet.createStreamRule(streamModels)
+    
+    streamRuleModels.forEach {
+      print($0.id, $0.value)
+    }
+  }
+  
+  func testDeleteStreamRuleByID() async throws {
+    let ids = [
+      "1482601916433506305",
+      "1482602294482857989",
+      "1482602422727966722",
+    ]
+    
+    let sweet = Sweet.exampleSweet()
+    try await sweet.deleteStreamRule(ids: ids)
+  }
+  
+  func testDeleteStreamRuleByValue() async throws {
+    let values = [
+      "meme",
+      "cat has:media"
+    ]
+    
+    let sweet = Sweet.exampleSweet()
+    try await sweet.deleteStreamRule(values: values)
   }
 }

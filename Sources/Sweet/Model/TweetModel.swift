@@ -14,7 +14,7 @@ struct TweetModel: Decodable {
 
 struct TweetsResponseModel: Decodable {
   let tweets: [TweetModel]
-
+  
   private enum CodingKeys: String, CodingKey {
     case tweets = "data"
   }
@@ -22,7 +22,7 @@ struct TweetsResponseModel: Decodable {
 
 struct TweetResponseModel: Decodable {
   let tweet: TweetModel
-
+  
   private enum CodingKeys: String, CodingKey {
     case tweet = "data"
   }
@@ -77,5 +77,33 @@ struct CountTweetResponseModel: Decodable {
   
   private enum CodingKeys: String, CodingKey {
     case countTweetModels = "data"
+  }
+}
+
+struct StreamRuleModel: Codable {
+  let id: String
+  let value: String
+  let tag: String?
+  
+  init(value: String, tag: String? = nil) {
+    self.id = ""
+    self.tag = tag
+    self.value = value
+  }
+  
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(value, forKey: .value)
+    if let tag = tag {
+        try container.encode(tag, forKey: .tag)
+    }
+  }
+}
+
+struct StreamRuleResponseModel: Decodable {
+  let streamRules: [StreamRuleModel]
+  
+  private enum CodingKeys: String, CodingKey {
+    case streamRules = "data"
   }
 }
