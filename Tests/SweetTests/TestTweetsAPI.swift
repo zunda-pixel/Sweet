@@ -202,4 +202,44 @@ final class TestTweetsAPI: XCTestCase {
     
     print(retweeted)
   }
+  
+  func testFetchLikingTweetUser() async throws {
+    let tweetID = "1481674458586927105"
+    
+    let sweet = Sweet.exampleSweet()
+    let users = try await sweet.fetchLikingTweetUser(by: tweetID)
+    
+    users.forEach {
+      print($0.username)
+    }
+  }
+  
+  func testFetchLikedTweet() async throws {
+    let userID = testMyUserID
+    
+    let sweet = Sweet.exampleSweet()
+    let tweets = try await sweet.fetchLikedTweet(by: userID)
+    
+    tweets.forEach {
+      print($0.text)
+    }
+  }
+  
+  func testLike() async throws {
+    let userID = testMyUserID
+    let tweetID = "1481674458586927105"
+    
+    let sweet = Sweet.exampleSweet()
+    let liked = try await sweet.like(userID: userID, tweetID: tweetID)
+    print(liked)
+  }
+  
+  func testUnLike() async throws {
+    let userID = testMyUserID
+    let tweetID = "1481674458586927105"
+    
+    let sweet = Sweet.exampleSweet()
+    let liked = try await sweet.unLike(userID: userID, tweetID: tweetID)
+    print(liked)
+  }
 }

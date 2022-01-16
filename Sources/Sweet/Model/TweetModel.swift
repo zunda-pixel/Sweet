@@ -125,3 +125,21 @@ struct RetweetResponseModel: Decodable {
     self.retweeted = try retweetedInfo.decode(Bool.self, forKey: .retweeted)
   }
 }
+
+struct LikeResponseModel: Decodable {
+  let liked: Bool
+  
+  private enum DataCodingKeys: String, CodingKey {
+    case data = "data"
+  }
+  
+  private enum CodingKeys: String, CodingKey {
+    case liked
+  }
+  
+  init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: DataCodingKeys.self)
+    let retweetedInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.liked = try retweetedInfo.decode(Bool.self, forKey: .liked)
+  }
+}
