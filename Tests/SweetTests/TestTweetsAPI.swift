@@ -162,4 +162,13 @@ final class TestTweetsAPI: XCTestCase {
     let sweet = Sweet.exampleSweet()
     try await sweet.deleteStreamRule(values: values)
   }
+  
+  func testFetchStreamVolume() async throws {
+    let sweet = Sweet.exampleSweet()
+    let tweets = try await sweet.fetchStreamVolume()
+    
+    tweets.forEach {
+      print($0.text)
+    }
+  }
 }
