@@ -8,7 +8,6 @@
 import Foundation
 import CryptoKit
 
-@available(macOS 10.15, iOS 13.0, *)
 struct Oauth1 {
   private let consumerKey: String
   private let consumerSecretKey: String
