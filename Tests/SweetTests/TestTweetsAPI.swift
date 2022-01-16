@@ -69,4 +69,24 @@ final class TestTweetsAPI: XCTestCase {
       print($0.text)
     }
   }
+  
+  func testSearchRecentTweet() async throws {
+    let query = "from%3Atwitterdev%20new%20-is%3Aretweet"
+    let sweet = Sweet.exampleSweet()
+    let tweets = try await sweet.searchRecentTweet(by: query)
+    
+    tweets.forEach {
+      print($0.text)
+    }
+  }
+  
+  func testSearchTweet() async throws {
+    let query = "from%3Atwitterdev%20new%20-is%3Aretweet"
+    let sweet = Sweet.exampleSweet()
+    let tweets = try await sweet.searchTweet(by: query)
+    
+    tweets.forEach {
+      print($0.text)
+    }
+  }
 }
