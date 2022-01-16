@@ -107,3 +107,21 @@ struct StreamRuleResponseModel: Decodable {
     case streamRules = "data"
   }
 }
+
+struct RetweetResponseModel: Decodable {
+  let retweeted: Bool
+  
+  private enum DataCodingKeys: String, CodingKey {
+    case data = "data"
+  }
+  
+  private enum CodingKeys: String, CodingKey {
+    case retweeted
+  }
+  
+  init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: DataCodingKeys.self)
+    let retweetedInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.retweeted = try retweetedInfo.decode(Bool.self, forKey: .retweeted)
+  }
+}

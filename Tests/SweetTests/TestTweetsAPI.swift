@@ -171,4 +171,35 @@ final class TestTweetsAPI: XCTestCase {
       print($0.text)
     }
   }
+  
+  func testFetchRetweetUsers() async throws {
+    let tweetID = "1481674458586927105"
+    
+    let sweet = Sweet.exampleSweet()
+    let users = try await sweet.fetchRetweetUsers(by: tweetID)
+    
+    users.forEach {
+      print($0.username)
+    }
+  }
+  
+  func testRetweet() async throws {
+    let userID = testMyUserID
+    let tweetID = "1481674458586927105"
+    
+    let sweet = Sweet.exampleSweet()
+    let retweeted = try await sweet.retweet(userID: userID, tweetID: tweetID)
+    
+    print(retweeted)
+  }
+  
+  func testDeleteRetweet() async throws {
+    let userID = testMyUserID
+    let tweetID = "1481674458586927105"
+    
+    let sweet = Sweet.exampleSweet()
+    let retweeted = try await sweet.deleteRetweet(userID: userID, tweetID: tweetID)
+    
+    print(retweeted)
+  }
 }
