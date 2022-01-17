@@ -5,6 +5,31 @@
 //  Created by zunda on 2022/01/17.
 //
 
+struct SendListModel: Codable {
+  let name: String?
+  let description: String?
+  let isPrivate: Bool?
+  
+  private enum CodingKeys: String, CodingKey {
+    case name
+    case description
+    case isPrivate = "private"
+  }
+  
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    if let name = name {
+      try container.encode(name, forKey: .name)
+    }
+    if let description = description {
+      try container.encode(description, forKey: .description)
+    }
+    if let isPrivate = isPrivate  {
+      try container.encode(isPrivate, forKey: .isPrivate)
+    }
+  }
+}
+
 struct ListModel: Decodable {
 	let id: String
 	let name: String
@@ -34,7 +59,7 @@ struct MemberResponseModel: Decodable {
   }
   
   private enum CodingKeys: String, CodingKey {
-    case isMember
+    case isMember = "is_member"
   }
   
   public init(from decoder: Decoder) throws {

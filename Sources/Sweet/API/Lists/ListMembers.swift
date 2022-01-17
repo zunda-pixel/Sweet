@@ -21,7 +21,8 @@ extension Sweet {
 		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
 						
 		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, body: bodyData, headers: headers)
-						
+        
+    
 		let memberResponseModel = try JSONDecoder().decode(MemberResponseModel.self, from: data)
 		
 		return memberResponseModel.isMember
@@ -53,13 +54,13 @@ extension Sweet {
 		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
 						
 		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
-						
-		let listsResponseModel = try JSONDecoder().decode(ListsResponseModel.self, from: data)
+
+    let listsResponseModel = try JSONDecoder().decode(ListsResponseModel.self, from: data)
 		
 		return listsResponseModel.lists
   }
 
-  func fetchAddingUsers(listID: String) async throws -> [UserModel] {
+  func fetchAddedUsersToList(listID: String) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!

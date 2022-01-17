@@ -15,10 +15,7 @@ extension Sweet {
 
 		let httpMethod: HTTPMethod = .POST
 
-    var body: [String: Any] = ["name": name]
-    if let description = description { body["description"] = description }
-    if let isPrivate = isPrivate { body["private"] = isPrivate }
-
+    let body = SendListModel(name: name, description: description, isPrivate: isPrivate)
 
     let bodyData = try JSONEncoder().encode(body)
 
@@ -36,11 +33,8 @@ extension Sweet {
 
 		let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
 
-    var body: [String: Any] = [:]
-    if let name = name { body["name"] = name }
-    if let description = description { body["description"] = description }
-    if let isPrivate = isPrivate { body["private"] = isPrivate }
 
+    let body = SendListModel(name: name, description: description, isPrivate: isPrivate)
     let bodyData = try JSONEncoder().encode(body)
 
 		let httpMethod: HTTPMethod = .PUT
