@@ -24,7 +24,7 @@ extension Sweet {
 		return listResponseModel.list
 	}
 
-	func fetchOwnedList(userID: String) async throws -> [ListModel] {
+	func fetchOwnedLists(userID: String) async throws -> [ListModel] {
 		// https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists
 
 		let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/owned_lists")!

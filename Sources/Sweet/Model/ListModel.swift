@@ -25,3 +25,21 @@ struct ListsResponseModel: Decodable {
 		case lists = "data"
   }
 }
+
+struct MemberResponseModel: Decodable {
+  let isMember: Bool
+  
+  private enum DataCodingKeys: String, CodingKey {
+    case data = "data"
+  }
+  
+  private enum CodingKeys: String, CodingKey {
+    case isMember
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: DataCodingKeys.self)
+    let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.isMember = try usersInfo.decode(Bool.self, forKey: .isMember)
+  }
+}
