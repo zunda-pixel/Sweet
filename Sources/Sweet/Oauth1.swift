@@ -7,7 +7,7 @@
 
 import Foundation
 
-#if canImport(CryptoKit)
+#if os(Linux) || os(Windows)
 import CryptoKit
 #else
 import Crypto
