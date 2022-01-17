@@ -43,7 +43,7 @@ extension Sweet {
 		return memberResponseModel.isMember
   }
 
-  func fetchJoiningLists(userID: String) async throws -> [ListModel] {
+  func fetchAddedLists(userID: String) async throws -> [ListModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/list_memberships")!
@@ -59,7 +59,7 @@ extension Sweet {
 		return listsResponseModel.lists
   }
 
-  func fetchJoinedUsers(listID: String) async throws -> [UserModel] {
+  func fetchAddingUsers(listID: String) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
