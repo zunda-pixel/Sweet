@@ -30,5 +30,5 @@ var package = Package(
 
 #if os(Linux) || os(Windows)
 package.dependencies.append(.package(url: "https://github.com/apple/swift-crypto.git", "1.0.0" ..< "3.0.0"))
-package.targets[0].dependencies.append("Crypto")
+package.targets[0].dependencies.append(.product(name: "Crypto", package: "swift-crypto"))
 #endif
