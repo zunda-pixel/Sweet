@@ -7,7 +7,7 @@
 
 import Foundation
 
-#if canImport(FoundationNetworking)
+#if os(Linux) || os(Windows)
 import FoundationNetworking
 #endif
 
