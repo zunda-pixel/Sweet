@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 struct HTTPClient {
   private static let timeout: Double = 60.0
   
