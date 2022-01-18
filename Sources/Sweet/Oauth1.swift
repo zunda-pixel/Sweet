@@ -8,9 +8,9 @@
 import Foundation
 
 #if os(Linux) || os(Windows)
-import CryptoKit
-#else
 import Crypto
+#else
+import CryptoKit
 #endif
 
 struct Oauth1 {
