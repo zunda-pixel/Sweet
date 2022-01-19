@@ -38,21 +38,22 @@ extension Sweet {
     return complianceResponseModel.compliance
   }
 
-  func createCompliance(type: JobType? = nil, name: String? = nil, resumable: Bool? = nil) async throws -> ComplianceModel {
+  func createCompliance(type: JobType, name: String? = nil, resumable: Bool? = nil) async throws -> ComplianceModel {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/post-compliance-jobs
 
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
 
     struct JobModel: Encodable {
-      let type: jobType?
+      let type: jobType
       let name: String?
       let resumble: Bool?
 
       func encode(to encoder: Encoder) throws {
-      var container = encoder.container(keyedBy: CodingKeys.self)
-      if let type = type { try container.encode(type, forKey: .type) }
-      if let name = name { try container.encode(name, forKey: .name) }
-      if let resumble = resumble { try container.encode(resumble, forKey: .resumble) }
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type.rawValue, forKey: .type)
+        if let name = name { try container.encode(name, forKey: .name) }
+        if let resumble = resumble { try container.encode(resumble, forKey: .resumble) }
+      }
     }
 
     let jobModel: JobModel = .init(type: type, name: name, resumble: resumble)
