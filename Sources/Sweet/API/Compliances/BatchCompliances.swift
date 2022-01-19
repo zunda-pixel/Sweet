@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   func fetchCompliances(type: JobType) async throws -> [ComplianceModel] {
-    // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
+    // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
     
@@ -25,8 +25,7 @@ extension Sweet {
   }
 
   func fetchCompliance(jobID: String) async throws -> ComplianceModel {
-      
-    // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
+    // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs/\(jobID)")!
     
