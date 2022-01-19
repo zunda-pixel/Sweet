@@ -1,4 +1,11 @@
+//
+//  ComplianceModel.swift
+//  
+//
+//  Created by zunda on 2022/01/14.
+//
 
+import Foundation
 
 enum JobType: String {
   case tweets
