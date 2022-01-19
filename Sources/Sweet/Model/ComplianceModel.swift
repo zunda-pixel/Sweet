@@ -13,7 +13,7 @@ enum JobType: String {
 }
 
 struct ComplianceModel {
-  let type: String
+  let type: JobType
   let id: String
   let resumble: Bool
   let uploadURL: URL
@@ -39,7 +39,10 @@ extension ComplianceModel: Decodable {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    self.type = try values.decode(String.self, forKey: .type)
+
+    let typeRawValue = try values.decode(String.self, forKey: .type)
+    self.type = .init(rawValue: typeRawValue)!
+
     self.id = try values.decode(String.self, forKey: .id)
     self.resumble = try values.decode(Bool.self, forKey: .resumble)
     
