@@ -7,10 +7,10 @@
 
 import Foundation
 
-#if canImport(CryptoKit)
-import CryptoKit
-#else
+#if os(Linux) || os(Windows)
 import Crypto
+#else
+import CryptoKit
 #endif
 
 struct Oauth1 {

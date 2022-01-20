@@ -38,8 +38,8 @@ extension Sweet {
     
     let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
     
-    let deleteTweetResponseModel = try JSONDecoder().decode(DeleteTweetResponseModel.self, from: data)
+    let deleteResponseModel = try JSONDecoder().decode(DeleteResponseModel.self, from: data)
     
-    return deleteTweetResponseModel.deleted
+    return deleteResponseModel.deleted
   }
 }
