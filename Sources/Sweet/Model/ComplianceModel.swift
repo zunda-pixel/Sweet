@@ -28,9 +28,9 @@ extension ComplianceModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case type
     case id
-    case resumble
+    case resumable
     case uploadURL = "upload_url"
-    case uploadExpiresAt = "download_expires_at"
+    case uploadExpiresAt = "upload_expires_at"
     case downloadExpiresAt = "download_expires_at"
     case downloadURL = "download_url"
     case createdAt = "created_at"
@@ -44,16 +44,16 @@ extension ComplianceModel: Decodable {
     self.type = .init(rawValue: typeRawValue)!
 
     self.id = try values.decode(String.self, forKey: .id)
-    self.resumble = try values.decode(Bool.self, forKey: .resumble)
+    self.resumble = try values.decode(Bool.self, forKey: .resumable)
     
     let formatter = ISO8601DateFormatter()
     formatter.formatOptions.insert(.withFractionalSeconds)
 
     let uploadURL = try values.decode(String.self, forKey: .uploadURL)
-    self.uploadURL = formatter.date(from: uploadURL)!
+    self.uploadURL = .init(string: uploadURL)!
 
     let uploadExpiresAt = try values.decode(String.self, forKey: .uploadExpiresAt)
-    self.uploadExpiresAt = .init(string: uploadExpiresAt)!
+    self.uploadExpiresAt = formatter.date(from: uploadExpiresAt)!
 
     let downloadExpiresAt = try values.decode(String.self, forKey: .downloadExpiresAt)
     self.downloadExpiresAt = formatter.date(from: downloadExpiresAt)!
@@ -68,7 +68,7 @@ extension ComplianceModel: Decodable {
   }
 }
 
-struct ComplianceResponseModel: Decodable {
+struct CompliancesResponseModel: Decodable {
   let compliances: [ComplianceModel]
 
   private enum CodingKeys: String, CodingKey {
@@ -76,7 +76,7 @@ struct ComplianceResponseModel: Decodable {
   }
 }
 
-struct CompliancResponseModel: Decodable {
+struct ComplianceResponseModel: Decodable {
   let compliance: ComplianceModel
 
   private enum CodingKeys: String, CodingKey {

@@ -13,12 +13,12 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
     
-    var queries = ["type": type.rawValue,]
+    let queries = ["type": type.rawValue]
 
     let headers = bearerHeaders
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
-    
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+        
     let compliancesResponseModel = try JSONDecoder().decode(CompliancesResponseModel.self, from: data)
     
     return compliancesResponseModel.compliances
@@ -32,7 +32,7 @@ extension Sweet {
     let headers = bearerHeaders
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
-    
+        
     let complianceResponseModel = try JSONDecoder().decode(ComplianceResponseModel.self, from: data)
     
     return complianceResponseModel.compliance
@@ -44,26 +44,32 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
 
     struct JobModel: Encodable {
-      let type: jobType
+      let type: JobType
       let name: String?
-      let resumble: Bool?
-
+      let resumable: Bool?
+      
+      private enum CodingKeys: String, CodingKey {
+        case type
+        case name
+        case resumable
+      }
+      
       func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type.rawValue, forKey: .type)
         if let name = name { try container.encode(name, forKey: .name) }
-        if let resumble = resumble { try container.encode(resumble, forKey: .resumble) }
+        if let resumable = resumable { try container.encode(resumable, forKey: .resumable) }
       }
     }
 
-    let jobModel: JobModel = .init(type: type, name: name, resumble: resumble)
+    let jobModel: JobModel = .init(type: type, name: name, resumable: resumable)
 
     let body = try JSONEncoder().encode(jobModel)
     
     let headers = bearerHeaders
     
-    let (data, _) = try await HTTPClient.post(url: url, headers: headers, body: body)
-    
+    let (data, _) = try await HTTPClient.post(url: url, body: body, headers: headers)
+        
     let complianceResponseModel = try JSONDecoder().decode(ComplianceResponseModel.self, from: data)
     
     return complianceResponseModel.compliance
