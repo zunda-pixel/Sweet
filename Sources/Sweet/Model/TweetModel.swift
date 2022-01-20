@@ -28,7 +28,7 @@ struct TweetResponseModel: Decodable {
   }
 }
 
-struct DeleteTweetResponseModel: Decodable {
+struct DeleteResponseModel: Decodable {
   let deleted: Bool
   
   private enum DataCodingKeys: String, CodingKey {
