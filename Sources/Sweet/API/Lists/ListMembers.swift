@@ -13,14 +13,12 @@ extension Sweet {
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
 
-    let httpMethod: HTTPMethod = .POST
-
     let body = ["user_id": userID]
     let bodyData = try JSONEncoder().encode(body)
 
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, body: bodyData, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
         
     
 		let memberResponseModel = try JSONDecoder().decode(MemberResponseModel.self, from: data)
@@ -33,11 +31,9 @@ extension Sweet {
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members/\(userID)")!
 
-    let httpMethod: HTTPMethod = .DELETE
-
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
 						
 		let memberResponseModel = try JSONDecoder().decode(MemberResponseModel.self, from: data)
 		
@@ -49,12 +45,10 @@ extension Sweet {
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/list_memberships")!
 
-    let httpMethod: HTTPMethod = .GET
-
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
-
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    
     let listsResponseModel = try JSONDecoder().decode(ListsResponseModel.self, from: data)
 		
 		return listsResponseModel.lists
@@ -65,11 +59,9 @@ extension Sweet {
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
 
-    let httpMethod: HTTPMethod = .GET
-
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.get(url: url, headers: headers)
 						
 		let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
 		

@@ -12,12 +12,10 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-            
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
     
     let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
     
@@ -28,12 +26,10 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-            
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
         
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
@@ -48,11 +44,9 @@ extension Sweet {
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
     
-    let httpMethod: HTTPMethod = .POST
-
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-            
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, body: bodyData, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     let likeResponseModel = try JSONDecoder().decode(LikeResponseModel.self, from: data)
     
@@ -64,11 +58,10 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes/\(tweetID)")!
     
-    let httpMethod: HTTPMethod = .DELETE
 
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-            
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+    let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
     
     let likeResponseModel = try JSONDecoder().decode(LikeResponseModel.self, from: data)
     

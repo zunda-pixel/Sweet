@@ -14,12 +14,10 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
     
     let queries = ["ids": ids.joined(separator: ",")]
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = bearerHeaders // try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-    
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers, queries: queries)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
@@ -30,12 +28,10 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(id)")!
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-    
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
     
     let tweetResponseModel = try JSONDecoder().decode(TweetResponseModel.self, from: data)
     

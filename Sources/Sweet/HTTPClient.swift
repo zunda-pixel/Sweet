@@ -38,6 +38,10 @@ struct HTTPClient {
   public static func delete(url: URL, body: Data? = nil , headers: [String: String] = [:], queries: [String: String] = [:], timeout: Double = timeout) async throws -> (Data, URLResponse) {
     return try await request(method: .DELETE, url: url, body: body, headers: headers, queries: queries, timeout: timeout)
   }
+  
+  public static func put(url: URL, body: Data? = nil , headers: [String: String] = [:], queries: [String: String] = [:], timeout: Double = timeout) async throws -> (Data, URLResponse) {
+    return try await request(method: .PUT, url: url, body: body, headers: headers, queries: queries, timeout: timeout)
+  }
 }
 
 @available(iOS, introduced: 13.0, deprecated: 15.0, message: "Use the built-in API instead")

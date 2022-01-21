@@ -70,7 +70,7 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testSearchRecentTweet() async throws {
-    let query = "from%3Atwitterdev%20new%20-is%3Aretweet"
+    let query = "#twitterapiv2"
     let sweet = Sweet.exampleSweet()
     let tweets = try await sweet.searchRecentTweet(by: query)
     
@@ -80,7 +80,7 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testSearchTweet() async throws {
-    let query = "from%3Atwitterdev%20new%20-is%3Aretweet"
+    let query = "#twitterapiv2"
     let sweet = Sweet.exampleSweet()
     let tweets = try await sweet.searchTweet(by: query)
     
@@ -90,7 +90,7 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testFetchRecentCountTweet() async throws {
-    let query = "lakers"
+    let query = "#twitterapiv2"
     
     let sweet = Sweet.exampleSweet()
     let countTweetModels = try await sweet.fetchRecentCountTweet(by: query)
@@ -101,7 +101,7 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testFetchCountTweet() async throws {
-    let query = "lakers"
+    let query = "#twitterapiv2"
     
     let sweet = Sweet.exampleSweet()
     let tweets = try await sweet.fetchCountTweet(by: query)
@@ -131,7 +131,7 @@ final class TestTweetsAPI: XCTestCase {
   
   func testCreateStreamRule() async throws {
     let streamModels: [StreamRuleModel] = [
-      .init(value: "cat has:media", tag: "cats with media"),
+      .init(value: "cagjhgjt has:media", tag: "uihiu with media"),
     ]
     
     let sweet = Sweet.exampleSweet()
@@ -244,7 +244,7 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testHideReply() async throws {
-    let tweetID = "1482717178143326210"
+    let tweetID = "1484486430021730305"
     
     let sweet = Sweet.exampleSweet()
     let hidden = try await sweet.hideReply(tweetID: tweetID, hidden: true)

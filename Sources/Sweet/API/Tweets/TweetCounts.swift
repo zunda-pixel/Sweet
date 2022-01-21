@@ -15,7 +15,7 @@ extension Sweet {
     
     let queries = ["query": query]
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
@@ -25,20 +25,16 @@ extension Sweet {
   }
   
   func fetchCountTweet(by query: String) async throws -> [CountTweetModel] {
-    // 動作しない
-    
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/all")!
     
     let queries = ["query": query]
+        
+    let headers = getBearerHeaders(type: .App)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = bearerHeaders
-    
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers, queries: queries)
-    
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+        
     let countTweetResponseModel = try JSONDecoder().decode(CountTweetResponseModel.self, from: data)
     
     return countTweetResponseModel.countTweetModels

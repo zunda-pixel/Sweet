@@ -9,8 +9,6 @@ import XCTest
 @testable import Sweet
 
 final class TestSpacesAPI: XCTestCase {
-  let testMyUserID = "1048032521361866752"
-  
   func testFetchSpace() async throws {
     let spaceID = "1dRJZlVzpNgKB"
     
@@ -20,11 +18,22 @@ final class TestSpacesAPI: XCTestCase {
     print(space)
   }
   
-  func testFetchSpaces() async throws {
+  func testFetchSpacesWithSpaceIDs() async throws {
     let spaceIDs = ["1dRJZlVzpNgKB"]
     
     let sweet = Sweet.exampleSweet()
     let spaces = try await sweet.fetchSpaces(spaceIDs: spaceIDs)
+    
+    spaces.forEach {
+      print($0.id)
+    }
+  }
+  
+  func testFetchSpacesWithUserIDs() async throws {
+    let userIDs = ["1048032521361866752"]
+    
+    let sweet = Sweet.exampleSweet()
+    let spaces = try await sweet.fetchSpaces(creatorIDs: userIDs)
     
     spaces.forEach {
       print($0.id)
@@ -43,7 +52,7 @@ final class TestSpacesAPI: XCTestCase {
   }
   
   func testFetchSpaceTweets() async throws {
-    let spaceID = "1dRJZlVzpNgKB"
+    let spaceID = "1zqJVBpZWNYJB"
     
     let sweet = Sweet.exampleSweet()
     let tweets = try await sweet.fetchSpaceTweets(spaceID: spaceID)

@@ -13,7 +13,7 @@ final class TestListsAPI: XCTestCase {
   
   func testFollowList() async throws {
     let userID = testMyUserID
-    let listID = "1482973862237437952"
+    let listID = "1484484685069574145"
     
     let sweet = Sweet.exampleSweet()
     let following = try await sweet.followList(userID: userID, listID: listID)
@@ -32,7 +32,7 @@ final class TestListsAPI: XCTestCase {
   }
   
   func testFetchFollowedUsers() async throws {
-    let listID = "1482973862237437952"
+    let listID = "1484484685069574145"
     
     let sweet = Sweet.exampleSweet()
     let users = try await sweet.fetchFollowedUsers(listID: listID)
@@ -134,14 +134,12 @@ final class TestListsAPI: XCTestCase {
   }
   
   func testUpdateList() async throws {
-    let listID = "1483088575860142080"
+    let listID = "1484484685069574145"
     
     let sweet = Sweet.exampleSweet()
-    let lists = try await sweet.updateList(listID: listID, name: "changed", description: "changed", isPrivate: true)
+    let updated = try await sweet.updateList(listID: listID, name: "changed name", description: "changed description", isPrivate: false)
     
-    lists.forEach {
-      print($0.name)
-    }
+    print(updated)
   }
   
   func testDeleteList() async throws {

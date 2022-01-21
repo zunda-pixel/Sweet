@@ -13,11 +13,9 @@ extension Sweet {
 
 		let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
 
-		let httpMethod: HTTPMethod = .GET
-
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.get(url: url, headers: headers)
 						
 		let listResponseModel = try JSONDecoder().decode(ListResponseModel.self, from: data)
 		
@@ -29,11 +27,9 @@ extension Sweet {
 
 		let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/owned_lists")!
 
-		let httpMethod: HTTPMethod = .GET
-
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.get(url: url, headers: headers)
 						
 		let listsResponseModel = try JSONDecoder().decode(ListsResponseModel.self, from: data)
 		

@@ -7,25 +7,27 @@
 
 import Foundation
 
+enum AuthorizeType {
+  case User
+  case App
+}
+
 
 extension Sweet {
-  var oauth1: Oauth1 {
-    let oauth1 = Oauth1(consumerKey: consumerKey, consumerSecretKey: consumerSecretKey, oauthToken: oauthToken, oauthSecretToken: oauthSecretToken)
-    return oauth1
+  private func getAuthorize(type: AuthorizeType) -> String {
+    switch type {
+      case .User:
+        return bearerTokenUser
+      case .App:
+        return bearerTokenApp
+    }
   }
   
-  var bearerHeaders: [String: String] {
+  func getBearerHeaders(type: AuthorizeType) -> [String: String] {
+    let bearerToken = getAuthorize(type: type)
+    
     let headers = [
       "Authorization": "Bearer \(bearerToken)",
-       "Content-type": "application/json"
-    ]
-    return headers
-  }
-  
-  func getOauthHeaders(method: HTTPMethod, url: String) throws -> [String: String] {
-    let authorization = try oauth1.getAuthorization(method: method, url: url)
-    let headers = [
-      "Authorization": authorization,
        "Content-type": "application/json"
     ]
     return headers

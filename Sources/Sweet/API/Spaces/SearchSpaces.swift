@@ -15,10 +15,10 @@ extension Sweet {
     
     let queries = ["query": query]
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .User)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-    
+        
     let spacesResponseModel = try JSONDecoder().decode(SpacesResponseModel.self, from: data)
     
     return spacesResponseModel.spaces
