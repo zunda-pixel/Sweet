@@ -62,7 +62,7 @@ extension Sweet {
     let headers = getBearerHeaders(type: .User)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
-        
+            
     let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
     
     return usersResponseModel.users
@@ -76,7 +76,7 @@ extension Sweet {
     let headers = getBearerHeaders(type: .User)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
-    
+        
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
     return tweetsResponseModel.tweets

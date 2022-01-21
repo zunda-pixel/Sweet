@@ -26,6 +26,7 @@ extension Sweet {
   
   func fetchCountTweet(by query: String) async throws -> [CountTweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
+    // This endpoint is only available for Academic Research access.
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/all")!
     

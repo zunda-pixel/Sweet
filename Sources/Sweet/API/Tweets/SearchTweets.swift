@@ -10,18 +10,18 @@ import Foundation
 extension Sweet {
   func searchRecentTweet(by query: String, maxResult: Int = 10) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
+    // This endpoint is only available for Academic Research access.
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/recent")!
     
     let queries = [
       "query": query,
-      "max_results": String(maxResult),
     ]
         
     let headers = getBearerHeaders(type: .User)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
+            
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
     return tweetsResponseModel.tweets

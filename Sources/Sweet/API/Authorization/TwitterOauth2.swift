@@ -12,9 +12,7 @@ struct TwitterOauth2 {
   let clientSecretKey: String
   
   func getAuthorizeURL(url: URL, scopes: [TwitterScope], callBackURL: URL, challenge: String) -> URL {
-    
-    let joinedScope = scopes.map { $0.rawValue }
-      .joined(separator: " ")
+    let joinedScope = scopes.map { $0.rawValue }.joined(separator: " ")
     
     let queries = [
       "response_type": "code",
@@ -37,16 +35,10 @@ struct TwitterOauth2 {
     let code = urlComponents.queryItems?.first(where: {$0.name == "code"})?.value
     return code!
   }
-  
-  func getBasicAuthorization(user: String, password: String) -> String {
-    let value = "\(user):\(password)"
-    let encodedValue = value.data(using: .utf8)!
-    let endoded64Value = encodedValue.base64EncodedString()
-    return endoded64Value
-  }
+
   
   func getUserBearerToken(code: String, url: URL, callBackURL: URL, challenge: String) async throws -> (String, [TwitterScope]) {
-    let basicAuthorization = getBasicAuthorization(user: clientID, password: clientSecretKey)
+    let basicAuthorization = Oauth2.getBasicAuthorization(user: clientID, password: clientSecretKey)
         
     let headers = [
       "Content-Type": "application/x-www-form-urlencoded",
@@ -68,15 +60,6 @@ struct TwitterOauth2 {
     return (twitterOauth2Response.bearerToken, twitterOauth2Response.scopes)
   }
 }
-
-extension String {
-  var urlEncoded: String {
-    let charset = CharacterSet.alphanumerics.union(.init(charactersIn: "/?-._~"))
-    let removed = removingPercentEncoding ?? self
-    return removed.addingPercentEncoding(withAllowedCharacters: charset) ?? removed
-  }
-}
-
 
 struct Oauth2ModelResponse: Decodable {
   public let bearerToken: String
