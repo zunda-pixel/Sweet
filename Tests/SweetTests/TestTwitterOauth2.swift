@@ -32,11 +32,12 @@ final class TestTwitterOauth2: XCTestCase {
     
     let twitterOauth2 = exampleTwitterOauth()
     let code = twitterOauth2.getCode(from: url)
+    
     print(code)
   }
   
   func testGetUserBearerToken() async throws {
-    let code = "Z0FXdDJaUUQ1XzNpRkxoY0xfLTJiaXJ1clltQU9SY0htOEpCR3cxNkY1Y3VrOjE2NDI3NzY0MzU3MDI6MTowOmFjOjE"
+    let code = "OTQ4NXZaOHZJS1RDYzZsVldLWmRuZkp3ZmxBMTBKeUgzMldHZEFzdF9BaWppOjE2NDI5NDkxOTQ1ODU6MToxOmFjOjE"
     
     let authorizeURL: URL = .init(string: "https://api.twitter.com/2/oauth2/token")!
     let callBackURL: URL = .init(string: "http://localhost:8000")!
@@ -46,5 +47,14 @@ final class TestTwitterOauth2: XCTestCase {
     
     print(bearerToken)
     print(scopes)
+  }
+  
+  func testGetRefreshUserBearerToken() async throws {
+    let bearerToken = "a3BzTDY4N0QyTUZGdnJnM0JoZ0s5Si14REhYdmFtWERzb0xNWjlFSlZRS2JkOjE2NDI5NDkyMDM0OTg6MToxOmF0OjE"
+        
+    let twitterOauth2 = exampleTwitterOauth()
+    let refreshed = try await twitterOauth2.getRefreshUserBearerToken(brearerToken: bearerToken)
+    
+    print(refreshed)
   }
 }
