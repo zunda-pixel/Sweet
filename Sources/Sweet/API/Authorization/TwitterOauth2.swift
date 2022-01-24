@@ -86,7 +86,9 @@ struct TwitterOauth2 {
     
     let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers, queries: body)
     
-    return String(data: data, encoding: .utf8)! == ""
+    let stringData = String(data: data, encoding: .utf8)!
+    
+    return stringData == ""
   }
 }
 
