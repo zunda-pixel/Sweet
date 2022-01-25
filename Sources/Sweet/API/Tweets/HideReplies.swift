@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func hideReply(tweetID: String, hidden: Bool) async throws -> Bool {
@@ -16,11 +17,9 @@ extension Sweet {
     let body = ["hidden": hidden]
     let bodyData = try JSONEncoder().encode(body)
     
-    let httpMethod: HTTPMethod = .PUT
-
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-            
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, body: bodyData, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+    let (data, _) = try await HTTPClient.put(url: url, body: bodyData, headers: headers)
         
     let hideResponseModel = try JSONDecoder().decode(HideResponseModel.self, from: data)
     

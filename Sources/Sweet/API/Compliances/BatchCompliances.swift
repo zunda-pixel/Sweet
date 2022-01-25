@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchCompliances(type: JobType) async throws -> [ComplianceModel] {
@@ -15,7 +16,7 @@ extension Sweet {
     
     let queries = ["type": type.rawValue]
 
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
         
@@ -29,7 +30,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs/\(jobID)")!
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
         
@@ -66,7 +67,7 @@ extension Sweet {
 
     let body = try JSONEncoder().encode(jobModel)
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
     
     let (data, _) = try await HTTPClient.post(url: url, body: body, headers: headers)
         

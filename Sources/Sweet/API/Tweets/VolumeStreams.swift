@@ -6,16 +6,15 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
-  func fetchStreamVolume() async throws -> [TweetModel] {
-    // TODO 時間がかかりすぎてしまいUnit Testができていない
-    
+  func fetchStreamVolume() async throws -> [TweetModel] {    
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/sample/stream")!
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
             
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
         

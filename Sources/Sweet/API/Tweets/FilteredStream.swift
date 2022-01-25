@@ -6,32 +6,29 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchStreamRule() async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
+        
+    let headers = getBearerHeaders(type: .App)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = bearerHeaders
-    
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
     
     let streamRuleResponseModel = try JSONDecoder().decode(StreamRuleResponseModel.self, from: data)
     
     return streamRuleResponseModel.streamRules
   }
   
-  func fetchStream() async throws -> [StreamRuleModel] {
-    // TODO 時間がかかりすぎてしまいUnit Testができていない
-    
+  func fetchStream() async throws -> [StreamRuleModel] {    
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
         
@@ -45,7 +42,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
     
     let body = ["add": streamRuleModels]
     
@@ -63,7 +60,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
     
     let body = ["delete": ["ids": ids]]
     
@@ -77,7 +74,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    let headers = bearerHeaders
+    let headers = getBearerHeaders(type: .App)
     
     let body = ["delete": ["values": values]]
     

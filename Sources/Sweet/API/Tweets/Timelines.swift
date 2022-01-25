@@ -6,18 +6,17 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchTimeLine(by userID: String) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/tweets")!
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-    
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
     
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
@@ -28,12 +27,10 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/mentions")!
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-    
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
     
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     

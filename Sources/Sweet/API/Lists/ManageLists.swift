@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
 	func createList(name: String, description: String? = nil, isPrivate: Bool? = nil) async throws -> ListModel {
@@ -13,39 +14,34 @@ extension Sweet {
 		
 		let url: URL = .init(string: "https://api.twitter.com/2/lists")!
 
-		let httpMethod: HTTPMethod = .POST
-
     let body = SendListModel(name: name, description: description, isPrivate: isPrivate)
 
     let bodyData = try JSONEncoder().encode(body)
 
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, body: bodyData, headers: headers)
-						
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+        
 		let listResponseModel = try JSONDecoder().decode(ListResponseModel.self, from: data)
 		
 		return listResponseModel.list
 	}
 
-	func updateList(listID: String, name: String? = nil, description: String? = nil, isPrivate: Bool? = nil) async throws -> [ListModel] {
+	func updateList(listID: String, name: String? = nil, description: String? = nil, isPrivate: Bool? = nil) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id
 
 		let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
 
-
     let body = SendListModel(name: name, description: description, isPrivate: isPrivate)
     let bodyData = try JSONEncoder().encode(body)
 
-		let httpMethod: HTTPMethod = .PUT
-
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.put(url: url, body: bodyData, headers: headers)
 						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, body: bodyData, headers: headers)
-						
-		let listsResponseModel = try JSONDecoder().decode(ListsResponseModel.self, from: data)
+		let updateResponseModel = try JSONDecoder().decode(UpdateResponseModel.self, from: data)
 		
-		return listsResponseModel.lists
+		return updateResponseModel.updated
 	}
 
   func deleteList(by listID: String) async throws -> Bool {
@@ -53,11 +49,9 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
 
-    let httpMethod: HTTPMethod = .DELETE
-
-		let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-						
-		let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let headers = getBearerHeaders(type: .User)
+    
+		let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
 						
 		let deleteResponseModel = try JSONDecoder().decode(DeleteResponseModel.self, from: data)
 		

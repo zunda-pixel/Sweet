@@ -6,17 +6,16 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchRetweetUsers(by tweetID: String) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/retweeted_by")!
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .GET
-    
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-            
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
             
     let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
@@ -31,12 +30,10 @@ extension Sweet {
     
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .POST
-    
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-            
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, body: bodyData, headers: headers)
+    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     let retweetResponseModel  = try JSONDecoder().decode(RetweetResponseModel.self, from: data)
     
@@ -47,12 +44,10 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets/\(tweetID)")!
+        
+    let headers = getBearerHeaders(type: .User)
     
-    let httpMethod: HTTPMethod = .DELETE
-    
-    let headers = try getOauthHeaders(method: httpMethod, url: url.absoluteString)
-            
-    let (data, _) = try await HTTPClient.request(method: httpMethod, url: url, headers: headers)
+    let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
     
     let retweetResponseModel  = try JSONDecoder().decode(RetweetResponseModel.self, from: data)
     
