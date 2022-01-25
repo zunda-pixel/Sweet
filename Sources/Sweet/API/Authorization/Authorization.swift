@@ -1,8 +1,8 @@
 //
-//  Common.swift
-//  
+//  Authorization.swift
 //
-//  Created by zunda on 2022/01/14.
+//
+//  Created by zunda on 2022/01/25.
 //
 
 import Foundation
@@ -11,7 +11,6 @@ enum AuthorizeType {
   case User
   case App
 }
-
 
 extension Sweet {
   private func getAuthorize(type: AuthorizeType) -> String {

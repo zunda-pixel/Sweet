@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func searchSpaces(query: String) async throws -> [SpaceModel] {

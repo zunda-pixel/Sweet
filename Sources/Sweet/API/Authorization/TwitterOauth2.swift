@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 struct TwitterOauth2 {
   let clientID: String
@@ -44,7 +45,7 @@ struct TwitterOauth2 {
   func getUserBearerToken(code: String, url: URL, callBackURL: URL, challenge: String) async throws -> (String, [TwitterScope]) {
     // https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
     
-    let basicAuthorization = Oauth2.getBasicAuthorization(user: clientID, password: clientSecretKey)
+    let basicAuthorization = getBasicAuthorization(user: clientID, password: clientSecretKey)
         
     let headers = [
       "Content-Type": "application/x-www-form-urlencoded",
@@ -89,6 +90,13 @@ struct TwitterOauth2 {
     let stringData = String(data: data, encoding: .utf8)!
     
     return stringData == ""
+  }
+  
+  func getBasicAuthorization(user: String, password: String) -> String {
+    let value = "\(user):\(password)"
+    let encodedValue = value.data(using: .utf8)!
+    let endoded64Value = encodedValue.base64EncodedString()
+    return endoded64Value
   }
 }
 

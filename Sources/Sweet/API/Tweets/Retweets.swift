@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchRetweetUsers(by tweetID: String) async throws -> [UserModel] {

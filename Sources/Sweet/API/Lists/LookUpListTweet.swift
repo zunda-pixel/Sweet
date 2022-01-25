@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchListTweets(listID: String) async throws -> [TweetModel] {

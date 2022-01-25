@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
 	func createList(name: String, description: String? = nil, isPrivate: Bool? = nil) async throws -> ListModel {

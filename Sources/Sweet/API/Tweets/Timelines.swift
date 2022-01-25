@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchTimeLine(by userID: String) async throws -> [TweetModel] {

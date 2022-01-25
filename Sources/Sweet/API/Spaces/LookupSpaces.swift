@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchSpace(spaceID: String) async throws -> SpaceModel {

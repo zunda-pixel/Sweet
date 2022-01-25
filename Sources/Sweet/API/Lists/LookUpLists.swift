@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
 	func fetchList(listID: String) async throws -> ListModel {

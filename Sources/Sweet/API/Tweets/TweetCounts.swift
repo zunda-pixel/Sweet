@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchRecentCountTweet(by query: String) async throws -> [CountTweetModel] {

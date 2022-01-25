@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func fetchCompliances(type: JobType) async throws -> [ComplianceModel] {

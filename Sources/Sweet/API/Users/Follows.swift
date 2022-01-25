@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func follow(from fromUserID: String, to toUserID: String) async throws -> (Bool, Bool) {

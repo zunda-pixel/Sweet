@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func addListMember(to listID: String, userID: String) async throws -> Bool {

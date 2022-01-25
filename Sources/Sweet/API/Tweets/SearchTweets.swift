@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func searchRecentTweet(by query: String, maxResult: Int = 10) async throws -> [TweetModel] {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   public func fetchMuting(by userID: String) async throws -> [UserModel] {

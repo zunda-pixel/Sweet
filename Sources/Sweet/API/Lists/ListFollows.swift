@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func unFollowList(userID: String, listID: String) async throws -> Bool {

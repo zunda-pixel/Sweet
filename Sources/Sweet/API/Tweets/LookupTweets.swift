@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func lookUpTweets(by ids: [String]) async throws -> [TweetModel] {

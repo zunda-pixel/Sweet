@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   public func lookUpUser(userID: String) async throws -> UserModel {
@@ -21,7 +22,6 @@ extension Sweet {
     
     return userResponseModel.user
   }
-  
   
   public func lookUpUser(screenID: String) async throws -> UserModel {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username

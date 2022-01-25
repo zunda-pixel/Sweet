@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HTTPClient
 
 extension Sweet {
   func hideReply(tweetID: String, hidden: Bool) async throws -> Bool {
