@@ -164,7 +164,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchStreamVolume() async throws {
     let testStream = TestStream()
     testStream.testVolumeStreams()
-    let timeoutSeconds: UInt64 = 10 * 1_000_000_000
+    let timeoutSeconds: UInt64 = 60 * 3 * 1_000_000_000
     try await Task.sleep(nanoseconds: timeoutSeconds)
   }
   
