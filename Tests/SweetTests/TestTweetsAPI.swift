@@ -121,17 +121,15 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testFetchStream() async throws {
-    let sweet = Sweet.exampleSweet()
-    let streamRuleModels = try await sweet.fetchStream()
-    
-    streamRuleModels.forEach {
-      print($0.value)
-    }
+    let stream = TestStream()
+    stream.testFilteredStreams()
+    let timeoutSeconds:UInt64 = 60 * 3 * 1_000_000_000
+    try await Task.sleep(nanoseconds: timeoutSeconds)
   }
   
   func testCreateStreamRule() async throws {
     let streamModels: [StreamRuleModel] = [
-      .init(value: "cagjhgjt has:media", tag: "uihiu with media"),
+      .init(value: "zunda", tag: nil),
     ]
     
     let sweet = Sweet.exampleSweet()
@@ -144,7 +142,7 @@ final class TestTweetsAPI: XCTestCase {
   
   func testDeleteStreamRuleByID() async throws {
     let ids = [
-      "1482601916433506305",
+      "1484489761767104513",
       "1482602294482857989",
       "1482602422727966722",
     ]
@@ -164,12 +162,10 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testFetchStreamVolume() async throws {
-    let sweet = Sweet.exampleSweet()
-    let tweets = try await sweet.fetchStreamVolume()
-    
-    tweets.forEach {
-      print($0.text)
-    }
+    let testStream = TestStream()
+    testStream.testVolumeStreams()
+    let timeoutSeconds: UInt64 = 10 * 1_000_000_000
+    try await Task.sleep(nanoseconds: timeoutSeconds)
   }
   
   func testFetchRetweetUsers() async throws {
@@ -249,5 +245,26 @@ final class TestTweetsAPI: XCTestCase {
     let sweet = Sweet.exampleSweet()
     let hidden = try await sweet.hideReply(tweetID: tweetID, hidden: true)
     print(hidden)
+  }
+}
+
+
+class TestStream: NSObject, URLSessionDataDelegate {
+  func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    if let response = try? JSONDecoder().decode(TweetResponseModel.self, from: data) {
+      print(response.tweet.text)
+    }
+  }
+  
+  func testVolumeStreams() {
+    let sweet = Sweet.exampleSweet()
+    let task = sweet.fetchStreamVolume(delegate: self)
+    task.resume()
+  }
+  
+  func testFilteredStreams() {
+    let sweet = Sweet.exampleSweet()
+    let task = sweet.fetchStream(delegate: self)
+    task.resume()
   }
 }
