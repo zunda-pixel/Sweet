@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct TweetModel: Decodable {
+public struct TweetModel: Decodable {
   let id: String
   let text: String
 }
 
-struct TweetsResponseModel: Decodable {
+public struct TweetsResponseModel: Decodable {
   let tweets: [TweetModel]
   
   private enum CodingKeys: String, CodingKey {
