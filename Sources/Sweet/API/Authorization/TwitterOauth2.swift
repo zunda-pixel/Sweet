@@ -42,7 +42,7 @@ struct TwitterOauth2 {
   }
 
   
-  func getUserBearerToken(code: String, url: URL, callBackURL: URL, challenge: String) async throws -> (String, [TwitterScope]) {
+  func getUserBearerToken(code: String, url: URL, callBackURL: URL, challenge: String) async throws -> (String, String) {
     // https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
     
     let basicAuthorization = getBasicAuthorization(user: clientID, password: clientSecretKey)
@@ -64,32 +64,25 @@ struct TwitterOauth2 {
         
     let twitterOauth2Response = try JSONDecoder().decode(Oauth2ModelResponse.self, from: data)
         
-    return (twitterOauth2Response.bearerToken, twitterOauth2Response.scopes)
+    return (twitterOauth2Response.bearerToken, twitterOauth2Response.refleshToken)
   }
   
-  func getRefreshUserBearerToken(brearerToken: String) async throws -> Bool {
+  func getRefreshUserBearerToken(refleshToken: String) async throws -> (String, String) {
     // https://developer.twitter.com/en/docs/authentication/oauth-2-0/authorization-code
     
     let url: URL = .init(string: "https://api.twitter.com/2/oauth2/token")!
-            
-    let headers = [
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": "Bearer \(brearerToken)",
-    ]
       
-    let body = [
-      "refresh_token": brearerToken,
+    let queries = [
+      "refresh_token": refleshToken,
       "grant_type": "refresh_token",
       "client_id": clientID,
     ]
+        
+    let (data, _) = try await HTTPClient.post(url: url, queries: queries)
     
-    let bodyData = try JSONEncoder().encode(body)
-    
-    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers, queries: body)
-    
-    let stringData = String(data: data, encoding: .utf8)!
-    
-    return stringData == ""
+    let twitterOauth2Response = try JSONDecoder().decode(Oauth2ModelResponse.self, from: data)
+        
+    return (twitterOauth2Response.bearerToken, twitterOauth2Response.refleshToken)
   }
   
   func getBasicAuthorization(user: String, password: String) -> String {
@@ -102,18 +95,16 @@ struct TwitterOauth2 {
 
 struct Oauth2ModelResponse: Decodable {
   public let bearerToken: String
-  public let scopes: [TwitterScope]
+  public let refleshToken: String
   
   private enum CodingKeys: String, CodingKey {
     case accessToken = "access_token"
-    case scopes = "scope"
+    case refleshToken = "refresh_token"
   }
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     self.bearerToken = try values.decode(String.self, forKey: .accessToken)
-    let scopesString = try values.decode(String.self, forKey: .scopes)
-    self.scopes = scopesString.split(separator: " ")
-      .map { TwitterScope(rawValue: String($0))! }
+    self.refleshToken = try values.decode(String.self, forKey: .refleshToken)
   }
 }
