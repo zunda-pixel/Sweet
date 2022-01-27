@@ -23,18 +23,18 @@ extension Sweet {
     return streamRuleResponseModel.streamRules
   }
   
-  func fetchStream() async throws -> [StreamRuleModel] {    
+  func fetchStream(delegate: URLSessionDataDelegate) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
-        
-    let streamRuleResponseModel = try JSONDecoder().decode(StreamRuleResponseModel.self, from: data)
+    var request = URLRequest(url: url)
+    request.allHTTPHeaderFields = headers
     
-    return streamRuleResponseModel.streamRules
+    let session = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
+    return session.dataTask(with: request)
   }
   
   func createStreamRule(_ streamRuleModels: [StreamRuleModel]) async throws -> [StreamRuleModel] {
