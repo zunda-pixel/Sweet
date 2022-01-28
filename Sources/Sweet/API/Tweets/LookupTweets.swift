@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func lookUpTweets(by ids: [String]) async throws -> [TweetModel] {
+  public func lookUpTweets(by ids: [String]) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
@@ -25,7 +25,7 @@ extension Sweet {
     return tweetsResponseModel.tweets
   }
   
-  func lookUpTweet(by id: String) async throws -> TweetModel {
+  public func lookUpTweet(by id: String) async throws -> TweetModel {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(id)")!

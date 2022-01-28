@@ -7,21 +7,21 @@
 
 import Foundation
 
-enum JobType: String {
+public enum JobType: String {
   case tweets
   case users
 }
 
-struct ComplianceModel {
-  let type: JobType
-  let id: String
-  let resumble: Bool
-  let uploadURL: URL
-  let uploadExpiresAt: Date
-  let downloadExpiresAt: Date
-  let downloadURL: URL
-  let createdAt: Date
-  let status: String
+public struct ComplianceModel {
+  public let type: JobType
+  public let id: String
+  public let resumble: Bool
+  public let uploadURL: URL
+  public let uploadExpiresAt: Date
+  public let downloadExpiresAt: Date
+  public let downloadURL: URL
+  public let createdAt: Date
+  public let status: String
 }
 
 extension ComplianceModel: Decodable {
@@ -68,16 +68,16 @@ extension ComplianceModel: Decodable {
   }
 }
 
-struct CompliancesResponseModel: Decodable {
-  let compliances: [ComplianceModel]
+public struct CompliancesResponseModel: Decodable {
+  public let compliances: [ComplianceModel]
 
   private enum CodingKeys: String, CodingKey {
     case compliances = "data"
   }
 }
 
-struct ComplianceResponseModel: Decodable {
-  let compliance: ComplianceModel
+public struct ComplianceResponseModel: Decodable {
+  public let compliance: ComplianceModel
 
   private enum CodingKeys: String, CodingKey {
     case compliance = "data"

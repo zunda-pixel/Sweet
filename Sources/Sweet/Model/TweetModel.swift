@@ -8,12 +8,12 @@
 import Foundation
 
 public struct TweetModel: Decodable {
-  let id: String
-  let text: String
+  public let id: String
+  public let text: String
 }
 
 public struct TweetsResponseModel: Decodable {
-  let tweets: [TweetModel]
+  public let tweets: [TweetModel]
   
   private enum CodingKeys: String, CodingKey {
     case tweets = "data"
@@ -21,7 +21,7 @@ public struct TweetsResponseModel: Decodable {
 }
 
 struct TweetResponseModel: Decodable {
-  let tweet: TweetModel
+  public let tweet: TweetModel
   
   private enum CodingKeys: String, CodingKey {
     case tweet = "data"
@@ -29,7 +29,7 @@ struct TweetResponseModel: Decodable {
 }
 
 struct DeleteResponseModel: Decodable {
-  let deleted: Bool
+  public let deleted: Bool
   
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -46,10 +46,10 @@ struct DeleteResponseModel: Decodable {
   }
 }
 
-struct CountTweetModel: Decodable {
-  let countTweet: Int
-  let startDate: Date
-  let endDate: Date
+public struct CountTweetModel: Decodable {
+  public let countTweet: Int
+  public let startDate: Date
+  public let endDate: Date
   
   private enum CodingKeys: String, CodingKey {
     case countTweet = "tweet_count"
@@ -72,26 +72,26 @@ struct CountTweetModel: Decodable {
   }
 }
 
-struct CountTweetResponseModel: Decodable {
-  let countTweetModels : [CountTweetModel]
+public struct CountTweetResponseModel: Decodable {
+  public let countTweetModels : [CountTweetModel]
   
   private enum CodingKeys: String, CodingKey {
     case countTweetModels = "data"
   }
 }
 
-struct StreamRuleModel: Codable {
-  let id: String
-  let value: String
-  let tag: String?
+public struct StreamRuleModel: Codable {
+  public let id: String
+  public let value: String
+  public let tag: String?
   
-  init(value: String, tag: String? = nil) {
+  public init(value: String, tag: String? = nil) {
     self.id = ""
     self.tag = tag
     self.value = value
   }
   
-  func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(value, forKey: .value)
     if let tag = tag {
@@ -100,16 +100,16 @@ struct StreamRuleModel: Codable {
   }
 }
 
-struct StreamRuleResponseModel: Decodable {
-  let streamRules: [StreamRuleModel]
+public struct StreamRuleResponseModel: Decodable {
+  public let streamRules: [StreamRuleModel]
   
   private enum CodingKeys: String, CodingKey {
     case streamRules = "data"
   }
 }
 
-struct RetweetResponseModel: Decodable {
-  let retweeted: Bool
+public struct RetweetResponseModel: Decodable {
+  public let retweeted: Bool
   
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -119,15 +119,15 @@ struct RetweetResponseModel: Decodable {
     case retweeted
   }
   
-  init(from decoder: Decoder) throws {
+  public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: DataCodingKeys.self)
     let retweetedInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.retweeted = try retweetedInfo.decode(Bool.self, forKey: .retweeted)
   }
 }
 
-struct LikeResponseModel: Decodable {
-  let liked: Bool
+public struct LikeResponseModel: Decodable {
+  public let liked: Bool
   
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -137,15 +137,15 @@ struct LikeResponseModel: Decodable {
     case liked
   }
   
-  init(from decoder: Decoder) throws {
+  public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: DataCodingKeys.self)
     let retweetedInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.liked = try retweetedInfo.decode(Bool.self, forKey: .liked)
   }
 }
 
-struct HideResponseModel: Decodable {
-  let hidden: Bool
+public struct HideResponseModel: Decodable {
+  public let hidden: Bool
   
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -155,7 +155,7 @@ struct HideResponseModel: Decodable {
     case hidden
   }
   
-  init(from decoder: Decoder) throws {
+  public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: DataCodingKeys.self)
     let hideInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.hidden = try hideInfo.decode(Bool.self, forKey: .hidden)

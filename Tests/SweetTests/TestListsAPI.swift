@@ -15,7 +15,7 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     let listID = "1484484685069574145"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let following = try await sweet.followList(userID: userID, listID: listID)
     
     print(following)
@@ -25,7 +25,7 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     let listID = "1482973862237437952"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let following = try await sweet.unFollowList(userID: userID, listID: listID)
     
     print(following)
@@ -34,7 +34,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchFollowedUsers() async throws {
     let listID = "1484484685069574145"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let users = try await sweet.fetchFollowedUsers(listID: listID)
     
     users.forEach {
@@ -45,7 +45,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchFollowingLists() async throws {
     let userID = testMyUserID
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let lists = try await sweet.fetchFollowingLists(userID: userID)
     
     lists.forEach {
@@ -57,7 +57,7 @@ final class TestListsAPI: XCTestCase {
     let userID = "2244994945"
     let listID = "1482591443994968070"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let isMember = try await sweet.addListMember(to: listID, userID: userID)
     
     print(isMember)
@@ -67,7 +67,7 @@ final class TestListsAPI: XCTestCase {
     let userID = "2244994945"
     let listID = "1482591443994968070"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let isMember = try await sweet.deleteListMember(from: listID, userID: userID)
     
     print(isMember)
@@ -76,7 +76,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchAddedLists() async throws {
     let userID = testMyUserID
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let lists = try await sweet.fetchAddedLists(userID: userID)
     
     lists.forEach {
@@ -87,7 +87,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchAddingUsers() async throws {
     let listID = "1463289657190404097"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let users = try await sweet.fetchAddedUsersToList(listID: listID)
     
     users.forEach {
@@ -98,7 +98,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchList() async throws {
     let listID = "1463289657190404097"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let list = try await sweet.fetchList(listID: listID)
     
     print(list)
@@ -107,7 +107,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchOwnedLists() async throws {
     let userID = testMyUserID
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let lists = try await sweet.fetchOwnedLists(userID: userID)
     
     lists.forEach {
@@ -118,7 +118,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchListTweets() async throws {
     let listID = "1463289657190404097"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let tweets = try await sweet.fetchListTweets(listID: listID)
     
     tweets.forEach {
@@ -127,7 +127,7 @@ final class TestListsAPI: XCTestCase {
   }
   
   func testCreateList() async throws {
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let list = try await sweet.createList(name: "fsdaji", description: "fdaslkfj;a", isPrivate: false)
     
     print(list)
@@ -136,7 +136,7 @@ final class TestListsAPI: XCTestCase {
   func testUpdateList() async throws {
     let listID = "1484484685069574145"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let updated = try await sweet.updateList(listID: listID, name: "changed name", description: "changed description", isPrivate: false)
     
     print(updated)
@@ -145,7 +145,7 @@ final class TestListsAPI: XCTestCase {
   func testDeleteList() async throws {
     let listID = "1483088575860142080"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let isDeleted = try await sweet.deleteList(by: listID)
     
     print(isDeleted)
@@ -155,7 +155,7 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     let listID = "1483089445230309376"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let isPinned = try await sweet.pinList(userID: userID, listID: listID)
     
     print(isPinned)
@@ -165,7 +165,7 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     let listID = "1483089445230309376"
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let isPinned = try await sweet.unPinList(userID: userID, listID: listID)
     
     print(isPinned)
@@ -174,7 +174,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchPinnedLists() async throws {
     let userID = testMyUserID
     
-    let sweet = Sweet.exampleSweet()
+    let sweet = Sweet.sweetForTest()
     let lists = try await sweet.fetchPinnedLists(userID: userID)
     
     lists.forEach {

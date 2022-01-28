@@ -6,13 +6,18 @@
 //
 
 public struct Sweet {
-  let bearerTokenApp: String
-  let bearerTokenUser: String
+  public let bearerTokenApp: String
+  public let bearerTokenUser: String
   
-  static func exampleSweet() -> Sweet {
+  public init(app bearerTokenApp: String, user bearerTokenUser: String) {
+    self.bearerTokenApp = bearerTokenApp
+    self.bearerTokenUser = bearerTokenUser
+  }
+  
+  internal static func sweetForTest() -> Sweet {
     let bearerTokenUser = ""
     let bearerTokenApp = ""
-    let sweet = Sweet(bearerTokenApp: bearerTokenApp, bearerTokenUser: bearerTokenUser)
+    let sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser)
     
     return sweet
   }

@@ -8,27 +8,29 @@
 import Foundation
 
 public struct UserModel: Decodable {
-  let name: String
-  let id: String
-  let username: String
+  public let name: String
+  public let id: String
+  public let username: String
 }
 
-struct UserResponseModel: Decodable {
-  let user: UserModel
+public struct UserResponseModel: Decodable {
+  public let user: UserModel
+  
   private enum CodingKeys: String, CodingKey {
     case user = "data"
   }
 }
 
-struct UsersResponseModel: Decodable {
-  let users: [UserModel]
+public struct UsersResponseModel: Decodable {
+  public let users: [UserModel]
+  
   private enum CodingKeys: String, CodingKey {
     case users = "data"
   }
 }
 
-struct UnFollowResponseModel: Decodable {
-  let following: Bool
+public struct UnFollowResponseModel: Decodable {
+  public let following: Bool
   
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -45,9 +47,9 @@ struct UnFollowResponseModel: Decodable {
   }
 }
 
-struct FollowResponseModel: Decodable {
-  let following: Bool
-  let pendingFollow: Bool
+public struct FollowResponseModel: Decodable {
+  public let following: Bool
+  public let pendingFollow: Bool
 
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -66,8 +68,8 @@ struct FollowResponseModel: Decodable {
   }
 }
 
-struct BlockResponseModel: Decodable {
-  let blocking: Bool
+public struct BlockResponseModel: Decodable {
+  public let blocking: Bool
 
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -84,8 +86,8 @@ struct BlockResponseModel: Decodable {
   }
 }
 
-struct MuteResponseModel: Decodable {
-  let muting: Bool
+public struct MuteResponseModel: Decodable {
+  public let muting: Bool
 
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"

@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func fetchSpace(spaceID: String) async throws -> SpaceModel {
+  public func fetchSpace(spaceID: String) async throws -> SpaceModel {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
@@ -23,7 +23,7 @@ extension Sweet {
     return spaceResponseModel.space
   }
 
-  func fetchSpaces(spaceIDs: [String]) async throws -> [SpaceModel] {
+  public func fetchSpaces(spaceIDs: [String]) async throws -> [SpaceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces")!
@@ -39,7 +39,7 @@ extension Sweet {
     return spacesResponseModel.spaces
   }
   
-  func fetchSpaces(creatorIDs: [String]) async throws -> [SpaceModel] {
+  public func fetchSpaces(creatorIDs: [String]) async throws -> [SpaceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/by/creator_ids")!
@@ -55,7 +55,7 @@ extension Sweet {
     return spacesResponseModel.spaces
   }
 
-  func fetchSpaceBuyers(spaceID: String) async throws -> [UserModel] {
+  public func fetchSpaceBuyers(spaceID: String) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
@@ -69,7 +69,7 @@ extension Sweet {
     return usersResponseModel.users
   }
 
-  func fetchSpaceTweets(spaceID: String) async throws -> [TweetModel] {
+  public func fetchSpaceTweets(spaceID: String) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/tweets")!

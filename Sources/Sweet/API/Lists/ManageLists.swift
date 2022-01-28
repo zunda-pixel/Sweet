@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-	func createList(name: String, description: String? = nil, isPrivate: Bool? = nil) async throws -> ListModel {
+  public func createList(name: String, description: String? = nil, isPrivate: Bool? = nil) async throws -> ListModel {
 		// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
 		
 		let url: URL = .init(string: "https://api.twitter.com/2/lists")!
@@ -27,7 +27,7 @@ extension Sweet {
 		return listResponseModel.list
 	}
 
-	func updateList(listID: String, name: String? = nil, description: String? = nil, isPrivate: Bool? = nil) async throws -> Bool {
+  public func updateList(listID: String, name: String? = nil, description: String? = nil, isPrivate: Bool? = nil) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id
 
 		let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
@@ -44,7 +44,7 @@ extension Sweet {
 		return updateResponseModel.updated
 	}
 
-  func deleteList(by listID: String) async throws -> Bool {
+  public func deleteList(by listID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!

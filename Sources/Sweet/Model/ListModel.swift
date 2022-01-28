@@ -5,10 +5,10 @@
 //  Created by zunda on 2022/01/17.
 //
 
-struct SendListModel: Codable {
-  let name: String?
-  let description: String?
-  let isPrivate: Bool?
+public struct SendListModel: Codable {
+  public let name: String?
+  public let description: String?
+  public let isPrivate: Bool?
   
   private enum CodingKeys: String, CodingKey {
     case name
@@ -16,7 +16,7 @@ struct SendListModel: Codable {
     case isPrivate = "private"
   }
   
-  func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     if let name = name {
       try container.encode(name, forKey: .name)
@@ -30,13 +30,13 @@ struct SendListModel: Codable {
   }
 }
 
-struct ListModel: Decodable {
-	let id: String
-	let name: String
+public struct ListModel: Decodable {
+  public let id: String
+  public let name: String
 }
 
-struct ListResponseModel: Decodable {
-	let list: ListModel
+public struct ListResponseModel: Decodable {
+  public let list: ListModel
 
 	private enum CodingKeys: String, CodingKey {
 		case list = "data"
@@ -44,7 +44,7 @@ struct ListResponseModel: Decodable {
 }
 
 struct ListsResponseModel: Decodable {
-	let lists: [ListModel]
+  public let lists: [ListModel]
 
 	private enum CodingKeys: String, CodingKey {
 		case lists = "data"
@@ -52,7 +52,7 @@ struct ListsResponseModel: Decodable {
 }
 
 struct MemberResponseModel: Decodable {
-  let isMember: Bool
+  public let isMember: Bool
   
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -69,8 +69,8 @@ struct MemberResponseModel: Decodable {
   }
 }
 
-struct PinResponseModel: Decodable {
-  let pinned: Bool
+public struct PinResponseModel: Decodable {
+  public let pinned: Bool
   
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
@@ -87,8 +87,8 @@ struct PinResponseModel: Decodable {
   }
 }
 
-struct UpdateResponseModel: Decodable {
-  let updated: Bool
+public struct UpdateResponseModel: Decodable {
+  public let updated: Bool
   
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
