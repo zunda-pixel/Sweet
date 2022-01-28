@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum AuthorizeType {
+public enum AuthorizeType {
   case User
   case App
 }
 
-extension Sweet {
+public extension Sweet {
   private func getAuthorize(type: AuthorizeType) -> String {
     switch type {
       case .User:
