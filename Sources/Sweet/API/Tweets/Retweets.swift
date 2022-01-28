@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func fetchRetweetUsers(by tweetID: String) async throws -> [UserModel] {
+  public func fetchRetweetUsers(by tweetID: String) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/retweeted_by")!
@@ -23,7 +23,7 @@ extension Sweet {
     return usersResponseModel.users
   }
   
-  func retweet(userID: String, tweetID: String) async throws -> Bool {
+  public func retweet(userID: String, tweetID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets")!
@@ -40,7 +40,7 @@ extension Sweet {
     return retweetResponseModel.retweeted
   }
   
-  func deleteRetweet(userID: String, tweetID: String) async throws -> Bool {
+  public func deleteRetweet(userID: String, tweetID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets/\(tweetID)")!

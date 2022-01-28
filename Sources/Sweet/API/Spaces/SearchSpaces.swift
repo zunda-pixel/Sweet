@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func searchSpaces(query: String) async throws -> [SpaceModel] {
+  public func searchSpaces(query: String) async throws -> [SpaceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/search")!

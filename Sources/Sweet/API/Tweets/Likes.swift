@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func fetchLikingTweetUser(by tweetID: String) async throws -> [UserModel] {
+  public func fetchLikingTweetUser(by tweetID: String) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
@@ -23,7 +23,7 @@ extension Sweet {
     return usersResponseModel.users
   }
   
-  func fetchLikedTweet(by userID: String) async throws -> [TweetModel] {
+  public func fetchLikedTweet(by userID: String) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
@@ -37,7 +37,7 @@ extension Sweet {
     return tweetsResponseModel.tweets
   }
   
-  func like(userID: String, tweetID: String) async throws -> Bool {
+  public func like(userID: String, tweetID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-id-likes
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes")!
@@ -54,7 +54,7 @@ extension Sweet {
     return likeResponseModel.liked
   }
   
-  func unLike(userID: String, tweetID: String) async throws -> Bool {
+  public func unLike(userID: String, tweetID: String) async throws -> Bool {
     ///https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes/\(tweetID)")!

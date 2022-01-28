@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func hideReply(tweetID: String, hidden: Bool) async throws -> Bool {
+  public func hideReply(tweetID: String, hidden: Bool) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/hidden")!

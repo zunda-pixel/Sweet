@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func fetchListTweets(listID: String) async throws -> [TweetModel] {
+  public func fetchListTweets(listID: String) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/api-reference/get-lists-id-tweets
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/tweets")!

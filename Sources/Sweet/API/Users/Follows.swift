@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func follow(from fromUserID: String, to toUserID: String) async throws -> (Bool, Bool) {
+  public func follow(from fromUserID: String, to toUserID: String) async throws -> (Bool, Bool) {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/following")!
@@ -26,7 +26,7 @@ extension Sweet {
     return (followingModel.following, followingModel.pendingFollow)
   }
   
-  func unFollow(from fromUserID: String, to toUserID: String) async throws -> Bool {
+  public func unFollow(from fromUserID: String, to toUserID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/following/\(toUserID)")!

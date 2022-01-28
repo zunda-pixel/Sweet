@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func fetchStreamRule() async throws -> [StreamRuleModel] {
+  public func fetchStreamRule() async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -23,7 +23,7 @@ extension Sweet {
     return streamRuleResponseModel.streamRules
   }
   
-  func fetchStream(delegate: URLSessionDataDelegate) -> URLSessionDataTask {
+  public func fetchStream(delegate: URLSessionDataDelegate) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
@@ -37,7 +37,7 @@ extension Sweet {
     return session.dataTask(with: request)
   }
   
-  func createStreamRule(_ streamRuleModels: [StreamRuleModel]) async throws -> [StreamRuleModel] {
+  public func createStreamRule(_ streamRuleModels: [StreamRuleModel]) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -55,7 +55,7 @@ extension Sweet {
     return streamRuleResponseModel.streamRules
   }
   
-  func deleteStreamRule(ids: [String]) async throws {
+  public func deleteStreamRule(ids: [String]) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -69,7 +69,7 @@ extension Sweet {
     let _ = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
   }
   
-  func deleteStreamRule(values: [String]) async throws {
+  public func deleteStreamRule(values: [String]) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!

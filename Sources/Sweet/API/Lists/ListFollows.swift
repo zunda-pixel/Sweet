@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func unFollowList(userID: String, listID: String) async throws -> Bool {
+  public func unFollowList(userID: String, listID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/delete-users-id-followed-lists-list_id
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists/\(listID)")!
@@ -23,7 +23,7 @@ extension Sweet {
     return unFollowResponseModel.following
   }
 
-  func followList(userID: String, listID: String) async throws -> Bool {
+  public func followList(userID: String, listID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/post-users-id-followed-lists
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!
@@ -40,7 +40,7 @@ extension Sweet {
     return unFollowResponseModel.following
   }
 
-  func fetchFollowedUsers(listID: String) async throws -> [UserModel] {
+  public func fetchFollowedUsers(listID: String) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/followers")!
@@ -55,7 +55,7 @@ extension Sweet {
     return usersResponseModel.users
   }
 
-  func fetchFollowingLists(userID: String) async throws -> [ListModel] {
+  public func fetchFollowingLists(userID: String) async throws -> [ListModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!

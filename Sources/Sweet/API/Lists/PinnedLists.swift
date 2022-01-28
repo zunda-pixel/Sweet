@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-	func pinList(userID: String, listID: String) async throws -> Bool {
+  public func pinList(userID: String, listID: String) async throws -> Bool {
 		// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
 		
 		let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
@@ -26,7 +26,7 @@ extension Sweet {
 		return pinResponseModel.pinned
 	}
 
-  func unPinList(userID: String, listID: String) async throws -> Bool {
+  public func unPinList(userID: String, listID: String) async throws -> Bool {
 		// https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/delete-users-id-pinned-lists-list_id
 
 		let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists/\(listID)")!
@@ -40,7 +40,7 @@ extension Sweet {
 		return pinResponseModel.pinned
 	}
 
-  func fetchPinnedLists(userID: String) async throws -> [ListModel] {
+  public func fetchPinnedLists(userID: String) async throws -> [ListModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!

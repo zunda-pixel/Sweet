@@ -1,18 +1,18 @@
-struct SpaceModel: Decodable {
-  let id: String
-  let state: String
+public struct SpaceModel: Decodable {
+  public let id: String
+  public let state: String
 }
 
-struct SpacesResponseModel: Decodable {
-  let spaces: [SpaceModel]
+public struct SpacesResponseModel: Decodable {
+  public let spaces: [SpaceModel]
 
    private enum CodingKeys: String, CodingKey {
     case spaces = "data"
   }
 }
 
-struct SpaceResponseModel: Decodable {
-  let space: SpaceModel
+public struct SpaceResponseModel: Decodable {
+  public let space: SpaceModel
 
    private enum CodingKeys: String, CodingKey {
     case space = "data"

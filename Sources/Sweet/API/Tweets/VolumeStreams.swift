@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func fetchStreamVolume(delegate: URLSessionDataDelegate) -> URLSessionDataTask {
+  public func fetchStreamVolume(delegate: URLSessionDataDelegate) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/sample/stream")!

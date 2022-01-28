@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func addListMember(to listID: String, userID: String) async throws -> Bool {
+  public func addListMember(to listID: String, userID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/post-lists-id-members
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
@@ -27,7 +27,7 @@ extension Sweet {
 		return memberResponseModel.isMember
   }
 
-  func deleteListMember(from listID: String, userID: String) async throws -> Bool {
+  public func deleteListMember(from listID: String, userID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/delete-lists-id-members-user_id
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members/\(userID)")!
@@ -41,7 +41,7 @@ extension Sweet {
 		return memberResponseModel.isMember
   }
 
-  func fetchAddedLists(userID: String) async throws -> [ListModel] {
+  public func fetchAddedLists(userID: String) async throws -> [ListModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/list_memberships")!
@@ -55,7 +55,7 @@ extension Sweet {
 		return listsResponseModel.lists
   }
 
-  func fetchAddedUsersToList(listID: String) async throws -> [UserModel] {
+  public func fetchAddedUsersToList(listID: String) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!

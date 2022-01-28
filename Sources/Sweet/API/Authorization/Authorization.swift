@@ -12,8 +12,8 @@ public enum AuthorizeType {
   case App
 }
 
-public extension Sweet {
-  private func getAuthorize(type: AuthorizeType) -> String {
+extension Sweet {
+  public func getAuthorize(type: AuthorizeType) -> String {
     switch type {
       case .User:
         return bearerTokenUser
@@ -22,7 +22,7 @@ public extension Sweet {
     }
   }
   
-  func getBearerHeaders(type: AuthorizeType) -> [String: String] {
+  public func getBearerHeaders(type: AuthorizeType) -> [String: String] {
     let bearerToken = getAuthorize(type: type)
     
     let headers = [

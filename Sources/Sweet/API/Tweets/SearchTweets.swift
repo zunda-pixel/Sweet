@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func searchRecentTweet(by query: String, maxResult: Int = 10) async throws -> [TweetModel] {
+  public func searchRecentTweet(by query: String, maxResult: Int = 10) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     // This endpoint is only available for Academic Research access.
     
@@ -28,7 +28,7 @@ extension Sweet {
     return tweetsResponseModel.tweets
   }
   
-  func searchTweet(by query: String, maxResult: Int = 10) async throws -> [TweetModel] {    
+  public func searchTweet(by query: String, maxResult: Int = 10) async throws -> [TweetModel] {    
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/all")!
