@@ -10,7 +10,85 @@ import Foundation
 public struct TweetModel: Decodable {
   public let id: String
   public let text: String
+  public let authorID: String?
+  public let lang: String?
+  public let replySettings: String?
+  public let createdAt: Date?
+  public let source: String?
+  public let sensitive: Bool?
+  public let publicMetrics: PublicMetricsModel?
+  public let organicMetrics: OrganicMetricsModel?
+  public let privateMetrics: PrivateMetricsModel?
+  
+  
+  public init(from decoder: Decoder) throws {
+    let value = try decoder.container(keyedBy: TweetField.self)
+    
+    self.id = try value.decode(String.self, forKey: .id)
+    self.text = try value.decode(String.self, forKey: .text)
+    
+    self.authorID = try? value.decode(String.self, forKey: .authorID)
+    self.lang = try? value.decode(String.self, forKey: .lang)
+    self.replySettings = try? value.decode(String.self, forKey: .replySettings)
+    
+    if let createdAt = try? value.decode(String.self, forKey: .createdAt) {
+      let formatter = ISO8601DateFormatter()
+      formatter.formatOptions.insert(.withFractionalSeconds)
+      self.createdAt = formatter.date(from: createdAt)!
+    } else {
+      self.createdAt = nil
+    }
+
+    self.source = try? value.decode(String.self, forKey: .source)
+    self.sensitive = try? value.decode(Bool.self, forKey: .possiblySensitive)
+    self.publicMetrics = try? value.decode(PublicMetricsModel.self, forKey: .publicMetrics)
+    self.organicMetrics = try? value.decode(OrganicMetricsModel.self, forKey: .organicMetrics)
+    self.privateMetrics = try? value.decode(PrivateMetricsModel.self, forKey: .nonPublicMetrics)
+  }
 }
+
+public  struct OrganicMetricsModel: Decodable {
+  let likeCount: Int
+  let userProfilleClicks: Int
+  let replyCount: Int
+  let impressionCount: Int
+  let retweetCount: Int
+  
+  private enum CodingKeys: String, CodingKey {
+    case likeCount = "like_count"
+    case userProfilleClicks = "user_profile_clicks"
+    case replyCount = "reply_count"
+    case impressionCount = "impression_count"
+    case retweetCount = "retweet_count"
+  }
+}
+
+public struct PrivateMetricsModel: Decodable {
+  let impressionCount: Int
+  let userProfilleClicks: Int
+  
+  private enum CodingKeys: String, CodingKey {
+    case userProfilleClicks = "user_profile_clicks"
+    case impressionCount = "impression_count"
+  }
+}
+
+
+public struct PublicMetricsModel: Decodable {
+  let retweetCount: Int
+  let replyCount: Int
+  let likeCount: Int
+  let quoteCount: Int
+  
+  private enum CodingKeys: String, CodingKey {
+    case retweetCount = "retweet_count"
+    case replyCount = "reply_count"
+    case likeCount = "like_count"
+    case quoteCount = "quote_count"
+  }
+}
+
+
 
 public struct TweetsResponseModel: Decodable {
   public let tweets: [TweetModel]

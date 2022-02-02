@@ -9,17 +9,19 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func createTweet(text: String) async throws -> TweetModel {
+  public func createTweet(text: String, fields: [TweetField] = []) async throws -> TweetModel {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
-        
+    
+    let queries = [ TweetField.key: fields.map(\.rawValue).joined(separator: ",") ]
+    
     let headers = getBearerHeaders(type: .User)
     
     let body = ["text": text]
     let bodyData = try JSONEncoder().encode(body)
     
-    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers, queries: queries)
     
     let tweetResponseModel = try JSONDecoder().decode(TweetResponseModel.self, from: data)
     

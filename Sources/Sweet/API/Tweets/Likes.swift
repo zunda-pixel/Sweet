@@ -23,14 +23,16 @@ extension Sweet {
     return usersResponseModel.users
   }
   
-  public func fetchLikedTweet(by userID: String) async throws -> [TweetModel] {
+  public func fetchLikedTweet(by userID: String, fields: [TweetField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
-        
+    
+    let queries = [ TweetField.key: fields.map(\.rawValue).joined(separator: ",") ]
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
         
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
@@ -58,7 +60,6 @@ extension Sweet {
     ///https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes/\(tweetID)")!
-    
 
     let headers = getBearerHeaders(type: .User)
     

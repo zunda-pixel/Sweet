@@ -12,13 +12,13 @@ final class TestTweetsAPI: XCTestCase {
   let testMyUserID = "1048032521361866752"
   
   func testLookUpTweets() async throws {
-    let tweetIDs = ["1481674458586927105", "1480571976414543875"]
+    let tweetIDs = ["1488371391485202434"]
     
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.lookUpTweets(by: tweetIDs)
+    let tweets = try await sweet.lookUpTweets(by: tweetIDs, fields: [.inReplyToUserID])
     
     tweets.forEach {
-      print($0.text)
+      print($0)
     }
   }
   
