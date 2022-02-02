@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/place
 
 public enum PlaceField: String, Field {
-  public var key: String { "place.fields" }
+  static public var key: String { "place.fields" }
   
   case containedWithin = "contained_within"
   case country

@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/space
 
 public enum SpaceField: String, Field {
-  public var key: String { "space.fields" }
+  static public var key: String { "space.fields" }
   
   case createdAt = "created_at"
   case endedAt = "ended_at"

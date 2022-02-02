@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/user
 
 public enum UserField: String, Field {
-  public var key: String { "user.fields" }
+  static public var key: String { "user.fields" }
   
   case createdAt = "created_at"
   case description

@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/media
 
 public enum MediaField: String, Field {
-  public var key: String { "media.fields" }
+  static public var key: String { "media.fields" }
   
   case mediaKey = "media_key"
   case type

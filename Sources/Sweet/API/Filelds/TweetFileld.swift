@@ -8,8 +8,10 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet
 
 public enum TweetField: String, Field {
-  public var key: String { "tweet.fields" }
+  static public var key: String { "tweet.fields" }
   
+  case id
+  case text
   case attachments
   case authorID = "author_id"
   case contextAnnotations = "context_annotations"

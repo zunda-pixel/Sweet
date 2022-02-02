@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/lists
 
 public enum ListFiled: String, Field {
-  public var key: String { "list.fields" }
+  static public var key: String { "list.fields" }
   
   case createdAt = "created_at"
   case description
