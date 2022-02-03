@@ -35,7 +35,8 @@ final class TestTweetsAPI: XCTestCase {
     let text = UUID().uuidString
     
     let sweet = Sweet.sweetForTest()
-    let tweet = try await sweet.createTweet(text: text)
+    let postTweetModel = PostTweetModel(text: text)
+    let tweet = try await sweet.createTweet(postTweetModel)
     
     print(tweet)
   }
