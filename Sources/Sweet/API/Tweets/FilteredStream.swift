@@ -9,11 +9,17 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchStreamRule() async throws -> [StreamRuleModel] {
+  public func fetchStreamRule(ids: [String]? = nil) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
         
+    var quries: [String: String?] = [:]
+    
+    if let ids = ids {
+      quries["ids"] = ids.joined(separator: ",")
+    }
+    
     let headers = getBearerHeaders(type: .App)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
@@ -23,10 +29,16 @@ extension Sweet {
     return streamRuleResponseModel.streamRules
   }
   
-  public func fetchStream(delegate: URLSessionDataDelegate) -> URLSessionDataTask {
+  public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
+    
+    var queries: [String: String?] = [:]
+    
+    if let backfillMinutes = backfillMinutes {
+      queries["backfill_minutes"] =  String(backfillMinutes)
+    }
     
     let headers = getBearerHeaders(type: .App)
     

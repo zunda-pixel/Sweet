@@ -14,15 +14,15 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/recent")!
     
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions.insert(.withFractionalSeconds)
-    
     var queries = [
       "query": query,
       "until_id": untilID,
       "since_id": sinceID,
       "granularity": granularity.rawValue,
     ]
+    
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions.insert(.withFractionalSeconds)
     
     if let startTime = startTime {
       queries["start_time"] = formatter.string(from: startTime)

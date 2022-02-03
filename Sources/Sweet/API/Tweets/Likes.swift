@@ -9,26 +9,35 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchLikingTweetUser(by tweetID: String) async throws -> [UserModel] {
+  public func fetchLikingTweetUser(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
-        
+    
+    let queries: [String: String?] = [
+      "pagination_token": paginationToken,
+      "max_results": String(maxResults),
+    ]
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
     
     return usersResponseModel.users
   }
   
-  public func fetchLikedTweet(by userID: String, fields: [TweetField] = []) async throws -> [TweetModel] {
+  public func fetchLikedTweet(by userID: String, fields: [TweetField] = [], maxResults: Int = 100, paginationToken: String? = nil) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
     
-    let queries = [ TweetField.key: fields.map(\.rawValue).joined(separator: ",") ]
+    let queries: [String: String?] = [
+      TweetField.key: fields.map(\.rawValue).joined(separator: ","),
+      "pagination_token": paginationToken,
+      "max_results": String(maxResults),
+    ]
     
     let headers = getBearerHeaders(type: .User)
     

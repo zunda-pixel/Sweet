@@ -9,12 +9,41 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchTimeLine(by userID: String, fields: [TweetField] = []) async throws -> [TweetModel] {
+  public func fetchTimeLine(by userID: String, fields: [TweetField] = [], maxResults: Int = 10,
+                            startTime: Date? = nil, endTime: Date? = nil,
+                            untilID: String? = nil, sinceID: String? = nil,
+                            paginationToken: String? = nil) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/tweets")!
     
-    let queries = [ TweetField.key: fields.map(\.rawValue).joined(separator: ",") ]
+    var queries = [
+      TweetField.key: fields.map(\.rawValue).joined(separator: ","),
+      "max_results": String(maxResults),
+    ]
+    
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions.insert(.withFractionalSeconds)
+    
+    if let startTime = startTime {
+      queries["start_time"] = formatter.string(from: startTime)
+    }
+    
+    if let endTime = endTime {
+      queries["end_time"] = formatter.string(from: endTime)
+    }
+    
+    if let untilID = untilID {
+      queries["until_id"] = untilID
+    }
+    
+    if let sinceID = sinceID {
+      queries["since_id"] = sinceID
+    }
+    
+    if let paginationToken = paginationToken {
+      queries["pagination_token"] = paginationToken
+    }
     
     let headers = getBearerHeaders(type: .User)
     
@@ -25,12 +54,41 @@ extension Sweet {
     return tweetsResponseModel.tweets
   }
   
-  public func fetchMentions(by userID: String, fields: [TweetField] = []) async throws -> [TweetModel] {
+  public func fetchMentions(by userID: String, fields: [TweetField] = [], maxResults: Int = 10,
+                            startTime: Date? = nil, endTime: Date? = nil,
+                            untilID: String? = nil, sinceID: String? = nil,
+                            paginationToken: String? = nil) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/mentions")!
     
-    let queries = [ TweetField.key: fields.map(\.rawValue).joined(separator: ",") ]
+    var queries: [String: String?] = [
+      TweetField.key: fields.map(\.rawValue).joined(separator: ","),
+      "max_results": String(maxResults),
+    ]
+    
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions.insert(.withFractionalSeconds)
+    
+    if let startTime = startTime {
+      queries["start_time"] = formatter.string(from: startTime)
+    }
+    
+    if let endTime = endTime {
+      queries["end_time"] = formatter.string(from: endTime)
+    }
+    
+    if let untilID = untilID {
+      queries["until_id"] = untilID
+    }
+    
+    if let sinceID = sinceID {
+      queries["since_id"] = sinceID
+    }
+    
+    if let paginationToken = paginationToken {
+      queries["pagination_token"] = paginationToken
+    }
     
     let headers = getBearerHeaders(type: .User)
     

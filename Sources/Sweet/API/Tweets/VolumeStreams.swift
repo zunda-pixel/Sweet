@@ -16,8 +16,6 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    
-    
     var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
     
     if let backfillMinutes = backfillMinutes {
