@@ -9,15 +9,19 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchLikingTweetUser(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> [UserModel] {
+  public func fetchLikingTweetUser(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil, fields: [UserField]? = nil) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
     
-    let queries: [String: String?] = [
+    var queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
     ]
+    
+    if let fields = fields {
+      queries[UserField.key] = fields.map(\.rawValue).joined(separator: ",")
+    }
     
     let headers = getBearerHeaders(type: .User)
     

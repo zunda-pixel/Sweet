@@ -10,6 +10,9 @@
 public enum UserField: String, Field {
   static public var key: String { "user.fields" }
   
+  case id
+  case name
+  case username
   case createdAt = "created_at"
   case description
   case entities

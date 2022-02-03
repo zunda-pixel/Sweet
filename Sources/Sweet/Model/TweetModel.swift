@@ -16,7 +16,7 @@ public struct TweetModel: Decodable {
   public let createdAt: Date?
   public let source: String?
   public let sensitive: Bool?
-  public let publicMetrics: PublicMetricsModel?
+  public let publicMetrics: TweetPublicMetricsModel?
   public let organicMetrics: OrganicMetricsModel?
   public let privateMetrics: PrivateMetricsModel?
   
@@ -41,7 +41,7 @@ public struct TweetModel: Decodable {
 
     self.source = try? value.decode(String.self, forKey: .source)
     self.sensitive = try? value.decode(Bool.self, forKey: .possiblySensitive)
-    self.publicMetrics = try? value.decode(PublicMetricsModel.self, forKey: .publicMetrics)
+    self.publicMetrics = try? value.decode(TweetPublicMetricsModel.self, forKey: .publicMetrics)
     self.organicMetrics = try? value.decode(OrganicMetricsModel.self, forKey: .organicMetrics)
     self.privateMetrics = try? value.decode(PrivateMetricsModel.self, forKey: .nonPublicMetrics)
   }
@@ -73,8 +73,22 @@ public struct PrivateMetricsModel: Decodable {
   }
 }
 
+public struct UserPublicMetricsModel: Decodable {
+  let followersCount: Int
+  let followingCount: Int
+  let tweetCount: Int
+  let listedCount: Int
+  
+  private enum CodingKeys: String, CodingKey {
+    case followersCount = "followers_count"
+    case followingCount = "following_count"
+    case tweetCount = "tweet_count"
+    case listedCount = "listed_count"
+  }
+}
 
-public struct PublicMetricsModel: Decodable {
+
+public struct TweetPublicMetricsModel: Decodable {
   let retweetCount: Int
   let replyCount: Int
   let likeCount: Int

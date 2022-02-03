@@ -55,14 +55,20 @@ extension Sweet {
     return spacesResponseModel.spaces
   }
 
-  public func fetchSpaceBuyers(spaceID: String) async throws -> [UserModel] {
+  public func fetchSpaceBuyers(spaceID: String, fields: [UserField]? = nil) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
     
+    var queries: [String: String?] = [:]
+    
+    if let fields = fields {
+      queries[UserField.key] = fields.map(\.rawValue).joined(separator: ",")
+    }
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
             
     let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
     
