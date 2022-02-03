@@ -55,7 +55,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweets = try await sweet.fetchTimeLine(by: userID)
     
     tweets.forEach {
-      print($0.text)
+      print($0)
     }
   }
   
@@ -65,7 +65,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweets = try await sweet.fetchMentions(by: userID)
     
     tweets.forEach {
-      print($0.text)
+      print($0)
     }
   }
   
@@ -75,7 +75,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweets = try await sweet.searchRecentTweet(by: query)
     
     tweets.forEach {
-      print($0.text)
+      print($0)
     }
   }
   
@@ -85,7 +85,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweets = try await sweet.searchTweet(by: query)
     
     tweets.forEach {
-      print($0.text)
+      print($0)
     }
   }
   
@@ -96,7 +96,7 @@ final class TestTweetsAPI: XCTestCase {
     let countTweetModels = try await sweet.fetchRecentCountTweet(by: query)
     
     countTweetModels.forEach {
-      print($0.countTweet)
+      print($0)
     }
   }
   
@@ -107,7 +107,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweets = try await sweet.fetchCountTweet(by: query)
     
     tweets.forEach {
-      print($0.countTweet)
+      print($0)
     }
   }
   
@@ -116,7 +116,7 @@ final class TestTweetsAPI: XCTestCase {
     let streamRuleModels = try await sweet.fetchStreamRule()
     
     streamRuleModels.forEach {
-      print($0.id, $0.value)
+      print($0)
     }
   }
   
@@ -136,7 +136,7 @@ final class TestTweetsAPI: XCTestCase {
     let streamRuleModels = try await sweet.createStreamRule(streamModels)
     
     streamRuleModels.forEach {
-      print($0.id, $0.value)
+      print($0)
     }
   }
   
@@ -175,7 +175,7 @@ final class TestTweetsAPI: XCTestCase {
     let users = try await sweet.fetchRetweetUsers(by: tweetID)
     
     users.forEach {
-      print($0.username)
+      print($0)
     }
   }
   
@@ -206,7 +206,7 @@ final class TestTweetsAPI: XCTestCase {
     let users = try await sweet.fetchLikingTweetUser(by: tweetID)
     
     users.forEach {
-      print($0.username)
+      print($0)
     }
   }
   
@@ -217,7 +217,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweets = try await sweet.fetchLikedTweet(by: userID)
     
     tweets.forEach {
-      print($0.text)
+      print($0)
     }
   }
   
@@ -252,7 +252,7 @@ final class TestTweetsAPI: XCTestCase {
 class TestStream: NSObject, URLSessionDataDelegate {
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
     if let response = try? JSONDecoder().decode(TweetResponseModel.self, from: data) {
-      print(response.tweet.text)
+      print(response.tweet)
     }
   }
   

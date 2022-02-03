@@ -38,7 +38,7 @@ final class TestListsAPI: XCTestCase {
     let users = try await sweet.fetchFollowedUsers(listID: listID)
     
     users.forEach {
-      print($0.username)
+      print($0)
     }
   }
   
@@ -49,7 +49,7 @@ final class TestListsAPI: XCTestCase {
     let lists = try await sweet.fetchFollowingLists(userID: userID)
     
     lists.forEach {
-      print($0.id)
+      print($0)
     }
   }
   
@@ -80,7 +80,7 @@ final class TestListsAPI: XCTestCase {
     let lists = try await sweet.fetchAddedLists(userID: userID)
     
     lists.forEach {
-      print($0.id)
+      print($0)
     }
   }
   
@@ -111,7 +111,7 @@ final class TestListsAPI: XCTestCase {
     let lists = try await sweet.fetchOwnedLists(userID: userID)
     
     lists.forEach {
-      print($0.name)
+      print($0)
     }
   }
   
@@ -122,7 +122,7 @@ final class TestListsAPI: XCTestCase {
     let tweets = try await sweet.fetchListTweets(listID: listID)
     
     tweets.forEach {
-      print($0.text)
+      print($0)
     }
   }
   
@@ -178,7 +178,7 @@ final class TestListsAPI: XCTestCase {
     let lists = try await sweet.fetchPinnedLists(userID: userID)
     
     lists.forEach {
-      print($0.name)
+      print($0)
     }
   }
 }

@@ -25,7 +25,7 @@ final class TestSpacesAPI: XCTestCase {
     let spaces = try await sweet.fetchSpaces(spaceIDs: spaceIDs)
     
     spaces.forEach {
-      print($0.id)
+      print($0)
     }
   }
   
@@ -36,7 +36,7 @@ final class TestSpacesAPI: XCTestCase {
     let spaces = try await sweet.fetchSpaces(creatorIDs: userIDs)
     
     spaces.forEach {
-      print($0.id)
+      print($0)
     }
   }
   
@@ -47,7 +47,7 @@ final class TestSpacesAPI: XCTestCase {
     let users = try await sweet.fetchSpaceBuyers(spaceID: spaceID)
     
     users.forEach {
-      print($0.username)
+      print($0)
     }
   }
   
@@ -58,7 +58,7 @@ final class TestSpacesAPI: XCTestCase {
     let tweets = try await sweet.fetchSpaceTweets(spaceID: spaceID)
     
     tweets.forEach {
-      print($0.text)
+      print($0)
     }
   }
   
@@ -69,7 +69,7 @@ final class TestSpacesAPI: XCTestCase {
     let spaces = try await sweet.searchSpaces(query: query)
     
     spaces.forEach {
-      print($0.id)
+      print($0)
     }
   }
 }

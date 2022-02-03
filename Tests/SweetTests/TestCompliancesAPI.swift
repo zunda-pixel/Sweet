@@ -18,7 +18,7 @@ final class TestCompliancesAPI: XCTestCase {
     let compliances = try await sweet.fetchCompliances(type: type)
     
     compliances.forEach {
-      print($0.id)
+      print($0)
     }
   }
   

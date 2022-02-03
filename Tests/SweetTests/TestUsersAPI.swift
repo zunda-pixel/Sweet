@@ -41,7 +41,7 @@ final class TestUsersAPI: XCTestCase {
     let userModels = try await sweet.fetchFolloing(by: userID, fields: fields)
     
     userModels.forEach {
-      print($0.name)
+      print($0)
     }
   }
   
@@ -51,7 +51,7 @@ final class TestUsersAPI: XCTestCase {
     let userModels = try await sweet.fetchFollower(by: userID, fields: fields)
     
     userModels.forEach {
-      print($0.username)
+      print($0)
     }
   }
   
@@ -111,7 +111,7 @@ final class TestUsersAPI: XCTestCase {
     let userModels = try await sweet.fetchBlocking(by: userID, fields: fields)
     
     userModels.forEach {
-      print($0.username)
+      print($0)
     }
   }
   
@@ -138,7 +138,7 @@ final class TestUsersAPI: XCTestCase {
     let userModels = try await sweet.fetchMuting(by: userID, fields: fields)
     
     userModels.forEach {
-      print($0.username)
+      print($0)
     }
   }
   
