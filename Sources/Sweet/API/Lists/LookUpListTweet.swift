@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchListTweets(listID: String, maxResult: Int? = nil, paginationToken: String? = nil, fields: [TweetField] = []) async throws -> [TweetModel] {
+  public func fetchListTweets(listID: String, maxResults: Int? = nil, paginationToken: String? = nil, fields: [TweetField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/api-reference/get-lists-id-tweets
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/tweets")!
@@ -19,8 +19,8 @@ extension Sweet {
       "pagination_token": paginationToken,
     ]
     
-    if let maxResult = maxResult {
-      queries["max_result"] = String(maxResult)
+    if let maxResults = maxResults {
+      queries["max_result"] = String(maxResults)
     }
     
     let headers = getBearerHeaders(type: .User)

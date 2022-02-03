@@ -10,8 +10,8 @@ import HTTPClient
 
 extension Sweet {
   public func pinList(userID: String, listID: String) async throws -> Bool {
-		// https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
-		
+		// https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/post-users-id-pinned-lists
+    
 		let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
     
     let body = ["list_id": listID]

@@ -23,14 +23,22 @@ extension Sweet {
 		return listResponseModel.list
 	}
 
-  public func fetchOwnedLists(userID: String) async throws -> [ListModel] {
+  public func fetchOwnedLists(userID: String, maxResults: Int? = nil, paginationToken: String? = nil) async throws -> [ListModel] {
 		// https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists
 
 		let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/owned_lists")!
-
+    
+    var queries: [String: String?] = [
+      "pagination_token": paginationToken,
+    ]
+    
+    if let maxResults = maxResults {
+      queries["max_results"] = String(maxResults)
+    }
+    
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+		let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
 						
 		let listsResponseModel = try JSONDecoder().decode(ListsResponseModel.self, from: data)
 		
