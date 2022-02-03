@@ -15,8 +15,8 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/search")!
     
     let queries = [
-      "query": query
-      "status": status
+      "query": query,
+      "status": status.rawValue,
     ]
     
     let headers = getBearerHeaders(type: .User)
