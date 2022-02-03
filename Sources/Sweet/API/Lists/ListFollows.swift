@@ -40,21 +40,18 @@ extension Sweet {
     return unFollowResponseModel.following
   }
 
-  public func fetchFollowedUsers(listID: String, maxResults: Int? = nil, paginationToken: String? = nil, fields: [UserField]? = nil) async throws -> [UserModel] {
+  public func fetchFollowedUsers(listID: String, maxResults: Int = 100, paginationToken: String? = nil, fields: [UserField]? = nil) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/followers")!
     
     var queries: [String: String?] = [
       "pagination_token": paginationToken,
+      "max_results": String(maxResults),
     ]
     
     if let fields = fields {
       queries[UserField.key] = fields.map(\.rawValue).joined(separator: ",")
-    }
-    
-    if let maxResults = maxResults {
-      queries["max_results"] = String(maxResults)
     }
 
     let headers = getBearerHeaders(type: .User)
@@ -66,18 +63,15 @@ extension Sweet {
     return usersResponseModel.users
   }
 
-  public func fetchFollowingLists(userID: String, maxResults: Int? = nil, paginationToken: String? = nil) async throws -> [ListModel] {
+  public func fetchFollowingLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> [ListModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!
     
-    var queries: [String: String?] = [
+    let queries: [String: String?] = [
       "pagination_token": paginationToken,
+      "max_results": String(maxResults)
     ]
-    
-    if let maxResults = maxResults {
-      queries["max_results"] = String(maxResults)
-    }
     
     let headers = getBearerHeaders(type: .User)
     

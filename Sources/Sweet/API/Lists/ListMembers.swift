@@ -41,18 +41,15 @@ extension Sweet {
 		return memberResponseModel.isMember
   }
 
-  public func fetchAddedLists(userID: String, maxResults: Int? = nil, paginationToken: String? = nil) async throws -> [ListModel] {
+  public func fetchAddedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> [ListModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/list_memberships")!
     
-    var queries: [String: String?] = [
+    let queries: [String: String?] = [
       "pagination_token": paginationToken,
+      "max_results": String(maxResults),
     ]
-    
-    if let maxResults = maxResults {
-      queries["max_results"] = String(maxResults)
-    }
     
     let headers = getBearerHeaders(type: .User)
     
@@ -63,18 +60,15 @@ extension Sweet {
 		return listsResponseModel.lists
   }
 
-  public func fetchAddedUsersToList(listID: String, maxResults: Int? = nil, paginationToken: String? = nil) async throws -> [UserModel] {
+  public func fetchAddedUsersToList(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
     
-    var queries: [String: String?] = [
+    let queries: [String: String?] = [
       "pagination_token": paginationToken,
+      "max_results": String(maxResults),
     ]
-
-    if let maxResults = maxResults {
-      queries["max_results"] = String(maxResults)
-    }
     
     let headers = getBearerHeaders(type: .User)
     
