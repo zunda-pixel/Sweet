@@ -9,15 +9,15 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchCompliances(type: JobType, status: CoplianceStatus = .all) async throws -> [ComplianceModel] {
+  public func fetchCompliances(type: JobType, status: CoplianceStatus? = nil) async throws -> [ComplianceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
-    
-    let queries = [
+        
+    let queries: [String: String?] = [
       "type": type.rawValue,
-      "status": status.rawValue,
-    ]
+      "status": status?.rawValue,
+    ].filter { $0.value != nil }
 
     let headers = getBearerHeaders(type: .App)
     
@@ -85,5 +85,4 @@ public enum CoplianceStatus: String {
   case inProgress = "in_progress"
   case failed
   case complete
-  case all
 }
