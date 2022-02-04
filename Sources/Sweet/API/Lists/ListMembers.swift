@@ -21,7 +21,6 @@ extension Sweet {
     
 		let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
         
-    
 		let memberResponseModel = try JSONDecoder().decode(MemberResponseModel.self, from: data)
 		
 		return memberResponseModel.isMember

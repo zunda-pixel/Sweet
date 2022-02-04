@@ -34,4 +34,5 @@ public enum SpaceState: String {
   case all
   case live
   case scheduled
+  case ended
 }
