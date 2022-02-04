@@ -32,9 +32,11 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
+    let removedNilValueQueries: [String: String?] = queries.filter { $0.value != nil }
+    
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
     let countTweetResponseModel = try JSONDecoder().decode(CountTweetResponseModel.self, from: data)
     
@@ -42,7 +44,7 @@ extension Sweet {
   }
   
   public func fetchCountTweet(by query: String, nextToken: String? = nil, startTime: Date? = nil, endTime: Date? = nil, untilID: String? = nil, sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> [CountTweetModel] {
-    // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
+  // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
     // This endpoint is only available for Academic Research access.
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/all")!
@@ -66,9 +68,11 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
+    let removedNilValueQueries: [String: String?] = queries.filter { $0.value != nil }
+    
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
         
     let countTweetResponseModel = try JSONDecoder().decode(CountTweetResponseModel.self, from: data)
     

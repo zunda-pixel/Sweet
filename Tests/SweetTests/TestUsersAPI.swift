@@ -10,7 +10,6 @@ import XCTest
 
 final class TestUsersAPI: XCTestCase {
   let testMyUserID = "1048032521361866752"
-  let fields: [UserField] = UserField.allCases
   
   func testUnFollow() async throws {
     let fromUserID = testMyUserID
@@ -19,7 +18,7 @@ final class TestUsersAPI: XCTestCase {
     let sweet = Sweet.sweetForTest()
     let folloing = try await sweet.unFollow(from: fromUserID, to: toUserID)
     
-    print("folloing: \(folloing)")
+    print(folloing)
   }
   
   func testFollow() async throws {
@@ -29,8 +28,8 @@ final class TestUsersAPI: XCTestCase {
     let sweet = Sweet.sweetForTest()
     let (folloing, pendingFollow) = try await sweet.follow(from: fromUserID, to: toUserID)
     
-    print("folloing: \(folloing)")
-    print("pendingFollow: \(pendingFollow)")
+    print(folloing)
+    print(pendingFollow)
   }
   
   func testFatchFollowing() async throws {
@@ -38,7 +37,7 @@ final class TestUsersAPI: XCTestCase {
     
     let sweet = Sweet.sweetForTest()
 
-    let userModels = try await sweet.fetchFolloing(by: userID, fields: fields)
+    let userModels = try await sweet.fetchFolloing(by: userID, fields: UserField.allCases)
     
     userModels.forEach {
       print($0)
@@ -48,7 +47,7 @@ final class TestUsersAPI: XCTestCase {
   func testFetchFollower() async throws {
     let userID = "2244994945"
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.fetchFollower(by: userID, fields: fields)
+    let userModels = try await sweet.fetchFollower(by: userID, fields: UserField.allCases)
     
     userModels.forEach {
       print($0)
@@ -58,7 +57,7 @@ final class TestUsersAPI: XCTestCase {
   func testLookUpUserByUserID() async throws {
     let userID = "2244994945"
     let sweet = Sweet.sweetForTest()
-    let userModel = try await sweet.lookUpUser(userID: userID, fields: fields)
+    let userModel = try await sweet.lookUpUser(userID: userID, fields: UserField.allCases)
     
     print(userModel)
   }
@@ -66,14 +65,14 @@ final class TestUsersAPI: XCTestCase {
   func testLookUpUserByScreenID() async throws {
     let userID = "zunda_pixel"
     let sweet = Sweet.sweetForTest()
-    let userModel = try await sweet.lookUpUser(screenID: userID, fields: fields)
+    let userModel = try await sweet.lookUpUser(screenID: userID, fields: UserField.allCases)
     print(userModel)
   }
   
   func testLookUpUsersByUserID() async throws {
     let userIDs = ["2244994945", "1048032521361866752"]
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.lookUpUsers(userIDs: userIDs, fields: fields)
+    let userModels = try await sweet.lookUpUsers(userIDs: userIDs, fields: UserField.allCases)
     
     userModels.forEach {
       print($0)
@@ -83,7 +82,7 @@ final class TestUsersAPI: XCTestCase {
   func testLookUpUsersByScreenID() async throws {
     let userIDs = ["zunda_pixel", "zunda"]
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.lookUpUsers(screenIDs: userIDs, fields: fields)
+    let userModels = try await sweet.lookUpUsers(screenIDs: userIDs, fields: UserField.allCases)
     
     userModels.forEach {
       print($0)
@@ -92,7 +91,7 @@ final class TestUsersAPI: XCTestCase {
   
   func testLookUpMe() async throws {
     let sweet = Sweet.sweetForTest()
-    let userModel = try await sweet.lookUpMe(fields: fields)
+    let userModel = try await sweet.lookUpMe(fields: UserField.allCases)
     print(userModel)
   }
   
@@ -108,7 +107,7 @@ final class TestUsersAPI: XCTestCase {
   func testFetchBlockUser() async throws {
     let userID = testMyUserID
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.fetchBlocking(by: userID, fields: fields)
+    let userModels = try await sweet.fetchBlocking(by: userID, fields: UserField.allCases)
     
     userModels.forEach {
       print($0)
@@ -135,7 +134,7 @@ final class TestUsersAPI: XCTestCase {
   func testFetchMutingUser() async throws {
     let userID = testMyUserID
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.fetchMuting(by: userID, fields: fields)
+    let userModels = try await sweet.fetchMuting(by: userID, fields: UserField.allCases)
     
     userModels.forEach {
       print($0)

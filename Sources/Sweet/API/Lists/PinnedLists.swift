@@ -40,15 +40,19 @@ extension Sweet {
 		return pinResponseModel.pinned
 	}
 
-  public func fetchPinnedLists(userID: String) async throws -> [ListModel] {
+  public func fetchPinnedLists(userID: String, fields: [ListField] = []) async throws -> [ListModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
     
+    let queries = [
+      ListField.key: fields.map(\.rawValue).joined(separator: ",")
+    ]
+    
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.get(url: url, headers: headers)
-						
+		let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+        
 		let listsResponseModel = try JSONDecoder().decode(ListsResponseModel.self, from: data)
 		
 		return listsResponseModel.lists

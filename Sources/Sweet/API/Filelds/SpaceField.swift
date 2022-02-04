@@ -10,6 +10,8 @@
 public enum SpaceField: String, Field {
   static public var key: String { "space.fields" }
   
+  case id
+  case state
   case createdAt = "created_at"
   case endedAt = "ended_at"
   case hostIDs = "host_ids"

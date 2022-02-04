@@ -14,14 +14,16 @@ extension Sweet {
                                 untilID: String? = nil, sinceID: String? = nil,
                                 nextToken: String? = nil) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
-    // This endpoint is only available for Academic Research access.
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/recent")!
     
-    var queries = [
+    var queries: [String: String?] = [
       "query": query,
       TweetField.key: fields.map(\.rawValue).joined(separator: ","),
       "max_results": String(maxResults),
+      "until_id": untilID,
+      "since_id": sinceID,
+      "next_token": nextToken,
     ]
     
     let formatter = ISO8601DateFormatter()
@@ -35,21 +37,11 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
-    if let untilID = untilID {
-      queries["until_id"] = untilID
-    }
-    
-    if let sinceID = sinceID {
-      queries["since_id"] = sinceID
-    }
-    
-    if let nextToken = nextToken {
-      queries["next_token"] = nextToken
-    }
+    let removedNilValueQueries: [String: String?] = queries.filter { $0.value != nil }
         
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
             
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
@@ -61,13 +53,17 @@ extension Sweet {
                           untilID: String? = nil, sinceID: String? = nil,
                           nextToken: String? = nil) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
+    // This endpoint is only available for Academic Research access.
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/all")!
     
-    var queries = [
+    var queries: [String: String?] = [
       "query": query,
       TweetField.key: fields.map(\.rawValue).joined(separator: ","),
       "max_results": String(maxResults),
+      "until_id": untilID,
+      "since_id": sinceID,
+      "next_token": nextToken,
     ]
      
     let formatter = ISO8601DateFormatter()
@@ -81,21 +77,11 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
-    if let untilID = untilID {
-      queries["until_id"] = untilID
-    }
-    
-    if let sinceID = sinceID {
-      queries["since_id"] = sinceID
-    }
-    
-    if let nextToken = nextToken {
-      queries["next_token"] = nextToken
-    }
+    let removedNilValueQueries = queries.filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     

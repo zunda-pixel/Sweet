@@ -22,9 +22,7 @@ extension Sweet {
     let headers = getBearerHeaders(type: .User)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-    
-    print(String(data: data, encoding: .utf8)!)
-    
+        
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
     return tweetsResponseModel.tweets

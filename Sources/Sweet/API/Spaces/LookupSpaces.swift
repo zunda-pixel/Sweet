@@ -9,26 +9,33 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchSpace(spaceID: String) async throws -> SpaceModel {
+  public func fetchSpace(spaceID: String, fields: [SpaceField] = []) async throws -> SpaceModel {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
     
+    let queries = [
+      SpaceField.key: fields.map(\.rawValue).joined(separator: ",")
+    ]
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
         
     let spaceResponseModel = try JSONDecoder().decode(SpaceResponseModel.self, from: data)
     
     return spaceResponseModel.space
   }
 
-  public func fetchSpaces(spaceIDs: [String]) async throws -> [SpaceModel] {
+  public func fetchSpaces(spaceIDs: [String], fields: [SpaceField] = []) async throws -> [SpaceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces")!
     
-    let queries = ["ids": spaceIDs.joined(separator: ",")]
+    let queries = [
+      "ids": spaceIDs.joined(separator: ","),
+      SpaceField.key: fields.map(\.rawValue).joined(separator: ",")
+    ]
 
     let headers = getBearerHeaders(type: .User)
     
@@ -39,12 +46,15 @@ extension Sweet {
     return spacesResponseModel.spaces
   }
   
-  public func fetchSpaces(creatorIDs: [String]) async throws -> [SpaceModel] {
+  public func fetchSpaces(creatorIDs: [String], fields: [SpaceField] = []) async throws -> [SpaceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/by/creator_ids")!
     
-    let queries = ["user_ids": creatorIDs.joined(separator: ",")]
+    let queries = [
+      "user_ids": creatorIDs.joined(separator: ","),
+      SpaceField.key: fields.map(\.rawValue).joined(separator: ","),
+    ]
     
     let headers = getBearerHeaders(type: .App)
     
@@ -55,16 +65,14 @@ extension Sweet {
     return spacesResponseModel.spaces
   }
 
-  public func fetchSpaceBuyers(spaceID: String, fields: [UserField]? = nil) async throws -> [UserModel] {
+  public func fetchSpaceBuyers(spaceID: String, fields: [UserField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
     
-    var queries: [String: String?] = [:]
-    
-    if let fields = fields {
-      queries[UserField.key] = fields.map(\.rawValue).joined(separator: ",")
-    }
+    let queries: [String: String?] = [
+      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+    ].filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .User)
     
@@ -75,14 +83,18 @@ extension Sweet {
     return usersResponseModel.users
   }
 
-  public func fetchSpaceTweets(spaceID: String) async throws -> [TweetModel] {
+  public func fetchSpaceTweets(spaceID: String, fields: [TweetField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/tweets")!
     
+    let queries = [
+      TweetField.key: fields.map(\.rawValue).joined(separator: ",")
+    ]
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
         
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     

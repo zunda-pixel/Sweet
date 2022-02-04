@@ -76,17 +76,17 @@ public struct GeoModel: Encodable {
 
 public struct PollModel: Encodable {
   let options: [String]
-  let durationMinute: Int
+  let durationMinutes: Int
   
   private enum CodingKeys: String, CodingKey {
     case options
-    case durationMinute = "duration_minute"
+    case durationMinutes = "duration_minutes"
   }
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(options, forKey: .options)
-    try container.encode(durationMinute, forKey: .durationMinute)
+    try container.encode(durationMinutes, forKey: .durationMinutes)
   }
 }
 
@@ -131,13 +131,9 @@ extension Sweet {
     let headers = getBearerHeaders(type: .User)
     
     let bodyData = try JSONEncoder().encode(postTweetModel)
-    
-    print(String(data: bodyData, encoding: .utf8)!)
-    
+        
     let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
-    
-    print(String(data: data, encoding: .utf8)!)
-    
+        
     let tweetResponseModel = try JSONDecoder().decode(TweetResponseModel.self, from: data)
     
     return tweetResponseModel.tweet

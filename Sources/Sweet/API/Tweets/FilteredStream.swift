@@ -29,12 +29,14 @@ extension Sweet {
     return streamRuleResponseModel.streamRules
   }
   
-  public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil) -> URLSessionDataTask {
+  public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil, fields: [TweetField] = []) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
     
-    var queries: [String: String?] = [:]
+    var queries: [String: String?] = [
+      TweetField.key: fields.map(\.rawValue).joined(separator: ",")
+    ]
     
     if let backfillMinutes = backfillMinutes {
       queries["backfill_minutes"] =  String(backfillMinutes)

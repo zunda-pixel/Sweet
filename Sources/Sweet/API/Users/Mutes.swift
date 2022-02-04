@@ -9,23 +9,20 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchMuting(by userID: String, maxResults: Int = 100, paginationToken: String? = nil, fields: [UserField]? = nil) async throws -> [UserModel] {
+  public func fetchMuting(by userID: String, maxResults: Int = 100, paginationToken: String? = nil, fields: [UserField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/get-users-muting
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/muting")!
   
-    var queries: [String: String?] = [
+    let queries: [String: String?] = [
       "max_results": String(maxResults),
-      "pagination_token": paginationToken
-    ]
-    
-    if let fields = fields {
-      queries[UserField.key] = fields.map(\.rawValue).joined(separator: ",")
-    }
+      "pagination_token": paginationToken,
+      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+    ].filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
     

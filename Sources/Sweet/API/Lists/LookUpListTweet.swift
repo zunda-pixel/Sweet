@@ -17,8 +17,8 @@ extension Sweet {
     let queries: [String: String?] = [
       TweetField.key: fields.map(\.rawValue).joined(separator: ","),
       "pagination_token": paginationToken,
-      "max_result": String(maxResults),
-    ]
+      "max_results": String(maxResults),
+    ].filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .User)
     

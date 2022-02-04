@@ -7,9 +7,11 @@
 
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/lists
 
-public enum ListFiled: String, Field {
+public enum ListField: String, Field {
   static public var key: String { "list.fields" }
   
+  case id
+  case name
   case createdAt = "created_at"
   case description
   case followerCount = "follower_count"
