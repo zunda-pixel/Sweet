@@ -9,11 +9,17 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchStreamRule() async throws -> [StreamRuleModel] {
+  public func fetchStreamRule(ids: [String]? = nil) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
         
+    var quries: [String: String?] = [:]
+    
+    if let ids = ids {
+      quries["ids"] = ids.joined(separator: ",")
+    }
+    
     let headers = getBearerHeaders(type: .App)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers)
@@ -23,10 +29,21 @@ extension Sweet {
     return streamRuleResponseModel.streamRules
   }
   
-  public func fetchStream(delegate: URLSessionDataDelegate) -> URLSessionDataTask {
+  public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil, tweetFields: [TweetField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
+    
+    var queries = [
+      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+      MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
+      PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allTweetExpansion.joined(separator: ","),
+    ]
+    
+    if let backfillMinutes = backfillMinutes {
+      queries["backfill_minutes"] =  String(backfillMinutes)
+    }
     
     let headers = getBearerHeaders(type: .App)
     
@@ -37,7 +54,7 @@ extension Sweet {
     return session.dataTask(with: request)
   }
   
-  public func createStreamRule(_ streamRuleModels: [StreamRuleModel]) async throws -> [StreamRuleModel] {
+  public func createStreamRule(_ streamRuleModels: [StreamRuleModel]) async throws -> StreamRuleModel {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -52,7 +69,7 @@ extension Sweet {
     
     let streamRuleResponseModel = try JSONDecoder().decode(StreamRuleResponseModel.self, from: data)
     
-    return streamRuleResponseModel.streamRules
+    return streamRuleResponseModel.streamRules.first!
   }
   
   public func deleteStreamRule(ids: [String]) async throws {

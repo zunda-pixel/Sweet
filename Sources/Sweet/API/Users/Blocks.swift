@@ -9,14 +9,21 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchBlocking(by userID: String) async throws -> [UserModel] {
+  public func fetchBlocking(by userID: String, maxResults: Int = 100, paginationToken: String? = nil, fields: [UserField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/blocking")!
-        
+    
+    let queries: [String: String?] = [
+      "max_results": String(maxResults),
+      "pagination_token": paginationToken,
+      Expansion.key: allUserExpansion.joined(separator: ","),
+      UserField.key: fields.map(\.rawValue).joined(separator: ","),
+    ].filter { $0.value != nil }
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
         
     let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
     
