@@ -22,7 +22,6 @@ public struct TweetModel {
   public let privateMetrics: PrivateMetricsModel?
   public let attachments: AttachmentsModel?
   public let promotedMerics: PromotedMetrics?
-  
   public var medias: [MediaModel] = []
   public var user: UserModel!
   public var place: PlaceModel?
