@@ -45,12 +45,15 @@ extension ComplianceModel: Decodable {
 
     self.id = try values.decode(String.self, forKey: .id)
     self.resumble = try values.decode(Bool.self, forKey: .resumable)
-    
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions.insert(.withFractionalSeconds)
+    self.status = try values.decode(String.self, forKey: .status)
 
     let uploadURL = try values.decode(String.self, forKey: .uploadURL)
     self.uploadURL = .init(string: uploadURL)!
+    
+    let downloadURL = try values.decode(String.self, forKey: .downloadURL)
+    self.downloadURL = .init(string: downloadURL)!
+    
+    let formatter = TwitterDateFormatter()
 
     let uploadExpiresAt = try values.decode(String.self, forKey: .uploadExpiresAt)
     self.uploadExpiresAt = formatter.date(from: uploadExpiresAt)!
@@ -58,12 +61,7 @@ extension ComplianceModel: Decodable {
     let downloadExpiresAt = try values.decode(String.self, forKey: .downloadExpiresAt)
     self.downloadExpiresAt = formatter.date(from: downloadExpiresAt)!
 
-    let downloadURL = try values.decode(String.self, forKey: .downloadURL)
-    self.downloadURL = .init(string: downloadURL)!
-
     let createdAt = try values.decode(String.self, forKey: .createdAt)
     self.createdAt = formatter.date(from: createdAt)!
-
-    self.status = try values.decode(String.self, forKey: .status)
   }
 }

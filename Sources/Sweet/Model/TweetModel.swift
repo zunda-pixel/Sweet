@@ -44,9 +44,7 @@ extension TweetModel: Decodable {
     self.replySettings = try? value.decode(String.self, forKey: .replySettings)
     
     if let createdAt = try? value.decode(String.self, forKey: .createdAt) {
-      let formatter = ISO8601DateFormatter()
-      formatter.formatOptions.insert(.withFractionalSeconds)
-      self.createdAt = formatter.date(from: createdAt)!
+      self.createdAt = TwitterDateFormatter().date(from: createdAt)!
     } else {
       self.createdAt = nil
     }

@@ -43,10 +43,8 @@ extension PollModel: Decodable {
     let votingStatus = try value.decode(String.self, forKey: .vodingStatus)
     self.votingStatus = .init(rawValue: votingStatus)!
     
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions.insert(.withFractionalSeconds)
     let endDateTime = try value.decode(String.self, forKey: .endDateTime)
-    self.endDatetime = formatter.date(from: endDateTime)!
+    self.endDatetime = TwitterDateFormatter().date(from: endDateTime)!
     
     self.durationMinutes = try value.decode(Int.self, forKey: .durationMinutes)
     

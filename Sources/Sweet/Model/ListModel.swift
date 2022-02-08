@@ -30,8 +30,6 @@ extension ListModel: Decodable {
     self.isPrivate = try? values.decode(Bool.self, forKey: .isPrivate)
     
     let createdAt = try? values.decode(String.self, forKey: .createdAt)
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions.insert(.withFractionalSeconds)
-    self.createdAt = formatter.date(from: createdAt ?? "")
+    self.createdAt = TwitterDateFormatter().date(from: createdAt ?? "")
   }
 }

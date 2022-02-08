@@ -24,13 +24,12 @@ extension CountTweetModel: Decodable {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     self.countTweet = try values.decode(Int.self, forKey: .countTweet)
     
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions.insert(.withFractionalSeconds)
+    let formatter = TwitterDateFormatter()
     
     let startDateString = try values.decode(String.self, forKey: .startDate)
-    let endDateString = try values.decode(String.self, forKey: .endDate)
-    
     self.startDate = formatter.date(from: startDateString)!
+    
+    let endDateString = try values.decode(String.self, forKey: .endDate)
     self.endDate = formatter.date(from: endDateString)!
   }
 }

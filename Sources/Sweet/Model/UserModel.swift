@@ -42,10 +42,7 @@ extension UserModel: Decodable {
     let url = try? values.decode(String.self, forKey: .url)
     self.url = URL(string: url ?? "")
     
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions.insert(.withFractionalSeconds)
-    
     let createdAt = try? values.decode(String.self, forKey: .createdAt)
-    self.createdAt = formatter.date(from: createdAt ?? "")
+    self.createdAt = TwitterDateFormatter().date(from: createdAt ?? "")
   }
 }
