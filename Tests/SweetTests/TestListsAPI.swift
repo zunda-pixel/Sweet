@@ -122,7 +122,7 @@ final class TestListsAPI: XCTestCase {
     let tweets = try await sweet.fetchListTweets(listID: listID, fields: [.createdAt, .id, .replySettings, .geo, .text,
                                                                           .attachments, .authorID, .contextAnnotations, .conversationID, .inReplyToUserID,
                                                                           .entities, .lang, .possiblySensitive,
-                                                                          .referencedTweets, .withheld, .source,]) // nonPublicMetrics, organicMetrics, promotedMetrics
+                                                                          .referencedTweets, .withheld, .source,]) // privateMetrics, organicMetrics, promotedMetrics
     
     tweets.forEach {
       print($0)

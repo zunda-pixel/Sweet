@@ -12,7 +12,7 @@ extension TweetField {
   static public var normalTweetFileds: [TweetField] {
     return [.id, .attachments, .geo, .authorID, .inReplyToUserID,
             .text, .contextAnnotations, .conversationID, .createdAt, .entities,
-            .lang, .nonPublicMetrics, .possiblySensitive, .publicMetrics, .replySettings,
+            .lang, .privateMetrics, .possiblySensitive, .publicMetrics, .replySettings,
             .withheld, .source, .referencedTweets, .organicMetrics] // promotedMetrics
   }
   
@@ -88,7 +88,7 @@ final class TestTweetsAPI: XCTestCase {
   func testSearchRecentTweet() async throws {
     let query = "#twitterapiv2"
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.searchRecentTweet(by: query, tweetFields: TweetField.exceptTweetFileds, mediaFields: MediaField.allCases ,pollFields: PollField.allCases) // promotedMetric nonPublicMetrics organicMetrics
+    let tweets = try await sweet.searchRecentTweet(by: query, tweetFields: TweetField.exceptTweetFileds, mediaFields: MediaField.allCases ,pollFields: PollField.allCases) // promotedMetric privateMetrics organicMetrics
     
     tweets.forEach {
       print($0)
@@ -98,7 +98,7 @@ final class TestTweetsAPI: XCTestCase {
   func testSearchTweet() async throws {
     let query = "#twitterapiv2"
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.searchTweet(by: query, tweetFields: TweetField.exceptTweetFileds, mediaFields: MediaField.allCases ,pollFields: PollField.allCases) // promotedMetric  nonPublicMetrics organicMetrics
+    let tweets = try await sweet.searchTweet(by: query, tweetFields: TweetField.exceptTweetFileds, mediaFields: MediaField.allCases ,pollFields: PollField.allCases) // promotedMetric  privateMetrics organicMetrics
     
     tweets.forEach {
       print($0)
@@ -228,7 +228,7 @@ final class TestTweetsAPI: XCTestCase {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.fetchLikedTweet(by: userID, tweetFields: TweetField.exceptTweetFileds, mediaFields: MediaField.allCases ,pollFields: PollField.allCases) // promotedMetric organicMetrics nonPublicMetrics
+    let tweets = try await sweet.fetchLikedTweet(by: userID, tweetFields: TweetField.exceptTweetFileds, mediaFields: MediaField.allCases ,pollFields: PollField.allCases) // promotedMetric organicMetrics privateMetrics
     
     tweets.forEach {
       print($0)

@@ -13,7 +13,7 @@ public enum MediaField: String, Field {
   case mediaKey = "media_key"
   case type
   case height
-  case nonPublicMetrics = "non_public_metrics"
+  case privateMetrics = "non_public_metrics"
   case publicMetrics = "public_metrics"
   case duration_ms
   case previewImageURL = "preview_image_url"
