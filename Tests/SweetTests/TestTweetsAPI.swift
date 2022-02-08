@@ -145,15 +145,13 @@ final class TestTweetsAPI: XCTestCase {
   
   func testCreateStreamRule() async throws {
     let streamModels: [StreamRuleModel] = [
-      .init(value: "zunda671", tag: nil),
+      .init(value: "zunda633", tag: nil),
     ]
     
     let sweet = Sweet.sweetForTest()
-    let streamRuleModels = try await sweet.createStreamRule(streamModels)
+    let streamRuleModel = try await sweet.createStreamRule(streamModels)
     
-    streamRuleModels.forEach {
-      print($0)
-    }
+    print(streamRuleModel)
   }
   
   func testDeleteStreamRuleByID() async throws {
@@ -256,10 +254,10 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testHideReply() async throws {
-    let tweetID = "1489557936397426688"
+    let tweetID = "1490903967617802242"
     
     let sweet = Sweet.sweetForTest()
-    let hidden = try await sweet.hideReply(tweetID: tweetID, hidden: true)
+    let hidden = try await sweet.hideReply(tweetID: tweetID, hidden: false)
     print(hidden)
   }
 }

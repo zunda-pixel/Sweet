@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SpaceModel: Decodable {
+public struct SpaceModel {
   public let id: String
   public let state: SpaceState
   public let title: String?
@@ -11,7 +11,9 @@ public struct SpaceModel: Decodable {
   public let startedAt: Date?
   public let updatedAt: Date?
   public let createdAt: Date?
-  
+}
+
+extension SpaceModel: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: SpaceField.self)
     self.id = try values.decode(String.self, forKey: .id)
@@ -40,21 +42,5 @@ public struct SpaceModel: Decodable {
     
     let updatedAt = try? values.decode(String.self, forKey: .updatedAt)
     self.updatedAt = formatter.date(from: updatedAt ?? "")
-  }
-}
-
-public struct SpacesResponseModel: Decodable {
-  public let spaces: [SpaceModel]
-
-   private enum CodingKeys: String, CodingKey {
-    case spaces = "data"
-  }
-}
-
-public struct SpaceResponseModel: Decodable {
-  public let space: SpaceModel
-
-   private enum CodingKeys: String, CodingKey {
-    case space = "data"
   }
 }

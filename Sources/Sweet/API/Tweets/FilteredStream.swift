@@ -54,7 +54,7 @@ extension Sweet {
     return session.dataTask(with: request)
   }
   
-  public func createStreamRule(_ streamRuleModels: [StreamRuleModel]) async throws -> [StreamRuleModel] {
+  public func createStreamRule(_ streamRuleModels: [StreamRuleModel]) async throws -> StreamRuleModel {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -69,7 +69,7 @@ extension Sweet {
     
     let streamRuleResponseModel = try JSONDecoder().decode(StreamRuleResponseModel.self, from: data)
     
-    return streamRuleResponseModel.streamRules
+    return streamRuleResponseModel.streamRules.first!
   }
   
   public func deleteStreamRule(ids: [String]) async throws {

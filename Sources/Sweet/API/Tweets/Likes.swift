@@ -19,8 +19,6 @@ extension Sweet {
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-      MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
-      PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
     ].filter { $0.value != nil }
     

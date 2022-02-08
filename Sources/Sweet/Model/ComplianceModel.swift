@@ -67,19 +67,3 @@ extension ComplianceModel: Decodable {
     self.status = try values.decode(String.self, forKey: .status)
   }
 }
-
-public struct CompliancesResponseModel: Decodable {
-  public let compliances: [ComplianceModel]
-
-  private enum CodingKeys: String, CodingKey {
-    case compliances = "data"
-  }
-}
-
-public struct ComplianceResponseModel: Decodable {
-  public let compliance: ComplianceModel
-
-  private enum CodingKeys: String, CodingKey {
-    case compliance = "data"
-  }
-}
