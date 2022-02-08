@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+
 public struct TweetModel {
   public let id: String
   public let text: String
@@ -22,6 +24,8 @@ public struct TweetModel {
   public let privateMetrics: PrivateMetricsModel?
   public let attachments: AttachmentsModel?
   public let promotedMerics: PromotedMetrics?
+  public let withheld: WithheldModel?
+
   public var medias: [MediaModel] = []
   public var user: UserModel!
   public var place: PlaceModel?
@@ -54,8 +58,9 @@ extension TweetModel: Decodable {
     
     self.publicMetrics = try? value.decode(TweetPublicMetricsModel.self, forKey: .publicMetrics)
     self.organicMetrics = try? value.decode(OrganicMetricsModel.self, forKey: .organicMetrics)
-    self.privateMetrics = try? value.decode(PrivateMetricsModel.self, forKey: .nonPublicMetrics)
+    self.privateMetrics = try? value.decode(PrivateMetricsModel.self, forKey: .privateMetrics)
     self.attachments = try? value.decode(AttachmentsModel.self, forKey: .attachments)
     self.promotedMerics = try? value.decode(PromotedMetrics.self, forKey: .promotedMetrics)
+    self.withheld = try? value.decode(WithheldModel.self, forKey: .withheld)
   }
 }
