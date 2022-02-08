@@ -5,10 +5,19 @@
 //  Created by zunda on 2022/01/31.
 //
 
-public protocol Expansion: CaseIterable, RawRepresentable, CodingKey {
-  static var key: String { get }
+public struct Expansion {
+  static var key: String = "expansions"
 }
 
-extension Expansion {
-  static public var key: String { "expansions" }
+extension Sweet {
+  var allTweetExpansion: [String] {
+    let allExpansions: [String] = tweetExpansions.map(\.rawValue) + pollExpansions.map(\.rawValue) + mediaExpansions.map(\.rawValue)
+    return allExpansions
+  }
+  
+  var allUserExpansion: [String] {
+    let allExpansions: [String] = userExpansions.map(\.rawValue)
+    return allExpansions
+  }
+
 }

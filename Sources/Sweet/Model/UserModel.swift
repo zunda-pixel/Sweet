@@ -18,6 +18,9 @@ public struct UserModel: Decodable {
   public let protected: Bool?
   public let url: URL?
   public let createdAt: Date?
+  public let location: String?
+  public let pinnedTweetID: String?
+  public var pinnedTweet: PinTweetModel?
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: UserField.self)
@@ -28,6 +31,8 @@ public struct UserModel: Decodable {
     self.description = try? values.decode(String.self, forKey: .description)
     self.publicMetrics = try? values.decode(UserPublicMetricsModel.self, forKey: .publicMetrics)
     self.protected = try? values.decode(Bool.self, forKey: .protected)
+    self.location = try? values.decode(String.self, forKey: .location)
+    self.pinnedTweetID = try? values.decode(String.self, forKey: .pinnedTweetID)
     
     let profileImageURL = try? values.decode(String.self, forKey: .profileImageURL)
     self.profileImageURL = .init(string: profileImageURL ?? "")
@@ -44,18 +49,60 @@ public struct UserModel: Decodable {
 }
 
 public struct UserResponseModel: Decodable {
-  public let user: UserModel
+  public var user: UserModel
   
   private enum CodingKeys: String, CodingKey {
     case user = "data"
+    case includes
+  }
+  
+  private enum TweetCodingKeys: String, CodingKey {
+    case tweets
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    self.user = try values.decode(UserModel.self, forKey: .user)
+    
+    guard let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes) else {
+      return
+    }
+    
+    let tweets = try includes.decode([PinTweetModel].self, forKey: .tweets)
+    
+    if let index = tweets.firstIndex(where: { $0.id == user.pinnedTweetID }) {
+      user.pinnedTweet = tweets[index]
+    }
   }
 }
 
 public struct UsersResponseModel: Decodable {
-  public let users: [UserModel]
+  public var users: [UserModel]
   
   private enum CodingKeys: String, CodingKey {
     case users = "data"
+    case includes
+  }
+  
+  private enum TweetCodingKeys: String, CodingKey {
+    case tweets
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    self.users = try values.decode([UserModel].self, forKey: .users)
+    
+    guard let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes) else {
+      return
+    }
+    
+    let tweets = try includes.decode([PinTweetModel].self, forKey: .tweets)
+    
+    tweets.forEach { tweet in
+      if let index = users.firstIndex(where: { user in user.pinnedTweetID == tweet.id }) {
+        self.users[index].pinnedTweet = tweet
+      }
+    }
   }
 }
 

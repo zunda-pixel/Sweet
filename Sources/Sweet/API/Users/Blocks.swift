@@ -17,7 +17,8 @@ extension Sweet {
     let queries: [String: String?] = [
       "max_results": String(maxResults),
       "pagination_token": paginationToken,
-      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+      Expansion.key: allUserExpansion.joined(separator: ","),
+      UserField.key: fields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .User)

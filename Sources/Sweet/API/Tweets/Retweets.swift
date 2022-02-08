@@ -9,15 +9,17 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchRetweetUsers(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil, fields: [UserField] = []) async throws -> [UserModel] {
+  public func fetchRetweetUsers(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil,
+                                userFields: [UserField] = [], mediaFields: [MediaField] = [], placeFields: [PlaceField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/retweeted_by")!
     
     let queries: [String: String?] = [
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allUserExpansion.joined(separator: ","),
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-      UserField.key: fields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .User)

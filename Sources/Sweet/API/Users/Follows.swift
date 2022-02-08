@@ -48,6 +48,7 @@ extension Sweet {
     let queries: [String: String?] = [
       "max_results": String(maxResults),
       "pagination_token": paginationToken,
+      Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: fields.map(\.rawValue).joined(separator: ",")
     ].filter { $0.value != nil }
     
@@ -56,7 +57,7 @@ extension Sweet {
     let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
-    
+      
     return usersResponseModel.users
   }
   
@@ -68,6 +69,7 @@ extension Sweet {
     let queries: [String: String?] = [
       "max_results": String(maxResults),
       "pagination_token": paginationToken,
+      Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: fields.map(\.rawValue).joined(separator: ",")
     ].filter { $0.value != nil }
     

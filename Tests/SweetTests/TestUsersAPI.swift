@@ -33,7 +33,7 @@ final class TestUsersAPI: XCTestCase {
   }
   
   func testFatchFollowing() async throws {
-    let userID = "2244994945"
+    let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
 

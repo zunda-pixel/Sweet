@@ -13,14 +13,14 @@ public struct PostTweetModel: Encodable {
   let directMessageDeepLink: URL?
   let forSuperFollowersOnly: Bool
   let geo: GeoModel?
-  let media: MediaModel?
-  let poll: PollModel?
+  let media: PostMediaModel?
+  let poll: SendPollModel?
   let quoteTweetID: String?
   let reply: ReplyModel?
   let replySettings: ReplyOption?
   
   init(text: String? = nil, direcrMessageDeepLink: URL? = nil, forSuperFollowersOnly: Bool = false,
-       geo: GeoModel? = nil, media: MediaModel? = nil, poll: PollModel? = nil, quoteTweetID: String? = nil,
+       geo: GeoModel? = nil, media: PostMediaModel? = nil, poll: SendPollModel? = nil, quoteTweetID: String? = nil,
        reply: ReplyModel? = nil, replySettings: ReplyOption? = nil) {
     self.text = text
     self.directMessageDeepLink = direcrMessageDeepLink
@@ -66,7 +66,7 @@ public enum ReplyOption: String {
 }
 
 
-public struct GeoModel: Encodable {
+public struct GeoModel: Codable {
   let placeID: String
   
   private enum CodingKeys: String, CodingKey {
@@ -74,7 +74,7 @@ public struct GeoModel: Encodable {
   }
 }
 
-public struct PollModel: Encodable {
+public struct SendPollModel: Encodable {
   let options: [String]
   let durationMinutes: Int
   
@@ -90,7 +90,7 @@ public struct PollModel: Encodable {
   }
 }
 
-public struct MediaModel: Encodable {
+public struct PostMediaModel: Encodable {
   let mediaIDs: [String]
   let taggedUserIDs: [String]
   
@@ -135,7 +135,7 @@ extension Sweet {
     let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
         
     let tweetResponseModel = try JSONDecoder().decode(TweetResponseModel.self, from: data)
-    
+  
     return tweetResponseModel.tweet
   }
   

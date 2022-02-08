@@ -1,10 +1,12 @@
 //
-//  UserExpansion.swift
+//  File 2.swift
 //  
 //
-//  Created by zunda on 2022/01/31.
+//  Created by zunda on 2022/02/05.
 //
 
-public enum UserExpansion: String, Expansion {
+import Foundation
+
+public enum UserExpansion: String, CaseIterable {
   case pinnedTweetID = "pinned_tweet_id"
 }

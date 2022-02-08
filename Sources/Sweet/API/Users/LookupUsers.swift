@@ -15,6 +15,7 @@ extension Sweet {
     let url: URL =  .init(string: "https://api.twitter.com/2/users/\(userID)")!
     
     let queries: [String: String?] = [
+      Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: fields.map(\.rawValue).joined(separator: ",")
     ].filter { $0.value != nil }
     
@@ -33,6 +34,7 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/users/by/username/\(screenID)")!
     
     let queries: [String: String?] = [
+      Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: fields.map(\.rawValue).joined(separator: ",")
     ].filter { $0.value != nil }
     
@@ -52,6 +54,7 @@ extension Sweet {
     
     let queries = [
       "ids": userIDs.joined(separator: ","),
+      Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: fields.map(\.rawValue).joined(separator: ",")
     ]
         
@@ -71,6 +74,7 @@ extension Sweet {
     
     let queries = [
       "usernames": screenIDs.joined(separator: ","),
+      Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: fields.map(\.rawValue).joined(separator: ",")
     ]
     
@@ -89,6 +93,7 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/users/me")!
     
     let queries = [
+      Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: fields.map(\.rawValue).joined(separator: ",")
     ]
     
