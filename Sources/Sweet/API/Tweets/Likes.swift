@@ -32,13 +32,14 @@ extension Sweet {
   }
   
   public func fetchLikedTweet(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                              tweetFields: [TweetField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                              tweetFields: [TweetField] = [], userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
     
     let queries: [String: String?] = [
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),

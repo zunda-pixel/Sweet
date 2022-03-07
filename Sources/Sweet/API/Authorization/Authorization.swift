@@ -29,6 +29,7 @@ extension Sweet {
       "Authorization": "Bearer \(bearerToken)",
        "Content-type": "application/json"
     ]
+    
     return headers
   }
 }

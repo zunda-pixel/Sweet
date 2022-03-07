@@ -18,7 +18,8 @@ extension Sweet {
                                 startTime: Date? = nil, endTime: Date? = nil,
                                 untilID: String? = nil, sinceID: String? = nil,
                                 sortOrder: SortOrder? = nil, nextToken: String? = nil,
-                                tweetFields: [TweetField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                                tweetFields: [TweetField] = [], userFields: [UserField] = [],
+                                mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/recent")!
@@ -31,6 +32,7 @@ extension Sweet {
       "next_token": nextToken,
       "sort_order": sortOrder?.rawValue,
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
@@ -60,7 +62,8 @@ extension Sweet {
                           startTime: Date? = nil, endTime: Date? = nil,
                           untilID: String? = nil, sinceID: String? = nil,
                           sortOrder: SortOrder? = nil, nextToken: String? = nil,
-                          tweetFields: [TweetField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                          tweetFields: [TweetField] = [], userFields: [UserField] = [],
+                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
     // This endpoint is only available for Academic Research access.
     
@@ -74,6 +77,7 @@ extension Sweet {
       "next_token": nextToken,
       "sort_order": sortOrder?.rawValue,
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
