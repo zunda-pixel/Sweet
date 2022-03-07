@@ -9,17 +9,17 @@ import Foundation
 import HTTPClient
 
 public struct PostTweetModel: Encodable {
-  let text: String?
-  let directMessageDeepLink: URL?
-  let forSuperFollowersOnly: Bool
-  let geo: GeoModel?
-  let media: PostMediaModel?
-  let poll: SendPollModel?
-  let quoteTweetID: String?
-  let reply: ReplyModel?
-  let replySettings: ReplyOption?
+  public let text: String?
+  public let directMessageDeepLink: URL?
+  public let forSuperFollowersOnly: Bool
+  public let geo: GeoModel?
+  public let media: PostMediaModel?
+  public let poll: SendPollModel?
+  public let quoteTweetID: String?
+  public let reply: ReplyModel?
+  public let replySettings: ReplyOption?
   
-  init(text: String? = nil, direcrMessageDeepLink: URL? = nil, forSuperFollowersOnly: Bool = false,
+  public init(text: String? = nil, direcrMessageDeepLink: URL? = nil, forSuperFollowersOnly: Bool = false,
        geo: GeoModel? = nil, media: PostMediaModel? = nil, poll: SendPollModel? = nil, quoteTweetID: String? = nil,
        reply: ReplyModel? = nil, replySettings: ReplyOption? = nil) {
     self.text = text

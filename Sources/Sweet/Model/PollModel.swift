@@ -8,11 +8,11 @@
 import Foundation
 
 public struct PollModel {
-  let id: String
-  let votingStatus: PollStatus
-  let endDateTime: Date
-  let durationMinutes: Int
-  let options: [PollItem]
+  public let id: String
+  public let votingStatus: PollStatus
+  public let endDateTime: Date
+  public let durationMinutes: Int
+  public let options: [PollItem]
   
   public init(id: String, votingStatus: PollStatus, endDateTime: Date, durationMinutes: Int, options: [PollItem]) {
     self.id = id
