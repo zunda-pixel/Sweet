@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  WithheldModel.swift
 //  
 //
 //  Created by zunda on 2022/02/08.
@@ -11,6 +11,12 @@ public struct WithheldModel {
   public let copyright: Bool
   public let countryCodes: [String]
   public let scope: WithheldScope
+  
+  public init(copyright: Bool, countryCodes: [String], scope: WithheldScope) {
+    self.copyright = copyright
+    self.countryCodes = countryCodes
+    self.scope = scope
+  }
 }
 
 public enum WithheldScope: String {

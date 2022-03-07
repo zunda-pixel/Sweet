@@ -10,6 +10,11 @@ import Foundation
 public struct PlaceModel {
   let name: String
   let id: String
+  
+  public init(name: String, id: String) {
+    self.name = name
+    self.id = id
+  }
 }
 
 extension PlaceModel: Decodable {

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  AttachmentsModel.swift
 //  
 //
 //  Created by zunda on 2022/02/08.
@@ -10,6 +10,11 @@ import Foundation
 public struct AttachmentsModel {
   let mediaKeys: [String]?
   let pollID: String?
+  
+  public init(mediaKeys: [String]? = nil, pollID: String? = nil) {
+    self.mediaKeys = mediaKeys
+    self.pollID = pollID
+  }
 }
 
 extension AttachmentsModel: Decodable {
