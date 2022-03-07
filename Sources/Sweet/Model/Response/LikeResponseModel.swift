@@ -10,6 +10,10 @@ import Foundation
 public struct LikeResponseModel: Decodable {
   public let liked: Bool
   
+  public init(liked: Bool) {
+    self.liked = liked
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

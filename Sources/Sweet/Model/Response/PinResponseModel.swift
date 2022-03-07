@@ -10,6 +10,10 @@ import Foundation
 public struct PinResponseModel: Decodable {
   public let pinned: Bool
   
+  public init(pinned: Bool) {
+    self.pinned = pinned
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

@@ -10,6 +10,10 @@ import Foundation
 public struct DeleteResponseModel: Decodable {
   public let deleted: Bool
   
+  public init(deleted: Bool) {
+    self.deleted = deleted
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

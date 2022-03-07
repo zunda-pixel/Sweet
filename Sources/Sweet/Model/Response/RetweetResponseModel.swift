@@ -10,6 +10,10 @@ import Foundation
 public struct RetweetResponseModel: Decodable {
   public let retweeted: Bool
   
+  public init(retweeted: Bool) {
+    self.retweeted = retweeted
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

@@ -10,6 +10,10 @@ import Foundation
 public struct HideResponseModel: Decodable {
   public let hidden: Bool
   
+  public init(hidden: Bool) {
+    self.hidden = hidden
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

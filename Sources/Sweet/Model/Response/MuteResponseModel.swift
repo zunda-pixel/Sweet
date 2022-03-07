@@ -10,6 +10,10 @@ import Foundation
 public struct MuteResponseModel: Decodable {
   public let muting: Bool
 
+  public init(muting: Bool) {
+    self.muting = muting
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }
