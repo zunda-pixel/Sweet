@@ -9,10 +9,10 @@ import Foundation
 
 
 public struct UserPublicMetricsModel: Decodable {
-  let followersCount: Int
-  let followingCount: Int
-  let tweetCount: Int
-  let listedCount: Int
+  public let followersCount: Int
+  public let followingCount: Int
+  public let tweetCount: Int
+  public let listedCount: Int
   
   private enum CodingKeys: String, CodingKey {
     case followersCount = "followers_count"
