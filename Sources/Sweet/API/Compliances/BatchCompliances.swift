@@ -48,9 +48,9 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
 
     struct JobModel: Encodable {
-      let type: JobType
-      let name: String?
-      let resumable: Bool?
+      public let type: JobType
+      public let name: String?
+      public let resumable: Bool?
       
       private enum CodingKeys: String, CodingKey {
         case type
@@ -58,7 +58,7 @@ extension Sweet {
         case resumable
       }
       
-      func encode(to encoder: Encoder) throws {
+      public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type.rawValue, forKey: .type)
         if let name = name { try container.encode(name, forKey: .name) }
