@@ -8,8 +8,8 @@
 import Foundation
 
 public struct AttachmentsModel {
-  let mediaKeys: [String]?
-  let pollID: String?
+  public let mediaKeys: [String]?
+  public let pollID: String?
   
   public init(mediaKeys: [String]? = nil, pollID: String? = nil) {
     self.mediaKeys = mediaKeys

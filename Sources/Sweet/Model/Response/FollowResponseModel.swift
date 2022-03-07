@@ -11,6 +11,11 @@ public struct FollowResponseModel: Decodable {
   public let following: Bool
   public let pendingFollow: Bool
 
+  public init(following: Bool, pendingFollow: Bool) {
+    self.following = following
+    self.pendingFollow = pendingFollow
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

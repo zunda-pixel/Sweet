@@ -24,9 +24,9 @@ public struct PollModel {
 }
 
 public struct PollItem: Decodable {
-    let position: Int
-    let label: String
-    let votes: Int
+  public let position: Int
+  public let label: String
+  public let votes: Int
 }
                     
 public enum PollStatus: String {

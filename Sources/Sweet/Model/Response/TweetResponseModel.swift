@@ -47,7 +47,6 @@ public struct TweetsResponseModel: Decodable {
       }
     }
     
-    
     if let polls = try? includes.decode([PollModel].self, forKey: .polls) {
       for i in 0..<self.tweets.count {
         if let pollID = tweets[i].attachments?.pollID {

@@ -56,8 +56,7 @@ extension Sweet {
       "next_token": nextToken,
     ]
     
-    let formatter = ISO8601DateFormatter()
-    formatter.formatOptions.insert(.withFractionalSeconds)
+    let formatter = TwitterDateFormatter()
     
     if let startTime = startTime {
       queries["start_time"] = formatter.string(from: startTime)

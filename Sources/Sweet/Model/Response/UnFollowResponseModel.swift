@@ -10,6 +10,10 @@ import Foundation
 public struct UnFollowResponseModel: Decodable {
   public let following: Bool
   
+  public init(following: Bool) {
+    self.following = following
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

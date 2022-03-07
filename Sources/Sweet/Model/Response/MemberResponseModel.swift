@@ -10,6 +10,10 @@ import Foundation
 struct MemberResponseModel: Decodable {
   public let isMember: Bool
   
+  public init(isMember: Bool) {
+    self.isMember = isMember
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

@@ -8,8 +8,13 @@
 import Foundation
 
 public struct PrivateMetricsModel: Decodable {
-  let impressionCount: Int
-  let userProfilleClicks: Int
+  public let impressionCount: Int
+  public let userProfilleClicks: Int
+  
+  public init(impressionCount: Int, userProfileClicks: Int) {
+    self.impressionCount = impressionCount
+    self.userProfilleClicks = userProfileClicks
+  }
   
   private enum CodingKeys: String, CodingKey {
     case userProfilleClicks = "user_profile_clicks"

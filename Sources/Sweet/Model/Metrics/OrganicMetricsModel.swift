@@ -8,11 +8,20 @@
 import Foundation
 
 public  struct OrganicMetricsModel: Decodable {
-  let likeCount: Int
-  let userProfilleClicks: Int
-  let replyCount: Int
-  let impressionCount: Int
-  let retweetCount: Int
+  public let likeCount: Int
+  public let userProfileClicks: Int
+  public let replyCount: Int
+  public let impressionCount: Int
+  public let retweetCount: Int
+  
+  public init(likeCount: Int, userProfileClicks: Int,
+              replyCount: Int, imporessionCount: Int, retweetCount: Int) {
+    self.likeCount = likeCount
+    self.userProfileClicks = userProfileClicks
+    self.replyCount = replyCount
+    self.impressionCount = impressionCount
+    self.retweetCount = retweetCount
+  }
   
   private enum CodingKeys: String, CodingKey {
     case likeCount = "like_count"

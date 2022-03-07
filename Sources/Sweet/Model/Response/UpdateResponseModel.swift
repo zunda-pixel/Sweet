@@ -10,6 +10,10 @@ import Foundation
 public struct UpdateResponseModel: Decodable {
   public let updated: Bool
   
+  public init(updated: Bool) {
+    self.updated = updated
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

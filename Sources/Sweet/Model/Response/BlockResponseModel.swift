@@ -10,6 +10,10 @@ import Foundation
 public struct BlockResponseModel: Decodable {
   public let blocking: Bool
 
+  public init(blocking: Bool) {
+    self.blocking = blocking
+  }
+  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

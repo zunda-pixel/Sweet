@@ -67,7 +67,7 @@ public enum ReplyOption: String {
 
 
 public struct GeoModel: Codable {
-  let placeID: String
+  public let placeID: String
   
   private enum CodingKeys: String, CodingKey {
     case placeID = "place_id"
@@ -75,8 +75,8 @@ public struct GeoModel: Codable {
 }
 
 public struct SendPollModel: Encodable {
-  let options: [String]
-  let durationMinutes: Int
+  public let options: [String]
+  public let durationMinutes: Int
   
   private enum CodingKeys: String, CodingKey {
     case options
@@ -91,8 +91,8 @@ public struct SendPollModel: Encodable {
 }
 
 public struct PostMediaModel: Encodable {
-  let mediaIDs: [String]
-  let taggedUserIDs: [String]
+  public let mediaIDs: [String]
+  public let taggedUserIDs: [String]
   
   private enum CodingKeys: String, CodingKey {
     case mediaIDs = "media_ids"
@@ -107,8 +107,8 @@ public struct PostMediaModel: Encodable {
 }
 
 public struct ReplyModel: Encodable {
-  let excludeReplyUserIDs: [String]
-  let inReplyToTweetID: [String]
+  public let excludeReplyUserIDs: [String]
+  public let inReplyToTweetID: [String]
   
   private enum CodingKeys: String, CodingKey {
     case excludeReplyUserIDs = "exclude_replay_user_ids"
