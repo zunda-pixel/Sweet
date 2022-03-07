@@ -13,7 +13,8 @@ extension Sweet {
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil,
                             paginationToken: String? = nil,
-                            tweetFields: [TweetField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                            tweetFields: [TweetField] = [], userFields: [UserField] = [],
+                            mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/tweets")!
@@ -24,6 +25,7 @@ extension Sweet {
       "since_id": sinceID,
       "pagination_token": paginationToken,
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
@@ -44,7 +46,7 @@ extension Sweet {
     let headers = getBearerHeaders(type: .User)
     
     let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
-    
+        
     let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
     
     return tweetsResponseModel.tweets
@@ -54,7 +56,8 @@ extension Sweet {
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil,
                             paginationToken: String? = nil,
-                            tweetFields: [TweetField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                            tweetFields: [TweetField] = [], userFields: [UserField] = [],
+                            mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/mentions")!
@@ -65,6 +68,7 @@ extension Sweet {
       "since_id": sinceID,
       "pagination_token": paginationToken,
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),

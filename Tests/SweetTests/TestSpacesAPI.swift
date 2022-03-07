@@ -55,7 +55,7 @@ final class TestSpacesAPI: XCTestCase {
     let spaceID = "1ZkKzbpyNdeKv"
 
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.fetchSpaceTweets(spaceID: spaceID, fields: TweetField.allCases)
+    let tweets = try await sweet.fetchSpaceTweets(spaceID: spaceID, tweetFields: TweetField.allCases, userFields: UserField.allCases)
     
     tweets.forEach {
       print($0)
