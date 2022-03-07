@@ -29,9 +29,9 @@ public struct TweetModel {
   public let attachments: AttachmentsModel?
   public let promotedMerics: PromotedMetrics?
   public let withheld: WithheldModel?
-
+  
   public var medias: [MediaModel] = []
-  public var user: UserModel!
+  public var user: UserModel?
   public var place: PlaceModel?
   public var poll: PollModel?
   
@@ -40,7 +40,9 @@ public struct TweetModel {
               source: String? = nil, sensitive: Bool? = nil, geo: GeoModel? = nil,
               publicMetrics: TweetPublicMetricsModel? = nil, organicMetrics: OrganicMetricsModel? = nil,
               privateMetrics: PrivateMetricsModel? = nil, attachments: AttachmentsModel? = nil,
-              promotedMEtrics: PromotedMetrics? = nil, withheld: WithheldModel? = nil) {
+              promotedMEtrics: PromotedMetrics? = nil, withheld: WithheldModel? = nil,
+              medias: [MediaModel] = [], user: UserModel? = nil,
+              place: PlaceModel? = nil, poll: PollModel? = nil) {
     self.id = id
     self.text = text
     self.authorID = authorID
@@ -56,6 +58,10 @@ public struct TweetModel {
     self.attachments = attachments
     self.promotedMerics = promotedMEtrics
     self.withheld = withheld
+    self.medias = medias
+    self.user = user
+    self.place = place
+    self.poll = poll
   }
 }
 
