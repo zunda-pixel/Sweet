@@ -7,14 +7,18 @@
 
 import Foundation
 
-
+public enum ReplySetting: String {
+  case everyone
+  case mentionedUsers
+  case following
+}
 
 public struct TweetModel {
   public let id: String
   public let text: String
   public let authorID: String?
   public let lang: String?
-  public let replySettings: String?
+  public let replySetting: ReplySetting?
   public let createdAt: Date?
   public let source: String?
   public let sensitive: Bool?
@@ -30,6 +34,29 @@ public struct TweetModel {
   public var user: UserModel!
   public var place: PlaceModel?
   public var poll: PollModel?
+  
+  public init(id: String, text: String, authorID: String? = nil,
+              lang: String? = nil, replaySetting: ReplySetting? = nil, createdAt: Date? = nil,
+              source: String? = nil, sensitive: Bool? = nil, geo: GeoModel? = nil,
+              publicMetrics: TweetPublicMetricsModel? = nil, organicMetrics: OrganicMetricsModel? = nil,
+              privateMetrics: PrivateMetricsModel? = nil, attachments: AttachmentsModel? = nil,
+              promotedMEtrics: PromotedMetrics? = nil, withheld: WithheldModel? = nil) {
+    self.id = id
+    self.text = text
+    self.authorID = authorID
+    self.lang = lang
+    self.replySetting = replaySetting
+    self.createdAt = createdAt
+    self.source = source
+    self.sensitive = sensitive
+    self.geo = geo
+    self.publicMetrics = publicMetrics
+    self.organicMetrics = organicMetrics
+    self.privateMetrics = privateMetrics
+    self.attachments = attachments
+    self.promotedMerics = promotedMEtrics
+    self.withheld = withheld
+  }
 }
 
 extension TweetModel: Decodable {
@@ -41,7 +68,10 @@ extension TweetModel: Decodable {
     
     self.authorID = try? value.decode(String.self, forKey: .authorID)
     self.lang = try? value.decode(String.self, forKey: .lang)
-    self.replySettings = try? value.decode(String.self, forKey: .replySettings)
+    
+    let replySetting = try? value.decode(String.self, forKey: .replySettings)
+    self.replySetting = .init(rawValue: replySetting ?? "")
+    
     
     if let createdAt = try? value.decode(String.self, forKey: .createdAt) {
       self.createdAt = TwitterDateFormatter().date(from: createdAt)!

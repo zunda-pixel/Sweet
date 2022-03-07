@@ -14,6 +14,15 @@ public struct MediaModel {
   public let height: Int
   public let previewImageURL: URL?
   public let url: URL?
+  
+  public init(key: String, type: MediaType, width: Int, height: Int, previewImageURL: URL? = nil, url: URL? = nil) {
+    self.key = key
+    self.type = type
+    self.width = width
+    self.height = height
+    self.previewImageURL = previewImageURL
+    self.url = url
+  }
 }
 
 public enum MediaType: String {

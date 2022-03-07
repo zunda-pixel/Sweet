@@ -22,6 +22,20 @@ public struct ComplianceModel {
   public let downloadURL: URL
   public let createdAt: Date
   public let status: String
+  
+  public init(type: JobType, id: String, resumble: Bool, uploadURL: URL,
+              uploadExpiresAt: Date, downloadExpiresAt: Date, downloadURL: URL,
+              createAt: Date, status: String) {
+    self.type = type
+    self.id = id
+    self.resumble = resumble
+    self.uploadURL = uploadURL
+    self.uploadExpiresAt = uploadExpiresAt
+    self.downloadExpiresAt = downloadExpiresAt
+    self.downloadURL = downloadURL
+    self.createdAt = createAt
+    self.status = status
+  }
 }
 
 extension ComplianceModel: Decodable {

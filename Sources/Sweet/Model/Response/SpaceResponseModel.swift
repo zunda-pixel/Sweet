@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SpacesResponseModel.swift
 //  
 //
 //  Created by zunda on 2022/02/08.

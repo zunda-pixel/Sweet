@@ -10,9 +10,17 @@ import Foundation
 public struct PollModel {
   let id: String
   let votingStatus: PollStatus
-  let endDatetime: Date
+  let endDateTime: Date
   let durationMinutes: Int
   let options: [PollItem]
+  
+  public init(id: String, votingStatus: PollStatus, endDateTime: Date, durationMinutes: Int, options: [PollItem]) {
+    self.id = id
+    self.votingStatus = votingStatus
+    self.endDateTime = endDateTime
+    self.durationMinutes = durationMinutes
+    self.options = options
+  }
 }
 
 public struct PollItem: Decodable {
@@ -44,7 +52,7 @@ extension PollModel: Decodable {
     self.votingStatus = .init(rawValue: votingStatus)!
     
     let endDateTime = try value.decode(String.self, forKey: .endDateTime)
-    self.endDatetime = TwitterDateFormatter().date(from: endDateTime)!
+    self.endDateTime = TwitterDateFormatter().date(from: endDateTime)!
     
     self.durationMinutes = try value.decode(Int.self, forKey: .durationMinutes)
     

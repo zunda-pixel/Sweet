@@ -1,5 +1,5 @@
 //
-//  File 6.swift
+//  DeleteResponseModel.swift
 //  
 //
 //  Created by zunda on 2022/02/08.
