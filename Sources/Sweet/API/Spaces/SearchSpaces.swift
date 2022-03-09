@@ -9,7 +9,8 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func searchSpaces(query: String, state: SpaceState = .all, fields: [SpaceField] =  []) async throws -> [SpaceModel] {
+  public func searchSpaces(query: String, state: SpaceState = .all, spaceFields: [SpaceField] = [],
+                           userFields: [UserField] = [], topicFields: [TopicField] = []) async throws -> [SpaceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/search")!
@@ -17,7 +18,9 @@ extension Sweet {
     let queries = [
       "query": query,
       "state": state.rawValue,
-      SpaceField.key: fields.map(\.rawValue).joined(separator: ",")
+      SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
     ]
     
     let headers = getBearerHeaders(type: .User)

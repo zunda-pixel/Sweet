@@ -10,7 +10,8 @@ import HTTPClient
 
 extension Sweet {
   public func fetchLikingTweetUser(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                                   userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [UserModel] {
+                                   userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = [],
+                                   placeFields: [PlaceField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
@@ -18,7 +19,11 @@ extension Sweet {
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
+      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
+      MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
+      PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
     ].filter { $0.value != nil }
     
@@ -32,7 +37,8 @@ extension Sweet {
   }
   
   public func fetchLikedTweet(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                              tweetFields: [TweetField] = [], userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                              tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
+                              mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
@@ -40,6 +46,7 @@ extension Sweet {
     let queries: [String: String?] = [
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
@@ -74,7 +81,7 @@ extension Sweet {
   }
   
   public func unLike(userID: String, tweetID: String) async throws -> Bool {
-    ///https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
+    // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes/\(tweetID)")!
 

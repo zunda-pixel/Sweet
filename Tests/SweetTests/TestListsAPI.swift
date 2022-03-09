@@ -35,7 +35,7 @@ final class TestListsAPI: XCTestCase {
     let listID = "900944005042585602"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchFollowedUsers(listID: listID, fields: UserField.allCases)
+    let users = try await sweet.fetchFollowedUsers(listID: listID, userFields: UserField.allCases)
     
     users.forEach {
       print($0)
@@ -46,7 +46,7 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let lists = try await sweet.fetchFollowingLists(userID: userID, fields: ListField.allCases)
+    let lists = try await sweet.fetchFollowingLists(userID: userID, listFields: ListField.allCases)
     
     lists.forEach {
       print($0)
@@ -77,7 +77,7 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let lists = try await sweet.fetchAddedLists(userID: userID, fields: ListField.allCases)
+    let lists = try await sweet.fetchAddedLists(userID: userID, listFields: ListField.allCases)
     
     lists.forEach {
       print($0)
@@ -88,7 +88,7 @@ final class TestListsAPI: XCTestCase {
     let listID = "1463289657190404097"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchAddedUsersToList(listID: listID, fields: UserField.allCases)
+    let users = try await sweet.fetchAddedUsersToList(listID: listID, userFields: UserField.allCases)
     
     users.forEach {
       print($0)
@@ -99,7 +99,7 @@ final class TestListsAPI: XCTestCase {
     let listID = "1463289657190404097"
     
     let sweet = Sweet.sweetForTest()
-    let list = try await sweet.fetchList(listID: listID, fields: ListField.allCases)
+    let list = try await sweet.fetchList(listID: listID, listFields: ListField.allCases)
     
     print(list)
   }
@@ -108,7 +108,7 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let lists = try await sweet.fetchOwnedLists(userID: userID, fields: ListField.allCases)
+    let lists = try await sweet.fetchOwnedLists(userID: userID, listFields: ListField.allCases)
     
     lists.forEach {
       print($0)
@@ -180,7 +180,7 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let lists = try await sweet.fetchPinnedLists(userID: userID, fields: ListField.allCases)
+    let lists = try await sweet.fetchPinnedLists(userID: userID, listFields: ListField.allCases)
     
     lists.forEach {
       print($0)
