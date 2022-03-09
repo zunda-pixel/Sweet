@@ -9,14 +9,15 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func lookUpUser(userID: String, fields: [UserField] = []) async throws -> UserModel {
+  public func lookUpUser(userID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserModel {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id
     
     let url: URL =  .init(string: "https://api.twitter.com/2/users/\(userID)")!
     
     let queries: [String: String?] = [
       Expansion.key: allUserExpansion.joined(separator: ","),
-      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .User)
@@ -28,14 +29,15 @@ extension Sweet {
     return userResponseModel.user
   }
   
-  public func lookUpUser(screenID: String, fields: [UserField] = []) async throws -> UserModel {
+  public func lookUpUser(screenID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserModel {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/by/username/\(screenID)")!
     
     let queries: [String: String?] = [
       Expansion.key: allUserExpansion.joined(separator: ","),
-      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .User)
@@ -47,7 +49,7 @@ extension Sweet {
     return userResponseModel.user
   }
   
-  public func lookUpUsers(userIDs: [String], fields: [UserField] = []) async throws -> [UserModel] {
+  public func lookUpUsers(userIDs: [String], userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
     
     let url: URL = .init(string:"https://api.twitter.com/2/users")!
@@ -55,7 +57,8 @@ extension Sweet {
     let queries = [
       "ids": userIDs.joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
-      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ]
         
     let headers = getBearerHeaders(type: .User)
@@ -67,7 +70,7 @@ extension Sweet {
     return usersResponseModel.users
   }
   
-  public func lookUpUsers(screenIDs: [String], fields: [UserField] = []) async throws -> [UserModel] {
+  public func lookUpUsers(screenIDs: [String], userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/by")!
@@ -75,7 +78,8 @@ extension Sweet {
     let queries = [
       "usernames": screenIDs.joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
-      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ]
     
     let headers = getBearerHeaders(type: .User)
@@ -87,14 +91,15 @@ extension Sweet {
     return usersResponseModel.users
   }
   
-  public func lookUpMe(fields: [UserField] = []) async throws -> UserModel {
+  public func lookUpMe(userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserModel {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/me")!
     
     let queries = [
       Expansion.key: allUserExpansion.joined(separator: ","),
-      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ]
     
     let headers = getBearerHeaders(type: .User)

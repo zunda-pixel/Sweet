@@ -8,12 +8,17 @@
 import Foundation
 import HTTPClient
 
+public enum TweetExclude: String {
+  case retweets
+  case replies
+}
+
 extension Sweet {
   public func fetchTimeLine(by userID: String, maxResults: Int = 10,
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil,
-                            paginationToken: String? = nil,
-                            tweetFields: [TweetField] = [], userFields: [UserField] = [],
+                            paginationToken: String? = nil, exclude: TweetExclude? = nil,
+                            tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
                             mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
     
@@ -24,8 +29,10 @@ extension Sweet {
       "until_id": untilID,
       "since_id": sinceID,
       "pagination_token": paginationToken,
+      "exclude": exclude?.rawValue,
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
@@ -56,7 +63,7 @@ extension Sweet {
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil,
                             paginationToken: String? = nil,
-                            tweetFields: [TweetField] = [], userFields: [UserField] = [],
+                            tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
                             mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
     
@@ -69,6 +76,7 @@ extension Sweet {
       "pagination_token": paginationToken,
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),

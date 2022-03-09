@@ -40,7 +40,8 @@ extension Sweet {
     return unFollowResponseModel.following
   }
 
-  public func fetchFollowedUsers(listID: String, maxResults: Int = 100, paginationToken: String? = nil, fields: [UserField] = []) async throws -> [UserModel] {
+  public func fetchFollowedUsers(listID: String, maxResults: Int = 100, paginationToken: String? = nil,
+                                 userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/followers")!
@@ -48,7 +49,8 @@ extension Sweet {
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-      UserField.key: fields.map(\.rawValue).joined(separator: ",")
+      UserField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil }
 
     let headers = getBearerHeaders(type: .User)
@@ -60,7 +62,8 @@ extension Sweet {
     return usersResponseModel.users
   }
 
-  public func fetchFollowingLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil, fields: [ListField] = []) async throws -> [ListModel] {
+  public func fetchFollowingLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil,
+                                  listFields: [ListField] = [], userFields: [UserField] = []) async throws -> [ListModel] {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!
@@ -68,7 +71,8 @@ extension Sweet {
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-      ListField.key: fields.map(\.rawValue).joined(separator: ","),
+      ListField.key: listFields.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil }
     
     let headers = getBearerHeaders(type: .User)

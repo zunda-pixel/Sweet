@@ -18,7 +18,7 @@ extension Sweet {
                                 startTime: Date? = nil, endTime: Date? = nil,
                                 untilID: String? = nil, sinceID: String? = nil,
                                 sortOrder: SortOrder? = nil, nextToken: String? = nil,
-                                tweetFields: [TweetField] = [], userFields: [UserField] = [],
+                                tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
                                 mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     
@@ -33,6 +33,7 @@ extension Sweet {
       "sort_order": sortOrder?.rawValue,
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
@@ -63,7 +64,7 @@ extension Sweet {
                           startTime: Date? = nil, endTime: Date? = nil,
                           untilID: String? = nil, sinceID: String? = nil,
                           sortOrder: SortOrder? = nil, nextToken: String? = nil,
-                          tweetFields: [TweetField] = [], userFields: [UserField] = [],
+                          tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
                           mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
     // This endpoint is only available for Academic Research access.
@@ -79,6 +80,7 @@ extension Sweet {
       "sort_order": sortOrder?.rawValue,
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),

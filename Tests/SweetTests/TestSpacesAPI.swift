@@ -13,7 +13,7 @@ final class TestSpacesAPI: XCTestCase {
     let spaceID = "1PlKQazYdOqKE"
     
     let sweet = Sweet.sweetForTest()
-    let space = try await sweet.fetchSpace(spaceID: spaceID, fields: SpaceField.allCases)
+    let space = try await sweet.fetchSpace(spaceID: spaceID, spaceFields: SpaceField.allCases)
     
     print(space)
   }
@@ -22,7 +22,7 @@ final class TestSpacesAPI: XCTestCase {
     let spaceIDs = ["1PlKQazYdOqKE"]
     
     let sweet = Sweet.sweetForTest()
-    let spaces = try await sweet.fetchSpaces(spaceIDs: spaceIDs, fields: SpaceField.allCases)
+    let spaces = try await sweet.fetchSpaces(spaceIDs: spaceIDs, spaceFields: SpaceField.allCases)
     
     spaces.forEach {
       print($0)
@@ -33,7 +33,7 @@ final class TestSpacesAPI: XCTestCase {
     let userIDs = ["1048032521361866752"]
     
     let sweet = Sweet.sweetForTest()
-    let spaces = try await sweet.fetchSpaces(creatorIDs: userIDs, fields: SpaceField.allCases)
+    let spaces = try await sweet.fetchSpaces(creatorIDs: userIDs, spaceFields: SpaceField.allCases)
     
     spaces.forEach {
       print($0)
@@ -44,7 +44,7 @@ final class TestSpacesAPI: XCTestCase {
     let spaceID = "1yNGaYRDnqXGj"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchSpaceBuyers(spaceID: spaceID, fields: UserField.allCases)
+    let users = try await sweet.fetchSpaceBuyers(spaceID: spaceID, userFields: UserField.allCases)
     
     users.forEach {
       print($0)
@@ -66,7 +66,7 @@ final class TestSpacesAPI: XCTestCase {
     let query = "円"
     
     let sweet = Sweet.sweetForTest()
-    let spaces = try await sweet.searchSpaces(query: query, fields: SpaceField.allCases)
+    let spaces = try await sweet.searchSpaces(query: query, spaceFields: SpaceField.allCases)
     
     spaces.forEach {
       print($0)
