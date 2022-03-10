@@ -25,7 +25,7 @@ public struct TweetsResponseModel: Decodable {
     
     if let medias = try? includes.decode([MediaModel].self, forKey: .media) {
       for media in medias {
-        if let index = self.tweets.firstIndex(where: { $0.attachments?.mediaKeys?.contains(media.key) ?? false }) {
+        if let index = self.tweets.firstIndex(where: { $0.attachments?.mediaKeys.contains(media.key) ?? false }) {
           self.tweets[index].medias.append(media)
         }
       }

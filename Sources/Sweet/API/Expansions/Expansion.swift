@@ -11,7 +11,7 @@ public struct Expansion {
 
 extension Sweet {
   var allTweetExpansion: [String] {
-    let allExpansions: [String] = tweetExpansions.map(\.rawValue) + pollExpansions.map(\.rawValue) + mediaExpansions.map(\.rawValue)
+    let allExpansions: [String] = tweetExpansions.map(\.rawValue) + pollExpansions.map(\.rawValue) + mediaExpansions.map(\.rawValue) + placeExpansions.map(\.rawValue)
     return allExpansions
   }
   
@@ -19,5 +19,4 @@ extension Sweet {
     let allExpansions: [String] = userExpansions.map(\.rawValue)
     return allExpansions
   }
-
 }

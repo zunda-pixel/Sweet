@@ -8,10 +8,10 @@
 import Foundation
 
 public struct AttachmentsModel {
-  public let mediaKeys: [String]?
+  public let mediaKeys: [String]
   public let pollID: String?
   
-  public init(mediaKeys: [String]? = nil, pollID: String? = nil) {
+  public init(mediaKeys: [String] = [], pollID: String? = nil) {
     self.mediaKeys = mediaKeys
     self.pollID = pollID
   }
@@ -26,7 +26,8 @@ extension AttachmentsModel: Decodable {
   public init(from decoder: Decoder) throws {
     let value = try decoder.container(keyedBy: CodingKeys.self)
     
-    self.mediaKeys = try value.decode([String].self, forKey: .mediaKeys)
+    let mediaKeys = try? value.decode([String].self, forKey: .mediaKeys)
+    self.mediaKeys = mediaKeys ?? []
     
     let pollIDs = try? value.decode([String].self, forKey: .pollIDs)
     self.pollID = pollIDs?.first
