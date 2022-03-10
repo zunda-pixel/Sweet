@@ -13,6 +13,7 @@ public struct Sweet {
   public var userExpansions: [UserExpansion] = UserExpansion.allCases
   public var mediaExpansions: [MediaExpansion] = MediaExpansion.allCases
   public var pollExpansions: [PollExpansion] = PollExpansion.allCases
+  public var placeExpansions: [PlaceExpansion] = PlaceExpansion.allCases
   
   public init(app bearerTokenApp: String, user bearerTokenUser: String) {
     self.bearerTokenApp = bearerTokenApp
