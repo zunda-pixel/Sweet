@@ -9,14 +9,24 @@ import Foundation
 
 public struct TweetsResponseModel: Decodable {
   public var tweets: [TweetModel]
+  public let meta: MetaModel
   
   private enum CodingKeys: String, CodingKey {
     case tweets = "data"
     case includes
+    case meta
   }
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+    
+    self.meta = try values.decode(MetaModel.self, forKey: .meta)
+    
+    if meta.resultCount == 0 {
+      self.tweets = []
+      return
+    }
+    
     self.tweets = try values.decode([TweetModel].self, forKey: .tweets)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetIncludesCodingKeys.self, forKey: .includes) else {
@@ -75,6 +85,7 @@ struct TweetResponseModel: Decodable {
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+        
     self.tweet = try values.decode(TweetModel.self, forKey: .tweet)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetIncludesCodingKeys.self, forKey: .includes) else {
@@ -84,8 +95,8 @@ struct TweetResponseModel: Decodable {
     let medias = try? includes.decode([MediaModel].self, forKey: .media)
     self.tweet.medias = medias ?? []
     
-    if let users = try? includes.decode([UserModel].self, forKey: .users) {
-      self.tweet.user = users.first!
+    if let user = try? includes.decode([UserModel].self, forKey: .users).first {
+      self.tweet.user = user
     }
     
     if let places = try? includes.decode([PlaceModel].self, forKey: .places) {
