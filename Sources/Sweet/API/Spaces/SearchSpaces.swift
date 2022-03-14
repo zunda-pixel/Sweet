@@ -12,7 +12,7 @@ extension Sweet {
   public func searchSpaces(query: String, state: SpaceState = .all, spaceFields: [SpaceField] = [],
                            userFields: [UserField] = [], topicFields: [TopicField] = []) async throws -> [SpaceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
-
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/search")!
     
     let queries = [
@@ -25,11 +25,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
-    let spacesResponseModel = try JSONDecoder().decode(SpacesResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return spacesResponseModel.spaces
+    if let response = try? JSONDecoder().decode(SpacesResponseModel.self, from: data) {
+      return response.spaces
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
 

@@ -19,7 +19,7 @@ extension Sweet {
                                 untilID: String? = nil, sinceID: String? = nil,
                                 sortOrder: SortOrder? = nil, nextToken: String? = nil,
                                 tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                                mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                                mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/recent")!
@@ -40,7 +40,7 @@ extension Sweet {
     ]
     
     let formatter = TwitterDateFormatter()
-
+    
     if let startTime = startTime {
       queries["start_time"] = formatter.string(from: startTime)
     }
@@ -50,14 +50,20 @@ extension Sweet {
     }
     
     let removedNilValueQueries: [String: String?] = queries.filter { $0.value != nil }
-        
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
-            
-    let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
-    return tweetsResponseModel.tweets
+    if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
+      return (response.tweets, response.meta)
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func searchTweet(by query: String, maxResults: Int = 10,
@@ -65,7 +71,7 @@ extension Sweet {
                           untilID: String? = nil, sinceID: String? = nil,
                           sortOrder: SortOrder? = nil, nextToken: String? = nil,
                           tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
     // This endpoint is only available for Academic Research access.
     
@@ -85,7 +91,7 @@ extension Sweet {
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
     ]
-     
+    
     let formatter = TwitterDateFormatter()
     
     if let startTime = startTime {
@@ -100,10 +106,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
-    let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
+      
+      return (response.tweets, response.meta)
+    }
     
-    return tweetsResponseModel.tweets
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

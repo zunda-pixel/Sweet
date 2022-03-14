@@ -20,11 +20,18 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+		let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
         
-		let listResponseModel = try JSONDecoder().decode(ListResponseModel.self, from: data)
-		
-		return listResponseModel.list
+    if let response = try? JSONDecoder().decode(ListResponseModel.self, from: data) {
+      return response.list
+    }
+		    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+          throw TwitterError.invalidRequest(error: response)
+        }
+        
+        throw TwitterError.unknwon(data: data, response: urlResponse)
+
 	}
 
   public func updateList(listID: String, name: String? = nil, description: String? = nil, isPrivate: Bool? = false) async throws -> Bool {
@@ -37,11 +44,17 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.put(url: url, body: bodyData, headers: headers)
+		let (data, urlResponse) = try await HTTPClient.put(url: url, body: bodyData, headers: headers)
 						
-		let updateResponseModel = try JSONDecoder().decode(UpdateResponseModel.self, from: data)
-		
-		return updateResponseModel.updated
+    if let response = try? JSONDecoder().decode(UpdateResponseModel.self, from: data) {
+      return response.updated
+    }
+		    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+          throw TwitterError.invalidRequest(error: response)
+        }
+        
+        throw TwitterError.unknwon(data: data, response: urlResponse)
 	}
 
   public func deleteList(by listID: String) async throws -> Bool {
@@ -51,10 +64,16 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
+		let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
 						
-		let deleteResponseModel = try JSONDecoder().decode(DeleteResponseModel.self, from: data)
-		
-		return deleteResponseModel.deleted
+    if let response = try? JSONDecoder().decode(DeleteResponseModel.self, from: data) {
+      return response.deleted
+    }
+		    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+          throw TwitterError.invalidRequest(error: response)
+        }
+        
+        throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

@@ -13,21 +13,27 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
-        
+    
     let queries: [String: String?] = [
       "type": type.rawValue,
       "status": status?.rawValue,
     ].filter { $0.value != nil }
-
+    
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
-    let compliancesResponseModel = try JSONDecoder().decode(CompliancesResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return compliancesResponseModel.compliances
+    if let response = try? JSONDecoder().decode(CompliancesResponseModel.self, from: data) {
+      return response.compliances
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
-
+  
   public func fetchCompliance(jobID: String) async throws -> ComplianceModel {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
     
@@ -35,18 +41,24 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
-        
-    let complianceResponseModel = try JSONDecoder().decode(ComplianceResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers)
     
-    return complianceResponseModel.compliance
+    if let response = try? JSONDecoder().decode(ComplianceResponseModel.self, from: data) {
+      return response.compliance
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
-
+  
   public func createCompliance(type: JobType, name: String? = nil, resumable: Bool? = nil) async throws -> ComplianceModel {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/post-compliance-jobs
-
+    
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
-
+    
     struct JobModel: Encodable {
       public let type: JobType
       public let name: String?
@@ -65,18 +77,24 @@ extension Sweet {
         if let resumable = resumable { try container.encode(resumable, forKey: .resumable) }
       }
     }
-
+    
     let jobModel: JobModel = .init(type: type, name: name, resumable: resumable)
-
+    
     let body = try JSONEncoder().encode(jobModel)
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.post(url: url, body: body, headers: headers)
-        
-    let complianceResponseModel = try JSONDecoder().decode(ComplianceResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.post(url: url, body: body, headers: headers)
     
-    return complianceResponseModel.compliance
+    if let response = try? JSONDecoder().decode(ComplianceResponseModel.self, from: data) {
+      return response.compliance
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
 

@@ -37,11 +37,18 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
-    let countTweetResponseModel = try JSONDecoder().decode(CountTweetResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(CountTweetResponseModel.self, from: data) {
+      
+      return response.countTweetModels
+    }
     
-    return countTweetResponseModel.countTweetModels
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func fetchCountTweet(by query: String, nextToken: String? = nil,
@@ -74,11 +81,18 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
-        
-    let countTweetResponseModel = try JSONDecoder().decode(CountTweetResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
-    return countTweetResponseModel.countTweetModels
+    if let response = try? JSONDecoder().decode(CountTweetResponseModel.self, from: data) {
+      
+      return response.countTweetModels
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
 

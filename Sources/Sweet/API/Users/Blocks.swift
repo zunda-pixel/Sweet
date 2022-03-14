@@ -25,11 +25,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
-    let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return response.users
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func blockUser(from fromUserID: String, to toUserID: String) async throws -> Bool {
@@ -42,24 +48,37 @@ extension Sweet {
     let body = ["target_user_id": toUserID]
     let bodyData = try JSONEncoder().encode(body)
     
-    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
-    let blockResponseModel = try JSONDecoder().decode(BlockResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(BlockResponseModel.self, from: data) {
+      
+      return response.blocking
+    }
     
-    return blockResponseModel.blocking
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func unBlockUser(from fromUserID: String, to toUserID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/blocking/\(toUserID)")!
-        
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
-    let blockResponseModel = try JSONDecoder().decode(BlockResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(BlockResponseModel.self, from: data) {
+      return response.blocking
+    }
     
-    return blockResponseModel.blocking
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
