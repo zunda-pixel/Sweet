@@ -33,6 +33,7 @@ public struct TweetModel {
   public let withheld: WithheldModel?
   public let contextAnnotations: [ContextAnnotationModel]
   public let entity: EntityModel?
+  public let referencedTweet: ReferencedTweetModel?
   
   public var medias: [MediaModel] = []
   public var user: UserModel?
@@ -46,7 +47,7 @@ public struct TweetModel {
               publicMetrics: TweetPublicMetricsModel? = nil, organicMetrics: OrganicMetricsModel? = nil,
               privateMetrics: PrivateMetricsModel? = nil, attachments: AttachmentsModel? = nil,
               promotedMEtrics: PromotedMetrics? = nil, withheld: WithheldModel? = nil,
-              medias: [MediaModel] = [], user: UserModel? = nil,
+              medias: [MediaModel] = [], user: UserModel? = nil, referencedTweet: ReferencedTweetModel? = nil,
               place: PlaceModel? = nil, poll: PollModel? = nil) {
     self.id = id
     self.text = text
@@ -71,6 +72,7 @@ public struct TweetModel {
     self.user = user
     self.place = place
     self.poll = poll
+    self.referencedTweet = referencedTweet
   }
 }
 
@@ -111,5 +113,8 @@ extension TweetModel: Decodable {
     self.contextAnnotations = contextAnnotations ?? []
     
     self.entity = try? value.decode(EntityModel.self, forKey: .entities)
+    
+    let referencedTweets = try? value.decode([ReferencedTweetModel].self, forKey: .referencedTweets)
+    self.referencedTweet = referencedTweets?.first
   }
 }
