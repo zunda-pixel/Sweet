@@ -13,17 +13,24 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/following")!
-        
+    
     let headers = getBearerHeaders(type: .User)
     
     let body = ["target_user_id": toUserID]
     let bodyData = try JSONEncoder().encode(body)
     
-    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
-    let followingModel = try JSONDecoder().decode(FollowResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(FollowResponseModel.self, from: data) {
+      
+      return (response.following, response.pendingFollow)
+    }
     
-    return (followingModel.following, followingModel.pendingFollow)
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func unFollow(from fromUserID: String, to toUserID: String) async throws -> Bool {
@@ -33,11 +40,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
-    let unFollowingModel = try JSONDecoder().decode(UnFollowResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(UnFollowResponseModel.self, from: data) {
+      return response.following
+    }
     
-    return unFollowingModel.following
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func fetchFolloing(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
@@ -56,11 +69,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
-      
-    return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return response.users
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func fetchFollower(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
@@ -79,10 +98,16 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return response.users
+    }
     
-    return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

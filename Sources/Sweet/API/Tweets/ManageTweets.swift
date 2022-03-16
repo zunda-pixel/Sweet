@@ -13,30 +13,42 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
-        
+    
     let headers = getBearerHeaders(type: .User)
     
     let bodyData = try JSONEncoder().encode(postTweetModel)
-        
-    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
-        
-    let tweetResponseModel = try JSONDecoder().decode(TweetResponseModel.self, from: data)
-  
-    return tweetResponseModel.tweet
+    
+    let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+    
+    if let response = try? JSONDecoder().decode(TweetResponseModel.self, from: data) {
+      return response.tweet
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func deleteTweet(by id: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/delete-tweets-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(id)")!
-        
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
-    let deleteResponseModel = try JSONDecoder().decode(DeleteResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(DeleteResponseModel.self, from: data) {
+      return response.deleted
+    }
     
-    return deleteResponseModel.deleted
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
 
@@ -52,8 +64,8 @@ public struct PostTweetModel: Encodable {
   public let replySettings: ReplyOption?
   
   public init(text: String? = nil, direcrMessageDeepLink: URL? = nil, forSuperFollowersOnly: Bool = false,
-       geo: GeoModel? = nil, media: PostMediaModel? = nil, poll: SendPollModel? = nil, quoteTweetID: String? = nil,
-       reply: ReplyModel? = nil, replySettings: ReplyOption? = nil) {
+              geo: GeoModel? = nil, media: PostMediaModel? = nil, poll: SendPollModel? = nil, quoteTweetID: String? = nil,
+              reply: ReplyModel? = nil, replySettings: ReplyOption? = nil) {
     self.text = text
     self.directMessageDeepLink = direcrMessageDeepLink
     self.forSuperFollowersOnly = forSuperFollowersOnly

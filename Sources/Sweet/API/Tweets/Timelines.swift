@@ -19,7 +19,7 @@ extension Sweet {
                             untilID: String? = nil, sinceID: String? = nil,
                             paginationToken: String? = nil, exclude: TweetExclude? = nil,
                             tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                            mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                            mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/tweets")!
@@ -52,11 +52,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
-        
-    let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
-    return tweetsResponseModel.tweets
+    if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
+      return (response.tweets, response.meta)
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func fetchMentions(by userID: String, maxResults: Int = 10,
@@ -64,7 +70,7 @@ extension Sweet {
                             untilID: String? = nil, sinceID: String? = nil,
                             paginationToken: String? = nil,
                             tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                            mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                            mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/mentions")!
@@ -96,10 +102,16 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
-    let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
+      return (response.tweets, response.meta)
+    }
     
-    return tweetsResponseModel.tweets
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

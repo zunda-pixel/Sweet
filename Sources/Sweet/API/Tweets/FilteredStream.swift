@@ -13,7 +13,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
-        
+    
     var quries: [String: String?] = [:]
     
     if let ids = ids {
@@ -22,11 +22,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers)
     
-    let streamRuleResponseModel = try JSONDecoder().decode(StreamRuleResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(StreamRuleResponseModel.self, from: data) {
+      return response.streamRules
+    }
     
-    return streamRuleResponseModel.streamRules
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil,
@@ -73,11 +79,17 @@ extension Sweet {
     
     let bodyData = try JSONEncoder().encode(body)
     
-    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers, queries: queries)
     
-    let streamRuleResponseModel = try JSONDecoder().decode(StreamRuleResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(StreamRuleResponseModel.self, from: data) {
+      return response.streamRules.first!
+    }
     
-    return streamRuleResponseModel.streamRules.first!
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func deleteStreamRule(ids: [String], dryRun: Bool = false) async throws {

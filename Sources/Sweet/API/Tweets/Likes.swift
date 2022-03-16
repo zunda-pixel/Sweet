@@ -15,7 +15,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
-
+    
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
@@ -29,16 +29,22 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return response.users
+    }
     
-    return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func fetchLikedTweet(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
                               tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                              mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                              mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
@@ -56,11 +62,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
-    let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return tweetsResponseModel.tweets
+    if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
+      return (response.tweets, response.meta)
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func like(userID: String, tweetID: String) async throws -> Bool {
@@ -73,24 +85,36 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
-    let likeResponseModel = try JSONDecoder().decode(LikeResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(LikeResponseModel.self, from: data) {
+      return response.liked
+    }
     
-    return likeResponseModel.liked
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func unLike(userID: String, tweetID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes/\(tweetID)")!
-
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
-    let likeResponseModel = try JSONDecoder().decode(LikeResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(LikeResponseModel.self, from: data) {
+      return response.liked
+    }
     
-    return likeResponseModel.liked
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

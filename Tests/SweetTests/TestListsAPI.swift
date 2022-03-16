@@ -119,7 +119,7 @@ final class TestListsAPI: XCTestCase {
     let listID = "1489539509792686081"
     
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.fetchListTweets(listID: listID,
+    let (tweets, meta) = try await sweet.fetchListTweets(listID: listID,
                                                  tweetFields: [.createdAt, .id, .replySettings, .geo, .text,
                                                                .attachments, .authorID, .contextAnnotations, .conversationID,
                                                                .inReplyToUserID, .entities, .lang, .possiblySensitive,
@@ -129,6 +129,8 @@ final class TestListsAPI: XCTestCase {
     tweets.forEach {
       print($0)
     }
+    
+    print(meta)
   }
   
   func testCreateList() async throws {

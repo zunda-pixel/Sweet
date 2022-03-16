@@ -29,11 +29,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-            
-    let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return response.users
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func retweet(userID: String, tweetID: String) async throws -> Bool {
@@ -43,27 +49,39 @@ extension Sweet {
     
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
-        
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
-    let retweetResponseModel  = try JSONDecoder().decode(RetweetResponseModel.self, from: data)
+    if let response  = try? JSONDecoder().decode(RetweetResponseModel.self, from: data) {
+      return response.retweeted
+    }
     
-    return retweetResponseModel.retweeted
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func deleteRetweet(userID: String, tweetID: String) async throws -> Bool {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets/\(tweetID)")!
-        
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
-    let retweetResponseModel  = try JSONDecoder().decode(RetweetResponseModel.self, from: data)
+    if let response  = try? JSONDecoder().decode(RetweetResponseModel.self, from: data) {
+      return response.retweeted
+    }
     
-    return retweetResponseModel.retweeted
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

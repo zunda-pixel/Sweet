@@ -22,11 +22,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let userResponseModel = try JSONDecoder().decode(UserResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(UserResponseModel.self, from: data) {
+      return response.user
+    }
     
-    return userResponseModel.user
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func lookUpUser(screenID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserModel {
@@ -42,11 +48,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let userResponseModel = try JSONDecoder().decode(UserResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(UserResponseModel.self, from: data) {
+      return response.user
+    }
     
-    return userResponseModel.user
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func lookUpUsers(userIDs: [String], userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
@@ -60,14 +72,20 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ]
-        
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return response.users
+    }
     
-    return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func lookUpUsers(screenIDs: [String], userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
@@ -84,11 +102,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return response.users
+    }
     
-    return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func lookUpMe(userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserModel {
@@ -104,10 +128,16 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let userResponseModel = try JSONDecoder().decode(UserResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(UserResponseModel.self, from: data) {
+      return response.user
+    }
     
-    return userResponseModel.user
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

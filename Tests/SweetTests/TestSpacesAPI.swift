@@ -55,11 +55,13 @@ final class TestSpacesAPI: XCTestCase {
     let spaceID = "1ZkKzbpyNdeKv"
 
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.fetchSpaceTweets(spaceID: spaceID, tweetFields: TweetField.allCases, userFields: UserField.allCases)
+    let (tweets, meta) = try await sweet.fetchSpaceTweets(spaceID: spaceID, tweetFields: TweetField.allCases, userFields: UserField.allCases)
     
     tweets.forEach {
       print($0)
     }
+    
+    print(meta)
   }
   
   func testSearchSpace() async throws {

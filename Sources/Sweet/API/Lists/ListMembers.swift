@@ -19,11 +19,17 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+		let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+    
+    if let response = try? JSONDecoder().decode(MemberResponseModel.self, from: data) {
+      return response.isMember
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+          throw TwitterError.invalidRequest(error: response)
+        }
         
-		let memberResponseModel = try JSONDecoder().decode(MemberResponseModel.self, from: data)
-		
-		return memberResponseModel.isMember
+        throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 
   public func deleteListMember(from listID: String, userID: String) async throws -> Bool {
@@ -33,11 +39,17 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.delete(url: url, headers: headers)
+		let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
 						
-		let memberResponseModel = try JSONDecoder().decode(MemberResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(MemberResponseModel.self, from: data) {
+      return response.isMember
+    }
 		
-		return memberResponseModel.isMember
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 
   public func fetchAddedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil,
@@ -55,11 +67,17 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+		let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let listsResponseModel = try JSONDecoder().decode(ListsResponseModel.self, from: data)
-		
-		return listsResponseModel.lists
+    if let response = try? JSONDecoder().decode(ListsResponseModel.self, from: data) {
+      return response.lists
+    }
+		    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 
   public func fetchAddedUsersToList(listID: String, maxResults: Int = 100, paginationToken: String? = nil,
@@ -77,10 +95,16 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-		let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+		let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
 						
-		let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
-		
-		return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return response.users
+    }
+		    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

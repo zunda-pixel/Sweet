@@ -11,7 +11,7 @@ import HTTPClient
 
 extension Sweet {
   public func lookUpTweets(by ids: [String], tweetFields: [TweetField] = [], userFields: [UserField] = [],
-                           mediaFields: [MediaField] = [], pollFields: [PollField] = [], placeFields: [PlaceField] = []) async throws -> [TweetModel] {
+                           mediaFields: [MediaField] = [], pollFields: [PollField] = [], placeFields: [PlaceField] = []) async throws -> ([TweetModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
@@ -28,11 +28,18 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
+      
+      return (response.tweets, response.meta)
+    }
     
-    return tweetsResponseModel.tweets
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func lookUpTweet(by id: String, tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
@@ -52,10 +59,16 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
-    let tweetResponseModel = try JSONDecoder().decode(TweetResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return tweetResponseModel.tweet
+    if let response = try? JSONDecoder().decode(TweetResponseModel.self, from: data) {
+      return response.tweet
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }

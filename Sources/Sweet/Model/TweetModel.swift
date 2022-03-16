@@ -22,6 +22,8 @@ public struct TweetModel {
   public let createdAt: Date?
   public let source: String?
   public let sensitive: Bool?
+  public let conversationID: String?
+  public let replyUserID: String?
   public let geo: GeoModel?
   public let publicMetrics: TweetPublicMetricsModel?
   public let organicMetrics: OrganicMetricsModel?
@@ -29,6 +31,9 @@ public struct TweetModel {
   public let attachments: AttachmentsModel?
   public let promotedMerics: PromotedMetrics?
   public let withheld: WithheldModel?
+  public let contextAnnotations: [ContextAnnotationModel]
+  public let entity: EntityModel?
+  public let referencedTweet: ReferencedTweetModel?
   
   public var medias: [MediaModel] = []
   public var user: UserModel?
@@ -37,11 +42,12 @@ public struct TweetModel {
   
   public init(id: String, text: String, authorID: String? = nil,
               lang: String? = nil, replaySetting: ReplySetting? = nil, createdAt: Date? = nil,
-              source: String? = nil, sensitive: Bool? = nil, geo: GeoModel? = nil,
+              source: String? = nil, sensitive: Bool? = nil, conversationID: String? = nil, entity: EntityModel? = nil,
+              replyUserID: String? = nil , contextAnnotations: [ContextAnnotationModel] = [], geo: GeoModel? = nil,
               publicMetrics: TweetPublicMetricsModel? = nil, organicMetrics: OrganicMetricsModel? = nil,
               privateMetrics: PrivateMetricsModel? = nil, attachments: AttachmentsModel? = nil,
               promotedMEtrics: PromotedMetrics? = nil, withheld: WithheldModel? = nil,
-              medias: [MediaModel] = [], user: UserModel? = nil,
+              medias: [MediaModel] = [], user: UserModel? = nil, referencedTweet: ReferencedTweetModel? = nil,
               place: PlaceModel? = nil, poll: PollModel? = nil) {
     self.id = id
     self.text = text
@@ -51,6 +57,8 @@ public struct TweetModel {
     self.createdAt = createdAt
     self.source = source
     self.sensitive = sensitive
+    self.conversationID = conversationID
+    self.replyUserID = replyUserID
     self.geo = geo
     self.publicMetrics = publicMetrics
     self.organicMetrics = organicMetrics
@@ -58,10 +66,13 @@ public struct TweetModel {
     self.attachments = attachments
     self.promotedMerics = promotedMEtrics
     self.withheld = withheld
+    self.contextAnnotations = contextAnnotations
+    self.entity = entity
     self.medias = medias
     self.user = user
     self.place = place
     self.poll = poll
+    self.referencedTweet = referencedTweet
   }
 }
 
@@ -87,7 +98,8 @@ extension TweetModel: Decodable {
 
     self.source = try? value.decode(String.self, forKey: .source)
     self.sensitive = try? value.decode(Bool.self, forKey: .possiblySensitive)
-    
+    self.conversationID = try? value.decode(String.self, forKey: .conversationID)
+    self.replyUserID = try? value.decode(String.self, forKey: .inReplyToUserID)
     self.geo = try? value.decode(GeoModel.self, forKey: .geo)
     
     self.publicMetrics = try? value.decode(TweetPublicMetricsModel.self, forKey: .publicMetrics)
@@ -96,5 +108,13 @@ extension TweetModel: Decodable {
     self.attachments = try? value.decode(AttachmentsModel.self, forKey: .attachments)
     self.promotedMerics = try? value.decode(PromotedMetrics.self, forKey: .promotedMetrics)
     self.withheld = try? value.decode(WithheldModel.self, forKey: .withheld)
+    
+    let contextAnnotations = try? value.decode([ContextAnnotationModel].self, forKey: .contextAnnotations)
+    self.contextAnnotations = contextAnnotations ?? []
+    
+    self.entity = try? value.decode(EntityModel.self, forKey: .entities)
+    
+    let referencedTweets = try? value.decode([ReferencedTweetModel].self, forKey: .referencedTweets)
+    self.referencedTweet = referencedTweets?.first
   }
 }

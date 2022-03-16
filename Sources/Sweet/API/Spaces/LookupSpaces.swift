@@ -11,7 +11,7 @@ import HTTPClient
 extension Sweet {
   public func fetchSpace(spaceID: String, spaceFields: [SpaceField] = [], topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> SpaceModel {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
-
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
     
     let queries = [
@@ -22,13 +22,19 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
-    let spaceResponseModel = try JSONDecoder().decode(SpaceResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return spaceResponseModel.space
+    if let response = try? JSONDecoder().decode(SpaceResponseModel.self, from: data) {
+      return response.space
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
-
+  
   public func fetchSpaces(spaceIDs: [String], spaceFields: [SpaceField] = [],
                           topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> [SpaceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
@@ -41,14 +47,20 @@ extension Sweet {
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ]
-
+    
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    let spacesResponseModel = try JSONDecoder().decode(SpacesResponseModel.self, from: data)
+    if let response = try? JSONDecoder().decode(SpacesResponseModel.self, from: data) {
+      return response.spaces
+    }
     
-    return spacesResponseModel.spaces
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
   public func fetchSpaces(creatorIDs: [String], spaceFields: [SpaceField] = [],
@@ -66,18 +78,24 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
-    let spacesResponseModel = try JSONDecoder().decode(SpacesResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return spacesResponseModel.spaces
+    if let response = try? JSONDecoder().decode(SpacesResponseModel.self, from: data) {
+      return response.spaces
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
-
+  
   public func fetchSpaceBuyers(spaceID: String, userFields: [UserField] = [],
                                mediaFields: [MediaField] = [], placeFields: [PlaceField] = [],
                                pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
-
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
     
     let queries: [String: String?] = [
@@ -90,17 +108,23 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-            
-    let usersResponseModel = try JSONDecoder().decode(UsersResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return usersResponseModel.users
+    if let usersResponseModel = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return usersResponseModel.users
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
-
+  
   public func fetchSpaceTweets(spaceID: String, tweetFields: [TweetField] = [], userFields: [UserField] = [],
-                               mediaFields: [MediaField] = [], placeFields: [PlaceField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                               mediaFields: [MediaField] = [], placeFields: [PlaceField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
-
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/tweets")!
     
     let queries = [
@@ -114,10 +138,16 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, _) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-        
-    let tweetsResponseModel = try JSONDecoder().decode(TweetsResponseModel.self, from: data)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    return tweetsResponseModel.tweets
+    if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
+      return (response.tweets, response.meta)
+    }
+    
+    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+      throw TwitterError.invalidRequest(error: response)
+    }
+    
+    throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
