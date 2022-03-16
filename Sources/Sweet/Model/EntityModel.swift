@@ -44,21 +44,21 @@ public struct EntityModel: Decodable {
 
 extension EntityModel {
   public struct HashtagModel: Decodable {
-    let start: Int
-    let end: Int
-    let tag: String
+    public let start: Int
+    public let end: Int
+    public let tag: String
   }
   
   public struct CashtagModel: Decodable {
-    let start: Int
-    let end: Int
-    let tag: String
+    public let start: Int
+    public let end: Int
+    public let tag: String
   }
   
   public struct MentionModel: Decodable {
-    let start: Int
-    let end: Int
-    let userName: String
+    public let start: Int
+    public let end: Int
+    public let userName: String
     
     private enum CodingKeys: String, CodingKey {
       case start
