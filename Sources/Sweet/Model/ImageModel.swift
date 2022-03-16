@@ -5,7 +5,7 @@
 //  Created by zunda on 2022/03/16.
 //
 
-import Foundation
+import SwiftUI
 
 extension EntityModel {
   public struct ImageModel: Decodable {
