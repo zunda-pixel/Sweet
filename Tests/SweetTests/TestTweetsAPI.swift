@@ -12,8 +12,8 @@ extension TweetField {
   static public var normalTweetFileds: [TweetField] {
     return [.id, .attachments, .geo, .authorID, .inReplyToUserID,
             .text, .contextAnnotations, .conversationID, .createdAt, .entities,
-            .lang, .privateMetrics, .possiblySensitive, .publicMetrics, .replySettings,
-            .withheld, .source, .referencedTweets, .organicMetrics] // promotedMetrics
+            .lang, .possiblySensitive, .publicMetrics, .replySettings,
+            .withheld, .source, .referencedTweets] // promotedMetrics
   }
   
   static public var exceptTweetFileds: [TweetField] {
