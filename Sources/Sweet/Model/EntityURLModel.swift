@@ -9,12 +9,16 @@ import Foundation
 
 extension EntityModel {
   public struct URLModel: Decodable {
-    let start: Int
-    let end: Int
-    let url: URL
-    let expandedURL: URL
-    let displayURL: URL
-    let unwoundURL: URL
+    public let start: Int
+    public let end: Int
+    public let url: URL
+    public let expandedURL: URL
+    public let displayURL: String
+    public let unwoundURL: URL
+    public let images: [ImageModel]
+    public let status: Int?
+    public let title: String?
+    public let description: String?
 
     private enum CodingKeys: String, CodingKey {
       case start
@@ -23,6 +27,10 @@ extension EntityModel {
       case expandedURL = "expanded_url"
       case displayURL = "display_url"
       case unwoundURL = "unwound_url"
+      case images
+      case status
+      case title
+      case description
     }
     
     public init(from decoder: Decoder) throws {
@@ -37,11 +45,18 @@ extension EntityModel {
       let expandedURL = try values.decode(String.self, forKey: .expandedURL)
       self.expandedURL = .init(string: expandedURL)!
       
-      let displayURL = try values.decode(String.self, forKey: .displayURL)
-      self.displayURL = .init(string: displayURL)!
+      self.displayURL = try values.decode(String.self, forKey: .displayURL)
       
       let unwoundURL = try values.decode(String.self, forKey: .unwoundURL)
       self.unwoundURL = .init(string: unwoundURL)!
+      
+      let images = try? values.decode([ImageModel].self, forKey: .images)
+      self.images = images ?? []
+      
+      self.status = try? values.decode(Int.self, forKey: .status)
+      
+      self.title = try? values.decode(String.self, forKey: .title)
+      self.description = try? values.decode(String.self, forKey: .description)
     }
   }
 }
