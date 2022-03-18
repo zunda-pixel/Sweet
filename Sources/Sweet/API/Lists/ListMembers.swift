@@ -102,7 +102,7 @@ extension Sweet {
 		let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
 						
     if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return (response.users, response.meta)
+      return (response.users, response.meta!)
     }
 		    
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

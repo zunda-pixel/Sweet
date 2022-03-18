@@ -93,7 +93,7 @@ extension Sweet {
   
   public func fetchSpaceBuyers(spaceID: String, userFields: [UserField] = [],
                                mediaFields: [MediaField] = [], placeFields: [PlaceField] = [],
-                               pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
+                               pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
@@ -111,7 +111,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return (response.users, response.meta)
+      return response.users
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -122,7 +122,7 @@ extension Sweet {
   }
   
   public func fetchSpaceTweets(spaceID: String, tweetFields: [TweetField] = [], userFields: [UserField] = [],
-                               mediaFields: [MediaField] = [], placeFields: [PlaceField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
+                               mediaFields: [MediaField] = [], placeFields: [PlaceField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/tweets")!
@@ -141,7 +141,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
-      return (response.tweets, response.meta)
+      return response.tweets
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
