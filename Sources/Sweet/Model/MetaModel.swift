@@ -7,13 +7,15 @@
 
 import Foundation
 
-public struct MetaModel: Decodable {
+public struct MetaModel {
   public let oldestID: String
   public let newestID: String
   public let resultCount: Int
   public let nextToken: String?
   public let previousToken: String?
-  
+}
+
+extension MetaModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case oldestID = "oldest_id"
     case newestID = "newest_id"

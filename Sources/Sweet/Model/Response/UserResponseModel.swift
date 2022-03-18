@@ -7,9 +7,11 @@
 
 import Foundation
 
-public struct UserResponseModel: Decodable {
+public struct UserResponseModel {
   public var user: UserModel
-  
+}
+
+extension UserResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case user = "data"
     case includes
@@ -35,9 +37,11 @@ public struct UserResponseModel: Decodable {
   }
 }
 
-public struct UsersResponseModel: Decodable {
+public struct UsersResponseModel {
   public var users: [UserModel]
-  
+}
+
+extension UsersResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case users = "data"
     case includes

@@ -7,13 +7,11 @@
 
 import Foundation
 
-public struct BlockResponseModel: Decodable {
+public struct BlockResponseModel {
   public let blocking: Bool
+}
 
-  public init(blocking: Bool) {
-    self.blocking = blocking
-  }
-  
+extension BlockResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

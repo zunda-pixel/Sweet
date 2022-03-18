@@ -7,13 +7,15 @@
 
 import Foundation
 
-public struct EntityModel: Decodable {
+public struct EntityModel {
   public let annotations: [AnnotationModel]
   public let urls: [URLModel]
   public let hashtags: [HashtagModel]
   public let mentions: [MentionModel]
   public let cashtags: [CashtagModel]
-  
+}
+
+extension EntityModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case annotations
     case urls
@@ -43,27 +45,38 @@ public struct EntityModel: Decodable {
 }
 
 extension EntityModel {
-  public struct HashtagModel: Decodable {
+  public struct HashtagModel {
     public let start: Int
     public let end: Int
     public let tag: String
   }
   
-  public struct CashtagModel: Decodable {
+  public struct CashtagModel {
     public let start: Int
     public let end: Int
     public let tag: String
   }
   
-  public struct MentionModel: Decodable {
+  public struct MentionModel {
     public let start: Int
     public let end: Int
     public let userName: String
-    
-    private enum CodingKeys: String, CodingKey {
-      case start
-      case end
-      case userName = "username"
-    }
   }
 }
+
+extension EntityModel.HashtagModel: Decodable {
+  
+}
+
+extension EntityModel.CashtagModel: Decodable {
+  
+}
+
+extension EntityModel.MentionModel: Decodable {
+  private enum CodingKeys: String, CodingKey {
+    case start
+    case end
+    case userName = "username"
+  }
+}
+  

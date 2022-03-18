@@ -7,13 +7,11 @@
 
 import Foundation
 
-public struct PinResponseModel: Decodable {
+public struct PinResponseModel {
   public let pinned: Bool
-  
-  public init(pinned: Bool) {
-    self.pinned = pinned
-  }
-  
+}
+
+extension PinResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

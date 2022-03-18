@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StreamRuleModel: Codable {
+public struct StreamRuleModel {
   public let id: String
   public let value: String
   public let tag: String?
@@ -17,7 +17,9 @@ public struct StreamRuleModel: Codable {
     self.tag = tag
     self.value = value
   }
-  
+}
+
+extension StreamRuleModel: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(value, forKey: .value)

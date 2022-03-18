@@ -13,20 +13,16 @@ public struct PollModel {
   public let endDateTime: Date
   public let durationMinutes: Int
   public let options: [PollItem]
-  
-  public init(id: String, votingStatus: PollStatus, endDateTime: Date, durationMinutes: Int, options: [PollItem]) {
-    self.id = id
-    self.votingStatus = votingStatus
-    self.endDateTime = endDateTime
-    self.durationMinutes = durationMinutes
-    self.options = options
-  }
 }
 
-public struct PollItem: Decodable {
+public struct PollItem {
   public let position: Int
   public let label: String
   public let votes: Int
+}
+
+extension PollItem: Decodable {
+  
 }
                     
 public enum PollStatus: String {

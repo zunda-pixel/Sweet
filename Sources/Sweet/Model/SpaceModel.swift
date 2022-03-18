@@ -18,22 +18,6 @@ public struct SpaceModel {
   public let startedAt: Date?
   public let updatedAt: Date?
   public let createdAt: Date?
-  
-  public init(id: String, state: SpaceState, title: String? = nil,
-              hostIDs: [String], lang: String? = nil, participantCount: Int? = nil,
-              isTicketed: Bool? = nil, startedAt: Date? = nil, updatedAt: Date? = nil,
-              createdAt: Date? = nil) {
-    self.id = id
-    self.state = state
-    self.title = title
-    self.hostIDs = hostIDs
-    self.lang = lang
-    self.participantCount = participantCount
-    self.isTicketed = isTicketed
-    self.startedAt = startedAt
-    self.updatedAt = updatedAt
-    self.createdAt = createdAt
-  }
 }
 
 extension SpaceModel: Decodable {

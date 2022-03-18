@@ -7,13 +7,11 @@
 
 import Foundation
 
-public struct DeleteResponseModel: Decodable {
+public struct DeleteResponseModel {
   public let deleted: Bool
-  
-  public init(deleted: Bool) {
-    self.deleted = deleted
-  }
-  
+}
+
+extension DeleteResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

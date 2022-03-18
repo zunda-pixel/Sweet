@@ -8,15 +8,9 @@
 import Foundation
 
 public struct WithheldModel {
-  public let copyright: Bool
+  public let copyright: Bool?
   public let countryCodes: [String]
   public let scope: WithheldScope
-  
-  public init(copyright: Bool, countryCodes: [String], scope: WithheldScope) {
-    self.copyright = copyright
-    self.countryCodes = countryCodes
-    self.scope = scope
-  }
 }
 
 public enum WithheldScope: String {
@@ -34,7 +28,7 @@ extension WithheldModel: Decodable {
   public init(from decoder: Decoder) throws {
     let value = try decoder.container(keyedBy: CodingKeys.self)
     
-    self.copyright = try value.decode(Bool.self, forKey: .copyright)
+    self.copyright = try? value.decode(Bool.self, forKey: .copyright)
     self.countryCodes = try value.decode([String].self, forKey: .countryCodes)
     
     let scope = try value.decode(String.self, forKey: .scope)

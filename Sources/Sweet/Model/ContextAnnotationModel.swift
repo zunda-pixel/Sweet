@@ -7,7 +7,13 @@
 
 import Foundation
 
-public struct ContextAnnotationModel: Decodable {
-  let domain: DomainModel
-  let entity: ContextEntityModel
+public struct ContextAnnotationModel {
+  public let domain: DomainModel
+  public let entity: ContextEntityModel
 }
+
+extension ContextAnnotationModel: Decodable {
+  
+}
+
+

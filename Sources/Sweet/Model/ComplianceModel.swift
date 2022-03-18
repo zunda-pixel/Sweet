@@ -23,21 +23,6 @@ public struct ComplianceModel {
   public let downloadURL: URL
   public let createdAt: Date
   public let status: String
-  
-  public init(type: JobType, id: String, name: String, resumble: Bool, uploadURL: URL,
-              uploadExpiresAt: Date, downloadExpiresAt: Date, downloadURL: URL,
-              createAt: Date, status: String) {
-    self.type = type
-    self.id = id
-    self.name = name
-    self.resumble = resumble
-    self.uploadURL = uploadURL
-    self.uploadExpiresAt = uploadExpiresAt
-    self.downloadExpiresAt = downloadExpiresAt
-    self.downloadURL = downloadURL
-    self.createdAt = createAt
-    self.status = status
-  }
 }
 
 extension ComplianceModel: Decodable {
@@ -60,26 +45,26 @@ extension ComplianceModel: Decodable {
     let typeRawValue = try values.decode(String.self, forKey: .type)
     self.type = .init(rawValue: typeRawValue)!
 
-    self.id = try values.decode(_.self, forKey: .id)
-    self.name = try values.decode(_.self, forKey: .name)
-    self.resumble = try values.decode(_.self, forKey: .resumable)
-    self.status = try values.decode(_.self, forKey: .status)
+    self.id = try values.decode(String.self, forKey: .id)
+    self.name = try values.decode(String.self, forKey: .name)
+    self.resumble = try values.decode(Bool.self, forKey: .resumable)
+    self.status = try values.decode(String.self, forKey: .status)
 
     let uploadURL = try values.decode(String.self, forKey: .uploadURL)
     self.uploadURL = .init(string: uploadURL)!
     
-    let downloadURL: String = try values.decode(_.self, forKey: .downloadURL)
+    let downloadURL: String = try values.decode(String.self, forKey: .downloadURL)
     self.downloadURL = .init(string: downloadURL)!
     
     let formatter = TwitterDateFormatter()
 
-    let uploadExpiresAt: String = try values.decode(_.self, forKey: .uploadExpiresAt)
+    let uploadExpiresAt: String = try values.decode(String.self, forKey: .uploadExpiresAt)
     self.uploadExpiresAt = formatter.date(from: uploadExpiresAt)!
 
-    let downloadExpiresAt: String = try values.decode(_.self, forKey: .downloadExpiresAt)
+    let downloadExpiresAt: String = try values.decode(String.self, forKey: .downloadExpiresAt)
     self.downloadExpiresAt = formatter.date(from: downloadExpiresAt)!
 
-    let createdAt: String = try values.decode(_.self, forKey: .createdAt)
+    let createdAt: String = try values.decode(String.self, forKey: .createdAt)
     self.createdAt = formatter.date(from: createdAt)!
   }
 }

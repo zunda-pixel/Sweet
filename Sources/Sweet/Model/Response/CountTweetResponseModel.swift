@@ -7,9 +7,11 @@
 
 import Foundation
 
-public struct CountTweetResponseModel: Decodable {
+public struct CountTweetResponseModel {
   public let countTweetModels : [CountTweetModel]
-  
+}
+
+extension CountTweetResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case countTweetModels = "data"
   }

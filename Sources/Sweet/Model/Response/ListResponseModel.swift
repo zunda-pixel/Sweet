@@ -8,17 +8,21 @@
 import Foundation
 
 
-public struct ListResponseModel: Decodable {
+public struct ListResponseModel {
   public let list: ListModel
+}
 
+extension ListResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case list = "data"
   }
 }
 
-struct ListsResponseModel: Decodable {
+struct ListsResponseModel {
   public let lists: [ListModel]
+}
 
+extension ListsResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case lists = "data"
   }

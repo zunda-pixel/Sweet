@@ -8,12 +8,15 @@
 import Foundation
 
 
-public struct UserPublicMetricsModel: Decodable {
+public struct UserPublicMetricsModel {
   public let followersCount: Int
   public let followingCount: Int
   public let tweetCount: Int
   public let listedCount: Int
-  
+}
+
+
+extension UserPublicMetricsModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case followersCount = "followers_count"
     case followingCount = "following_count"

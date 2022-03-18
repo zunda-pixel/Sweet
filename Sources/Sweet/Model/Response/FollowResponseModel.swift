@@ -7,15 +7,12 @@
 
 import Foundation
 
-public struct FollowResponseModel: Decodable {
+public struct FollowResponseModel {
   public let following: Bool
   public let pendingFollow: Bool
+}
 
-  public init(following: Bool, pendingFollow: Bool) {
-    self.following = following
-    self.pendingFollow = pendingFollow
-  }
-  
+extension  FollowResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

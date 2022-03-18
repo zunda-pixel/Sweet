@@ -52,7 +52,7 @@ extension Sweet {
   }
 }
 
-public struct PostTweetModel: Encodable {
+public struct PostTweetModel {
   public let text: String?
   public let directMessageDeepLink: URL?
   public let forSuperFollowersOnly: Bool
@@ -62,21 +62,9 @@ public struct PostTweetModel: Encodable {
   public let quoteTweetID: String?
   public let reply: ReplyModel?
   public let replySettings: ReplyOption?
-  
-  public init(text: String? = nil, direcrMessageDeepLink: URL? = nil, forSuperFollowersOnly: Bool = false,
-              geo: GeoModel? = nil, media: PostMediaModel? = nil, poll: SendPollModel? = nil, quoteTweetID: String? = nil,
-              reply: ReplyModel? = nil, replySettings: ReplyOption? = nil) {
-    self.text = text
-    self.directMessageDeepLink = direcrMessageDeepLink
-    self.forSuperFollowersOnly = forSuperFollowersOnly
-    self.geo = geo
-    self.media = media
-    self.poll = poll
-    self.quoteTweetID = quoteTweetID
-    self.reply = reply
-    self.replySettings = replySettings
-  }
-  
+}
+
+extension PostTweetModel: Encodable {
   private enum CodingKeys: String, CodingKey {
     case text
     case directMessageDeepLink = "direct_message_deep_link"

@@ -7,13 +7,11 @@
 
 import Foundation
 
-public struct RetweetResponseModel: Decodable {
+public struct RetweetResponseModel {
   public let retweeted: Bool
-  
-  public init(retweeted: Bool) {
-    self.retweeted = retweeted
-  }
-  
+}
+
+extension RetweetResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

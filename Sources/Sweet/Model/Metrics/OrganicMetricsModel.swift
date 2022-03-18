@@ -7,22 +7,15 @@
 
 import Foundation
 
-public  struct OrganicMetricsModel: Decodable {
+public  struct OrganicMetricsModel {
   public let likeCount: Int
   public let userProfileClicks: Int
   public let replyCount: Int
   public let impressionCount: Int
   public let retweetCount: Int
-  
-  public init(likeCount: Int, userProfileClicks: Int,
-              replyCount: Int, impressionCount: Int, retweetCount: Int) {
-    self.likeCount = likeCount
-    self.userProfileClicks = userProfileClicks
-    self.replyCount = replyCount
-    self.impressionCount = impressionCount
-    self.retweetCount = retweetCount
-  }
-  
+}
+
+extension OrganicMetricsModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case likeCount = "like_count"
     case userProfilleClicks = "user_profile_clicks"
@@ -39,6 +32,4 @@ public  struct OrganicMetricsModel: Decodable {
     self.impressionCount = try values.decode(Int.self, forKey: .impressionCount)
     self.retweetCount = try values.decode(Int.self, forKey: .retweetCount)
   }
-  
-  
 }

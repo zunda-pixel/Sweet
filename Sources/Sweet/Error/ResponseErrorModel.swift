@@ -9,13 +9,19 @@ import Foundation
 
 
 
-public struct ResponseErrorModel: Decodable {
+public struct ResponseErrorModel {
   public let messages: [String]
   public let title: String
   public let detail: String
   public let type: String
   public let status: Int?
-  
+
+  private struct ErrorMessageModel: Decodable {
+    public let message: String
+  }
+}
+
+extension ResponseErrorModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case errors
     case title
@@ -23,11 +29,7 @@ public struct ResponseErrorModel: Decodable {
     case type
     case status
   }
-  
-  private struct ErrorMessageModel: Decodable {
-    public let message: String
-  }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
         
