@@ -49,7 +49,10 @@ extension UserModel: Decodable {
     let url: String? = try? values.decode(String.self, forKey: .url)
     self.url = URL(string: url ?? "")
     
-    let createdAt: String? = try? values.decode(String.self, forKey: .createdAt)
-    self.createdAt = TwitterDateFormatter().date(from: createdAt ?? "")
+    if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
+      self.createdAt = TwitterDateFormatter().date(from: createdAt)
+    } else {
+      self.createdAt = nil
+    }
   }
 }
