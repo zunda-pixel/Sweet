@@ -5,7 +5,11 @@
 //  Created by zunda on 2022/03/16.
 //
 
-import SwiftUI
+#if !os(macOS)
+import CoreGraphics
+#endif
+
+import Foundation
 
 extension EntityModel {
   public struct ImageModel {
