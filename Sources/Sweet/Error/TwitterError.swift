@@ -12,4 +12,5 @@ public enum TwitterError: Error {
   case unknwon(data: Data, response: URLResponse)
   case followError
   case listError
+  case hiddenError
 }

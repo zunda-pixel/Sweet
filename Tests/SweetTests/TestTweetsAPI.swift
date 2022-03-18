@@ -285,8 +285,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1490903967617802242"
     
     let sweet = Sweet.sweetForTest()
-    let hidden = try await sweet.hideReply(tweetID: tweetID, hidden: false)
-    print(hidden)
+    try await sweet.hideReply(tweetID: tweetID, hidden: false)
   }
 }
 
