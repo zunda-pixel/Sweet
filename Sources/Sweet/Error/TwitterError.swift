@@ -10,4 +10,5 @@ import Foundation
 public enum TwitterError: Error {
   case invalidRequest(error: ResponseErrorModel)
   case unknwon(data: Data, response: URLResponse)
+  case followError
 }
