@@ -42,7 +42,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func retweet(userID: String, tweetID: String) async throws -> Bool {
+  public func retweet(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets")!
@@ -55,7 +55,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response  = try? JSONDecoder().decode(RetweetResponseModel.self, from: data) {
-      return response.retweeted
+      if !response.retweeted {
+        throw TwitterError.retweetError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -65,7 +67,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func deleteRetweet(userID: String, tweetID: String) async throws -> Bool {
+  public func deleteRetweet(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets/\(tweetID)")!
@@ -75,7 +77,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
     if let response  = try? JSONDecoder().decode(RetweetResponseModel.self, from: data) {
-      return response.retweeted
+      if response.retweeted {
+        throw TwitterError.retweetError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
