@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TwitterError.swift
 //  
 //
 //  Created by zunda on 2022/03/14.
@@ -14,4 +14,5 @@ public enum TwitterError: Error {
   case listError
   case hiddenError
   case likeError
+  case deleteError
 }

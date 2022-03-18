@@ -36,7 +36,7 @@ final class TestTweetsAPI: XCTestCase {
     
     tweets.forEach {
       print($0)
-    }    
+    }
   }
   
   func testLookUpTweet() async throws {
@@ -64,9 +64,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1490010315945177088"
     
     let sweet = Sweet.sweetForTest()
-    let isDeleted = try await sweet.deleteTweet(by: tweetID)
-    
-    print(isDeleted)
+    try await sweet.deleteTweet(by: tweetID)
   }
   
   func testFetchTimeLine() async throws {
