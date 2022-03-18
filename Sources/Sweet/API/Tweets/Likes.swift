@@ -75,7 +75,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func like(userID: String, tweetID: String) async throws -> Bool {
+  public func like(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-id-likes
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes")!
@@ -88,7 +88,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(LikeResponseModel.self, from: data) {
-      return response.liked
+      if !response.liked {
+        throw TwitterError.likeError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -98,7 +100,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func unLike(userID: String, tweetID: String) async throws -> Bool {
+  public func unLike(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes/\(tweetID)")!
@@ -108,7 +110,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
     if let response = try? JSONDecoder().decode(LikeResponseModel.self, from: data) {
-      return response.liked
+      if response.liked {
+        throw TwitterError.likeError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

@@ -268,8 +268,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1481674458586927105"
     
     let sweet = Sweet.sweetForTest()
-    let liked = try await sweet.like(userID: userID, tweetID: tweetID)
-    print(liked)
+    try await sweet.like(userID: userID, tweetID: tweetID)
   }
   
   func testUnLike() async throws {
@@ -277,8 +276,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1481674458586927105"
     
     let sweet = Sweet.sweetForTest()
-    let liked = try await sweet.unLike(userID: userID, tweetID: tweetID)
-    print(liked)
+    try await sweet.unLike(userID: userID, tweetID: tweetID)
   }
   
   func testHideReply() async throws {

@@ -13,4 +13,5 @@ public enum TwitterError: Error {
   case followError
   case listError
   case hiddenError
+  case likeError
 }
