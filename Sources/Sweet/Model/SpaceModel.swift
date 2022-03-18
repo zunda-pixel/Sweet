@@ -7,6 +7,14 @@
 
 import Foundation
 
+public struct TopicModel {
+  public let id: String
+  public let name: String
+}
+
+extension TopicModel: Decodable {
+}
+
 public struct SpaceModel {
   public let id: String
   public let state: SpaceState
@@ -22,6 +30,11 @@ public struct SpaceModel {
   public let endedAt: Date?
   public let invitedUserIDs: [String]
   public let scheduledStart: Date?
+  public let speakerIDs: [String]
+  public let subscriberCount: Int?
+  public let topicIDs: [String]
+  public let topics: [TopicModel]
+  public var users: [UserModel]
 }
 
 extension SpaceModel: Decodable {
@@ -79,5 +92,18 @@ extension SpaceModel: Decodable {
     
     let invitedUserIDs = try? values.decode([String].self, forKey: .invited_userIDs)
     self.invitedUserIDs = invitedUserIDs ?? []
+    
+    let speakerIDs = try? values.decode([String].self, forKey: .speakeIDs)
+    self.speakerIDs = speakerIDs ?? []
+    
+    self.subscriberCount = try? values.decode(Int.self, forKey: .subscriberCount)
+    
+    let topicIDs = try? values.decode([String].self, forKey: .topicIDs)
+    self.topicIDs = topicIDs ?? []
+    
+    let topics = try? values.decode([TopicModel].self, forKey: .topics)
+    self.topics = topics ?? []
+    
+    self.users = []
   }
 }
