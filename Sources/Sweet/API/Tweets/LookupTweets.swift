@@ -10,8 +10,9 @@ import HTTPClient
 
 
 extension Sweet {
-  public func lookUpTweets(by ids: [String], tweetFields: [TweetField] = [], userFields: [UserField] = [],
-                           mediaFields: [MediaField] = [], pollFields: [PollField] = [], placeFields: [PlaceField] = []) async throws -> ([TweetModel], MetaModel) {
+  public func lookUpTweets(by ids: [String], tweetFields: [TweetField] = [],
+                           userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = [],
+                           placeFields: [PlaceField] = []) async throws -> [TweetModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
@@ -32,7 +33,7 @@ extension Sweet {
     
     if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
       
-      return (response.tweets, response.meta)
+      return (response.tweets)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
