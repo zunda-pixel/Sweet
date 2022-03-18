@@ -61,7 +61,8 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpUsers(userIDs: [String], userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
+  public func lookUpUsers(userIDs: [String], userFields: [UserField] = [],
+                          tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
     
     let url: URL = .init(string:"https://api.twitter.com/2/users")!
@@ -78,7 +79,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return response.users
+      return (response.users, response.meta)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -88,7 +89,8 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpUsers(screenIDs: [String], userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
+  public func lookUpUsers(screenIDs: [String], userFields: [UserField] = [],
+                          tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/by")!
@@ -105,7 +107,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return response.users
+      return (response.users, response.meta)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

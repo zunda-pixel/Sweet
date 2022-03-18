@@ -39,11 +39,13 @@ extension UserResponseModel: Decodable {
 
 public struct UsersResponseModel {
   public var users: [UserModel]
+  public let meta: MetaModel
 }
 
 extension UsersResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case users = "data"
+    case meta
     case includes
   }
   
@@ -54,6 +56,7 @@ extension UsersResponseModel: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     self.users = try values.decode([UserModel].self, forKey: .users)
+    self.meta = try values.decode(MetaModel.self, forKey: .meta)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes) else {
       return

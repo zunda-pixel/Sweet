@@ -10,7 +10,7 @@ import HTTPClient
 
 extension Sweet {
   public func fetchBlocking(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                            userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
+                            userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/blocking")!
@@ -28,7 +28,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return response.users
+      return (response.users, response.meta)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

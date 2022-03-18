@@ -44,7 +44,9 @@ final class TestSpacesAPI: XCTestCase {
     let spaceID = "1yNGaYRDnqXGj"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchSpaceBuyers(spaceID: spaceID, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.fetchSpaceBuyers(spaceID: spaceID, userFields: UserField.allCases)
+    
+    print(meta)
     
     users.forEach {
       print($0)

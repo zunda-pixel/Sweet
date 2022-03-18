@@ -55,7 +55,8 @@ final class TestTweetsAPI: XCTestCase {
     let text = UUID().uuidString
     
     let sweet = Sweet.sweetForTest()
-    let postTweetModel = PostTweetModel(text: text, poll: .init(options: ["OK", "SAKANA"], durationMinutes: 10))
+    let postTweetModel = PostTweetModel(text: text, directMessageDeepLink: nil, forSuperFollowersOnly: false,
+                                        geo: nil, media: nil, poll: .init(options: ["OK", "SAKANA"], durationMinutes: 10), quoteTweetID: nil, reply: nil, replySettings: nil)
     let tweet = try await sweet.createTweet(postTweetModel)
     
     print(tweet)
@@ -206,7 +207,9 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1490127441318543361"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchRetweetUsers(by: tweetID, userFields: UserField.allCases, mediaFields: MediaField.allCases ,placeFields: PlaceField.allCases)
+    let (users, meta) = try await sweet.fetchRetweetUsers(by: tweetID, userFields: UserField.allCases, mediaFields: MediaField.allCases ,placeFields: PlaceField.allCases)
+    
+    print(meta)
     
     users.forEach {
       print($0)
@@ -237,7 +240,9 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1481674458586927105"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchLikingTweetUser(by: tweetID, userFields: UserField.allCases, mediaFields: MediaField.allCases ,pollFields: PollField.allCases)
+    let (users, meta) = try await sweet.fetchLikingTweetUser(by: tweetID, userFields: UserField.allCases, mediaFields: MediaField.allCases ,pollFields: PollField.allCases)
+    
+    print(meta)
     
     users.forEach {
       print($0)

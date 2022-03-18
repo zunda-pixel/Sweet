@@ -16,6 +16,7 @@ public struct ListModel {
   public let description: String?
   public let isPrivate: Bool?
   public let createdAt: Date?
+  public var users: [UserModel]
 }
 
 extension ListModel: Decodable {
@@ -31,5 +32,6 @@ extension ListModel: Decodable {
     
     let createdAt = try? values.decode(String.self, forKey: .createdAt)
     self.createdAt = TwitterDateFormatter().date(from: createdAt ?? "")
+    self.users = []
   }
 }

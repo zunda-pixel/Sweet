@@ -37,9 +37,11 @@ final class TestUsersAPI: XCTestCase {
     
     let sweet = Sweet.sweetForTest()
 
-    let userModels = try await sweet.fetchFolloing(by: userID, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.fetchFolloing(by: userID, userFields: UserField.allCases)
     
-    userModels.forEach {
+    print(meta)
+    
+    users.forEach {
       print($0)
     }
   }
@@ -47,9 +49,11 @@ final class TestUsersAPI: XCTestCase {
   func testFetchFollower() async throws {
     let userID = "2244994945"
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.fetchFollower(by: userID, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.fetchFollower(by: userID, userFields: UserField.allCases)
     
-    userModels.forEach {
+    print(meta)
+    
+    users.forEach {
       print($0)
     }
   }
@@ -72,9 +76,11 @@ final class TestUsersAPI: XCTestCase {
   func testLookUpUsersByUserID() async throws {
     let userIDs = ["2244994945", "1048032521361866752"]
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.lookUpUsers(userIDs: userIDs, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.lookUpUsers(userIDs: userIDs, userFields: UserField.allCases)
     
-    userModels.forEach {
+    print(meta)
+    
+    users.forEach {
       print($0)
     }
   }
@@ -82,9 +88,11 @@ final class TestUsersAPI: XCTestCase {
   func testLookUpUsersByScreenID() async throws {
     let userIDs = ["zunda_pixel", "zunda"]
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.lookUpUsers(screenIDs: userIDs, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.lookUpUsers(screenIDs: userIDs, userFields: UserField.allCases)
     
-    userModels.forEach {
+    print(meta)
+    
+    users.forEach {
       print($0)
     }
   }
@@ -107,9 +115,11 @@ final class TestUsersAPI: XCTestCase {
   func testFetchBlockUser() async throws {
     let userID = testMyUserID
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.fetchBlocking(by: userID, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.fetchBlocking(by: userID, userFields: UserField.allCases)
     
-    userModels.forEach {
+    print(meta)
+    
+    users.forEach {
       print($0)
     }
   }
@@ -134,9 +144,11 @@ final class TestUsersAPI: XCTestCase {
   func testFetchMutingUser() async throws {
     let userID = testMyUserID
     let sweet = Sweet.sweetForTest()
-    let userModels = try await sweet.fetchMuting(by: userID, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.fetchMuting(by: userID, userFields: UserField.allCases)
     
-    userModels.forEach {
+    print(meta)
+    
+    users.forEach {
       print($0)
     }
   }

@@ -93,7 +93,7 @@ extension Sweet {
   
   public func fetchSpaceBuyers(spaceID: String, userFields: [UserField] = [],
                                mediaFields: [MediaField] = [], placeFields: [PlaceField] = [],
-                               pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
+                               pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
@@ -110,8 +110,8 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    if let usersResponseModel = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return usersResponseModel.users
+    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+      return (response.users, response.meta)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

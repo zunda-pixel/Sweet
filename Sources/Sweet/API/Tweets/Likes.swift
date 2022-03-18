@@ -11,7 +11,7 @@ import HTTPClient
 extension Sweet {
   public func fetchLikingTweetUser(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil,
                                    userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = [],
-                                   placeFields: [PlaceField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
+                                   placeFields: [PlaceField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
@@ -32,7 +32,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return response.users
+      return (response.users, response.meta)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
