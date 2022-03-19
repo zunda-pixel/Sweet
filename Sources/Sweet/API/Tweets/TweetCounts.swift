@@ -11,7 +11,7 @@ import HTTPClient
 extension Sweet {
   public func fetchRecentCountTweet(by query: String, startTime: Date? = nil,
                                     endTime: Date? = nil, untilID: String? = nil,
-                                    sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> [CountTweetModel] {
+                                    sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> ([CountTweetModel], CountTweetMetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/recent")!
@@ -40,8 +40,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
     if let response = try? JSONDecoder().decode(CountTweetResponseModel.self, from: data) {
-      
-      return response.countTweetModels
+      return (response.countTweets, response.meta)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -53,7 +52,7 @@ extension Sweet {
   
   public func fetchCountTweet(by query: String, nextToken: String? = nil,
                               startTime: Date? = nil, endTime: Date? = nil, untilID: String? = nil,
-                              sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> [CountTweetModel] {
+                              sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> ([CountTweetModel], CountTweetMetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
     // This endpoint is only available for Academic Research access.
     
@@ -84,8 +83,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
     
     if let response = try? JSONDecoder().decode(CountTweetResponseModel.self, from: data) {
-      
-      return response.countTweetModels
+      return (response.countTweets, response.meta)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

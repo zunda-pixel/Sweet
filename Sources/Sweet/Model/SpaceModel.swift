@@ -7,9 +7,18 @@
 
 import Foundation
 
+public struct TopicModel {
+  public let id: String
+  public let name: String
+}
+
+extension TopicModel: Decodable {
+}
+
 public struct SpaceModel {
   public let id: String
   public let state: SpaceState
+  public let creatorID: String
   public let title: String?
   public let hostIDs: [String]
   public let lang: String?
@@ -18,22 +27,14 @@ public struct SpaceModel {
   public let startedAt: Date?
   public let updatedAt: Date?
   public let createdAt: Date?
-  
-  public init(id: String, state: SpaceState, title: String? = nil,
-              hostIDs: [String], lang: String? = nil, participantCount: Int? = nil,
-              isTicketed: Bool? = nil, startedAt: Date? = nil, updatedAt: Date? = nil,
-              createdAt: Date? = nil) {
-    self.id = id
-    self.state = state
-    self.title = title
-    self.hostIDs = hostIDs
-    self.lang = lang
-    self.participantCount = participantCount
-    self.isTicketed = isTicketed
-    self.startedAt = startedAt
-    self.updatedAt = updatedAt
-    self.createdAt = createdAt
-  }
+  public let endedAt: Date?
+  public let invitedUserIDs: [String]
+  public let scheduledStart: Date?
+  public let speakerIDs: [String]
+  public let subscriberCount: Int?
+  public let topicIDs: [String]
+  public let topics: [TopicModel]
+  public var users: [UserModel]
 }
 
 extension SpaceModel: Decodable {
@@ -43,6 +44,9 @@ extension SpaceModel: Decodable {
     
     let state = try values.decode(String.self, forKey: .state)
     self.state = .init(rawValue: state)!
+    
+    self.creatorID = try values.decode(String.self, forKey: .creatorID)
+    
     
     let hostIDs = try? values.decode([String].self, forKey: .hostIDs)
     self.hostIDs = hostIDs ?? []
@@ -56,13 +60,50 @@ extension SpaceModel: Decodable {
     
     let formatter = TwitterDateFormatter()
     
-    let createdAt = try? values.decode(String.self, forKey: .createdAt)
-    self.createdAt = formatter.date(from: createdAt ?? "")
+    if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
+      self.createdAt = formatter.date(from: createdAt)
+    } else {
+      self.createdAt = nil
+    }
     
-    let startedAt = try? values.decode(String.self, forKey: .startedAt)
-    self.startedAt = formatter.date(from: startedAt ?? "")
+    if let startedAt = try? values.decode(String.self, forKey: .startedAt) {
+      self.startedAt = formatter.date(from: startedAt)
+    } else {
+      self.startedAt = nil
+    }
     
-    let updatedAt = try? values.decode(String.self, forKey: .updatedAt)
-    self.updatedAt = formatter.date(from: updatedAt ?? "")
+    if let updatedAt = try? values.decode(String.self, forKey: .updatedAt) {
+      self.updatedAt = formatter.date(from: updatedAt)
+    } else {
+      self.updatedAt = nil
+    }
+    
+    if let endedAt = try? values.decode(String.self, forKey: .endedAt) {
+      self.endedAt = formatter.date(from: endedAt)
+    } else {
+      self.endedAt = nil
+    }
+    
+    if let scheduledStart = try? values.decode(String.self, forKey: .scheduledStart) {
+      self.scheduledStart = formatter.date(from: scheduledStart)
+    } else {
+      self.scheduledStart = nil
+    }
+    
+    let invitedUserIDs = try? values.decode([String].self, forKey: .invited_userIDs)
+    self.invitedUserIDs = invitedUserIDs ?? []
+    
+    let speakerIDs = try? values.decode([String].self, forKey: .speakeIDs)
+    self.speakerIDs = speakerIDs ?? []
+    
+    self.subscriberCount = try? values.decode(Int.self, forKey: .subscriberCount)
+    
+    let topicIDs = try? values.decode([String].self, forKey: .topicIDs)
+    self.topicIDs = topicIDs ?? []
+    
+    let topics = try? values.decode([TopicModel].self, forKey: .topics)
+    self.topics = topics ?? []
+    
+    self.users = []
   }
 }

@@ -67,8 +67,7 @@ extension Sweet {
   
   public func fetchMentions(by userID: String, maxResults: Int = 10,
                             startTime: Date? = nil, endTime: Date? = nil,
-                            untilID: String? = nil, sinceID: String? = nil,
-                            paginationToken: String? = nil,
+                            untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil,
                             tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
                             mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions

@@ -7,12 +7,11 @@
 
 import Foundation
 
-public struct PinTweetModel: Decodable {
+public struct PinTweetModel {
   public let id: String
   public let text: String
+}
+
+extension PinTweetModel: Decodable {
   
-  public init(id: String, text: String) {
-    self.id = id
-    self.text = text
-  }
 }

@@ -31,14 +31,12 @@ final class TestTweetsAPI: XCTestCase {
     let tweetIDs = ["1489644269447315458", "1489895008300056578"]
     
     let sweet = Sweet.sweetForTest()
-    let (tweets, meta) = try await sweet.lookUpTweets(by: tweetIDs, tweetFields: TweetField.normalTweetFileds, userFields: UserField.allCases,
+    let tweets = try await sweet.lookUpTweets(by: tweetIDs, tweetFields: TweetField.normalTweetFileds, userFields: UserField.allCases,
                                               mediaFields: MediaField.allCases ,pollFields: PollField.allCases)
     
     tweets.forEach {
       print($0)
     }
-    
-    print(meta)
   }
   
   func testLookUpTweet() async throws {
@@ -55,7 +53,8 @@ final class TestTweetsAPI: XCTestCase {
     let text = UUID().uuidString
     
     let sweet = Sweet.sweetForTest()
-    let postTweetModel = PostTweetModel(text: text, poll: .init(options: ["OK", "SAKANA"], durationMinutes: 10))
+    let postTweetModel = PostTweetModel(text: text, directMessageDeepLink: nil, forSuperFollowersOnly: false,
+                                        geo: nil, media: nil, poll: .init(options: ["OK", "SAKANA"], durationMinutes: 10), quoteTweetID: nil, reply: nil, replySettings: nil)
     let tweet = try await sweet.createTweet(postTweetModel)
     
     print(tweet)
@@ -65,9 +64,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1490010315945177088"
     
     let sweet = Sweet.sweetForTest()
-    let isDeleted = try await sweet.deleteTweet(by: tweetID)
-    
-    print(isDeleted)
+    try await sweet.deleteTweet(by: tweetID)
   }
   
   func testFetchTimeLine() async throws {
@@ -129,9 +126,11 @@ final class TestTweetsAPI: XCTestCase {
     let query = "#twitterapiv2"
     
     let sweet = Sweet.sweetForTest()
-    let countTweetModels = try await sweet.fetchRecentCountTweet(by: query)
+    let (countTweets, meta) = try await sweet.fetchRecentCountTweet(by: query)
     
-    countTweetModels.forEach {
+    print(meta)
+    
+    countTweets.forEach {
       print($0)
     }
   }
@@ -140,18 +139,22 @@ final class TestTweetsAPI: XCTestCase {
     let query = "#twitterapiv2"
     
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.fetchCountTweet(by: query)
+    let (countTweets, meta) = try await sweet.fetchCountTweet(by: query)
     
-    tweets.forEach {
+    print(meta)
+    
+    countTweets.forEach {
       print($0)
     }
   }
   
   func testFetchStreamRule() async throws {
     let sweet = Sweet.sweetForTest()
-    let streamRuleModels = try await sweet.fetchStreamRule()
+    let (streamRules, meta) = try await sweet.fetchStreamRule()
     
-    streamRuleModels.forEach {
+    print(meta)
+    
+    streamRules.forEach {
       print($0)
     }
   }
@@ -206,7 +209,9 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1490127441318543361"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchRetweetUsers(by: tweetID, userFields: UserField.allCases, mediaFields: MediaField.allCases ,placeFields: PlaceField.allCases)
+    let (users, meta) = try await sweet.fetchRetweetUsers(by: tweetID, userFields: UserField.allCases, mediaFields: MediaField.allCases ,placeFields: PlaceField.allCases)
+    
+    print(meta)
     
     users.forEach {
       print($0)
@@ -218,9 +223,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1481674458586927105"
     
     let sweet = Sweet.sweetForTest()
-    let retweeted = try await sweet.retweet(userID: userID, tweetID: tweetID)
-    
-    print(retweeted)
+    try await sweet.retweet(userID: userID, tweetID: tweetID)
   }
   
   func testDeleteRetweet() async throws {
@@ -228,16 +231,16 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1481674458586927105"
     
     let sweet = Sweet.sweetForTest()
-    let retweeted = try await sweet.deleteRetweet(userID: userID, tweetID: tweetID)
-    
-    print(retweeted)
+    try await sweet.deleteRetweet(userID: userID, tweetID: tweetID)
   }
   
   func testFetchLikingTweetUser() async throws {
     let tweetID = "1481674458586927105"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchLikingTweetUser(by: tweetID, userFields: UserField.allCases, mediaFields: MediaField.allCases ,pollFields: PollField.allCases)
+    let (users, meta) = try await sweet.fetchLikingTweetUser(by: tweetID, userFields: UserField.allCases, mediaFields: MediaField.allCases ,pollFields: PollField.allCases)
+    
+    print(meta)
     
     users.forEach {
       print($0)
@@ -263,8 +266,7 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1481674458586927105"
     
     let sweet = Sweet.sweetForTest()
-    let liked = try await sweet.like(userID: userID, tweetID: tweetID)
-    print(liked)
+    try await sweet.like(userID: userID, tweetID: tweetID)
   }
   
   func testUnLike() async throws {
@@ -272,16 +274,14 @@ final class TestTweetsAPI: XCTestCase {
     let tweetID = "1481674458586927105"
     
     let sweet = Sweet.sweetForTest()
-    let liked = try await sweet.unLike(userID: userID, tweetID: tweetID)
-    print(liked)
+    try await sweet.unLike(userID: userID, tweetID: tweetID)
   }
   
   func testHideReply() async throws {
     let tweetID = "1490903967617802242"
     
     let sweet = Sweet.sweetForTest()
-    let hidden = try await sweet.hideReply(tweetID: tweetID, hidden: false)
-    print(hidden)
+    try await sweet.hideReply(tweetID: tweetID, hidden: false)
   }
 }
 

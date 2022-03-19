@@ -16,19 +16,7 @@ public struct ListModel {
   public let description: String?
   public let isPrivate: Bool?
   public let createdAt: Date?
-  
-  public init(id: String, name: String,
-              followerCount: Int? = nil, memberCount: Int? = nil, ownerID: String? = nil,
-              description: String? = nil, isPrivate: Bool? = nil, createdAt: Date? = nil) {
-    self.id = id
-    self.name = name
-    self.followerCount = followerCount
-    self.memberCount = memberCount
-    self.ownerID = ownerID
-    self.description = description
-    self.isPrivate = isPrivate
-    self.createdAt = createdAt
-  }
+  public var users: [UserModel]
 }
 
 extension ListModel: Decodable {
@@ -42,7 +30,12 @@ extension ListModel: Decodable {
     self.description = try? values.decode(String.self, forKey: .description)
     self.isPrivate = try? values.decode(Bool.self, forKey: .isPrivate)
     
-    let createdAt = try? values.decode(String.self, forKey: .createdAt)
-    self.createdAt = TwitterDateFormatter().date(from: createdAt ?? "")
+    if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
+      self.createdAt = TwitterDateFormatter().date(from: createdAt)
+    } else {
+      self.createdAt = nil
+    }
+    
+    self.users = []
   }
 }

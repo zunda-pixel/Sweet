@@ -7,17 +7,21 @@
 
 import Foundation
 
-public struct CompliancesResponseModel: Decodable {
+public struct CompliancesResponseModel {
   public let compliances: [ComplianceModel]
+}
 
+extension CompliancesResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case compliances = "data"
   }
 }
 
-public struct ComplianceResponseModel: Decodable {
+public struct ComplianceResponseModel {
   public let compliance: ComplianceModel
+}
 
+extension ComplianceResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case compliance = "data"
   }

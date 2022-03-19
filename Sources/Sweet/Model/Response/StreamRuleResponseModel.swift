@@ -8,10 +8,14 @@
 import Foundation
 
 
-public struct StreamRuleResponseModel: Decodable {
+public struct StreamRuleResponseModel {
   public let streamRules: [StreamRuleModel]
-  
+  public let meta: StreamRuleMetaModel
+}
+
+extension StreamRuleResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case streamRules = "data"
+    case meta
   }
 }

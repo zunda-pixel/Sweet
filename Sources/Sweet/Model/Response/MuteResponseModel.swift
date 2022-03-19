@@ -7,13 +7,11 @@
 
 import Foundation
 
-public struct MuteResponseModel: Decodable {
+public struct MuteResponseModel {
   public let muting: Bool
+}
 
-  public init(muting: Bool) {
-    self.muting = muting
-  }
-  
+extension MuteResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

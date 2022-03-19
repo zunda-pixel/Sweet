@@ -7,13 +7,11 @@
 
 import Foundation
 
-struct MemberResponseModel: Decodable {
+struct MemberResponseModel {
   public let isMember: Bool
-  
-  public init(isMember: Bool) {
-    self.isMember = isMember
-  }
-  
+}
+
+extension MemberResponseModel: Decodable {  
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

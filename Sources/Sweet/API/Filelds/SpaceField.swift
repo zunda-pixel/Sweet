@@ -12,6 +12,7 @@ public enum SpaceField: String, Field {
   
   case id
   case state
+  case creatorID = "creator_id"
   case createdAt = "created_at"
   case endedAt = "ended_at"
   case hostIDs = "host_ids"
@@ -25,4 +26,6 @@ public enum SpaceField: String, Field {
   case title
   case topicIDs = "topic_ids"
   case updatedAt = "updated_at"
+  case subscriberCount = "subscriber_count"
+  case topics
 }

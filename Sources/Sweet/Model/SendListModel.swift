@@ -11,12 +11,6 @@ public struct SendListModel {
   public let name: String?
   public let description: String?
   public let isPrivate: Bool?
-  
-  public init(name: String? = nil, description: String? = nil, isPrivate: Bool? = nil) {
-    self.name = name
-    self.description = description
-    self.isPrivate = isPrivate
-  }
 }
 
 extension SendListModel: Codable {

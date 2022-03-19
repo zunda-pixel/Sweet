@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchStreamRule(ids: [String]? = nil) async throws -> [StreamRuleModel] {
+  public func fetchStreamRule(ids: [String]? = nil) async throws -> ([StreamRuleModel], StreamRuleMetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -25,7 +25,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers)
     
     if let response = try? JSONDecoder().decode(StreamRuleResponseModel.self, from: data) {
-      return response.streamRules
+      return (response.streamRules, response.meta)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

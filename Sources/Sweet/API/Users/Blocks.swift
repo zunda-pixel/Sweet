@@ -10,7 +10,7 @@ import HTTPClient
 
 extension Sweet {
   public func fetchBlocking(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                            userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
+                            userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/blocking")!
@@ -28,7 +28,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return response.users
+      return (response.users, response.meta!)
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -38,7 +38,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func blockUser(from fromUserID: String, to toUserID: String) async throws -> Bool {
+  public func blockUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/post-users-user_id-blocking
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/blocking")!
@@ -51,8 +51,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(BlockResponseModel.self, from: data) {
-      
-      return response.blocking
+      if !response.blocking {
+        throw TwitterError.blockError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -62,7 +63,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func unBlockUser(from fromUserID: String, to toUserID: String) async throws -> Bool {
+  public func unBlockUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/blocking/\(toUserID)")!
@@ -72,7 +73,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
     if let response = try? JSONDecoder().decode(BlockResponseModel.self, from: data) {
-      return response.blocking
+      if response.blocking {
+        throw TwitterError.blockError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

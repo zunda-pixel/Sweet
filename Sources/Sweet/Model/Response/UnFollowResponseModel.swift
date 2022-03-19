@@ -7,13 +7,11 @@
 
 import Foundation
 
-public struct UnFollowResponseModel: Decodable {
+public struct UnFollowResponseModel {
   public let following: Bool
-  
-  public init(following: Bool) {
-    self.following = following
-  }
-  
+}
+
+extension UnFollowResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

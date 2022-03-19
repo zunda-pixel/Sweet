@@ -7,10 +7,12 @@
 
 import Foundation
 
-public struct TweetsResponseModel: Decodable {
+public struct TweetsResponseModel {
   public var tweets: [TweetModel]
   public let meta: MetaModel
-  
+}
+
+extension TweetsResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case tweets = "data"
     case includes
@@ -75,9 +77,11 @@ private enum TweetIncludesCodingKeys: String, CodingKey {
   case polls
 }
 
-struct TweetResponseModel: Decodable {
+struct TweetResponseModel {
   public var tweet: TweetModel
-  
+}
+
+extension TweetResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case tweet = "data"
     case includes

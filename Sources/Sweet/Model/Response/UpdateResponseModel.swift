@@ -7,13 +7,11 @@
 
 import Foundation
 
-public struct UpdateResponseModel: Decodable {
+public struct UpdateResponseModel {
   public let updated: Bool
-  
-  public init(updated: Bool) {
-    self.updated = updated
-  }
-  
+}
+
+extension UpdateResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

@@ -13,10 +13,12 @@ public enum ReferencedType: String {
   case repliedTo = "replied_to"
 }
 
-public struct ReferencedTweetModel: Decodable {
+public struct ReferencedTweetModel {
   public let id: String
   public let type: ReferencedType
-  
+}
+
+extension ReferencedTweetModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case id
     case type

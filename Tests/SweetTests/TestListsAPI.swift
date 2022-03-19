@@ -16,9 +16,7 @@ final class TestListsAPI: XCTestCase {
     let listID = "900944005042585602"
     
     let sweet = Sweet.sweetForTest()
-    let following = try await sweet.followList(userID: userID, listID: listID)
-    
-    print(following)
+    try await sweet.followList(userID: userID, listID: listID)    
   }
   
   func testUnFollowList() async throws {
@@ -26,16 +24,16 @@ final class TestListsAPI: XCTestCase {
     let listID = "900944005042585602"
     
     let sweet = Sweet.sweetForTest()
-    let following = try await sweet.unFollowList(userID: userID, listID: listID)
-    
-    print(following)
+    try await sweet.unFollowList(userID: userID, listID: listID)    
   }
   
   func testFetchFollowedUsers() async throws {
     let listID = "900944005042585602"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchFollowedUsers(listID: listID, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.fetchFollowedUsers(listID: listID, userFields: UserField.allCases)
+    
+    print(meta)
     
     users.forEach {
       print($0)
@@ -46,7 +44,9 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let lists = try await sweet.fetchFollowingLists(userID: userID, listFields: ListField.allCases)
+    let (lists, meta) = try await sweet.fetchFollowingLists(userID: userID, listFields: ListField.allCases)
+    
+    print(meta)
     
     lists.forEach {
       print($0)
@@ -77,7 +77,9 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let lists = try await sweet.fetchAddedLists(userID: userID, listFields: ListField.allCases)
+    let (lists, meta) = try await sweet.fetchAddedLists(userID: userID, listFields: ListField.allCases)
+    
+    print(meta)
     
     lists.forEach {
       print($0)
@@ -88,7 +90,9 @@ final class TestListsAPI: XCTestCase {
     let listID = "1463289657190404097"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchAddedUsersToList(listID: listID, userFields: UserField.allCases)
+    let (users, meta) = try await sweet.fetchAddedUsersToList(listID: listID, userFields: UserField.allCases)
+    
+    print(meta)
     
     users.forEach {
       print($0)
@@ -108,7 +112,9 @@ final class TestListsAPI: XCTestCase {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let lists = try await sweet.fetchOwnedLists(userID: userID, listFields: ListField.allCases)
+    let (lists, meta) = try await sweet.fetchOwnedLists(userID: userID, listFields: ListField.allCases)
+    
+    print(meta)
     
     lists.forEach {
       print($0)
@@ -144,18 +150,14 @@ final class TestListsAPI: XCTestCase {
     let listID = "1489548406032769025"
     
     let sweet = Sweet.sweetForTest()
-    let updated = try await sweet.updateList(listID: listID, name: "changed name", description: "changed description", isPrivate: false)
-    
-    print(updated)
+    try await sweet.updateList(listID: listID, name: "changed name", description: "changed description", isPrivate: false)    
   }
   
   func testDeleteList() async throws {
     let listID = "1489548406032769025"
     
     let sweet = Sweet.sweetForTest()
-    let isDeleted = try await sweet.deleteList(by: listID)
-    
-    print(isDeleted)
+    try await sweet.deleteList(by: listID)    
   }
   
   func testPinList() async throws {
@@ -163,9 +165,7 @@ final class TestListsAPI: XCTestCase {
     let listID = "1489548406032769025"
     
     let sweet = Sweet.sweetForTest()
-    let isPinned = try await sweet.pinList(userID: userID, listID: listID)
-    
-    print(isPinned)
+    try await sweet.pinList(userID: userID, listID: listID)
   }
   
   func testUnPinList() async throws {
@@ -173,16 +173,16 @@ final class TestListsAPI: XCTestCase {
     let listID = "1489548406032769025"
     
     let sweet = Sweet.sweetForTest()
-    let isPinned = try await sweet.unPinList(userID: userID, listID: listID)
-    
-    print(isPinned)
+    try await sweet.unPinList(userID: userID, listID: listID)
   }
   
   func testFetchPinnedLists() async throws {
     let userID = testMyUserID
     
     let sweet = Sweet.sweetForTest()
-    let lists = try await sweet.fetchPinnedLists(userID: userID, listFields: ListField.allCases)
+    let (lists, meta) = try await sweet.fetchPinnedLists(userID: userID, listFields: ListField.allCases)
+    
+    print(meta)
     
     lists.forEach {
       print($0)

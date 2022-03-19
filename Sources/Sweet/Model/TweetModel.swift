@@ -39,41 +39,6 @@ public struct TweetModel {
   public var user: UserModel?
   public var place: PlaceModel?
   public var poll: PollModel?
-  
-  public init(id: String, text: String, authorID: String? = nil,
-              lang: String? = nil, replaySetting: ReplySetting? = nil, createdAt: Date? = nil,
-              source: String? = nil, sensitive: Bool? = nil, conversationID: String? = nil, entity: EntityModel? = nil,
-              replyUserID: String? = nil , contextAnnotations: [ContextAnnotationModel] = [], geo: GeoModel? = nil,
-              publicMetrics: TweetPublicMetricsModel? = nil, organicMetrics: OrganicMetricsModel? = nil,
-              privateMetrics: PrivateMetricsModel? = nil, attachments: AttachmentsModel? = nil,
-              promotedMEtrics: PromotedMetrics? = nil, withheld: WithheldModel? = nil,
-              medias: [MediaModel] = [], user: UserModel? = nil, referencedTweet: ReferencedTweetModel? = nil,
-              place: PlaceModel? = nil, poll: PollModel? = nil) {
-    self.id = id
-    self.text = text
-    self.authorID = authorID
-    self.lang = lang
-    self.replySetting = replaySetting
-    self.createdAt = createdAt
-    self.source = source
-    self.sensitive = sensitive
-    self.conversationID = conversationID
-    self.replyUserID = replyUserID
-    self.geo = geo
-    self.publicMetrics = publicMetrics
-    self.organicMetrics = organicMetrics
-    self.privateMetrics = privateMetrics
-    self.attachments = attachments
-    self.promotedMerics = promotedMEtrics
-    self.withheld = withheld
-    self.contextAnnotations = contextAnnotations
-    self.entity = entity
-    self.medias = medias
-    self.user = user
-    self.place = place
-    self.poll = poll
-    self.referencedTweet = referencedTweet
-  }
 }
 
 extension TweetModel: Decodable {

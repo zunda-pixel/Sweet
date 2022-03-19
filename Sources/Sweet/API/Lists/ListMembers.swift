@@ -22,7 +22,9 @@ extension Sweet {
 		let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(MemberResponseModel.self, from: data) {
-      return response.isMember
+      if !response.isMember {
+        throw TwitterError.listError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -42,7 +44,9 @@ extension Sweet {
 		let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
 						
     if let response = try? JSONDecoder().decode(MemberResponseModel.self, from: data) {
-      return response.isMember
+      if response.isMember {
+        throw TwitterError.listError
+      }
     }
 		
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -53,7 +57,7 @@ extension Sweet {
   }
 
   public func fetchAddedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                              listFields: [ListField] = [], userFields: [UserField] = []) async throws -> [ListModel] {
+                              listFields: [ListField] = [], userFields: [UserField] = []) async throws -> ([ListModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/list_memberships")!
@@ -70,7 +74,7 @@ extension Sweet {
 		let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(ListsResponseModel.self, from: data) {
-      return response.lists
+      return (response.lists, response.meta)
     }
 		    
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -81,7 +85,7 @@ extension Sweet {
   }
 
   public func fetchAddedUsersToList(listID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                                    userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
+                                    userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
@@ -98,7 +102,7 @@ extension Sweet {
 		let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
 						
     if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
-      return response.users
+      return (response.users, response.meta!)
     }
 		    
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

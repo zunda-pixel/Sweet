@@ -7,13 +7,11 @@
 
 import Foundation
 
-public struct LikeResponseModel: Decodable {
+public struct LikeResponseModel {
   public let liked: Bool
-  
-  public init(liked: Bool) {
-    self.liked = liked
-  }
-  
+}
+
+extension LikeResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }
