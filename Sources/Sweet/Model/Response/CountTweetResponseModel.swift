@@ -8,11 +8,13 @@
 import Foundation
 
 public struct CountTweetResponseModel {
-  public let countTweetModels : [CountTweetModel]
+  public let countTweets : [CountTweetModel]
+  public let meta: CountTweetMetaModel
 }
 
 extension CountTweetResponseModel: Decodable {
   private enum CodingKeys: String, CodingKey {
-    case countTweetModels = "data"
+    case countTweets = "data"
+    case meta
   }
 }

@@ -22,7 +22,6 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(FollowResponseModel.self, from: data) {
-      
       return (response.following, response.pendingFollow)
     }
     
@@ -33,7 +32,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func unFollow(from fromUserID: String, to toUserID: String) async throws -> Bool {
+  public func unFollow(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/following/\(toUserID)")!
@@ -43,7 +42,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
     if let response = try? JSONDecoder().decode(UnFollowResponseModel.self, from: data) {
-      return response.following
+      if !response.following {
+        throw TwitterError.followError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

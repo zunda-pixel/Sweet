@@ -126,9 +126,11 @@ final class TestTweetsAPI: XCTestCase {
     let query = "#twitterapiv2"
     
     let sweet = Sweet.sweetForTest()
-    let countTweetModels = try await sweet.fetchRecentCountTweet(by: query)
+    let (countTweets, meta) = try await sweet.fetchRecentCountTweet(by: query)
     
-    countTweetModels.forEach {
+    print(meta)
+    
+    countTweets.forEach {
       print($0)
     }
   }
@@ -137,18 +139,22 @@ final class TestTweetsAPI: XCTestCase {
     let query = "#twitterapiv2"
     
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.fetchCountTweet(by: query)
+    let (countTweets, meta) = try await sweet.fetchCountTweet(by: query)
     
-    tweets.forEach {
+    print(meta)
+    
+    countTweets.forEach {
       print($0)
     }
   }
   
   func testFetchStreamRule() async throws {
     let sweet = Sweet.sweetForTest()
-    let streamRuleModels = try await sweet.fetchStreamRule()
+    let (streamRules, meta) = try await sweet.fetchStreamRule()
     
-    streamRuleModels.forEach {
+    print(meta)
+    
+    streamRules.forEach {
       print($0)
     }
   }

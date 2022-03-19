@@ -38,7 +38,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func muteUser(from fromUserID: String, to toUserID: String) async throws -> Bool {
+  public func muteUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/post-users-user_id-muting
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/muting")!
@@ -51,7 +51,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(MuteResponseModel.self, from: data) {
-      return response.muting
+      if !response.muting {
+        throw TwitterError.muteError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -61,7 +63,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func unMuteUser(from fromUserID: String, to toUserID: String) async throws -> Bool {
+  public func unMuteUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/muting/\(toUserID)")!
@@ -71,7 +73,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
     if let response = try? JSONDecoder().decode(MuteResponseModel.self, from: data) {
-      return response.muting
+      if !response.muting {
+        throw TwitterError.muteError
+      }
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

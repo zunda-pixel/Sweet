@@ -16,14 +16,12 @@ final class TestUsersAPI: XCTestCase {
     let toUserID = "2244994945"
     
     let sweet = Sweet.sweetForTest()
-    let folloing = try await sweet.unFollow(from: fromUserID, to: toUserID)
-    
-    print(folloing)
+    try await sweet.unFollow(from: fromUserID, to: toUserID)
   }
   
   func testFollow() async throws {
     let fromUserID = testMyUserID
-    let toUserID = "2244994945"
+    let toUserID = "355848148"
     
     let sweet = Sweet.sweetForTest()
     let (folloing, pendingFollow) = try await sweet.follow(from: fromUserID, to: toUserID)
@@ -107,9 +105,7 @@ final class TestUsersAPI: XCTestCase {
     let fromUserID = "1048032521361866752"
     let toUserID = "2244994945"
     let sweet = Sweet.sweetForTest()
-    let userModel = try await sweet.blockUser(from: fromUserID, to: toUserID)
-    
-    print(userModel)
+    try await sweet.blockUser(from: fromUserID, to: toUserID)
   }
   
   func testFetchBlockUser() async throws {
@@ -128,17 +124,14 @@ final class TestUsersAPI: XCTestCase {
     let fromUserID = testMyUserID
     let toUserID = "2244994945"
     let sweet = Sweet.sweetForTest()
-    let userModel = try await sweet.unBlockUser(from: fromUserID, to: toUserID)
-    
-    print(userModel)
+    try await sweet.unBlockUser(from: fromUserID, to: toUserID)
   }
   
   func testMuteUser() async throws {
     let fromUserID = testMyUserID
     let toUserID = "2244994945"
     let sweet = Sweet.sweetForTest()
-    let userModel = try await sweet.muteUser(from: fromUserID, to: toUserID)
-    print(userModel)
+    try await sweet.muteUser(from: fromUserID, to: toUserID)
   }
   
   func testFetchMutingUser() async throws {
@@ -157,8 +150,6 @@ final class TestUsersAPI: XCTestCase {
     let fromUserID = testMyUserID
     let toUserID = "2244994945"
     let sweet = Sweet.sweetForTest()
-    let userModel = try await sweet.unMuteUser(from: fromUserID, to: toUserID)
-    
-    print(userModel)
+    try await sweet.unMuteUser(from: fromUserID, to: toUserID)
   }
 }
