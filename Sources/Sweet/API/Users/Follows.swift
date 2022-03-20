@@ -42,8 +42,10 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
     if let response = try? JSONDecoder().decode(UnFollowResponseModel.self, from: data) {
-      if !response.following {
+      if response.following {
         throw TwitterError.followError
+      } else {
+        return
       }
     }
     

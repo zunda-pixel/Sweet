@@ -55,22 +55,18 @@ final class TestListsAPI: XCTestCase {
   
   func testAddListMember() async throws {
     let userID = "2244994945"
-    let listID = "1489539509792686081"
+    let listID = "1489620669822160899"
     
     let sweet = Sweet.sweetForTest()
-    let isMember = try await sweet.addListMember(to: listID, userID: userID)
-    
-    print(isMember)
+    try await sweet.addListMember(to: listID, userID: userID)
   }
   
   func testDeleteListMember() async throws {
     let userID = "2244994945"
-    let listID = "1489539509792686081"
+    let listID = "1489620669822160899"
     
     let sweet = Sweet.sweetForTest()
-    let isMember = try await sweet.deleteListMember(from: listID, userID: userID)
-    
-    print(isMember)
+    try await sweet.deleteListMember(from: listID, userID: userID)
   }
   
   func testFetchAddedLists() async throws {

@@ -22,7 +22,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(PinResponseModel.self, from: data) {
-      if !response.pinned {
+      if response.pinned {
+        return
+      } else {
         throw TwitterError.listError
       }
     }
@@ -46,6 +48,8 @@ extension Sweet {
     if let response = try? JSONDecoder().decode(PinResponseModel.self, from: data) {
       if response.pinned {
         throw TwitterError.listError
+      } else {
+        return
       }
     }
     

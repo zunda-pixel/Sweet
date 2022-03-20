@@ -88,7 +88,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(LikeResponseModel.self, from: data) {
-      if !response.liked {
+      if response.liked {
+        return
+      } else {
         throw TwitterError.likeError
       }
     }
@@ -112,6 +114,8 @@ extension Sweet {
     if let response = try? JSONDecoder().decode(LikeResponseModel.self, from: data) {
       if response.liked {
         throw TwitterError.likeError
+      } else {
+        return
       }
     }
     

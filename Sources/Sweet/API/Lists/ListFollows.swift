@@ -21,6 +21,8 @@ extension Sweet {
     if let response = try? JSONDecoder().decode(UnFollowResponseModel.self, from: data) {
       if response.following {
         throw TwitterError.followError
+      } else {
+        return
       }
     }
     
@@ -44,7 +46,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(UnFollowResponseModel.self, from: data) {
-      if !response.following {
+      if response.following {
+        return
+      } else {
         throw TwitterError.followError
       }
     }
