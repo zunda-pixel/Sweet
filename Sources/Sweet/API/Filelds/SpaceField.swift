@@ -27,5 +27,4 @@ public enum SpaceField: String, Field {
   case topicIDs = "topic_ids"
   case updatedAt = "updated_at"
   case subscriberCount = "subscriber_count"
-  case topics
 }
