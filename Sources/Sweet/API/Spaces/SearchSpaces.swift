@@ -15,13 +15,13 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/search")!
     
-    let queries = [
+    let queries: [String: String?] = [
       "query": query,
       "state": state.rawValue,
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
-    ]
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

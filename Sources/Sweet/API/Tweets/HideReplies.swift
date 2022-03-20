@@ -22,7 +22,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.put(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(HideResponseModel.self, from: data) {
-      if hidden !=  response.hidden {
+      if hidden == response.hidden {
+        return
+      } else {
         throw TwitterError.hiddenError
       }
     }

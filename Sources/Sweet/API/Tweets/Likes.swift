@@ -25,7 +25,7 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -58,7 +58,7 @@ extension Sweet {
       Expansion.key: allTweetExpansion.joined(separator: ","),
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -88,7 +88,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(LikeResponseModel.self, from: data) {
-      if !response.liked {
+      if response.liked {
+        return
+      } else {
         throw TwitterError.likeError
       }
     }
@@ -112,6 +114,8 @@ extension Sweet {
     if let response = try? JSONDecoder().decode(LikeResponseModel.self, from: data) {
       if response.liked {
         throw TwitterError.likeError
+      } else {
+        return
       }
     }
     

@@ -48,11 +48,11 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
-    let removedNilValueQueries: [String: String?] = queries.filter { $0.value != nil }
+    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedEmptyQueries)
     
     if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
       return (response.tweets, response.meta)
@@ -97,11 +97,11 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
-    let removedNilValueQueries: [String: String?] = queries.filter { $0.value != nil }
+    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedEmptyQueries)
     
     if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
       return (response.tweets, response.meta)

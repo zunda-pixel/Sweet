@@ -25,7 +25,7 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -55,7 +55,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response  = try? JSONDecoder().decode(RetweetResponseModel.self, from: data) {
-      if !response.retweeted {
+      if response.retweeted {
+        return
+      } else {
         throw TwitterError.retweetError
       }
     }
@@ -79,6 +81,8 @@ extension Sweet {
     if let response  = try? JSONDecoder().decode(RetweetResponseModel.self, from: data) {
       if response.retweeted {
         throw TwitterError.retweetError
+      } else {
+        return
       }
     }
     

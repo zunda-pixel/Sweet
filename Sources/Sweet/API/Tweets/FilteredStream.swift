@@ -42,7 +42,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
     
-    var queries = [
+    var queries: [String: String?] = [
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
@@ -55,9 +55,14 @@ extension Sweet {
       queries["backfill_minutes"] =  String(backfillMinutes)
     }
     
+    let filteredQueries = queries.filter { $0.value != nil && $0.value != ""}
+    
     let headers = getBearerHeaders(type: .App)
     
-    var request = URLRequest(url: url)
+    var components: URLComponents = .init(url: url, resolvingAgainstBaseURL: true)!
+    components.queryItems = filteredQueries.map { .init(name: $0, value: $1)}
+    
+    var request = URLRequest(url: components.url!)
     request.allHTTPHeaderFields = headers
     
     let session = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
@@ -71,9 +76,9 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let queries = [
+    let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ]
+    ].filter { $0.value != nil && $0.value != ""}
     
     let body = ["add": streamRuleModels]
     
@@ -97,9 +102,9 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    let queries = [
+    let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ]
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     
@@ -115,9 +120,9 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    let queries = [
+    let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ]
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     

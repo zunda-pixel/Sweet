@@ -21,6 +21,8 @@ extension Sweet {
     if let response = try? JSONDecoder().decode(UnFollowResponseModel.self, from: data) {
       if response.following {
         throw TwitterError.followError
+      } else {
+        return
       }
     }
     
@@ -44,7 +46,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(UnFollowResponseModel.self, from: data) {
-      if !response.following {
+      if response.following {
+        return
+      } else {
         throw TwitterError.followError
       }
     }
@@ -67,7 +71,7 @@ extension Sweet {
       "max_results": String(maxResults),
       UserField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -95,7 +99,7 @@ extension Sweet {
       "max_results": String(maxResults),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

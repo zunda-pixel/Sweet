@@ -21,7 +21,7 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -51,7 +51,9 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(BlockResponseModel.self, from: data) {
-      if !response.blocking {
+      if response.blocking {
+        return
+      } else {
         throw TwitterError.blockError
       }
     }
@@ -75,6 +77,8 @@ extension Sweet {
     if let response = try? JSONDecoder().decode(BlockResponseModel.self, from: data) {
       if response.blocking {
         throw TwitterError.blockError
+      } else {
+        return
       }
     }
     

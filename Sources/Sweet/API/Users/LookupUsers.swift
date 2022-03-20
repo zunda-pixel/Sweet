@@ -18,7 +18,7 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -44,7 +44,7 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -67,12 +67,12 @@ extension Sweet {
     
     let url: URL = .init(string:"https://api.twitter.com/2/users")!
     
-    let queries = [
+    let queries: [String: String?] = [
       "ids": userIDs.joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ]
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -95,12 +95,12 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/by")!
     
-    let queries = [
+    let queries: [String: String?] = [
       "usernames": screenIDs.joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ]
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -122,11 +122,11 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/me")!
     
-    let queries = [
+    let queries: [String: String?] = [
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ]
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

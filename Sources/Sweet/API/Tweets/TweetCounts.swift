@@ -33,11 +33,11 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
-    let removedNilValueQueries: [String: String?] = queries.filter { $0.value != nil }
+    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedEmptyQueries)
     
     if let response = try? JSONDecoder().decode(CountTweetResponseModel.self, from: data) {
       return (response.countTweets, response.meta)
@@ -76,11 +76,11 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
-    let removedNilValueQueries: [String: String?] = queries.filter { $0.value != nil }
+    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedNilValueQueries)
+    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedEmptyQueries)
     
     if let response = try? JSONDecoder().decode(CountTweetResponseModel.self, from: data) {
       return (response.countTweets, response.meta)
