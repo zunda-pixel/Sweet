@@ -18,7 +18,7 @@ extension Sweet {
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -46,7 +46,7 @@ extension Sweet {
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -74,7 +74,7 @@ extension Sweet {
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     
@@ -104,7 +104,7 @@ extension Sweet {
       PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -134,7 +134,7 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

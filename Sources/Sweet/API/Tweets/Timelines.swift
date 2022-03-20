@@ -48,7 +48,7 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil || $0.value != ""}
+    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -97,7 +97,7 @@ extension Sweet {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil || $0.value != ""}
+    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

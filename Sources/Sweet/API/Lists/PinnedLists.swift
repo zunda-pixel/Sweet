@@ -69,7 +69,7 @@ extension Sweet {
     let queries: [String: String?] = [
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

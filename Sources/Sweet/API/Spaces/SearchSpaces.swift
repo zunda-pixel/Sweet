@@ -21,7 +21,7 @@ extension Sweet {
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

@@ -55,7 +55,7 @@ extension Sweet {
       queries["backfill_minutes"] =  String(backfillMinutes)
     }
     
-    let filteredQueries = queries.filter { $0.value != nil || $0.value != ""}
+    let filteredQueries = queries.filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     
@@ -78,7 +78,7 @@ extension Sweet {
     
     let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let body = ["add": streamRuleModels]
     
@@ -104,7 +104,7 @@ extension Sweet {
     
     let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     
@@ -122,7 +122,7 @@ extension Sweet {
     
     let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     

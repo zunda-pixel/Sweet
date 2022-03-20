@@ -17,7 +17,7 @@ extension Sweet {
     let queries: [String: String?] = [
       "type": type.rawValue,
       "status": status?.rawValue,
-    ].filter { $0.value != nil || $0.value != ""}
+    ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .App)
     
