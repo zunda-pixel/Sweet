@@ -58,7 +58,7 @@ extension UsersResponseModel: Decodable {
     
     self.meta = try? values.decode(MetaModel.self, forKey: .meta)
     
-    if meta!.resultCount == 0 {
+    if meta?.resultCount == 0 {
       self.users = []
       return
     }

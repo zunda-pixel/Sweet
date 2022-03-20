@@ -20,7 +20,7 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil || $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

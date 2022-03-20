@@ -47,7 +47,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.put(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(UpdateResponseModel.self, from: data) {
-      if !response.updated {
+      if response.updated {
         return
       } else {
         throw TwitterError.listError

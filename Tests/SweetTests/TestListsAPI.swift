@@ -143,7 +143,7 @@ final class TestListsAPI: XCTestCase {
   }
   
   func testUpdateList() async throws {
-    let listID = "1489548406032769025"
+    let listID = "1489620669822160899"
     
     let sweet = Sweet.sweetForTest()
     try await sweet.updateList(listID: listID, name: "changed name", description: "changed description", isPrivate: false)    
@@ -158,7 +158,7 @@ final class TestListsAPI: XCTestCase {
   
   func testPinList() async throws {
     let userID = testMyUserID
-    let listID = "1489548406032769025"
+    let listID = "1489620669822160899"
     
     let sweet = Sweet.sweetForTest()
     try await sweet.pinList(userID: userID, listID: listID)

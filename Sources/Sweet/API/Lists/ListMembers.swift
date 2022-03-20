@@ -71,7 +71,7 @@ extension Sweet {
       "max_results": String(maxResults),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil || $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
@@ -99,7 +99,7 @@ extension Sweet {
       "max_results": String(maxResults),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil }
+    ].filter { $0.value != nil || $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     

@@ -14,17 +14,6 @@ public struct SpacesResponseModel {
 extension SpacesResponseModel: Decodable {
    private enum CodingKeys: String, CodingKey {
      case spaces = "data"
-     case meta
-     case includes
-  }
-  
-  private enum UserCodingKeys: String, CodingKey {
-    case users
-  }
-  
-  public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
-    self.spaces = try values.decode([SpaceModel].self, forKey: .spaces)
   }
 }
 
