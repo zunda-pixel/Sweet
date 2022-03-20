@@ -283,6 +283,19 @@ final class TestTweetsAPI: XCTestCase {
     let sweet = Sweet.sweetForTest()
     try await sweet.hideReply(tweetID: tweetID, hidden: false)
   }
+  
+  func testFetchQuoteTweets() async throws {
+    let sweet = Sweet.sweetForTest()
+    let tweetID = "1503755656771346447"
+    let tweetFields: [TweetField] = [.createdAt, .text, .authorID, .contextAnnotations, .conversationID, .geo, .id, .possiblySensitive, .publicMetrics, .referencedTweets, .replySettings, .inReplyToUserID]
+    let (tweets, meta) = try await sweet.fetchQuoteTweets(tweetID: tweetID, paginationToken: nil, maxResults: 10, tweetFields: tweetFields, userFields: UserField.allCases, placeFields: PlaceField.allCases, mediaFields: MediaField.allCases, pollFields: PollField.allCases)
+    
+    print(meta)
+    
+    tweets.forEach {
+      print($0)
+    }
+  }
 }
 
 
