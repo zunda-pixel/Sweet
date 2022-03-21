@@ -9,7 +9,7 @@ import Foundation
 
 public struct TweetsResponseModel {
   public var tweets: [TweetModel]
-  public let meta: MetaModel
+  public let meta: MetaModel?
 }
 
 extension TweetsResponseModel: Decodable {
@@ -22,9 +22,9 @@ extension TweetsResponseModel: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     
-    self.meta = try values.decode(MetaModel.self, forKey: .meta)
+    self.meta = try? values.decode(MetaModel.self, forKey: .meta)
     
-    if meta.resultCount == 0 {
+    if meta?.resultCount == 0 {
       self.tweets = []
       return
     }

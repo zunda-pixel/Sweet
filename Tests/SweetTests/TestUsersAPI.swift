@@ -74,9 +74,7 @@ final class TestUsersAPI: XCTestCase {
   func testLookUpUsersByUserID() async throws {
     let userIDs = ["2244994945", "1048032521361866752"]
     let sweet = Sweet.sweetForTest()
-    let (users, meta) = try await sweet.lookUpUsers(userIDs: userIDs, userFields: UserField.allCases)
-    
-    print(meta)
+    let users = try await sweet.lookUpUsers(userIDs: userIDs, userFields: UserField.allCases)
     
     users.forEach {
       print($0)
@@ -86,10 +84,8 @@ final class TestUsersAPI: XCTestCase {
   func testLookUpUsersByScreenID() async throws {
     let userIDs = ["zunda_pixel", "zunda"]
     let sweet = Sweet.sweetForTest()
-    let (users, meta) = try await sweet.lookUpUsers(screenIDs: userIDs, userFields: UserField.allCases)
-    
-    print(meta)
-    
+    let users = try await sweet.lookUpUsers(screenIDs: userIDs, userFields: UserField.allCases)
+        
     users.forEach {
       print($0)
     }

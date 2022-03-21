@@ -28,7 +28,7 @@ extension Sweet {
 						
     
     if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
-      return (response.tweets, response.meta)
+      return (response.tweets, response.meta!)
     }
 		
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
