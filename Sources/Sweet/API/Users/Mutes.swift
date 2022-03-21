@@ -76,9 +76,9 @@ extension Sweet {
     
     if let response = try? JSONDecoder().decode(MuteResponseModel.self, from: data) {
       if response.muting {
-        return
-      } else {
         throw TwitterError.muteError
+      } else {
+        return
       }
     }
     
