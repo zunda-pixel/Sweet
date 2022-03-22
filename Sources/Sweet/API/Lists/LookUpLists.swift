@@ -9,14 +9,14 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchList(listID: String, listFields: [ListField] = [], userFiedls: [UserField] = []) async throws -> ListResponse {
+  public func fetchList(listID: String) async throws -> ListResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-lists-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
     
     let queries: [String: String?] = [
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
-      UserField.key: userFiedls.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
@@ -34,8 +34,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchOwnedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                              listFields: [ListField] = [], userFields: [UserField] = []) async throws -> ListsResponse {
+  public func fetchOwnedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/owned_lists")!

@@ -17,9 +17,7 @@ extension Sweet {
   public func fetchTimeLine(by userID: String, maxResults: Int = 10,
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil,
-                            paginationToken: String? = nil, exclude: TweetExclude? = nil,
-                            tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                            mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
+                            paginationToken: String? = nil, exclude: TweetExclude? = nil) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/tweets")!
@@ -67,9 +65,7 @@ extension Sweet {
   
   public func fetchMentions(by userID: String, maxResults: Int = 10,
                             startTime: Date? = nil, endTime: Date? = nil,
-                            untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil,
-                            tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                            mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
+                            untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/mentions")!

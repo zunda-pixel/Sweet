@@ -14,8 +14,7 @@ final class TestCompliancesAPI: XCTestCase {
   func testFetchCompliances() async throws {
     let type: Sweet.JobType = .tweets
     
-    let sweet = Sweet.sweetForTest()
-    let compliances = try await sweet.fetchCompliances(type: type)
+    let compliances = try await Sweet.test.fetchCompliances(type: type)
     
     compliances.forEach {
       print($0)
@@ -24,15 +23,13 @@ final class TestCompliancesAPI: XCTestCase {
   
   func testFetchCompliance() async throws {
     let jobID = "1484074084916891649"
-    let sweet = Sweet.sweetForTest()
-    let compliance = try await sweet.fetchCompliance(jobID: jobID)
+    let compliance = try await Sweet.test.fetchCompliance(jobID: jobID)
     
     print(compliance)
   }
   
   func testCreateCompliance() async throws {
-    let sweet = Sweet.sweetForTest()
-    let compliance = try await sweet.createCompliance(type: .users, name: "fds", resumable: nil)
+    let compliance = try await Sweet.test.createCompliance(type: .users, name: "fds", resumable: nil)
     
     print(compliance)
   }

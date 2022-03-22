@@ -9,10 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  func fetchQuoteTweets(tweetID: String, paginationToken: String? = nil, maxResults: Int = 10,
-                        tweetFields: [TweetField] = [], userFields: [UserField] = [],
-                        placeFields: [PlaceField] = [], mediaFields: [MediaField] = [],
-                        pollFields: [PollField] = []) async throws -> TweetsResponse {
+  func fetchQuoteTweets(tweetID: String, paginationToken: String? = nil, maxResults: Int = 10) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/quote-tweets/api-reference/get-tweets-id-quote_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/quote_tweets")!

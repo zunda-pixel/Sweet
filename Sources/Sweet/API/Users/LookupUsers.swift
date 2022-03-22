@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func lookUpUser(userID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserResponse {
+  public func lookUpUser(userID: String) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id
     
     let url: URL =  .init(string: "https://api.twitter.com/2/users/\(userID)")!
@@ -35,7 +35,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpUser(screenID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserResponse {
+  public func lookUpUser(screenID: String) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/by/username/\(screenID)")!
@@ -61,8 +61,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpUsers(userIDs: [String], userFields: [UserField] = [],
-                          tweetFields: [TweetField] = []) async throws -> UsersResponse {
+  public func lookUpUsers(userIDs: [String]) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
     
     let url: URL = .init(string:"https://api.twitter.com/2/users")!
@@ -89,8 +88,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpUsers(screenIDs: [String], userFields: [UserField] = [],
-                          tweetFields: [TweetField] = []) async throws -> UsersResponse {
+  public func lookUpUsers(screenIDs: [String]) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/by")!
@@ -117,7 +115,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpMe(userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserResponse {
+  public func lookUpMe() async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/me")!

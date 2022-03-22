@@ -12,8 +12,7 @@ final class TestSpacesAPI: XCTestCase {
   func testFetchSpace() async throws {
     let spaceID = "1ZkKzbEYkReKv"
     
-    let sweet = Sweet.sweetForTest()
-    let space = try await sweet.fetchSpace(spaceID: spaceID, spaceFields: SpaceField.allCases, topicFields: TopicField.allCases)
+    let space = try await Sweet.test.fetchSpace(spaceID: spaceID)
     
     print(space)
   }
@@ -21,8 +20,7 @@ final class TestSpacesAPI: XCTestCase {
   func testFetchSpacesWithSpaceIDs() async throws {
     let spaceIDs = ["1gqGvlqjRRaxB"]
     
-    let sweet = Sweet.sweetForTest()
-    let response = try await sweet.fetchSpaces(spaceIDs: spaceIDs, spaceFields: SpaceField.allCases)
+    let response = try await Sweet.test.fetchSpaces(spaceIDs: spaceIDs)
     
     response.spaces.forEach {
       print($0)
@@ -32,8 +30,7 @@ final class TestSpacesAPI: XCTestCase {
   func testFetchSpacesWithUserIDs() async throws {
     let userIDs = ["1048032521361866752"]
     
-    let sweet = Sweet.sweetForTest()
-    let response = try await sweet.fetchSpaces(creatorIDs: userIDs, spaceFields: SpaceField.allCases)
+    let response = try await Sweet.test.fetchSpaces(creatorIDs: userIDs)
     
     response.spaces.forEach {
       print($0)
@@ -43,8 +40,7 @@ final class TestSpacesAPI: XCTestCase {
   func testFetchSpaceBuyers() async throws {
     let spaceID = "1gqGvlqjRRaxB"
     
-    let sweet = Sweet.sweetForTest()
-    let response = try await sweet.fetchSpaceBuyers(spaceID: spaceID, userFields: UserField.allCases)
+    let response = try await Sweet.test.fetchSpaceBuyers(spaceID: spaceID)
         
     response.users.forEach {
       print($0)
@@ -54,8 +50,7 @@ final class TestSpacesAPI: XCTestCase {
   func testFetchSpaceTweets() async throws {
     let spaceID = "1ZkKzbpyNdeKv"
 
-    let sweet = Sweet.sweetForTest()
-    let response = try await sweet.fetchSpaceTweets(spaceID: spaceID, tweetFields: TweetField.allCases, userFields: UserField.allCases)
+    let response = try await Sweet.test.fetchSpaceTweets(spaceID: spaceID)
     
     response.tweets.forEach {
       print($0)
@@ -65,8 +60,7 @@ final class TestSpacesAPI: XCTestCase {
   func testSearchSpace() async throws {
     let query = "円"
     
-    let sweet = Sweet.sweetForTest()
-    let response = try await sweet.searchSpaces(query: query, spaceFields: SpaceField.allCases)
+    let response = try await Sweet.test.searchSpaces(query: query)
     
     response.spaces.forEach {
       print($0)

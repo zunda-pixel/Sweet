@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchSpace(spaceID: String, spaceFields: [SpaceField] = [], topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> SpaceResponse {
+  public func fetchSpace(spaceID: String) async throws -> SpaceResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
@@ -35,8 +35,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchSpaces(spaceIDs: [String], spaceFields: [SpaceField] = [],
-                          topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> SpacesResponse {
+  public func fetchSpaces(spaceIDs: [String]) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces")!
@@ -63,8 +62,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchSpaces(creatorIDs: [String], spaceFields: [SpaceField] = [],
-                          topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> SpacesResponse {
+  public func fetchSpaces(creatorIDs: [String]) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/by/creator_ids")!
@@ -91,9 +89,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchSpaceBuyers(spaceID: String, userFields: [UserField] = [],
-                               mediaFields: [MediaField] = [], placeFields: [PlaceField] = [],
-                               pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
+  public func fetchSpaceBuyers(spaceID: String) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
@@ -121,8 +117,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchSpaceTweets(spaceID: String, tweetFields: [TweetField] = [], userFields: [UserField] = [],
-                               mediaFields: [MediaField] = [], placeFields: [PlaceField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
+  public func fetchSpaceTweets(spaceID: String) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/tweets")!

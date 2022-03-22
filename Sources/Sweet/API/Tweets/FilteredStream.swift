@@ -35,9 +35,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil,
-                          tweetFields: [TweetField] = [], mediaFields: [MediaField] = [],
-                          pollFields: [PollField] = [], placeFields: [PlaceField] = [], userFields: [UserField] = []) -> URLSessionDataTask {
+  public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!

@@ -14,12 +14,9 @@ public enum SortOrder: String {
 }
 
 extension Sweet {
-  public func searchRecentTweet(by query: String, maxResults: Int = 10,
-                                startTime: Date? = nil, endTime: Date? = nil,
-                                untilID: String? = nil, sinceID: String? = nil,
-                                sortOrder: SortOrder? = nil, nextToken: String? = nil,
-                                tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                                mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
+  public func searchRecentTweet(by query: String, maxResults: Int = 10, startTime: Date? = nil, endTime: Date? = nil,
+                                untilID: String? = nil, sinceID: String? = nil, sortOrder: SortOrder? = nil,
+                                nextToken: String? = nil) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/recent")!
@@ -69,9 +66,7 @@ extension Sweet {
   public func searchTweet(by query: String, maxResults: Int = 10,
                           startTime: Date? = nil, endTime: Date? = nil,
                           untilID: String? = nil, sinceID: String? = nil,
-                          sortOrder: SortOrder? = nil, nextToken: String? = nil,
-                          tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
+                          sortOrder: SortOrder? = nil, nextToken: String? = nil) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
     // This endpoint is only available for Academic Research access.
     
