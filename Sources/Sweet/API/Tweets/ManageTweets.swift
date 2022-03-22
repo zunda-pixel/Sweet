@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func createTweet(_ postTweetModel: PostTweetModel) async throws -> TweetModel {
+  public func createTweet(_ postTweetModel: PostTweetModel) async throws -> TweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
@@ -21,7 +21,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(TweetResponse.self, from: data) {
-      return response.tweet
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

@@ -22,9 +22,9 @@ extension Sweet {
     public let location: String?
     public let pinnedTweetID: String?
     public let metrics: UserPublicMetricsModel?
-    public var pinnedTweet: PinTweetModel?
-    public var withheld: WithheldModel?
-    public var entity: EntityModel?
+    //public let pinnedTweet: PinTweetModel?
+    public let withheld: WithheldModel?
+    public let entity: EntityModel?
   }
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  internal struct TweetsResponse {
+  public struct TweetsResponse {
     public let tweets: [TweetModel]
     public let meta: MetaModel?
     public let users: [UserModel]
@@ -73,7 +73,7 @@ extension Sweet.TweetsResponse: Decodable {
 }
 
 extension Sweet {
-  internal struct TweetResponse {
+  public struct TweetResponse {
     public let tweet: TweetModel
     public let users: [UserModel]
     public let medias: [MediaModel]

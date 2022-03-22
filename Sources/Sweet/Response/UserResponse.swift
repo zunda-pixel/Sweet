@@ -8,8 +8,9 @@
 import Foundation
 
 extension Sweet {
-  internal struct UserResponse {
-    public var user: UserModel
+  public struct UserResponse {
+    public let user: UserModel
+    public let tweets: [TweetModel]
   }
 }
 
@@ -28,21 +29,20 @@ extension Sweet.UserResponse: Decodable {
     self.user = try values.decode(Sweet.UserModel.self, forKey: .user)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes) else {
+      self.tweets = []
       return
     }
     
-    let tweets = try includes.decode([Sweet.PinTweetModel].self, forKey: .tweets)
-    
-    if let index = tweets.firstIndex(where: { $0.id == user.pinnedTweetID }) {
-      user.pinnedTweet = tweets[index]
-    }
+    let tweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    self.tweets = tweets ?? []
   }
 }
 
 extension Sweet {
-  internal struct UsersResponse {
+  public struct UsersResponse {
     public var users: [UserModel]
     public let meta: MetaModel?
+    public let tweets: [TweetModel]
   }
 }
 
@@ -64,21 +64,18 @@ extension Sweet.UsersResponse: Decodable {
     
     if meta?.resultCount == 0 {
       self.users = []
+      self.tweets = []
       return
     }
     
     self.users = try values.decode([Sweet.UserModel].self, forKey: .users)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes) else {
+      self.tweets = []
       return
     }
     
-    let tweets = try includes.decode([Sweet.PinTweetModel].self, forKey: .tweets)
-    
-    tweets.forEach { tweet in
-      if let index = users.firstIndex(where: { user in user.pinnedTweetID == tweet.id }) {
-        self.users[index].pinnedTweet = tweet
-      }
-    }
+    let tweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    self.tweets = tweets ?? []
   }
 }

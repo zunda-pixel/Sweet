@@ -12,7 +12,7 @@ import HTTPClient
 extension Sweet {
   public func lookUpTweets(by ids: [String], tweetFields: [TweetField] = [],
                            userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = [],
-                           placeFields: [PlaceField] = []) async throws -> [TweetModel] {
+                           placeFields: [PlaceField] = []) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
@@ -32,7 +32,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
-      return (response.tweets)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -43,7 +43,7 @@ extension Sweet {
   }
   
   public func lookUpTweet(by id: String, tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetModel {
+                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(id)")!
@@ -62,7 +62,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(TweetResponse.self, from: data) {
-      return response.tweet
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

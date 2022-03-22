@@ -61,7 +61,7 @@ extension Sweet {
   }
   
   public func fetchPinnedLists(userID: String, listFields: [ListField] = [],
-                               userFields: [UserField] = []) async throws -> ([ListModel], MetaModel) {
+                               userFields: [UserField] = []) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
@@ -76,7 +76,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(ListsResponse.self, from: data) {
-      return (response.lists, response.meta)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

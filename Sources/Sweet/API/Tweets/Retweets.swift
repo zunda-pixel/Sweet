@@ -11,7 +11,7 @@ import HTTPClient
 extension Sweet {
   public func fetchRetweetUsers(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil,
                                 userFields: [UserField] = [], mediaFields: [MediaField] = [], placeFields: [PlaceField] = [],
-                                pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
+                                pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/retweeted_by")!
@@ -32,7 +32,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
-      return (response.users, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

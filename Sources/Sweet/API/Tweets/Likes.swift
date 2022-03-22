@@ -11,7 +11,7 @@ import HTTPClient
 extension Sweet {
   public func fetchLikingTweetUser(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil,
                                    userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = [],
-                                   placeFields: [PlaceField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
+                                   placeFields: [PlaceField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
@@ -32,7 +32,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
-      return (response.users, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -44,7 +44,7 @@ extension Sweet {
   
   public func fetchLikedTweet(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
                               tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                              mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
+                              mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
@@ -65,7 +65,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
-      return (response.tweets, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

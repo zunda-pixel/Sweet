@@ -10,7 +10,7 @@ import HTTPClient
 
 extension Sweet {
   public func fetchListTweets(listID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                              tweetFields: [TweetField] = [], userFields: [UserField] = []) async throws -> ([TweetModel], MetaModel) {
+                              tweetFields: [TweetField] = [], userFields: [UserField] = []) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/api-reference/get-lists-id-tweets
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/tweets")!
@@ -27,7 +27,7 @@ extension Sweet {
 		let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
 						
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
-      return (response.tweets, response.meta!)
+      return response
     }
 		
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

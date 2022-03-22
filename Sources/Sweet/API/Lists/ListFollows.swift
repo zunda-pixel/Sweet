@@ -61,7 +61,7 @@ extension Sweet {
   }
   
   public func fetchFollowedUsers(listID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                                 userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
+                                 userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/followers")!
@@ -78,7 +78,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
-      return (response.users, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -89,7 +89,7 @@ extension Sweet {
   }
   
   public func fetchFollowingLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                                  listFields: [ListField] = [], userFields: [UserField] = []) async throws -> ([ListModel], MetaModel) {
+                                  listFields: [ListField] = [], userFields: [UserField] = []) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!
@@ -106,7 +106,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(ListsResponse.self, from: data) {
-      return (response.lists, response.meta)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

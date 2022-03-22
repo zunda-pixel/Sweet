@@ -57,7 +57,7 @@ extension Sweet {
   }
   
   public func fetchFolloing(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                            userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
+                            userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/following")!
@@ -75,7 +75,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
-      return (response.users, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -86,7 +86,7 @@ extension Sweet {
   }
   
   public func fetchFollower(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                            userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> ([UserModel], MetaModel) {
+                            userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followers")!
@@ -104,7 +104,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
-      return (response.users, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  internal struct CountTweetResponse {
+  public struct CountTweetResponse {
     public let countTweets : [CountTweetModel]
     public let meta: CountTweetMetaModel
   }

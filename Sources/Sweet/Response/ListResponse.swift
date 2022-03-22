@@ -8,8 +8,9 @@
 import Foundation
 
 extension Sweet {
-  internal struct ListResponse {
-    public var list: ListModel
+  public struct ListResponse {
+    public let list: ListModel
+    public let users: [UserModel]
   }
 }
 
@@ -29,17 +30,17 @@ extension Sweet.ListResponse: Decodable {
     self.list = try values.decode(Sweet.ListModel.self, forKey: .list)
     
     guard let includes = try? values.nestedContainer(keyedBy: UserIncludesCodingKeys.self, forKey: .includes) else {
+      self.users = []
       return
     }
     
     let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
-    
-    self.list.users = users ?? []
+    self.users = users ?? []
   }
 }
 
 extension Sweet {
-  internal struct ListsResponse {
+  public struct ListsResponse {
     public let lists: [ListModel]
     public let meta: MetaModel
   }

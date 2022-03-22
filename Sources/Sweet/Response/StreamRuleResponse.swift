@@ -9,7 +9,7 @@ import Foundation
 
 
 extension Sweet {
-  internal struct StreamRuleResponse {
+  public struct StreamRuleResponse {
     public let streamRules: [StreamRuleModel]
     public let meta: StreamRuleMetaModel
   }

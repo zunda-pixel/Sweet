@@ -26,7 +26,7 @@ extension Sweet {
     public let speakerIDs: [String]
     public let subscriberCount: Int?
     public let topicIDs: [String]
-    public var users: [UserModel]
+    //public var users: [UserModel]
   }
 }
 
@@ -93,7 +93,5 @@ extension Sweet.SpaceModel: Decodable {
     
     let topicIDs = try? values.decode([String].self, forKey: .topicIDs)
     self.topicIDs = topicIDs ?? []
-    
-    self.users = []
   }
 }

@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchSpace(spaceID: String, spaceFields: [SpaceField] = [], topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> SpaceModel {
+  public func fetchSpace(spaceID: String, spaceFields: [SpaceField] = [], topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> SpaceResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
@@ -25,7 +25,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(SpaceResponse.self, from: data) {
-      return response.space
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -36,7 +36,7 @@ extension Sweet {
   }
   
   public func fetchSpaces(spaceIDs: [String], spaceFields: [SpaceField] = [],
-                          topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> [SpaceModel] {
+                          topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces")!
@@ -53,7 +53,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(SpacesResponse.self, from: data) {
-      return response.spaces
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -64,7 +64,7 @@ extension Sweet {
   }
   
   public func fetchSpaces(creatorIDs: [String], spaceFields: [SpaceField] = [],
-                          topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> [SpaceModel] {
+                          topicFields: [TopicField] = [], userFields: [UserField] = []) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/by/creator_ids")!
@@ -81,7 +81,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(SpacesResponse.self, from: data) {
-      return response.spaces
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -93,7 +93,7 @@ extension Sweet {
   
   public func fetchSpaceBuyers(spaceID: String, userFields: [UserField] = [],
                                mediaFields: [MediaField] = [], placeFields: [PlaceField] = [],
-                               pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> [UserModel] {
+                               pollFields: [PollField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
@@ -111,7 +111,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
-      return response.users
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -122,7 +122,7 @@ extension Sweet {
   }
   
   public func fetchSpaceTweets(spaceID: String, tweetFields: [TweetField] = [], userFields: [UserField] = [],
-                               mediaFields: [MediaField] = [], placeFields: [PlaceField] = [], pollFields: [PollField] = []) async throws -> [TweetModel] {
+                               mediaFields: [MediaField] = [], placeFields: [PlaceField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/tweets")!
@@ -141,7 +141,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
-      return response.tweets
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

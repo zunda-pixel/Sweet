@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  internal struct SpacesResponse {
+  public struct SpacesResponse {
     public let spaces: [SpaceModel]
   }
 }
@@ -20,8 +20,9 @@ extension Sweet.SpacesResponse: Decodable {
 }
 
 extension Sweet {
-  internal struct SpaceResponse {
+  public struct SpaceResponse {
     public var space: SpaceModel
+    public let users: [UserModel]
   }
 }
 
@@ -41,10 +42,11 @@ extension Sweet.SpaceResponse: Decodable {
     self.space = try values.decode(Sweet.SpaceModel.self, forKey: .space)
     
     guard let includes = try? values.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes) else {
+      self.users = []
       return
     }
     
     let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
-    self.space.users = users ?? []
+    self.users = users ?? []
   }
 }

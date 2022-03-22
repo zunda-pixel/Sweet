@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchList(listID: String, listFields: [ListField] = [], userFiedls: [UserField] = []) async throws -> ListModel {
+  public func fetchList(listID: String, listFields: [ListField] = [], userFiedls: [UserField] = []) async throws -> ListResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-lists-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
@@ -24,7 +24,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(ListResponse.self, from: data) {
-      return response.list
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -35,7 +35,7 @@ extension Sweet {
   }
   
   public func fetchOwnedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                              listFields: [ListField] = [], userFields: [UserField] = []) async throws -> ([ListModel], MetaModel) {
+                              listFields: [ListField] = [], userFields: [UserField] = []) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/owned_lists")!
@@ -52,7 +52,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(ListsResponse.self, from: data) {
-      return (response.lists, response.meta)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

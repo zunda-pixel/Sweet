@@ -22,9 +22,9 @@ final class TestSpacesAPI: XCTestCase {
     let spaceIDs = ["1gqGvlqjRRaxB"]
     
     let sweet = Sweet.sweetForTest()
-    let spaces = try await sweet.fetchSpaces(spaceIDs: spaceIDs, spaceFields: SpaceField.allCases)
+    let response = try await sweet.fetchSpaces(spaceIDs: spaceIDs, spaceFields: SpaceField.allCases)
     
-    spaces.forEach {
+    response.spaces.forEach {
       print($0)
     }
   }
@@ -33,9 +33,9 @@ final class TestSpacesAPI: XCTestCase {
     let userIDs = ["1048032521361866752"]
     
     let sweet = Sweet.sweetForTest()
-    let spaces = try await sweet.fetchSpaces(creatorIDs: userIDs, spaceFields: SpaceField.allCases)
+    let response = try await sweet.fetchSpaces(creatorIDs: userIDs, spaceFields: SpaceField.allCases)
     
-    spaces.forEach {
+    response.spaces.forEach {
       print($0)
     }
   }
@@ -44,9 +44,9 @@ final class TestSpacesAPI: XCTestCase {
     let spaceID = "1gqGvlqjRRaxB"
     
     let sweet = Sweet.sweetForTest()
-    let users = try await sweet.fetchSpaceBuyers(spaceID: spaceID, userFields: UserField.allCases)
+    let response = try await sweet.fetchSpaceBuyers(spaceID: spaceID, userFields: UserField.allCases)
         
-    users.forEach {
+    response.users.forEach {
       print($0)
     }
   }
@@ -55,9 +55,9 @@ final class TestSpacesAPI: XCTestCase {
     let spaceID = "1ZkKzbpyNdeKv"
 
     let sweet = Sweet.sweetForTest()
-    let tweets = try await sweet.fetchSpaceTweets(spaceID: spaceID, tweetFields: TweetField.allCases, userFields: UserField.allCases)
+    let response = try await sweet.fetchSpaceTweets(spaceID: spaceID, tweetFields: TweetField.allCases, userFields: UserField.allCases)
     
-    tweets.forEach {
+    response.tweets.forEach {
       print($0)
     }    
   }
@@ -66,9 +66,9 @@ final class TestSpacesAPI: XCTestCase {
     let query = "円"
     
     let sweet = Sweet.sweetForTest()
-    let spaces = try await sweet.searchSpaces(query: query, spaceFields: SpaceField.allCases)
+    let response = try await sweet.searchSpaces(query: query, spaceFields: SpaceField.allCases)
     
-    spaces.forEach {
+    response.spaces.forEach {
       print($0)
     }
   }

@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func lookUpUser(userID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserModel {
+  public func lookUpUser(userID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id
     
     let url: URL =  .init(string: "https://api.twitter.com/2/users/\(userID)")!
@@ -25,7 +25,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UserResponse.self, from: data) {
-      return response.user
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -35,7 +35,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpUser(screenID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserModel {
+  public func lookUpUser(screenID: String, userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/by/username/\(screenID)")!
@@ -51,7 +51,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UserResponse.self, from: data) {
-      return response.user
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -62,7 +62,7 @@ extension Sweet {
   }
   
   public func lookUpUsers(userIDs: [String], userFields: [UserField] = [],
-                          tweetFields: [TweetField] = []) async throws -> [UserModel] {
+                          tweetFields: [TweetField] = []) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
     
     let url: URL = .init(string:"https://api.twitter.com/2/users")!
@@ -79,7 +79,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
-      return (response.users)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -90,7 +90,7 @@ extension Sweet {
   }
   
   public func lookUpUsers(screenIDs: [String], userFields: [UserField] = [],
-                          tweetFields: [TweetField] = []) async throws -> [UserModel] {
+                          tweetFields: [TweetField] = []) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/by")!
@@ -107,7 +107,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
-      return response.users
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -117,7 +117,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpMe(userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserModel {
+  public func lookUpMe(userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/me")!
@@ -133,7 +133,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UserResponse.self, from: data) {
-      return response.user
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

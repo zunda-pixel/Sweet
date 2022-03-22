@@ -17,7 +17,6 @@ extension Sweet {
     public let description: String?
     public let isPrivate: Bool?
     public let createdAt: Date?
-    public var users: [UserModel]
   }
 }
 
@@ -36,8 +35,6 @@ extension Sweet.ListModel: Decodable {
       self.createdAt = TwitterDateFormatter().date(from: createdAt)
     } else {
       self.createdAt = nil
-    }
-    
-    self.users = []
+    }    
   }
 }

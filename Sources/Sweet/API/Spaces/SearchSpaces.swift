@@ -10,7 +10,7 @@ import HTTPClient
 
 extension Sweet {
   public func searchSpaces(query: String, state: SpaceState = .all, spaceFields: [SpaceField] = [],
-                           userFields: [UserField] = [], topicFields: [TopicField] = []) async throws -> [SpaceModel] {
+                           userFields: [UserField] = [], topicFields: [TopicField] = []) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
     
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/search")!
@@ -28,7 +28,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(SpacesResponse.self, from: data) {
-      return response.spaces
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

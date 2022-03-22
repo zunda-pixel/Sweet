@@ -12,7 +12,7 @@ extension Sweet {
   func fetchQuoteTweets(tweetID: String, paginationToken: String? = nil, maxResults: Int = 10,
                         tweetFields: [TweetField] = [], userFields: [UserField] = [],
                         placeFields: [PlaceField] = [], mediaFields: [MediaField] = [],
-                        pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel){
+                        pollFields: [PollField] = []) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/quote-tweets/api-reference/get-tweets-id-quote_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/quote_tweets")!
@@ -33,7 +33,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
-      return (response.tweets, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {

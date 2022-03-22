@@ -19,7 +19,7 @@ extension Sweet {
                                 untilID: String? = nil, sinceID: String? = nil,
                                 sortOrder: SortOrder? = nil, nextToken: String? = nil,
                                 tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                                mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
+                                mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/recent")!
@@ -56,7 +56,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedEmptyQueries)
     
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
-      return (response.tweets, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -71,7 +71,7 @@ extension Sweet {
                           untilID: String? = nil, sinceID: String? = nil,
                           sortOrder: SortOrder? = nil, nextToken: String? = nil,
                           tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> ([TweetModel], MetaModel) {
+                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
     // This endpoint is only available for Academic Research access.
     
@@ -109,7 +109,7 @@ extension Sweet {
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedEmptyQueries)
     
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
-      return (response.tweets, response.meta!)
+      return response
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
