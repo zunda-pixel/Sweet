@@ -43,13 +43,40 @@ extension Sweet {
   public struct ListsResponse {
     public let lists: [ListModel]
     public let meta: MetaModel
+    public let users: [UserModel]
   }
 }
-
 
 extension Sweet.ListsResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case lists = "data"
     case meta
+    case includes
+  }
+  
+  private enum UserIncludesCodingKeys: String, CodingKey {
+    case users
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    
+    self.meta = try values.decode(Sweet.MetaModel.self, forKey: .meta)
+    
+    if meta.resultCount == 0 {
+      self.lists = []
+      self.users = []
+      return
+    }
+    
+    self.lists = try values.decode([Sweet.ListModel].self, forKey: .lists)
+    
+    guard let includes = try? values.nestedContainer(keyedBy: UserIncludesCodingKeys.self, forKey: .includes) else {
+      self.users = []
+      return
+    }
+    
+    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    self.users = users ?? []
   }
 }
