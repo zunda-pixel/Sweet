@@ -60,8 +60,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchFollowedUsers(listID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                                 userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
+  public func fetchFollowedUsers(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/followers")!
@@ -69,7 +68,7 @@ extension Sweet {
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-      UserField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
@@ -88,8 +87,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchFollowingLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                                  listFields: [ListField] = [], userFields: [UserField] = []) async throws -> ListsResponse {
+  public func fetchFollowingLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!

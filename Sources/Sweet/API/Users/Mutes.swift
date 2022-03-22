@@ -9,8 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchMuting(by userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                          userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
+  public func fetchMuting(by userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/get-users-muting
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/muting")!

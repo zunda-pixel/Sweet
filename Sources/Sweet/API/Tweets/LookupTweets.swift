@@ -10,9 +10,7 @@ import HTTPClient
 
 
 extension Sweet {
-  public func lookUpTweets(by ids: [String], tweetFields: [TweetField] = [],
-                           userFields: [UserField] = [], mediaFields: [MediaField] = [], pollFields: [PollField] = [],
-                           placeFields: [PlaceField] = []) async throws -> TweetsResponse {
+  public func lookUpTweets(by ids: [String]) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
@@ -42,8 +40,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func lookUpTweet(by id: String, tweetFields: [TweetField] = [], userFields: [UserField] = [], placeFields: [PlaceField] = [],
-                          mediaFields: [MediaField] = [], pollFields: [PollField] = []) async throws -> TweetResponse {
+  public func lookUpTweet(by id: String) async throws -> TweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(id)")!

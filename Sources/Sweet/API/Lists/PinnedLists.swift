@@ -60,8 +60,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchPinnedLists(userID: String, listFields: [ListField] = [],
-                               userFields: [UserField] = []) async throws -> ListsResponse {
+  public func fetchPinnedLists(userID: String) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!

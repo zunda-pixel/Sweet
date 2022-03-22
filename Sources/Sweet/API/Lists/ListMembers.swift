@@ -60,8 +60,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchAddedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                              listFields: [ListField] = [], userFields: [UserField] = []) async throws -> ListsResponse {
+  public func fetchAddedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/list_memberships")!
@@ -88,8 +87,7 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
   
-  public func fetchAddedUsersToList(listID: String, maxResults: Int = 100, paginationToken: String? = nil,
-                                    userFields: [UserField] = [], tweetFields: [TweetField] = []) async throws -> UsersResponse {
+  public func fetchAddedUsersToList(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!

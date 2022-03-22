@@ -21,13 +21,13 @@ public enum TweetField: String, Field {
   case geo
   case inReplyToUserID = "in_reply_to_user_id"
   case lang
-  case privateMetrics = "non_public_metrics"
-  case organicMetrics = "organic_metrics"
   case possiblySensitive = "possibly_sensitive"
-  case promotedMetrics = "promoted_metrics"
-  case publicMetrics = "public_metrics"
   case referencedTweets = "referenced_tweets"
   case replySettings = "reply_settings"
   case source
   case withheld
+  case publicMetrics = "public_metrics"
+  case privateMetrics = "non_public_metrics"
+  case organicMetrics = "organic_metrics"
+  case promotedMetrics = "promoted_metrics"
 }
