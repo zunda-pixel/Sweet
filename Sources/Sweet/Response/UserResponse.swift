@@ -25,13 +25,13 @@ extension Sweet.UserResponse: Decodable {
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    self.user = try values.decode(UserModel.self, forKey: .user)
+    self.user = try values.decode(Sweet.UserModel.self, forKey: .user)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes) else {
       return
     }
     
-    let tweets = try includes.decode([PinTweetModel].self, forKey: .tweets)
+    let tweets = try includes.decode([Sweet.PinTweetModel].self, forKey: .tweets)
     
     if let index = tweets.firstIndex(where: { $0.id == user.pinnedTweetID }) {
       user.pinnedTweet = tweets[index]
@@ -60,20 +60,20 @@ extension Sweet.UsersResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     
-    self.meta = try? values.decode(MetaModel.self, forKey: .meta)
+    self.meta = try? values.decode(Sweet.MetaModel.self, forKey: .meta)
     
     if meta?.resultCount == 0 {
       self.users = []
       return
     }
     
-    self.users = try values.decode([UserModel].self, forKey: .users)
+    self.users = try values.decode([Sweet.UserModel].self, forKey: .users)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes) else {
       return
     }
     
-    let tweets = try includes.decode([PinTweetModel].self, forKey: .tweets)
+    let tweets = try includes.decode([Sweet.PinTweetModel].self, forKey: .tweets)
     
     tweets.forEach { tweet in
       if let index = users.firstIndex(where: { user in user.pinnedTweetID == tweet.id }) {

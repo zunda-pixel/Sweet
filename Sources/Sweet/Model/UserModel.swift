@@ -8,26 +8,27 @@
 import Foundation
 
 
-
-public struct UserModel {
-  public let id: String
-  public let name: String
-  public let userName: String
-  public let verified: Bool?
-  public let profileImageURL: URL?
-  public let description: String?
-  public let protected: Bool?
-  public let url: URL?
-  public let createdAt: Date?
-  public let location: String?
-  public let pinnedTweetID: String?
-  public let metrics: UserPublicMetricsModel?
-  public var pinnedTweet: PinTweetModel?
-  public var withheld: WithheldModel?
-  public var entity: EntityModel?
+extension Sweet {
+  public struct UserModel {
+    public let id: String
+    public let name: String
+    public let userName: String
+    public let verified: Bool?
+    public let profileImageURL: URL?
+    public let description: String?
+    public let protected: Bool?
+    public let url: URL?
+    public let createdAt: Date?
+    public let location: String?
+    public let pinnedTweetID: String?
+    public let metrics: UserPublicMetricsModel?
+    public var pinnedTweet: PinTweetModel?
+    public var withheld: WithheldModel?
+    public var entity: EntityModel?
+  }
 }
 
-extension UserModel: Decodable {
+extension Sweet.UserModel: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: UserField.self)
     
@@ -40,8 +41,8 @@ extension UserModel: Decodable {
     self.protected = try? values.decode(Bool.self, forKey: .protected)
     self.location = try? values.decode(String.self, forKey: .location)
     self.pinnedTweetID = try? values.decode(String.self, forKey: .pinnedTweetID)
-    self.withheld = try? values.decode(WithheldModel.self, forKey: .withheld)
-    self.entity = try? values.decode(EntityModel.self, forKey: .entities)
+    self.withheld = try? values.decode(Sweet.WithheldModel.self, forKey: .withheld)
+    self.entity = try? values.decode(Sweet.EntityModel.self, forKey: .entities)
     
     let profileImageURL: String? = try? values.decode(String.self, forKey: .profileImageURL)
     self.profileImageURL = .init(string: profileImageURL ?? "")

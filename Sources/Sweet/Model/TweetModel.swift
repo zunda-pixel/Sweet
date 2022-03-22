@@ -7,41 +7,37 @@
 
 import Foundation
 
-public enum ReplySetting: String {
-  case everyone
-  case mentionedUsers
-  case following
+extension Sweet {
+  public struct TweetModel {
+    public let id: String
+    public let text: String
+    public let authorID: String?
+    public let lang: String?
+    public let replySetting: ReplySetting?
+    public let createdAt: Date?
+    public let source: String?
+    public let sensitive: Bool?
+    public let conversationID: String?
+    public let replyUserID: String?
+    public let geo: GeoModel?
+    public let publicMetrics: TweetPublicMetricsModel?
+    public let organicMetrics: OrganicMetricsModel?
+    public let privateMetrics: PrivateMetricsModel?
+    public let attachments: AttachmentsModel?
+    public let promotedMerics: PromotedMetrics?
+    public let withheld: WithheldModel?
+    public let contextAnnotations: [ContextAnnotationModel]
+    public let entity: EntityModel?
+    public let referencedTweet: ReferencedTweetModel?
+    
+    public var medias: [MediaModel] = []
+    public var user: UserModel?
+    public var place: PlaceModel?
+    public var poll: PollModel?
+  }
 }
 
-public struct TweetModel {
-  public let id: String
-  public let text: String
-  public let authorID: String?
-  public let lang: String?
-  public let replySetting: ReplySetting?
-  public let createdAt: Date?
-  public let source: String?
-  public let sensitive: Bool?
-  public let conversationID: String?
-  public let replyUserID: String?
-  public let geo: GeoModel?
-  public let publicMetrics: TweetPublicMetricsModel?
-  public let organicMetrics: OrganicMetricsModel?
-  public let privateMetrics: PrivateMetricsModel?
-  public let attachments: AttachmentsModel?
-  public let promotedMerics: PromotedMetrics?
-  public let withheld: WithheldModel?
-  public let contextAnnotations: [ContextAnnotationModel]
-  public let entity: EntityModel?
-  public let referencedTweet: ReferencedTweetModel?
-  
-  public var medias: [MediaModel] = []
-  public var user: UserModel?
-  public var place: PlaceModel?
-  public var poll: PollModel?
-}
-
-extension TweetModel: Decodable {
+extension Sweet.TweetModel: Decodable {
   public init(from decoder: Decoder) throws {
     let value = try decoder.container(keyedBy: TweetField.self)
     
@@ -65,21 +61,21 @@ extension TweetModel: Decodable {
     self.sensitive = try? value.decode(Bool.self, forKey: .possiblySensitive)
     self.conversationID = try? value.decode(String.self, forKey: .conversationID)
     self.replyUserID = try? value.decode(String.self, forKey: .inReplyToUserID)
-    self.geo = try? value.decode(GeoModel.self, forKey: .geo)
+    self.geo = try? value.decode(Sweet.GeoModel.self, forKey: .geo)
     
     self.publicMetrics = try? value.decode(TweetPublicMetricsModel.self, forKey: .publicMetrics)
     self.organicMetrics = try? value.decode(OrganicMetricsModel.self, forKey: .organicMetrics)
     self.privateMetrics = try? value.decode(PrivateMetricsModel.self, forKey: .privateMetrics)
-    self.attachments = try? value.decode(AttachmentsModel.self, forKey: .attachments)
+    self.attachments = try? value.decode(Sweet.AttachmentsModel.self, forKey: .attachments)
     self.promotedMerics = try? value.decode(PromotedMetrics.self, forKey: .promotedMetrics)
-    self.withheld = try? value.decode(WithheldModel.self, forKey: .withheld)
+    self.withheld = try? value.decode(Sweet.WithheldModel.self, forKey: .withheld)
     
-    let contextAnnotations = try? value.decode([ContextAnnotationModel].self, forKey: .contextAnnotations)
+    let contextAnnotations = try? value.decode([Sweet.ContextAnnotationModel].self, forKey: .contextAnnotations)
     self.contextAnnotations = contextAnnotations ?? []
     
-    self.entity = try? value.decode(EntityModel.self, forKey: .entities)
+    self.entity = try? value.decode(Sweet.EntityModel.self, forKey: .entities)
     
-    let referencedTweets = try? value.decode([ReferencedTweetModel].self, forKey: .referencedTweets)
+    let referencedTweets = try? value.decode([Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
     self.referencedTweet = referencedTweets?.first
   }
 }

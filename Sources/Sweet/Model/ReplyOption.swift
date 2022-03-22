@@ -7,8 +7,10 @@
 
 import Foundation
 
-public enum ReplyOption: String {
-  case mentionedUsers
-  case following
-  case everyone
+extension Sweet {
+  public enum ReplyOption: String {
+    case mentionedUsers
+    case following
+    case everyone
+  }
 }

@@ -7,12 +7,14 @@
 
 import Foundation
 
-public struct SendPollModel {
-  public let options: [String]
-  public let durationMinutes: Int
+extension Sweet {
+  public struct SendPollModel {
+    public let options: [String]
+    public let durationMinutes: Int
+  }
 }
 
-extension SendPollModel: Encodable {
+extension Sweet.SendPollModel: Encodable {
   private enum CodingKeys: String, CodingKey {
     case options
     case durationMinutes = "duration_minutes"

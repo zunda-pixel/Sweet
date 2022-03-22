@@ -7,13 +7,15 @@
 
 import Foundation
 
-public struct SendListModel {
-  public let name: String?
-  public let description: String?
-  public let isPrivate: Bool?
+extension Sweet {
+  public struct SendListModel {
+    public let name: String?
+    public let description: String?
+    public let isPrivate: Bool?
+  }
 }
 
-extension SendListModel: Codable {
+extension Sweet.SendListModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case name
     case description

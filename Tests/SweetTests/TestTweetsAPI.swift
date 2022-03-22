@@ -53,7 +53,7 @@ final class TestTweetsAPI: XCTestCase {
     let text = UUID().uuidString
     
     let sweet = Sweet.sweetForTest()
-    let postTweetModel = PostTweetModel(text: text, directMessageDeepLink: nil, forSuperFollowersOnly: false,
+    let postTweetModel = Sweet.PostTweetModel(text: text, directMessageDeepLink: nil, forSuperFollowersOnly: false,
                                         geo: nil, media: nil, poll: .init(options: ["OK", "SAKANA"], durationMinutes: 10), quoteTweetID: nil, reply: nil, replySettings: nil)
     let tweet = try await sweet.createTweet(postTweetModel)
     
@@ -167,7 +167,7 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testCreateStreamRule() async throws {
-    let streamModels: [StreamRuleModel] = [
+    let streamModels: [Sweet.StreamRuleModel] = [
       .init(value: "zunda633", tag: nil),
     ]
     

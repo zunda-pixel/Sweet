@@ -7,13 +7,15 @@
 
 import Foundation
 
-public struct CountTweetModel {
-  public let countTweet: Int
-  public let startDate: Date
-  public let endDate: Date
+extension Sweet {
+  public struct CountTweetModel {
+    public let countTweet: Int
+    public let startDate: Date
+    public let endDate: Date
+  }
 }
 
-extension CountTweetModel: Decodable {
+extension Sweet.CountTweetModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case countTweet = "tweet_count"
     case startDate = "start"

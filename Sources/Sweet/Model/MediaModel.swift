@@ -7,22 +7,18 @@
 
 import Foundation
 
-public struct MediaModel {
-  public let key: String
-  public let type: MediaType
-  public let width: Int
-  public let height: Int
-  public let previewImageURL: URL?
-  public let url: URL?
+extension Sweet {
+  public struct MediaModel {
+    public let key: String
+    public let type: MediaType
+    public let width: Int
+    public let height: Int
+    public let previewImageURL: URL?
+    public let url: URL?
+  }
 }
 
-public enum MediaType: String {
-  case animatedGig = "animated_gif"
-  case photo
-  case video
-}
-
-extension MediaModel: Decodable {
+extension Sweet.MediaModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case key = "media_key"
     case type

@@ -7,18 +7,15 @@
 
 import Foundation
 
-public struct WithheldModel {
-  public let copyright: Bool?
-  public let countryCodes: [String]
-  public let scope: WithheldScope
+extension Sweet {
+  public struct WithheldModel {
+    public let copyright: Bool?
+    public let countryCodes: [String]
+    public let scope: WithheldScope
+  }
 }
 
-public enum WithheldScope: String {
-  case tweet
-  case user
-}
-
-extension WithheldModel: Decodable {
+extension Sweet.WithheldModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case copyright
     case countryCodes = "country_codes"

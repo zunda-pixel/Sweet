@@ -7,12 +7,14 @@
 
 import Foundation
 
-public struct PostMediaModel {
-  public let mediaIDs: [String]
-  public let taggedUserIDs: [String]
+extension Sweet {
+  public struct PostMediaModel {
+    public let mediaIDs: [String]
+    public let taggedUserIDs: [String]
+  }
 }
 
-extension PostMediaModel: Encodable {
+extension Sweet.PostMediaModel: Encodable {
   private enum CodingKeys: String, CodingKey {
     case mediaIDs = "media_ids"
     case taggedUserIDs = "tagged_user_ids"

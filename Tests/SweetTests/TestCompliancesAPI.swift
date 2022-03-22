@@ -12,7 +12,7 @@ final class TestCompliancesAPI: XCTestCase {
   let testMyUserID = "1048032521361866752"
   
   func testFetchCompliances() async throws {
-    let type: JobType = .tweets
+    let type: Sweet.JobType = .tweets
     
     let sweet = Sweet.sweetForTest()
     let compliances = try await sweet.fetchCompliances(type: type)

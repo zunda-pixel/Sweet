@@ -38,13 +38,13 @@ extension Sweet.SpaceResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     
-    self.space = try values.decode(SpaceModel.self, forKey: .space)
+    self.space = try values.decode(Sweet.SpaceModel.self, forKey: .space)
     
     guard let includes = try? values.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes) else {
       return
     }
     
-    let users = try? includes.decode([UserModel].self, forKey: .users)
+    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
     self.space.users = users ?? []
   }
 }

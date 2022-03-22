@@ -7,12 +7,14 @@
 
 import Foundation
 
-public struct ReplyModel {
-  public let excludeReplyUserIDs: [String]
-  public let inReplyToTweetID: [String]
+extension Sweet {
+  public struct ReplyModel {
+    public let excludeReplyUserIDs: [String]
+    public let inReplyToTweetID: [String]
+  }
 }
 
-extension ReplyModel: Encodable {
+extension Sweet.ReplyModel: Encodable {
   private enum CodingKeys: String, CodingKey {
     case excludeReplyUserIDs = "exclude_replay_user_ids"
     case inReplyToTweetID = "in_reply_to_tweet_id"

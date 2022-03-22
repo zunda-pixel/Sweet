@@ -11,14 +11,14 @@ import CoreGraphics
 
 import Foundation
 
-extension EntityModel {
+extension Sweet.EntityModel {
   public struct ImageModel {
     public let url: URL
     public let size: CGSize
   }
 }
 
-extension EntityModel.ImageModel: Decodable {
+extension Sweet.EntityModel.ImageModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case url
     case width

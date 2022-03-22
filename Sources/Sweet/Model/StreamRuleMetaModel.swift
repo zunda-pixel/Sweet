@@ -7,11 +7,13 @@
 
 import Foundation
 
-public struct StreamRuleMetaModel {
-  public let sent: Date
+extension Sweet {
+  public struct StreamRuleMetaModel {
+    public let sent: Date
+  }
 }
 
-extension StreamRuleMetaModel: Decodable {
+extension Sweet.StreamRuleMetaModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case sent
   }

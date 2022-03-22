@@ -7,28 +7,30 @@
 
 import Foundation
 
-public struct SpaceModel {
-  public let id: String
-  public let state: SpaceState
-  public let creatorID: String
-  public let title: String?
-  public let hostIDs: [String]
-  public let lang: String?
-  public let participantCount: Int?
-  public let isTicketed: Bool?
-  public let startedAt: Date?
-  public let updatedAt: Date?
-  public let createdAt: Date?
-  public let endedAt: Date?
-  public let invitedUserIDs: [String]
-  public let scheduledStart: Date?
-  public let speakerIDs: [String]
-  public let subscriberCount: Int?
-  public let topicIDs: [String]
-  public var users: [UserModel]
+extension Sweet {
+  public struct SpaceModel {
+    public let id: String
+    public let state: SpaceState
+    public let creatorID: String
+    public let title: String?
+    public let hostIDs: [String]
+    public let lang: String?
+    public let participantCount: Int?
+    public let isTicketed: Bool?
+    public let startedAt: Date?
+    public let updatedAt: Date?
+    public let createdAt: Date?
+    public let endedAt: Date?
+    public let invitedUserIDs: [String]
+    public let scheduledStart: Date?
+    public let speakerIDs: [String]
+    public let subscriberCount: Int?
+    public let topicIDs: [String]
+    public var users: [UserModel]
+  }
 }
 
-extension SpaceModel: Decodable {
+extension Sweet.SpaceModel: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: SpaceField.self)
     self.id = try values.decode(String.self, forKey: .id)

@@ -7,15 +7,17 @@
 
 import Foundation
 
-public struct MetaModel {
-  public let resultCount: Int
-  public let oldestID: String?
-  public let newestID: String?
-  public let nextToken: String?
-  public let previousToken: String?
+extension Sweet {
+  public struct MetaModel {
+    public let resultCount: Int
+    public let oldestID: String?
+    public let newestID: String?
+    public let nextToken: String?
+    public let previousToken: String?
+  }
 }
 
-extension MetaModel: Decodable {
+extension Sweet.MetaModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case resultCount = "result_count"
     case oldestID = "oldest_id"

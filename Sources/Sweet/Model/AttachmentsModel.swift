@@ -7,12 +7,14 @@
 
 import Foundation
 
-public struct AttachmentsModel {
-  public let mediaKeys: [String]
-  public let pollID: String?
+extension Sweet {
+  public struct AttachmentsModel {
+    public let mediaKeys: [String]
+    public let pollID: String?
+  }
 }
 
-extension AttachmentsModel: Decodable {
+extension Sweet.AttachmentsModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case mediaKeys = "media_keys"
     case pollIDs = "poll_ids"

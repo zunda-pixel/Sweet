@@ -7,12 +7,14 @@
 
 import Foundation
 
-public struct CountTweetMetaModel {
-  public let totalTweetCount: Int
-  public let nextToken: Int?
+extension Sweet {
+  public struct CountTweetMetaModel {
+    public let totalTweetCount: Int
+    public let nextToken: Int?
+  }
 }
 
-extension CountTweetMetaModel: Decodable {
+extension Sweet.CountTweetMetaModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case totalTweetCount = "total_tweet_count"
     case nextToken = "next_token"

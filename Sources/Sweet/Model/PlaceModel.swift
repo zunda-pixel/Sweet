@@ -7,12 +7,14 @@
 
 import Foundation
 
-public struct PlaceModel {
-  public let name: String
-  public let id: String
+extension Sweet {
+  public struct PlaceModel {
+    public let name: String
+    public let id: String
+  }
 }
 
-extension PlaceModel: Decodable {
+extension Sweet.PlaceModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case name = "full_name"
     case id

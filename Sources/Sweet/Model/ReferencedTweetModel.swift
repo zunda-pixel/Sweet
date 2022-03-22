@@ -7,18 +7,14 @@
 
 import Foundation
 
-public enum ReferencedType: String {
-  case retweeted
-  case quoted
-  case repliedTo = "replied_to"
+extension Sweet {
+  public struct ReferencedTweetModel {
+    public let id: String
+    public let type: ReferencedType
+  }
 }
 
-public struct ReferencedTweetModel {
-  public let id: String
-  public let type: ReferencedType
-}
-
-extension ReferencedTweetModel: Decodable {
+extension Sweet.ReferencedTweetModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case id
     case type

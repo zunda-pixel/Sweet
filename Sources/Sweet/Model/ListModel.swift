@@ -7,19 +7,21 @@
 
 import Foundation
 
-public struct ListModel {
-  public let id: String
-  public let name: String
-  public let followerCount: Int?
-  public let memberCount: Int?
-  public let ownerID: String?
-  public let description: String?
-  public let isPrivate: Bool?
-  public let createdAt: Date?
-  public var users: [UserModel]
+extension Sweet {
+  public struct ListModel {
+    public let id: String
+    public let name: String
+    public let followerCount: Int?
+    public let memberCount: Int?
+    public let ownerID: String?
+    public let description: String?
+    public let isPrivate: Bool?
+    public let createdAt: Date?
+    public var users: [UserModel]
+  }
 }
 
-extension ListModel: Decodable {
+extension Sweet.ListModel: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: ListField.self)
     self.id = try values.decode(String.self, forKey: .id)

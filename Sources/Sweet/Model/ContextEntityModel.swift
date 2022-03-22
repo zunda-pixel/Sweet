@@ -7,12 +7,13 @@
 
 import Foundation
 
-public struct ContextEntityModel {
-  public let id: String
-  public let name: String
-  public let description: String
+extension Sweet {
+  public struct ContextEntityModel {
+    public let id: String
+    public let name: String
+    public let description: String
+  }
 }
-
-extension ContextEntityModel: Decodable {
+extension Sweet.ContextEntityModel: Decodable {
   
 }

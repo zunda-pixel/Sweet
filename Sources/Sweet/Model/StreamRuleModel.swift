@@ -7,19 +7,21 @@
 
 import Foundation
 
-public struct StreamRuleModel {
-  public let id: String
-  public let value: String
-  public let tag: String?
-  
-  public init(value: String, tag: String? = nil) {
-    self.id = ""
-    self.tag = tag
-    self.value = value
+extension Sweet {
+  public struct StreamRuleModel {
+    public let id: String
+    public let value: String
+    public let tag: String?
+    
+    public init(value: String, tag: String? = nil) {
+      self.id = ""
+      self.tag = tag
+      self.value = value
+    }
   }
 }
 
-extension StreamRuleModel: Codable {
+extension Sweet.StreamRuleModel: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(value, forKey: .value)

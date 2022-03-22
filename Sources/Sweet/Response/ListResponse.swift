@@ -26,13 +26,13 @@ extension Sweet.ListResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     
-    self.list = try values.decode(ListModel.self, forKey: .list)
+    self.list = try values.decode(Sweet.ListModel.self, forKey: .list)
     
     guard let includes = try? values.nestedContainer(keyedBy: UserIncludesCodingKeys.self, forKey: .includes) else {
       return
     }
     
-    let users = try? includes.decode([UserModel].self, forKey: .users)
+    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
     
     self.list.users = users ?? []
   }

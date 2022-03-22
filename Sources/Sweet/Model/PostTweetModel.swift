@@ -7,19 +7,21 @@
 
 import Foundation
 
-public struct PostTweetModel {
-  public let text: String?
-  public let directMessageDeepLink: URL?
-  public let forSuperFollowersOnly: Bool
-  public let geo: GeoModel?
-  public let media: PostMediaModel?
-  public let poll: SendPollModel?
-  public let quoteTweetID: String?
-  public let reply: ReplyModel?
-  public let replySettings: ReplyOption?
+extension Sweet {
+  public struct PostTweetModel {
+    public let text: String?
+    public let directMessageDeepLink: URL?
+    public let forSuperFollowersOnly: Bool
+    public let geo: Sweet.GeoModel?
+    public let media: Sweet.PostMediaModel?
+    public let poll: Sweet.SendPollModel?
+    public let quoteTweetID: String?
+    public let reply: Sweet.ReplyModel?
+    public let replySettings: Sweet.ReplyOption?
+  }
 }
 
-extension PostTweetModel: Encodable {
+extension Sweet.PostTweetModel: Encodable {
   private enum CodingKeys: String, CodingKey {
     case text
     case directMessageDeepLink = "direct_message_deep_link"

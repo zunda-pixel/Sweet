@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension EntityModel {
+extension Sweet.EntityModel {
   public struct URLModel {
     public let start: Int
     public let end: Int
@@ -22,7 +22,7 @@ extension EntityModel {
   }
 }
 
-extension EntityModel.URLModel: Decodable {
+extension Sweet.EntityModel.URLModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case start
     case end
@@ -53,7 +53,7 @@ extension EntityModel.URLModel: Decodable {
     let unwoundURL = try values.decode(String.self, forKey: .unwoundURL)
     self.unwoundURL = .init(string: unwoundURL)!
     
-    let images = try? values.decode([EntityModel.ImageModel].self, forKey: .images)
+    let images = try? values.decode([Sweet.EntityModel.ImageModel].self, forKey: .images)
     self.images = images ?? []
     
     self.status = try? values.decode(Int.self, forKey: .status)
