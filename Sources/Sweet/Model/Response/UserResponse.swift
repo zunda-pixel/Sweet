@@ -7,11 +7,13 @@
 
 import Foundation
 
-public struct UserResponseModel {
-  public var user: UserModel
+extension Sweet {
+  internal struct UserResponse {
+    public var user: UserModel
+  }
 }
 
-extension UserResponseModel: Decodable {
+extension Sweet.UserResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case user = "data"
     case includes
@@ -37,12 +39,14 @@ extension UserResponseModel: Decodable {
   }
 }
 
-public struct UsersResponseModel {
-  public var users: [UserModel]
-  public let meta: MetaModel?
+extension Sweet {
+  internal struct UsersResponse {
+    public var users: [UserModel]
+    public let meta: MetaModel?
+  }
 }
 
-extension UsersResponseModel: Decodable {
+extension Sweet.UsersResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case users = "data"
     case meta

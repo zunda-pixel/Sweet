@@ -24,7 +24,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers)
     
-    if let response = try? JSONDecoder().decode(StreamRuleResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
       return (response.streamRules, response.meta)
     }
     
@@ -86,7 +86,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(StreamRuleResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
       return response.streamRules.first!
     }
     

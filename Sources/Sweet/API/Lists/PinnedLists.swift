@@ -21,7 +21,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
-    if let response = try? JSONDecoder().decode(PinResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(PinResponse.self, from: data) {
       if response.pinned {
         return
       } else {
@@ -45,7 +45,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
-    if let response = try? JSONDecoder().decode(PinResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(PinResponse.self, from: data) {
       if response.pinned {
         throw TwitterError.listError
       } else {
@@ -75,7 +75,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(ListsResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(ListsResponse.self, from: data) {
       return (response.lists, response.meta)
     }
     

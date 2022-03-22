@@ -298,10 +298,9 @@ final class TestTweetsAPI: XCTestCase {
   }
 }
 
-
 class TestStream: NSObject, URLSessionDataDelegate {
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-    if let response = try? JSONDecoder().decode(TweetResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(Sweet.TweetResponse.self, from: data) {
       print(response.tweet)
     }
   }

@@ -39,7 +39,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedEmptyQueries)
     
-    if let response = try? JSONDecoder().decode(CountTweetResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(CountTweetResponse.self, from: data) {
       return (response.countTweets, response.meta)
     }
     
@@ -82,7 +82,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: removedEmptyQueries)
     
-    if let response = try? JSONDecoder().decode(CountTweetResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(CountTweetResponse.self, from: data) {
       return (response.countTweets, response.meta)
     }
     

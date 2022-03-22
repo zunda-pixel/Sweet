@@ -7,21 +7,25 @@
 
 import Foundation
 
-public struct SpacesResponseModel {
-  public let spaces: [SpaceModel]
+extension Sweet {
+  internal struct SpacesResponse {
+    public let spaces: [SpaceModel]
+  }
 }
 
-extension SpacesResponseModel: Decodable {
+extension Sweet.SpacesResponse: Decodable {
    private enum CodingKeys: String, CodingKey {
      case spaces = "data"
   }
 }
 
-public struct SpaceResponseModel {
-  public var space: SpaceModel
+extension Sweet {
+  internal struct SpaceResponse {
+    public var space: SpaceModel
+  }
 }
 
-extension SpaceResponseModel: Decodable {
+extension Sweet.SpaceResponse: Decodable {
    private enum CodingKeys: String, CodingKey {
      case space = "data"
      case includes

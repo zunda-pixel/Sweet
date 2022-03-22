@@ -1,5 +1,5 @@
 //
-//  UnFollowResponseModel.swift
+//  BlockResponseModel.swift
 //  
 //
 //  Created by zunda on 2022/02/08.
@@ -7,22 +7,25 @@
 
 import Foundation
 
-public struct UnFollowResponseModel {
-  public let following: Bool
+
+extension Sweet {
+  internal struct BlockResponse {
+    public let blocking: Bool
+  }
 }
 
-extension UnFollowResponseModel: Decodable {
+extension Sweet.BlockResponse: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }
   
   private enum CodingKeys: String, CodingKey {
-    case following
+    case blocking
   }
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: DataCodingKeys.self)
     let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.following = try usersInfo.decode(Bool.self, forKey: .following)
+    self.blocking = try usersInfo.decode(Bool.self, forKey: .blocking)
   }
 }

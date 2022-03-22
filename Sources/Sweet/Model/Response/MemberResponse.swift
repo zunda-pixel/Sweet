@@ -7,11 +7,14 @@
 
 import Foundation
 
-struct MemberResponseModel {
-  public let isMember: Bool
+
+extension Sweet {
+  internal struct MemberResponse {
+    public let isMember: Bool
+  }
 }
 
-extension MemberResponseModel: Decodable {  
+extension Sweet.MemberResponse: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

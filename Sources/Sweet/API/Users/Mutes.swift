@@ -27,7 +27,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return (response.users, response.meta!)
     }
     
@@ -50,7 +50,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
-    if let response = try? JSONDecoder().decode(MuteResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(MuteResponse.self, from: data) {
       if response.muting {
         return
       } else {
@@ -74,7 +74,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
-    if let response = try? JSONDecoder().decode(MuteResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(MuteResponse.self, from: data) {
       if response.muting {
         throw TwitterError.muteError
       } else {

@@ -22,7 +22,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
     
-    if let response = try? JSONDecoder().decode(ListResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(ListResponse.self, from: data) {
       return response.list
     }
     
@@ -46,7 +46,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.put(url: url, body: bodyData, headers: headers)
     
-    if let response = try? JSONDecoder().decode(UpdateResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(UpdateResponse.self, from: data) {
       if response.updated {
         return
       } else {
@@ -70,7 +70,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
     
-    if let response = try? JSONDecoder().decode(DeleteResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(DeleteResponse.self, from: data) {
       if response.deleted {
         return
       } else {

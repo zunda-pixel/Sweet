@@ -7,12 +7,13 @@
 
 import Foundation
 
-
-public struct ListResponseModel {
-  public var list: ListModel
+extension Sweet {
+  internal struct ListResponse {
+    public var list: ListModel
+  }
 }
 
-extension ListResponseModel: Decodable {
+extension Sweet.ListResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case list = "data"
     case includes
@@ -37,12 +38,15 @@ extension ListResponseModel: Decodable {
   }
 }
 
-struct ListsResponseModel {
-  public let lists: [ListModel]
-  public let meta: MetaModel
+extension Sweet {
+  internal struct ListsResponse {
+    public let lists: [ListModel]
+    public let meta: MetaModel
+  }
 }
 
-extension ListsResponseModel: Decodable {
+
+extension Sweet.ListsResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case lists = "data"
     case meta

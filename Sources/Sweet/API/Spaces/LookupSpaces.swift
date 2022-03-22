@@ -24,7 +24,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(SpaceResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(SpaceResponse.self, from: data) {
       return response.space
     }
     
@@ -52,7 +52,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(SpacesResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(SpacesResponse.self, from: data) {
       return response.spaces
     }
     
@@ -80,7 +80,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(SpacesResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(SpacesResponse.self, from: data) {
       return response.spaces
     }
     
@@ -110,7 +110,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(UsersResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response.users
     }
     
@@ -140,7 +140,7 @@ extension Sweet {
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(TweetsResponseModel.self, from: data) {
+    if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response.tweets
     }
     

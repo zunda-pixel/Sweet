@@ -7,16 +7,25 @@
 
 import Foundation
 
-public struct TweetsResponseModel {
-  public var tweets: [TweetModel]
-  public let meta: MetaModel?
+extension Sweet {
+  internal struct TweetsResponse {
+    public var tweets: [TweetModel]
+    public let meta: MetaModel?
+  }
 }
 
-extension TweetsResponseModel: Decodable {
+extension Sweet.TweetsResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case tweets = "data"
     case includes
     case meta
+  }
+  
+  private enum TweetIncludesCodingKeys: String, CodingKey {
+    case media
+    case users
+    case places
+    case polls
   }
   
   public init(from decoder: Decoder) throws {
@@ -70,21 +79,23 @@ extension TweetsResponseModel: Decodable {
   }
 }
 
-private enum TweetIncludesCodingKeys: String, CodingKey {
-  case media
-  case users
-  case places
-  case polls
+extension Sweet {
+  internal struct TweetResponse {
+    public var tweet: TweetModel
+  }
 }
 
-struct TweetResponseModel {
-  public var tweet: TweetModel
-}
-
-extension TweetResponseModel: Decodable {
+extension Sweet.TweetResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case tweet = "data"
     case includes
+  }
+  
+  private enum TweetIncludesCodingKeys: String, CodingKey {
+    case media
+    case users
+    case places
+    case polls
   }
   
   public init(from decoder: Decoder) throws {

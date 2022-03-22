@@ -7,11 +7,13 @@
 
 import Foundation
 
-public struct HideResponseModel {
-  public let hidden: Bool
+extension Sweet {
+  internal struct HideResponse {
+    public let hidden: Bool
+  }
 }
 
-extension HideResponseModel: Decodable {
+extension Sweet.HideResponse: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }

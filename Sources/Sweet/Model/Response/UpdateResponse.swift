@@ -1,5 +1,5 @@
 //
-//  FollowResponseModel.swift
+//  UpdateResponseModel.swift
 //  
 //
 //  Created by zunda on 2022/02/08.
@@ -7,25 +7,24 @@
 
 import Foundation
 
-public struct FollowResponseModel {
-  public let following: Bool
-  public let pendingFollow: Bool
+extension Sweet {
+  internal struct UpdateResponse {
+    public let updated: Bool
+  }
 }
 
-extension  FollowResponseModel: Decodable {
+extension Sweet.UpdateResponse: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }
   
   private enum CodingKeys: String, CodingKey {
-    case following
-    case pendingFollow = "pending_follow"
+    case updated
   }
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: DataCodingKeys.self)
     let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.following = try usersInfo.decode(Bool.self, forKey: .following)
-    self.pendingFollow = try usersInfo.decode(Bool.self, forKey: .pendingFollow)
+    self.updated = try usersInfo.decode(Bool.self, forKey: .updated)
   }
 }

@@ -7,11 +7,14 @@
 
 import Foundation
 
-public struct LikeResponseModel {
-  public let liked: Bool
+extension Sweet {
+  internal struct LikeResponse {
+    public let liked: Bool
+  }
 }
 
-extension LikeResponseModel: Decodable {
+
+extension Sweet.LikeResponse: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }
