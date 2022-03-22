@@ -29,11 +29,6 @@ extension Sweet {
     public let contextAnnotations: [ContextAnnotationModel]
     public let entity: EntityModel?
     public let referencedTweet: ReferencedTweetModel?
-    
-    public var medias: [MediaModel] = []
-    public var user: UserModel?
-    public var place: PlaceModel?
-    public var poll: PollModel?
   }
 }
 

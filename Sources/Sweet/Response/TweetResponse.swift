@@ -9,8 +9,12 @@ import Foundation
 
 extension Sweet {
   internal struct TweetsResponse {
-    public var tweets: [TweetModel]
+    public let tweets: [TweetModel]
     public let meta: MetaModel?
+    public let users: [UserModel]
+    public let medias: [MediaModel]
+    public let places: [PlaceModel]
+    public let polls: [PollModel]
   }
 }
 
@@ -35,53 +39,46 @@ extension Sweet.TweetsResponse: Decodable {
     
     if meta?.resultCount == 0 {
       self.tweets = []
+      self.medias = []
+      self.users = []
+      self.places = []
+      self.polls = []
       return
     }
     
     self.tweets = try values.decode([Sweet.TweetModel].self, forKey: .tweets)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetIncludesCodingKeys.self, forKey: .includes) else {
+      self.medias = []
+      self.users = []
+      self.places = []
+      self.polls = []
       return
     }
     
-    if let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media) {
-      for media in medias {
-        if let index = self.tweets.firstIndex(where: { $0.attachments?.mediaKeys.contains(media.key) ?? false }) {
-          self.tweets[index].medias.append(media)
-        }
-      }
-    }
+    
+    let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
+    self.medias = medias ?? []
   
-    if let users = try? includes.decode([Sweet.UserModel].self, forKey: .users) {
-      for i in 0..<self.tweets.count {
-        let user = users.first { $0.id == tweets[i].authorID }
-        tweets[i].user = user
-      }
-    }
     
-    if let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places) {
-      for i in 0..<self.tweets.count {
-        if let placeID = tweets[i].geo?.placeID {
-          let place = places.first { $0.id == placeID }
-          tweets[i].place = place
-        }
-      }
-    }
+    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    self.users = users ?? []
     
-    if let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls) {
-      for i in 0..<self.tweets.count {
-        if let pollID = tweets[i].attachments?.pollID {
-          let poll = polls.first { $0.id == pollID }
-          tweets[i].poll = poll
-        }
-      }
-    }
+    let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places)
+    self.places = places ?? []
+    
+    let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
+    self.polls = polls ?? []
   }
 }
 
 extension Sweet {
   internal struct TweetResponse {
-    public var tweet: TweetModel
+    public let tweet: TweetModel
+    public let users: [UserModel]
+    public let medias: [MediaModel]
+    public let places: [PlaceModel]
+    public let polls: [PollModel]
   }
 }
 
@@ -104,24 +101,23 @@ extension Sweet.TweetResponse: Decodable {
     self.tweet = try values.decode(Sweet.TweetModel.self, forKey: .tweet)
     
     guard let includes = try? values.nestedContainer(keyedBy: TweetIncludesCodingKeys.self, forKey: .includes) else {
+      self.medias = []
+      self.users = []
+      self.places = []
+      self.polls = []
       return
     }
     
     let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
-    self.tweet.medias = medias ?? []
+    self.medias = medias ?? []
     
-    if let user = try? includes.decode([Sweet.UserModel].self, forKey: .users).first {
-      self.tweet.user = user
-    }
+    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    self.users = users ?? []
     
-    if let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places) {
-      self.tweet.place = places.first
-    }
+    let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places)
+    self.places = places ?? []
     
     let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
-    
-    if let pollID = self.tweet.attachments?.pollID {
-      self.tweet.poll = polls?.first { $0.id == pollID }
-    }
+    self.polls = polls ?? []
   }
 }
