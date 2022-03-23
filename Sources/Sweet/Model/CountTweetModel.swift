@@ -26,7 +26,7 @@ extension Sweet.CountTweetModel: Decodable {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     self.countTweet = try values.decode(Int.self, forKey: .countTweet)
     
-    let formatter = TwitterDateFormatter()
+    let formatter = Sweet.TwitterDateFormatter()
     
     let startDateString = try values.decode(String.self, forKey: .startDate)
     self.startDate = formatter.date(from: startDateString)!

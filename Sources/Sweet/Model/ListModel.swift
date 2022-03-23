@@ -32,7 +32,7 @@ extension Sweet.ListModel: Decodable {
     self.isPrivate = try? values.decode(Bool.self, forKey: .isPrivate)
     
     if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
-      self.createdAt = TwitterDateFormatter().date(from: createdAt)
+      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)
     } else {
       self.createdAt = nil
     }    

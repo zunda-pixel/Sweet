@@ -50,7 +50,7 @@ extension Sweet.UserModel: Decodable {
     self.url = URL(string: url ?? "")
     
     if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
-      self.createdAt = TwitterDateFormatter().date(from: createdAt)
+      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)
     } else {
       self.createdAt = nil
     }

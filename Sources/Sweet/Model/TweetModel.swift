@@ -47,7 +47,7 @@ extension Sweet.TweetModel: Decodable {
     
     
     if let createdAt = try? value.decode(String.self, forKey: .createdAt) {
-      self.createdAt = TwitterDateFormatter().date(from: createdAt)!
+      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
       self.createdAt = nil
     }

@@ -35,7 +35,7 @@ extension Sweet.PollModel: Decodable {
     self.votingStatus = .init(rawValue: votingStatus)!
     
     let endDateTime = try value.decode(String.self, forKey: .endDateTime)
-    self.endDateTime = TwitterDateFormatter().date(from: endDateTime)!
+    self.endDateTime = Sweet.TwitterDateFormatter().date(from: endDateTime)!
     
     self.durationMinutes = try value.decode(Int.self, forKey: .durationMinutes)
     

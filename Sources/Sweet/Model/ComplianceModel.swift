@@ -53,7 +53,7 @@ extension Sweet.ComplianceModel: Decodable {
     let downloadURL: String = try values.decode(String.self, forKey: .downloadURL)
     self.downloadURL = .init(string: downloadURL)!
     
-    let formatter = TwitterDateFormatter()
+    let formatter = Sweet.TwitterDateFormatter()
     
     let uploadExpiresAt: String = try values.decode(String.self, forKey: .uploadExpiresAt)
     self.uploadExpiresAt = formatter.date(from: uploadExpiresAt)!

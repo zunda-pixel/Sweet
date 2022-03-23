@@ -51,7 +51,7 @@ extension Sweet.SpaceModel: Decodable {
     self.lang = try? values.decode(String.self, forKey: .lang)
     self.title = try? values.decode(String.self, forKey: .title)
     
-    let formatter = TwitterDateFormatter()
+    let formatter = Sweet.TwitterDateFormatter()
     
     if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
       self.createdAt = formatter.date(from: createdAt)
