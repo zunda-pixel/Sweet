@@ -14,7 +14,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists")!
     
-    let body = SendListModel(name: name, description: description, isPrivate: isPrivate)
+    let body = PostListModel(name: name, description: description, isPrivate: isPrivate)
     
     let bodyData = try JSONEncoder().encode(body)
     
@@ -39,7 +39,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
     
-    let body = SendListModel(name: name, description: description, isPrivate: isPrivate)
+    let body = PostListModel(name: name, description: description, isPrivate: isPrivate)
     let bodyData = try JSONEncoder().encode(body)
     
     let headers = getBearerHeaders(type: .User)

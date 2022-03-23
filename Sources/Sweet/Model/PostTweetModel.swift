@@ -14,10 +14,24 @@ extension Sweet {
     public let forSuperFollowersOnly: Bool
     public let geo: Sweet.GeoModel?
     public let media: Sweet.PostMediaModel?
-    public let poll: Sweet.SendPollModel?
+    public let poll: Sweet.PostPollModel?
     public let quoteTweetID: String?
     public let reply: Sweet.ReplyModel?
     public let replySettings: Sweet.ReplyOption?
+    
+    public init(text: String? = nil, directMessageDeepLink: URL? = nil, forSuperFollowersOnly: Bool = false,
+                geo: Sweet.GeoModel? = nil, media: Sweet.PostMediaModel? = nil, poll: Sweet.PostPollModel? = nil,
+                quoteTweetID: String? = nil, reply: Sweet.ReplyModel? = nil, replySettings: Sweet.ReplyOption? = nil) {
+      self.text = text
+      self.directMessageDeepLink = directMessageDeepLink
+      self.forSuperFollowersOnly = forSuperFollowersOnly
+      self.geo = geo
+      self.media = media
+      self.poll = poll
+      self.quoteTweetID = quoteTweetID
+      self.reply = reply
+      self.replySettings = replySettings
+    }
   }
 }
 

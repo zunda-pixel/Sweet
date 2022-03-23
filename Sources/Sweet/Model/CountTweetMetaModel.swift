@@ -10,7 +10,12 @@ import Foundation
 extension Sweet {
   public struct CountTweetMetaModel {
     public let totalTweetCount: Int
-    public let nextToken: Int?
+    public let nextToken: String?
+    
+    public init(totalTweetCount: Int, nextToken: String? = nil) {
+      self.totalTweetCount = totalTweetCount
+      self.nextToken = nextToken
+    }
   }
 }
 

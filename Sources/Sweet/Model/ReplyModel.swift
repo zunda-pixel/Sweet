@@ -11,6 +11,11 @@ extension Sweet {
   public struct ReplyModel {
     public let excludeReplyUserIDs: [String]
     public let inReplyToTweetID: [String]
+    
+    public init(excludeReplyUserIDs: [String] = [], inReplyToTweeetID: [String] = []) {
+      self.excludeReplyUserIDs = excludeReplyUserIDs
+      self.inReplyToTweetID = inReplyToTweeetID
+    }
   }
 }
 

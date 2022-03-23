@@ -11,6 +11,11 @@ extension Sweet {
   public struct ContextAnnotationModel {
     public let domain: DomainModel
     public let entity: ContextEntityModel
+    
+    public init(domain: DomainModel, entity: ContextEntityModel) {
+      self.domain = domain
+      self.entity = entity
+    }
   }
 }
 

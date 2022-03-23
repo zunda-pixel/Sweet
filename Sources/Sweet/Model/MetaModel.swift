@@ -14,6 +14,15 @@ extension Sweet {
     public let newestID: String?
     public let nextToken: String?
     public let previousToken: String?
+    
+    public init(resultCount: Int, oldestID: String? = nil, newestID: String? = nil,
+                nextToken: String? = nil, previousToken: String? = nil) {
+      self.resultCount =  resultCount
+      self.oldestID = oldestID
+      self.newestID = newestID
+      self.nextToken = nextToken
+      self.previousToken = previousToken
+    }
   }
 }
 

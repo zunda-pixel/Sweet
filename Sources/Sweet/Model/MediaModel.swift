@@ -18,6 +18,14 @@ extension Sweet {
     public let size: CGSize
     public let previewImageURL: URL?
     public let url: URL?
+    
+    public init(key: String, type: MediaType, size: CGSize, previewImageURL: URL? = nil, url: URL? = nil) {
+      self.key = key
+      self.type = type
+      self.size = size
+      self.previewImageURL = previewImageURL
+      self.url = url
+    }
   }
 }
 

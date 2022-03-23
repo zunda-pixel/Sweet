@@ -9,16 +9,30 @@ import Foundation
 
 extension Sweet {
   public struct ComplianceModel {
-    public let type: JobType
-    public let name: String
     public let id: String
+    public let name: String
+    public let createdAt: Date
+    public let type: JobType
     public let resumble: Bool
     public let uploadURL: URL
     public let uploadExpiresAt: Date
-    public let downloadExpiresAt: Date
     public let downloadURL: URL
-    public let createdAt: Date
+    public let downloadExpiresAt: Date
     public let status: String
+    
+    public init(id: String, name: String, createdAt: Date, type: JobType, resumble: Bool,
+                uploadURL: URL, uploadExpiresAt: Date, downloadExpiresAt: Date, downloadURL: URL,status: String) {
+      self.id = id
+      self.name = name
+      self.createdAt = createdAt
+      self.type = type
+      self.resumble = resumble
+      self.uploadURL = uploadURL
+      self.uploadExpiresAt = uploadExpiresAt
+      self.downloadURL = downloadURL
+      self.downloadExpiresAt = downloadExpiresAt
+      self.status = status
+    }
   }
 }
 

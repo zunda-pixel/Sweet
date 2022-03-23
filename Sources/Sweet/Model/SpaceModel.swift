@@ -26,6 +26,30 @@ extension Sweet {
     public let speakerIDs: [String]
     public let subscriberCount: Int?
     public let topicIDs: [String]
+    
+    public init(id: String, state: SpaceState, creatorID: String, title: String? = nil, hostIDs: [String] = [],
+                lang: String? = nil, participantCount: Int? = nil, isTicketed: Bool? = nil,
+                startedAt: Date? = nil, updatedAt: Date? = nil, createdAt: Date? = nil, endedAt: Date? = nil,
+                invitedUserIDs: [String] = [], scheduledStart: Date? = nil, speakerIDs: [String],
+                subscriberCount: Int? = nil, topicIDs: [String] = []) {
+      self.id = id
+      self.state = state
+      self.creatorID = creatorID
+      self.title = title
+      self.hostIDs = hostIDs
+      self.lang = lang
+      self.participantCount = participantCount
+      self.isTicketed = isTicketed
+      self.startedAt = startedAt
+      self.updatedAt = updatedAt
+      self.createdAt = createdAt
+      self.endedAt = endedAt
+      self.invitedUserIDs = invitedUserIDs
+      self.scheduledStart = scheduledStart
+      self.speakerIDs = speakerIDs
+      self.subscriberCount = subscriberCount
+      self.topicIDs = topicIDs
+    }
   }
 }
 

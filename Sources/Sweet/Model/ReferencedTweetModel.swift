@@ -11,6 +11,11 @@ extension Sweet {
   public struct ReferencedTweetModel {
     public let id: String
     public let type: ReferencedType
+    
+    public init(id: String, type: ReferencedType) {
+      self.id = id
+      self.type = type
+    }
   }
 }
 

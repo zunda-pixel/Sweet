@@ -14,6 +14,14 @@ extension Sweet {
     public let userProfileClicks: Int
     public let retweetCount: Int
     public let replyCount: Int
+    
+    public init(impressionCount: Int, urlLinkClicks: Int, userProfileClicks: Int, retweetCount: Int, replyCount: Int) {
+      self.impressionCount = impressionCount
+      self.urlLinkClicks = urlLinkClicks
+      self.userProfileClicks = userProfileClicks
+      self.retweetCount = retweetCount
+      self.replyCount = replyCount
+    }
   }
 }
 
