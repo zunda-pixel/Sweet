@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TwitterDateFormatter: ISO8601DateFormatter {
+public class TwitterDateFormatter: ISO8601DateFormatter {
   override init() {
     super.init()
     self.formatOptions.insert(.withFractionalSeconds)
