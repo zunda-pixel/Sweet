@@ -14,7 +14,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.ReferencedTweetModel: Decodable {
+extension Sweet.ReferencedTweetModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case id
     case type
@@ -25,5 +25,11 @@ extension Sweet.ReferencedTweetModel: Decodable {
     self.id = try values.decode(String.self, forKey: .id)
     let type = try values.decode(String.self, forKey: .type)
     self.type = .init(rawValue: type)!
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(type.rawValue, forKey: .type)
   }
 }

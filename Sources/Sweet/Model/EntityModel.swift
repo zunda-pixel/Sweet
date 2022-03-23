@@ -17,7 +17,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.EntityModel: Decodable {
+extension Sweet.EntityModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case annotations
     case urls
@@ -44,6 +44,15 @@ extension Sweet.EntityModel: Decodable {
     let cashtags = try? values.decode([CashtagModel].self, forKey: .cashtags)
     self.cashtags = cashtags ?? []
   }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(annotations, forKey: .annotations)
+    try container.encode(urls, forKey: .urls)
+    try container.encode(hashtags, forKey: .hashtags)
+    try container.encode(mentions, forKey: .mentions)
+    try container.encode(cashtags, forKey: .cashtags)
+  }
 }
 
 extension Sweet.EntityModel {
@@ -66,15 +75,15 @@ extension Sweet.EntityModel {
   }
 }
 
-extension Sweet.EntityModel.HashtagModel: Decodable {
+extension Sweet.EntityModel.HashtagModel: Codable {
   
 }
 
-extension Sweet.EntityModel.CashtagModel: Decodable {
+extension Sweet.EntityModel.CashtagModel: Codable {
   
 }
 
-extension Sweet.EntityModel.MentionModel: Decodable {
+extension Sweet.EntityModel.MentionModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case start
     case end

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreText
 
 extension Sweet {
   public struct ListModel {
@@ -20,7 +21,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.ListModel: Decodable {
+extension Sweet.ListModel: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: ListField.self)
     self.id = try values.decode(String.self, forKey: .id)
@@ -36,5 +37,17 @@ extension Sweet.ListModel: Decodable {
     } else {
       self.createdAt = nil
     }    
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: ListField.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(name, forKey: .name)
+    try container.encode(followerCount, forKey: .followerCount)
+    try container.encode(memberCount, forKey: .memberCount)
+    try container.encode(ownerID, forKey: .ownerID)
+    try container.encode(description, forKey: .description)
+    try container.encode(isPrivate, forKey: .isPrivate)
+    try container.encode(createdAt, forKey: .createdAt)
   }
 }

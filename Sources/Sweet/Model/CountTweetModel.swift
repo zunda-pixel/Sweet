@@ -15,7 +15,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.CountTweetModel: Decodable {
+extension Sweet.CountTweetModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case countTweet = "tweet_count"
     case startDate = "start"
@@ -33,5 +33,12 @@ extension Sweet.CountTweetModel: Decodable {
     
     let endDateString = try values.decode(String.self, forKey: .endDate)
     self.endDate = formatter.date(from: endDateString)!
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(countTweet, forKey: .countTweet)
+    try container.encode(startDate, forKey: .startDate)
+    try container.encode(endDate, forKey: .endDate)
   }
 }

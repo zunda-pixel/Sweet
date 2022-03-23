@@ -14,6 +14,6 @@ extension Sweet {
     public let description: String
   }
 }
-extension Sweet.ContextEntityModel: Decodable {
+extension Sweet.ContextEntityModel: Codable {
   
 }

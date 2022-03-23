@@ -17,7 +17,7 @@ extension Sweet.EntityModel {
   }
 }
 
-extension Sweet.EntityModel.AnnotationModel: Decodable {
+extension Sweet.EntityModel.AnnotationModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case start
     case end

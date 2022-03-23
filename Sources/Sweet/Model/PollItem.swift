@@ -16,6 +16,6 @@ extension Sweet {
   }
 }
 
-extension Sweet.PollItem: Decodable {
+extension Sweet.PollItem: Codable {
   
 }

@@ -14,7 +14,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.ContextAnnotationModel: Decodable {
+extension Sweet.ContextAnnotationModel: Codable {
   
 }
 

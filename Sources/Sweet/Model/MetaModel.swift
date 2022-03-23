@@ -17,7 +17,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.MetaModel: Decodable {
+extension Sweet.MetaModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case resultCount = "result_count"
     case oldestID = "oldest_id"
@@ -33,5 +33,14 @@ extension Sweet.MetaModel: Decodable {
     self.newestID = try? values.decode(String.self, forKey: .newestID)
     self.nextToken = try? values.decode(String.self, forKey: .nextToken)
     self.previousToken = try? values.decode(String.self, forKey: .previousToken)
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(resultCount, forKey: .resultCount)
+    try container.encode(oldestID, forKey: .oldestID)
+    try container.encode(newestID, forKey: .newestID)
+    try container.encode(nextToken, forKey: .nextToken)
+    try container.encode(previousToken, forKey: .previousToken)
   }
 }

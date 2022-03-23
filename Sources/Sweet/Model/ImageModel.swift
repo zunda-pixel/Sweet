@@ -18,7 +18,7 @@ extension Sweet.EntityModel {
   }
 }
 
-extension Sweet.EntityModel.ImageModel: Decodable {
+extension Sweet.EntityModel.ImageModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case url
     case width
@@ -35,5 +35,12 @@ extension Sweet.EntityModel.ImageModel: Decodable {
     let width = try values.decode(Int.self, forKey: .width)
     
     self.size = .init(width: width, height: height)
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(url, forKey: .url)
+    try container.encode(size.height, forKey: .height)
+    try container.encode(size.width, forKey: .width)
   }
 }

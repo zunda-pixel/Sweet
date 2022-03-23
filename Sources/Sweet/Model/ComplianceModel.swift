@@ -22,7 +22,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.ComplianceModel: Decodable {
+extension Sweet.ComplianceModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case type
     case id
@@ -63,5 +63,18 @@ extension Sweet.ComplianceModel: Decodable {
     
     let createdAt: String = try values.decode(String.self, forKey: .createdAt)
     self.createdAt = formatter.date(from: createdAt)!
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(type.rawValue, forKey: .type)
+    try container.encode(name, forKey: .name)
+    try container.encode(id, forKey: .id)
+    try container.encode(resumble, forKey: .resumable)
+    try container.encode(uploadURL, forKey: .uploadURL)
+    try container.encode(uploadExpiresAt, forKey: .uploadExpiresAt)
+    try container.encode(downloadURL, forKey: .downloadURL)
+    try container.encode(createdAt, forKey: .createdAt)
+    try container.encode(status, forKey: .status)
   }
 }
