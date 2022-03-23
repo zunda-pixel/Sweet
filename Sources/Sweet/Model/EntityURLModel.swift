@@ -19,6 +19,20 @@ extension Sweet.EntityModel {
     public let status: Int?
     public let title: String?
     public let description: String?
+    
+    public init(start: Int, end: Int, url: URL, expandedURL: URL, displayURL: String, unwnoedURL: URL,
+                images: [ImageModel] = [], status: Int? = nil, title: String? = nil, description: String? = nil) {
+      self.start = start
+      self.end = end
+      self.url = url
+      self.expandedURL = expandedURL
+      self.displayURL = displayURL
+      self.unwoundURL = unwnoedURL
+      self.images = images
+      self.status = status
+      self.title = title
+      self.description = description
+    }
   }
 }
 

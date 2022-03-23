@@ -10,6 +10,10 @@ import Foundation
 extension Sweet {
   public struct StreamRuleMetaModel {
     public let sent: Date
+    
+    public init(sent: Date) {
+      self.sent = sent
+    }
   }
 }
 
@@ -29,5 +33,4 @@ extension Sweet.StreamRuleMetaModel: Decodable {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(sent, forKey: .sent)
   }
-  
 }

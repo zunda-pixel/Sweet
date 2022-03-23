@@ -10,6 +10,10 @@ import Foundation
 extension Sweet {
   public struct GeoModel {
     public let placeID: String
+    
+    public init(placeID: String) {
+      self.placeID = placeID
+    }
   }
 }
 

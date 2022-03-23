@@ -8,14 +8,20 @@
 import Foundation
 
 extension Sweet {
-  public struct SendListModel {
+  public struct PostListModel {
     public let name: String?
     public let description: String?
     public let isPrivate: Bool?
+    
+    public init(name: String? = nil, description: String? = nil, isPrivate: Bool? = nil) {
+      self.name = name
+      self.description = description
+      self.isPrivate = isPrivate
+    }
   }
 }
 
-extension Sweet.SendListModel: Codable {
+extension Sweet.PostListModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case name
     case description

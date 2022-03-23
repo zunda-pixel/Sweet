@@ -22,14 +22,43 @@ extension Sweet {
     public let replyUserID: String?
     public let geo: GeoModel?
     public let publicMetrics: TweetPublicMetrics?
-    public let organicMetrics: OrganicMetrics?
     public let privateMetrics: PrivateMetrics?
-    public let attachments: AttachmentsModel?
     public let promotedMerics: PromotedMetrics?
+    public let organicMetrics: OrganicMetrics?
+    public let attachments: AttachmentsModel?
     public let withheld: WithheldModel?
     public let contextAnnotations: [ContextAnnotationModel]
     public let entity: EntityModel?
     public let referencedTweet: ReferencedTweetModel?
+    
+    public init(id: String, text: String, authorID: String? = nil, lang: String? = nil, replySetting: ReplySetting? = nil,
+                createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil, conversasionID: String? = nil,
+                replyUserID: String? = nil, geo: GeoModel? = nil, publicMetrics: TweetPublicMetrics? = nil,
+                organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
+                attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
+                withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
+                entiry: EntityModel? = nil, referencedTweet: ReferencedTweetModel? = nil) {
+      self.id = id
+      self.text = text
+      self.authorID = authorID
+      self.lang = lang
+      self.replySetting = replySetting
+      self.createdAt = createdAt
+      self.source = source
+      self.sensitive = sensitive
+      self.conversationID = conversasionID
+      self.replyUserID = replyUserID
+      self.geo = geo
+      self.publicMetrics = publicMetrics
+      self.privateMetrics = privateMetrics
+      self.promotedMerics = promotedMetrics
+      self.organicMetrics = organicMetrics
+      self.attachments = attachments
+      self.withheld = withheld
+      self.contextAnnotations = contextAnnotations
+      self.entity = entiry
+      self.referencedTweet = referencedTweet
+    }
   }
 }
 

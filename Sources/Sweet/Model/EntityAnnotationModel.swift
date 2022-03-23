@@ -14,6 +14,14 @@ extension Sweet.EntityModel {
     public let probability: Int
     public let type: String
     public let normalizedText: String
+    
+    public init(start: Int, end: Int, probability: Int, type: String, normalizedText: String) {
+      self.start = start
+      self.end = end
+      self.probability = probability
+      self.type = type
+      self.normalizedText = normalizedText
+    }
   }
 }
 

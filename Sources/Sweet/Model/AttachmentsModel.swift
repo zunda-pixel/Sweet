@@ -11,6 +11,11 @@ extension Sweet {
   public struct AttachmentsModel {
     public let mediaKeys: [String]
     public let pollID: String?
+    
+    public init(mediaKeys: [String] = [], pollID: String? = nil) {
+      self.mediaKeys = mediaKeys
+      self.pollID = pollID
+    }
   }
 }
 

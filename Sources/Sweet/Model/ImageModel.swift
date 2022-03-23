@@ -15,6 +15,11 @@ extension Sweet.EntityModel {
   public struct ImageModel {
     public let url: URL
     public let size: CGSize
+    
+    public init(url: URL, size: CGSize) {
+      self.url = url
+      self.size = size
+    }
   }
 }
 
