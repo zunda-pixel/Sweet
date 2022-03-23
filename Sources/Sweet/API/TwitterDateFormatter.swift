@@ -7,13 +7,15 @@
 
 import Foundation
 
-public class TwitterDateFormatter: ISO8601DateFormatter {
-  public override init() {
-    super.init()
-    self.formatOptions.insert(.withFractionalSeconds)
-  }
-  
-  public required init?(coder: NSCoder) {
-    super.init(coder: coder)
+extension Sweet {
+  public class TwitterDateFormatter: ISO8601DateFormatter {
+    public override init() {
+      super.init()
+      self.formatOptions.insert(.withFractionalSeconds)
+    }
+    
+    public required init?(coder: NSCoder) {
+      super.init(coder: coder)
+    }
   }
 }
