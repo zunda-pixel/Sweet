@@ -37,7 +37,7 @@ extension Sweet {
                 organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
                 attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
                 withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
-                entiry: EntityModel? = nil, referencedTweet: ReferencedTweetModel? = nil) {
+                entity: EntityModel? = nil, referencedTweet: ReferencedTweetModel? = nil) {
       self.id = id
       self.text = text
       self.authorID = authorID
@@ -56,7 +56,7 @@ extension Sweet {
       self.attachments = attachments
       self.withheld = withheld
       self.contextAnnotations = contextAnnotations
-      self.entity = entiry
+      self.entity = entity
       self.referencedTweet = referencedTweet
     }
   }

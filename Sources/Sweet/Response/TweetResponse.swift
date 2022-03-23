@@ -15,6 +15,7 @@ extension Sweet {
     public let medias: [MediaModel]
     public let places: [PlaceModel]
     public let polls: [PollModel]
+    public let relatedTweets: [TweetModel]
   }
 }
 
@@ -30,6 +31,7 @@ extension Sweet.TweetsResponse: Decodable {
     case users
     case places
     case polls
+    case tweets
   }
   
   public init(from decoder: Decoder) throws {
@@ -43,6 +45,7 @@ extension Sweet.TweetsResponse: Decodable {
       self.users = []
       self.places = []
       self.polls = []
+      self.relatedTweets = []
       return
     }
     
@@ -53,13 +56,12 @@ extension Sweet.TweetsResponse: Decodable {
       self.users = []
       self.places = []
       self.polls = []
+      self.relatedTweets = []
       return
     }
     
-    
     let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
-  
     
     let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
@@ -69,6 +71,9 @@ extension Sweet.TweetsResponse: Decodable {
     
     let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
+    
+    let relatedTweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    self.relatedTweets = relatedTweets ?? []
   }
 }
 
@@ -79,6 +84,7 @@ extension Sweet {
     public let medias: [MediaModel]
     public let places: [PlaceModel]
     public let polls: [PollModel]
+    public let relatedTweets: [TweetModel]
   }
 }
 
@@ -93,6 +99,7 @@ extension Sweet.TweetResponse: Decodable {
     case users
     case places
     case polls
+    case tweets
   }
   
   public init(from decoder: Decoder) throws {
@@ -105,6 +112,7 @@ extension Sweet.TweetResponse: Decodable {
       self.users = []
       self.places = []
       self.polls = []
+      self.relatedTweets = []
       return
     }
     
@@ -119,5 +127,8 @@ extension Sweet.TweetResponse: Decodable {
     
     let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
+    
+    let relatedTweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    self.relatedTweets = relatedTweets ?? []
   }
 }
