@@ -26,7 +26,6 @@ extension Sweet {
     public let speakerIDs: [String]
     public let subscriberCount: Int?
     public let topicIDs: [String]
-    //public var users: [UserModel]
   }
 }
 
@@ -83,7 +82,7 @@ extension Sweet.SpaceModel: Decodable {
       self.scheduledStart = nil
     }
     
-    let invitedUserIDs = try? values.decode([String].self, forKey: .invited_userIDs)
+    let invitedUserIDs = try? values.decode([String].self, forKey: .invitedUserIDs)
     self.invitedUserIDs = invitedUserIDs ?? []
     
     let speakerIDs = try? values.decode([String].self, forKey: .speakeIDs)
@@ -93,5 +92,26 @@ extension Sweet.SpaceModel: Decodable {
     
     let topicIDs = try? values.decode([String].self, forKey: .topicIDs)
     self.topicIDs = topicIDs ?? []
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: SpaceField.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(state.rawValue, forKey: .state)
+    try container.encode(creatorID, forKey: .creatorID)
+    try container.encode(title, forKey: .title)
+    try container.encode(hostIDs, forKey: .hostIDs)
+    try container.encode(lang, forKey: .lang)
+    try container.encode(participantCount, forKey: .participantCount)
+    try container.encode(isTicketed, forKey: .isTicketed)
+    try container.encode(startedAt, forKey: .startedAt)
+    try container.encode(updatedAt, forKey: .updatedAt)
+    try container.encode(createdAt, forKey: .creatorID)
+    try container.encode(endedAt, forKey: .endedAt)
+    try container.encode(invitedUserIDs, forKey: .invitedUserIDs)
+    try container.encode(scheduledStart, forKey: .scheduledStart)
+    try container.encode(speakerIDs, forKey: .speakeIDs)
+    try container.encode(subscriberCount, forKey: .subscriberCount)
+    try container.encode(topicIDs, forKey: .topicIDs)
   }
 }

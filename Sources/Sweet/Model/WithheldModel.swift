@@ -15,7 +15,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.WithheldModel: Decodable {
+extension Sweet.WithheldModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case copyright
     case countryCodes = "country_codes"
@@ -30,6 +30,13 @@ extension Sweet.WithheldModel: Decodable {
     
     let scope = try value.decode(String.self, forKey: .scope)
     self.scope  = .init(rawValue: scope)!
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(copyright, forKey: .copyright)
+    try container.encode(countryCodes, forKey: .countryCodes)
+    try container.encode(scope.rawValue, forKey: .scope)
   }
 }
 

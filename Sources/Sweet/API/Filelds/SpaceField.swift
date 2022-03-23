@@ -18,7 +18,7 @@ public enum SpaceField: String, Field {
   case hostIDs = "host_ids"
   case lang
   case isTicketed = "is_ticketed"
-  case invited_userIDs = "invited_user_ids"
+  case invitedUserIDs = "invited_user_ids"
   case participantCount = "participant_count"
   case scheduledStart = "scheduled_start"
   case speakeIDs = "speaker_ids"

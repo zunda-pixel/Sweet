@@ -22,7 +22,7 @@ extension Sweet.EntityModel {
   }
 }
 
-extension Sweet.EntityModel.URLModel: Decodable {
+extension Sweet.EntityModel.URLModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case start
     case end
@@ -60,5 +60,19 @@ extension Sweet.EntityModel.URLModel: Decodable {
     
     self.title = try? values.decode(String.self, forKey: .title)
     self.description = try? values.decode(String.self, forKey: .description)
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(start, forKey: .start)
+    try container.encode(end, forKey: .end)
+    try container.encode(url, forKey: .url)
+    try container.encode(expandedURL, forKey: .expandedURL)
+    try container.encode(displayURL, forKey: .displayURL)
+    try container.encode(unwoundURL, forKey: .unwoundURL)
+    try container.encode(images, forKey: .images)
+    try container.encode(status, forKey: .status)
+    try container.encode(title, forKey: .title)
+    try container.encode(description, forKey: .description)
   }
 }

@@ -7,15 +7,17 @@
 
 import Foundation
 
-public  struct OrganicMetricsModel {
-  public let likeCount: Int
-  public let userProfileClicks: Int
-  public let replyCount: Int
-  public let impressionCount: Int
-  public let retweetCount: Int
+extension Sweet {
+  public  struct OrganicMetrics {
+    public let likeCount: Int
+    public let userProfileClicks: Int
+    public let replyCount: Int
+    public let impressionCount: Int
+    public let retweetCount: Int
+  }
 }
 
-extension OrganicMetricsModel: Decodable {
+extension Sweet.OrganicMetrics: Codable {
   private enum CodingKeys: String, CodingKey {
     case likeCount = "like_count"
     case userProfilleClicks = "user_profile_clicks"
@@ -31,5 +33,14 @@ extension OrganicMetricsModel: Decodable {
     self.replyCount = try values.decode(Int.self, forKey: .replyCount)
     self.impressionCount = try values.decode(Int.self, forKey: .impressionCount)
     self.retweetCount = try values.decode(Int.self, forKey: .retweetCount)
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(likeCount, forKey: .likeCount)
+    try container.encode(userProfileClicks, forKey: .userProfilleClicks)
+    try container.encode(replyCount, forKey: .replyCount)
+    try container.encode(impressionCount, forKey: .impressionCount)
+    try container.encode(retweetCount, forKey: .retweetCount)
   }
 }

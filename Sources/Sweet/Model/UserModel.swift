@@ -21,7 +21,7 @@ extension Sweet {
     public let createdAt: Date?
     public let location: String?
     public let pinnedTweetID: String?
-    public let metrics: UserPublicMetricsModel?
+    public let metrics: UserPublicMetrics?
     public let withheld: WithheldModel?
     public let entity: EntityModel?
   }
@@ -36,7 +36,7 @@ extension Sweet.UserModel: Decodable {
     self.userName = try values.decode(String.self, forKey: .username)
     self.verified = try? values.decode(Bool.self, forKey: .verified)
     self.description = try? values.decode(String.self, forKey: .description)
-    self.metrics = try? values.decode(UserPublicMetricsModel.self, forKey: .publicMetrics)
+    self.metrics = try? values.decode(Sweet.UserPublicMetrics.self, forKey: .publicMetrics)
     self.protected = try? values.decode(Bool.self, forKey: .protected)
     self.location = try? values.decode(String.self, forKey: .location)
     self.pinnedTweetID = try? values.decode(String.self, forKey: .pinnedTweetID)
@@ -54,5 +54,23 @@ extension Sweet.UserModel: Decodable {
     } else {
       self.createdAt = nil
     }
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: UserField.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(name, forKey: .name)
+    try container.encode(userName, forKey: .username)
+    try container.encode(verified, forKey: .verified)
+    try container.encode(profileImageURL, forKey: .profileImageURL)
+    try container.encode(description, forKey: .description)
+    try container.encode(protected, forKey: .protected)
+    try container.encode(url, forKey: .url)
+    try container.encode(createdAt, forKey: .createdAt)
+    try container.encode(location, forKey: .location)
+    try container.encode(pinnedTweetID, forKey: .pinnedTweetID)
+    try container.encode(metrics, forKey: .publicMetrics)
+    try container.encode(withheld, forKey: .withheld)
+    try container.encode(entity, forKey: .entities)
   }
 }

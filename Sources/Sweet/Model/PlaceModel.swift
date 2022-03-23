@@ -14,7 +14,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.PlaceModel: Decodable {
+extension Sweet.PlaceModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case name = "full_name"
     case id

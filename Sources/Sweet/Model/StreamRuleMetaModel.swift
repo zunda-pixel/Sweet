@@ -24,4 +24,10 @@ extension Sweet.StreamRuleMetaModel: Decodable {
     let sent = try values.decode(String.self, forKey: .sent)
     self.sent = Sweet.TwitterDateFormatter().date(from: sent)!
   }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(sent, forKey: .sent)
+  }
+  
 }

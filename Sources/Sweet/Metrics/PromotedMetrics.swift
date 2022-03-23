@@ -7,15 +7,17 @@
 
 import Foundation
 
-public struct PromotedMetrics {
-  public let impressionCount: Int
-  public let urlLinkClicks: Int
-  public let userProfileClicks: Int
-  public let retweetCount: Int
-  public let replyCount: Int
+extension Sweet {
+  public struct PromotedMetrics {
+    public let impressionCount: Int
+    public let urlLinkClicks: Int
+    public let userProfileClicks: Int
+    public let retweetCount: Int
+    public let replyCount: Int
+  }
 }
 
-extension PromotedMetrics: Decodable {
+extension Sweet.PromotedMetrics: Codable {
   private enum CodingKeys: String, CodingKey {
     case impressionCount = "impression_count"
     case urlLinkClicks = "url_link_clicks"

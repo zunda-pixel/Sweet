@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 extension Sweet {
   public struct TweetModel {
     public let id: String
@@ -20,9 +21,9 @@ extension Sweet {
     public let conversationID: String?
     public let replyUserID: String?
     public let geo: GeoModel?
-    public let publicMetrics: TweetPublicMetricsModel?
-    public let organicMetrics: OrganicMetricsModel?
-    public let privateMetrics: PrivateMetricsModel?
+    public let publicMetrics: TweetPublicMetrics?
+    public let organicMetrics: OrganicMetrics?
+    public let privateMetrics: PrivateMetrics?
     public let attachments: AttachmentsModel?
     public let promotedMerics: PromotedMetrics?
     public let withheld: WithheldModel?
@@ -58,11 +59,11 @@ extension Sweet.TweetModel: Decodable {
     self.replyUserID = try? value.decode(String.self, forKey: .inReplyToUserID)
     self.geo = try? value.decode(Sweet.GeoModel.self, forKey: .geo)
     
-    self.publicMetrics = try? value.decode(TweetPublicMetricsModel.self, forKey: .publicMetrics)
-    self.organicMetrics = try? value.decode(OrganicMetricsModel.self, forKey: .organicMetrics)
-    self.privateMetrics = try? value.decode(PrivateMetricsModel.self, forKey: .privateMetrics)
+    self.publicMetrics = try? value.decode(Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
+    self.organicMetrics = try? value.decode(Sweet.OrganicMetrics.self, forKey: .organicMetrics)
+    self.privateMetrics = try? value.decode(Sweet.PrivateMetrics.self, forKey: .privateMetrics)
     self.attachments = try? value.decode(Sweet.AttachmentsModel.self, forKey: .attachments)
-    self.promotedMerics = try? value.decode(PromotedMetrics.self, forKey: .promotedMetrics)
+    self.promotedMerics = try? value.decode(Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
     self.withheld = try? value.decode(Sweet.WithheldModel.self, forKey: .withheld)
     
     let contextAnnotations = try? value.decode([Sweet.ContextAnnotationModel].self, forKey: .contextAnnotations)
@@ -72,5 +73,29 @@ extension Sweet.TweetModel: Decodable {
     
     let referencedTweets = try? value.decode([Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
     self.referencedTweet = referencedTweets?.first
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: TweetField.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(text, forKey: .text)
+    try container.encode(authorID, forKey: .authorID)
+    try container.encode(lang, forKey: .lang)
+    try container.encode(replySetting?.rawValue, forKey: .replySettings)
+    try container.encode(createdAt, forKey: .createdAt)
+    try container.encode(source, forKey: .source)
+    try container.encode(sensitive, forKey: .possiblySensitive)
+    try container.encode(conversationID, forKey: .conversationID)
+    try container.encode(replyUserID, forKey: .inReplyToUserID)
+    try container.encode(geo, forKey: .geo)
+    try container.encode(publicMetrics, forKey: .publicMetrics)
+    try container.encode(organicMetrics, forKey: .organicMetrics)
+    try container.encode(privateMetrics, forKey: .privateMetrics)
+    try container.encode(attachments, forKey: .attachments)
+    try container.encode(promotedMerics, forKey: .promotedMetrics)
+    try container.encode(withheld, forKey: .withheld)
+    try container.encode(contextAnnotations, forKey: .contextAnnotations)
+    try container.encode(entity, forKey: .entities)
+    try container.encode(referencedTweet, forKey: .referencedTweets)
   }
 }

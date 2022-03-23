@@ -14,7 +14,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.CountTweetMetaModel: Decodable {
+extension Sweet.CountTweetMetaModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case totalTweetCount = "total_tweet_count"
     case nextToken = "next_token"

@@ -15,6 +15,6 @@ extension Sweet {
   }
 }
 
-extension Sweet.DomainModel: Decodable {
+extension Sweet.DomainModel: Codable {
   
 }

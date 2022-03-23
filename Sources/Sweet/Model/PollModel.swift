@@ -17,7 +17,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.PollModel: Decodable {
+extension Sweet.PollModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case id
     case vodingStatus = "voting_status"
@@ -40,5 +40,14 @@ extension Sweet.PollModel: Decodable {
     self.durationMinutes = try value.decode(Int.self, forKey: .durationMinutes)
     
     self.options = try value.decode([Sweet.PollItem].self, forKey: .options)
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(votingStatus.rawValue, forKey: .vodingStatus)
+    try container.encode(endDateTime, forKey: .endDateTime)
+    try container.encode(durationMinutes, forKey: .durationMinutes)
+    try container.encode(options, forKey: .options)
   }
 }

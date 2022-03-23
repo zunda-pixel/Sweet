@@ -14,7 +14,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.AttachmentsModel: Decodable {
+extension Sweet.AttachmentsModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case mediaKeys = "media_keys"
     case pollIDs = "poll_ids"
@@ -28,5 +28,11 @@ extension Sweet.AttachmentsModel: Decodable {
     
     let pollIDs = try? value.decode([String].self, forKey: .pollIDs)
     self.pollID = pollIDs?.first
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(mediaKeys, forKey: .mediaKeys)
+    try container.encode(pollID, forKey: .pollIDs)
   }
 }
