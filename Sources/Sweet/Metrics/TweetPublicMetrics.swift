@@ -7,14 +7,16 @@
 
 import Foundation
 
-public struct TweetPublicMetricsModel {
-  public let retweetCount: Int
-  public let replyCount: Int
-  public let likeCount: Int
-  public let quoteCount: Int
+extension Sweet {
+  public struct TweetPublicMetrics {
+    public let retweetCount: Int
+    public let replyCount: Int
+    public let likeCount: Int
+    public let quoteCount: Int
+  }
 }
 
-extension TweetPublicMetricsModel: Decodable {
+extension Sweet.TweetPublicMetrics: Codable {
   private enum CodingKeys: String, CodingKey {
     case retweetCount = "retweet_count"
     case replyCount = "reply_count"
