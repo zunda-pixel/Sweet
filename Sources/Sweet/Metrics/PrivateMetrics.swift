@@ -10,13 +10,18 @@ import Foundation
 extension Sweet {
   public struct PrivateMetrics {
     public let impressionCount: Int
-    public let userProfilleClicks: Int
+    public let userProfileClicks: Int
+    
+    public init(impressionCount: Int, userProfileClicks: Int) {
+      self.impressionCount = impressionCount
+      self.userProfileClicks = userProfileClicks
+    }
   }
 }
 
 extension Sweet.PrivateMetrics: Codable {  
   private enum CodingKeys: String, CodingKey {
-    case userProfilleClicks = "user_profile_clicks"
+    case userProfileClicks = "user_profile_clicks"
     case impressionCount = "impression_count"
   }
 }
