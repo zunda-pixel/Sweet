@@ -32,7 +32,7 @@ extension Sweet {
     public let referencedTweet: ReferencedTweetModel?
     
     public init(id: String, text: String, authorID: String? = nil, lang: String? = nil, replySetting: ReplySetting? = nil,
-                createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil, conversasionID: String? = nil,
+                createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil, conversationID: String? = nil,
                 replyUserID: String? = nil, geo: GeoModel? = nil, publicMetrics: TweetPublicMetrics? = nil,
                 organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
                 attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
