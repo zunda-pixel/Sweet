@@ -38,6 +38,6 @@ extension Sweet.AttachmentsModel: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(mediaKeys, forKey: .mediaKeys)
-    try container.encode(pollID, forKey: .pollIDs)
+    try container.encode([pollID], forKey: .pollIDs)
   }
 }
