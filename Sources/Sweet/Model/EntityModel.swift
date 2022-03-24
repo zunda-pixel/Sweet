@@ -69,18 +69,36 @@ extension Sweet.EntityModel {
     public let start: Int
     public let end: Int
     public let tag: String
+    
+    public init(start: Int, end: Int, tag: String) {
+      self.start = start
+      self.end = end
+      self.tag = tag
+    }
   }
   
   public struct CashtagModel {
     public let start: Int
     public let end: Int
     public let tag: String
+    
+    public init(start: Int, end: Int, tag: String) {
+      self.start = start
+      self.end = end
+      self.tag = tag
+    }
   }
   
   public struct MentionModel {
     public let start: Int
     public let end: Int
     public let userName: String
+    
+    public init(start: Int, end: Int, userName: String) {
+      self.start = start
+      self.end = end
+      self.userName = userName
+    }
   }
 }
 
