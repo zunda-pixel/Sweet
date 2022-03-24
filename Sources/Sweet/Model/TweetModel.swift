@@ -46,7 +46,7 @@ extension Sweet {
       self.createdAt = createdAt
       self.source = source
       self.sensitive = sensitive
-      self.conversationID = conversasionID
+      self.conversationID = conversationID
       self.replyUserID = replyUserID
       self.geo = geo
       self.publicMetrics = publicMetrics
