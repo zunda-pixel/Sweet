@@ -19,7 +19,7 @@ public enum TweetField: String, Field {
   case createdAt = "created_at"
   case entities
   case geo
-  case inReplyToUserID = "in_reply_to_user_id"
+  case replyToUserID = "in_reply_to_user_id"
   case lang
   case possiblySensitive = "possibly_sensitive"
   case referencedTweets = "referenced_tweets"

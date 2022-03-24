@@ -75,7 +75,6 @@ extension Sweet.TweetModel: Decodable {
     let replySetting = try? value.decode(String.self, forKey: .replySettings)
     self.replySetting = .init(rawValue: replySetting ?? "")
     
-    
     if let createdAt = try? value.decode(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
@@ -85,7 +84,7 @@ extension Sweet.TweetModel: Decodable {
     self.source = try? value.decode(String.self, forKey: .source)
     self.sensitive = try? value.decode(Bool.self, forKey: .possiblySensitive)
     self.conversationID = try? value.decode(String.self, forKey: .conversationID)
-    self.replyUserID = try? value.decode(String.self, forKey: .inReplyToUserID)
+    self.replyUserID = try? value.decode(String.self, forKey: .replyToUserID)
     self.geo = try? value.decode(Sweet.GeoModel.self, forKey: .geo)
     
     self.publicMetrics = try? value.decode(Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
@@ -115,7 +114,7 @@ extension Sweet.TweetModel: Decodable {
     try container.encode(source, forKey: .source)
     try container.encode(sensitive, forKey: .possiblySensitive)
     try container.encode(conversationID, forKey: .conversationID)
-    try container.encode(replyUserID, forKey: .inReplyToUserID)
+    try container.encode(replyUserID, forKey: .replyToUserID)
     try container.encode(geo, forKey: .geo)
     try container.encode(publicMetrics, forKey: .publicMetrics)
     try container.encode(organicMetrics, forKey: .organicMetrics)

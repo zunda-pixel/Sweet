@@ -33,7 +33,7 @@ public struct Sweet {
     let bearerTokenUser = ""
     let bearerTokenApp = ""
     var sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser)
-    sweet.tweetFields = [.id, .text, .attachments, .authorID, .contextAnnotations, .createdAt, .entities, .geo, .inReplyToUserID, .lang, .possiblySensitive, .referencedTweets, .replySettings, .source, .withheld]
+    sweet.tweetFields = [.id, .text, .attachments, .authorID, .contextAnnotations, .createdAt, .entities, .geo, .replyToUserID, .lang, .possiblySensitive, .referencedTweets, .replySettings, .source, .withheld]
     return sweet
   }
 }
