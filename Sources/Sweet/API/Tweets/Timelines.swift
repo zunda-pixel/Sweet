@@ -8,11 +8,6 @@
 import Foundation
 import HTTPClient
 
-public enum TweetExclude: String {
-  case retweets
-  case replies
-}
-
 extension Sweet {
   public func fetchTimeLine(by userID: String, maxResults: Int = 10,
                             startTime: Date? = nil, endTime: Date? = nil,

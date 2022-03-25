@@ -7,15 +7,17 @@
 
 import Foundation
 
-public enum TwitterError: Error {
-  case invalidRequest(error: ResponseErrorModel)
-  case unknwon(data: Data, response: URLResponse)
-  case followError
-  case listError
-  case hiddenError
-  case likeError
-  case deleteError
-  case retweetError
-  case blockError
-  case muteError
+extension Sweet {
+  public enum TwitterError: Error {
+    case invalidRequest(error: Sweet.ResponseErrorModel)
+    case unknwon(data: Data, response: URLResponse)
+    case followError
+    case listError
+    case hiddenError
+    case likeError
+    case deleteError
+    case retweetError
+    case blockError
+    case muteError
+  }
 }

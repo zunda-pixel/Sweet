@@ -7,6 +7,8 @@
 
 import Foundation
 
-public enum MediaExpansion: String, CaseIterable {
-  case attachmentsMediaKeys = "attachments.media_keys"
+extension Sweet {
+  public enum MediaExpansion: String, CaseIterable {
+    case attachmentsMediaKeys = "attachments.media_keys"
+  }
 }

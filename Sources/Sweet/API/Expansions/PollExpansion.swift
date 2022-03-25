@@ -7,6 +7,8 @@
 
 import Foundation
 
-public enum PollExpansion: String, CaseIterable {
-  case attachmentsPollIDs = "attachments.poll_ids"
+extension Sweet {
+  public enum PollExpansion: String, CaseIterable {
+    case attachmentsPollIDs = "attachments.poll_ids"
+  }
 }

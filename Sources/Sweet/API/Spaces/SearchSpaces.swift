@@ -37,10 +37,3 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
-
-public enum SpaceState: String {
-  case all
-  case live
-  case scheduled
-  case ended
-}

@@ -7,27 +7,29 @@
 
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet
 
-public enum TweetField: String, Field {
-  static public var key: String { "tweet.fields" }
-  
-  case id
-  case text
-  case attachments
-  case authorID = "author_id"
-  case contextAnnotations = "context_annotations"
-  case conversationID = "conversation_id"
-  case createdAt = "created_at"
-  case entities
-  case geo
-  case replyToUserID = "in_reply_to_user_id"
-  case lang
-  case possiblySensitive = "possibly_sensitive"
-  case referencedTweets = "referenced_tweets"
-  case replySettings = "reply_settings"
-  case source
-  case withheld
-  case publicMetrics = "public_metrics"
-  case privateMetrics = "non_public_metrics"
-  case organicMetrics = "organic_metrics"
-  case promotedMetrics = "promoted_metrics"
+extension Sweet {
+  public enum TweetField: String, Field {
+    static public var key: String { "tweet.fields" }
+    
+    case id
+    case text
+    case attachments
+    case authorID = "author_id"
+    case contextAnnotations = "context_annotations"
+    case conversationID = "conversation_id"
+    case createdAt = "created_at"
+    case entities
+    case geo
+    case replyToUserID = "in_reply_to_user_id"
+    case lang
+    case possiblySensitive = "possibly_sensitive"
+    case referencedTweets = "referenced_tweets"
+    case replySettings = "reply_settings"
+    case source
+    case withheld
+    case publicMetrics = "public_metrics"
+    case privateMetrics = "non_public_metrics"
+    case organicMetrics = "organic_metrics"
+    case promotedMetrics = "promoted_metrics"
+  }
 }

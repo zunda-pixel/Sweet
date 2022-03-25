@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension Sweet {
   public enum PollStatus: String {
     case isOpen = "open"

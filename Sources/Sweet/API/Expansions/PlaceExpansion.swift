@@ -7,6 +7,8 @@
 
 import Foundation
 
-public enum PlaceExpansion: String, CaseIterable {
-  case placeID = "geo.place_id"
+extension Sweet {
+  public enum PlaceExpansion: String, CaseIterable {
+    case placeID = "geo.place_id"
+  }
 }
