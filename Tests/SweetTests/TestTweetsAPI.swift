@@ -22,7 +22,7 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testLookUpTweet() async throws {
-    let tweetID = "1489644269447315458"
+    let tweetID = "1506723004994174981"
     
     let response = try await Sweet.test.lookUpTweet(by: tweetID)
     
@@ -31,6 +31,7 @@ final class TestTweetsAPI: XCTestCase {
     print(response.polls)
     print(response.places)
     print(response.medias)
+    print(response.relatedTweets)
   }
   
   func testCreateTweet() async throws {
@@ -53,10 +54,12 @@ final class TestTweetsAPI: XCTestCase {
     let userID = testMyUserID
     let response = try await Sweet.test.fetchTimeLine(by: userID)
     
-    response.tweets.forEach {
-      print($0)
-    }
-    
+    print(response.tweets)
+    print(response.users)
+    print(response.medias)
+    print(response.relatedTweets)
+    print(response.polls)
+    print(response.places)
     print(response.meta!)
   }
   
