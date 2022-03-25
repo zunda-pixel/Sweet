@@ -93,9 +93,3 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
-
-public enum DateGranularity: String {
-  case day
-  case hour
-  case minute
-}

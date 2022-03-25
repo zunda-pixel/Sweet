@@ -49,7 +49,7 @@ extension Sweet {
 
 extension Sweet.UserModel: Decodable {
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: UserField.self)
+    let values = try decoder.container(keyedBy: Sweet.UserField.self)
     
     self.id = try values.decode(String.self, forKey: .id)
     self.name = try values.decode(String.self, forKey: .name)
@@ -77,7 +77,7 @@ extension Sweet.UserModel: Decodable {
   }
   
   public func encode(to encoder: Encoder) throws {
-    var container = encoder.container(keyedBy: UserField.self)
+    var container = encoder.container(keyedBy: Sweet.UserField.self)
     try container.encode(id, forKey: .id)
     try container.encode(name, forKey: .name)
     try container.encode(userName, forKey: .username)

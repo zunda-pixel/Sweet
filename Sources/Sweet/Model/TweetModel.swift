@@ -64,7 +64,7 @@ extension Sweet {
 
 extension Sweet.TweetModel: Decodable {
   public init(from decoder: Decoder) throws {
-    let value = try decoder.container(keyedBy: TweetField.self)
+    let value = try decoder.container(keyedBy: Sweet.TweetField.self)
     
     self.id = try value.decode(String.self, forKey: .id)
     self.text = try value.decode(String.self, forKey: .text)
@@ -104,7 +104,7 @@ extension Sweet.TweetModel: Decodable {
   }
   
   public func encode(to encoder: Encoder) throws {
-    var container = encoder.container(keyedBy: TweetField.self)
+    var container = encoder.container(keyedBy: Sweet.TweetField.self)
     try container.encode(id, forKey: .id)
     try container.encode(text, forKey: .text)
     try container.encode(authorID, forKey: .authorID)

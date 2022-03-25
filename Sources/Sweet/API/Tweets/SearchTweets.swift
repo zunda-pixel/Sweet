@@ -8,11 +8,6 @@
 import Foundation
 import HTTPClient
 
-public enum SortOrder: String {
-  case recency
-  case relevancy
-}
-
 extension Sweet {
   public func searchRecentTweet(by query: String, maxResults: Int = 10, startTime: Date? = nil, endTime: Date? = nil,
                                 untilID: String? = nil, sinceID: String? = nil, sortOrder: SortOrder? = nil,

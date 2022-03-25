@@ -7,13 +7,15 @@
 
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/place
 
-public enum PlaceField: String, Field {
-  static public var key: String { "place.fields" }
-  
-  case containedWithin = "contained_within"
-  case country
-  case countryCode = "country_code"
-  case geo
-  case name
-  case placeType = "place_type"
+extension Sweet {
+  public enum PlaceField: String, Field {
+    static public var key: String { "place.fields" }
+    
+    case containedWithin = "contained_within"
+    case country
+    case countryCode = "country_code"
+    case geo
+    case name
+    case placeType = "place_type"
+  }
 }

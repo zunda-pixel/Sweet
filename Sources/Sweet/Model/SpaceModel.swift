@@ -55,7 +55,7 @@ extension Sweet {
 
 extension Sweet.SpaceModel: Decodable {
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: SpaceField.self)
+    let values = try decoder.container(keyedBy: Sweet.SpaceField.self)
     self.id = try values.decode(String.self, forKey: .id)
     
     let state = try values.decode(String.self, forKey: .state)
@@ -119,7 +119,7 @@ extension Sweet.SpaceModel: Decodable {
   }
   
   public func encode(to encoder: Encoder) throws {
-    var container = encoder.container(keyedBy: SpaceField.self)
+    var container = encoder.container(keyedBy: Sweet.SpaceField.self)
     try container.encode(id, forKey: .id)
     try container.encode(state.rawValue, forKey: .state)
     try container.encode(creatorID, forKey: .creatorID)

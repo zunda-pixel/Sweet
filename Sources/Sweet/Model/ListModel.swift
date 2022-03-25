@@ -35,7 +35,7 @@ extension Sweet {
 
 extension Sweet.ListModel: Codable {
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: ListField.self)
+    let values = try decoder.container(keyedBy: Sweet.ListField.self)
     self.id = try values.decode(String.self, forKey: .id)
     self.name = try values.decode(String.self, forKey: .name)
     self.followerCount = try? values.decode(Int.self, forKey: .followerCount)
@@ -52,7 +52,7 @@ extension Sweet.ListModel: Codable {
   }
   
   public func encode(to encoder: Encoder) throws {
-    var container = encoder.container(keyedBy: ListField.self)
+    var container = encoder.container(keyedBy: Sweet.ListField.self)
     try container.encode(id, forKey: .id)
     try container.encode(name, forKey: .name)
     try container.encode(followerCount, forKey: .followerCount)

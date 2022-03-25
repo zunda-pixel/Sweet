@@ -97,10 +97,3 @@ extension Sweet {
     throw TwitterError.unknwon(data: data, response: urlResponse)
   }
 }
-
-public enum CoplianceStatus: String {
-  case created
-  case inProgress = "in_progress"
-  case failed
-  case complete
-}
