@@ -58,7 +58,12 @@ extension Sweet.PostTweetModel: Encodable {
     if let poll = poll { try container.encode(poll, forKey: .poll) }
     if let quoteTweetID = quoteTweetID { try container.encode(quoteTweetID, forKey: .quoteTweetID) }
     if let reply = reply { try container.encode(reply, forKey: .reply) }
-    if let replySettings = replySettings { try container.encode(replySettings.rawValue, forKey: .replySettings) }
+    
+    if let replySettings = replySettings,
+       replySettings != .everyone { // if `everyone`, doesnt need value
+      try container.encode(replySettings.rawValue, forKey: .replySettings)
+      
+    }
   }
 }
 
