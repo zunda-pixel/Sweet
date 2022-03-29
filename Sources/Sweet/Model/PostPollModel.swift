@@ -9,8 +9,8 @@ import Foundation
 
 extension Sweet {
   public struct PostPollModel {
-    public let options: [String]
-    public let durationMinutes: Int
+    public var options: [String]
+    public var durationMinutes: Int
     
     public init(options: [String] = [], durationMinutes: Int) {
       self.options = options
