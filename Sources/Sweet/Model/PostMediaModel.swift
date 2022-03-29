@@ -9,8 +9,8 @@ import Foundation
 
 extension Sweet {
   public struct PostMediaModel {
-    public let mediaIDs: [String]
-    public let taggedUserIDs: [String]
+    public var mediaIDs: [String]
+    public var taggedUserIDs: [String]
     
     public init(mediaIDs: [String] = [], taggedUserIDs: [String] = []) {
       self.mediaIDs = mediaIDs
