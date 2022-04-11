@@ -30,7 +30,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
     
   }
   
@@ -58,7 +58,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func deleteList(by listID: String) async throws {
@@ -82,6 +82,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }

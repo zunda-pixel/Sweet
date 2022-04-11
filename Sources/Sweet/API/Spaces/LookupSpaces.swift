@@ -32,7 +32,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func fetchSpaces(spaceIDs: [String]) async throws -> SpacesResponse {
@@ -59,7 +59,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func fetchSpaces(creatorIDs: [String]) async throws -> SpacesResponse {
@@ -86,7 +86,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func fetchSpaceBuyers(spaceID: String) async throws -> UsersResponse {
@@ -114,7 +114,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func fetchSpaceTweets(spaceID: String) async throws -> TweetsResponse {
@@ -143,6 +143,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }

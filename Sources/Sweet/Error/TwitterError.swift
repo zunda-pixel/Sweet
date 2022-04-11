@@ -10,7 +10,7 @@ import Foundation
 extension Sweet {
   public enum TwitterError: Error {
     case invalidRequest(error: Sweet.ResponseErrorModel)
-    case unknwon(data: Data, response: URLResponse)
+    case unknown(data: Data, response: URLResponse)
     case followError
     case listError
     case hiddenError

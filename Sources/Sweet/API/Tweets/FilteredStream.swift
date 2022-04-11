@@ -14,10 +14,10 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    var quries: [String: String?] = [:]
+    var queries: [String: String?] = [:]
     
     if let ids = ids {
-      quries["ids"] = ids.joined(separator: ",")
+			queries["ids"] = ids.joined(separator: ",")
     }
     
     let headers = getBearerHeaders(type: .App)
@@ -32,7 +32,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil) -> URLSessionDataTask {
@@ -92,7 +92,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func deleteStreamRule(ids: [String], dryRun: Bool = false) async throws {

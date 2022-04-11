@@ -1,5 +1,5 @@
 //
-//  PinndedLists.swift
+//  PinnedLists.swift
 //  
 //
 //  Created by zunda on 2022/01/17.
@@ -33,7 +33,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func unPinList(userID: String, listID: String) async throws {
@@ -57,7 +57,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func fetchPinnedLists(userID: String) async throws -> ListsResponse {
@@ -82,6 +82,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }

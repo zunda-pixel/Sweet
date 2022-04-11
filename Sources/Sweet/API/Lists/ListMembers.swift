@@ -33,7 +33,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func deleteListMember(from listID: String, userID: String) async throws {
@@ -57,7 +57,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func fetchAddedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> ListsResponse {
@@ -84,7 +84,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
   public func fetchAddedUsersToList(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
@@ -111,6 +111,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
     
-    throw TwitterError.unknwon(data: data, response: urlResponse)
+    throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }
