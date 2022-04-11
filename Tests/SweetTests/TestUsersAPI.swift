@@ -21,15 +21,15 @@ final class TestUsersAPI: XCTestCase {
   func testFollow() async throws {
     let fromUserID = testMyUserID
     let toUserID = "355848148"
-    let (folloing, pendingFollow) = try await Sweet.test.follow(from: fromUserID, to: toUserID)
+    let (following, pendingFollow) = try await Sweet.test.follow(from: fromUserID, to: toUserID)
     
-    print(folloing)
+    print(following)
     print(pendingFollow)
   }
   
   func testFatchFollowing() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchFolloing(by: userID)
+    let response = try await Sweet.test.fetchFollowing(by: userID)
     
     print(response.meta!)
     
