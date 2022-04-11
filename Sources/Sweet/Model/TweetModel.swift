@@ -23,7 +23,7 @@ extension Sweet {
     public let geo: GeoModel?
     public let publicMetrics: TweetPublicMetrics?
     public let privateMetrics: PrivateMetrics?
-    public let promotedMerics: PromotedMetrics?
+    public let promotedMetrics: PromotedMetrics?
     public let organicMetrics: OrganicMetrics?
     public let attachments: AttachmentsModel?
     public let withheld: WithheldModel?
@@ -51,7 +51,7 @@ extension Sweet {
       self.geo = geo
       self.publicMetrics = publicMetrics
       self.privateMetrics = privateMetrics
-      self.promotedMerics = promotedMetrics
+      self.promotedMetrics = promotedMetrics
       self.organicMetrics = organicMetrics
       self.attachments = attachments
       self.withheld = withheld
@@ -91,7 +91,7 @@ extension Sweet.TweetModel: Decodable {
     self.organicMetrics = try? value.decode(Sweet.OrganicMetrics.self, forKey: .organicMetrics)
     self.privateMetrics = try? value.decode(Sweet.PrivateMetrics.self, forKey: .privateMetrics)
     self.attachments = try? value.decode(Sweet.AttachmentsModel.self, forKey: .attachments)
-    self.promotedMerics = try? value.decode(Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
+    self.promotedMetrics = try? value.decode(Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
     self.withheld = try? value.decode(Sweet.WithheldModel.self, forKey: .withheld)
     
     let contextAnnotations = try? value.decode([Sweet.ContextAnnotationModel].self, forKey: .contextAnnotations)
@@ -120,7 +120,7 @@ extension Sweet.TweetModel: Decodable {
     try container.encode(organicMetrics, forKey: .organicMetrics)
     try container.encode(privateMetrics, forKey: .privateMetrics)
     try container.encode(attachments, forKey: .attachments)
-    try container.encode(promotedMerics, forKey: .promotedMetrics)
+    try container.encode(promotedMetrics, forKey: .promotedMetrics)
     try container.encode(withheld, forKey: .withheld)
     try container.encode(contextAnnotations, forKey: .contextAnnotations)
     try container.encode(entity, forKey: .entities)
