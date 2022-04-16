@@ -13,20 +13,20 @@ extension Sweet {
     public let name: String
     public let createdAt: Date
     public let type: JobType
-    public let resumble: Bool
+    public let resumable: Bool
     public let uploadURL: URL
     public let uploadExpiresAt: Date
     public let downloadURL: URL
     public let downloadExpiresAt: Date
     public let status: String
     
-    public init(id: String, name: String, createdAt: Date, type: JobType, resumble: Bool,
+    public init(id: String, name: String, createdAt: Date, type: JobType, resumable: Bool,
                 uploadURL: URL, uploadExpiresAt: Date, downloadExpiresAt: Date, downloadURL: URL,status: String) {
       self.id = id
       self.name = name
       self.createdAt = createdAt
       self.type = type
-      self.resumble = resumble
+      self.resumable = resumable
       self.uploadURL = uploadURL
       self.uploadExpiresAt = uploadExpiresAt
       self.downloadURL = downloadURL
@@ -58,7 +58,7 @@ extension Sweet.ComplianceModel: Codable {
     
     self.id = try values.decode(String.self, forKey: .id)
     self.name = try values.decode(String.self, forKey: .name)
-    self.resumble = try values.decode(Bool.self, forKey: .resumable)
+    self.resumable = try values.decode(Bool.self, forKey: .resumable)
     self.status = try values.decode(String.self, forKey: .status)
     
     let uploadURL = try values.decode(String.self, forKey: .uploadURL)
@@ -84,7 +84,7 @@ extension Sweet.ComplianceModel: Codable {
     try container.encode(type.rawValue, forKey: .type)
     try container.encode(name, forKey: .name)
     try container.encode(id, forKey: .id)
-    try container.encode(resumble, forKey: .resumable)
+    try container.encode(resumable, forKey: .resumable)
     try container.encode(uploadURL, forKey: .uploadURL)
     try container.encode(uploadExpiresAt, forKey: .uploadExpiresAt)
     try container.encode(downloadURL, forKey: .downloadURL)
