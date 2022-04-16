@@ -66,6 +66,7 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
     
     let queries: [String: String?] = [
+      Expansion.key: [ListExpansion.ownerID].map(\.rawValue).joined(separator: ","),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}

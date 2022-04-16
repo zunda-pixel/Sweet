@@ -31,7 +31,6 @@ extension Sweet {
     }
     
     throw TwitterError.unknown(data: data, response: urlResponse)
-    
   }
   
   public func updateList(listID: String, name: String? = nil, description: String? = nil, isPrivate: Bool? = false) async throws {
