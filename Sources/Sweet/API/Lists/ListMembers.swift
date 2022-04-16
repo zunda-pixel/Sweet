@@ -96,7 +96,7 @@ extension Sweet {
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-      Expansion.key: allUserExpansion.map(\.rawValue).joined(separator: ",")
+      Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
