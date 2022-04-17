@@ -12,7 +12,7 @@ import CoreGraphics
 import Foundation
 
 extension Sweet {
-  public struct MediaModel: Identifiable {
+  public struct MediaModel: Hashable, Identifiable {
     public var id: String { key }
     public let key: String
     public let type: MediaType
