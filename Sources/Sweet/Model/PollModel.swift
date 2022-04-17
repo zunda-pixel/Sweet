@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct PollModel {
+  public struct PollModel: Hashable, Identifiable {
     public let id: String
     public let votingStatus: PollStatus
     public let endDateTime: Date
@@ -28,7 +28,7 @@ extension Sweet {
 extension Sweet.PollModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case id
-    case vodingStatus = "voting_status"
+    case votingStatus = "voting_status"
     case endDateTime = "end_datetime"
     case durationMinutes = "duration_minutes"
     case options
@@ -39,7 +39,7 @@ extension Sweet.PollModel: Codable {
     
     self.id = try value.decode(String.self, forKey: .id)
     
-    let votingStatus = try value.decode(String.self, forKey: .vodingStatus)
+    let votingStatus = try value.decode(String.self, forKey: .votingStatus)
     self.votingStatus = .init(rawValue: votingStatus)!
     
     let endDateTime = try value.decode(String.self, forKey: .endDateTime)
@@ -53,7 +53,7 @@ extension Sweet.PollModel: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(id, forKey: .id)
-    try container.encode(votingStatus.rawValue, forKey: .vodingStatus)
+    try container.encode(votingStatus.rawValue, forKey: .votingStatus)
     try container.encode(endDateTime, forKey: .endDateTime)
     try container.encode(durationMinutes, forKey: .durationMinutes)
     try container.encode(options, forKey: .options)

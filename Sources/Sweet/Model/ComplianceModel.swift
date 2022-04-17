@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct ComplianceModel {
+  public struct ComplianceModel: Hashable, Identifiable {
     public let id: String
     public let name: String
     public let createdAt: Date

@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet.EntityModel {
-  public struct AnnotationModel {
+  public struct AnnotationModel: Hashable {
     public let start: Int
     public let end: Int
     public let probability: Int

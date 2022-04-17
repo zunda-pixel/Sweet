@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct TweetPublicMetrics {
+  public struct TweetPublicMetrics: Hashable {
     public let retweetCount: Int
     public let replyCount: Int
     public let likeCount: Int

@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet.EntityModel {
-  public struct URLModel {
+  public struct URLModel: Hashable {
     public let start: Int
     public let end: Int
     public let url: URL

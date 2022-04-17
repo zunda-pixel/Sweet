@@ -8,7 +8,9 @@
 import Foundation
 
 extension Sweet {
-  public struct GeoModel {
+  public struct GeoModel: Hashable, Identifiable {
+    public var id: String { placeID }
+
     public let placeID: String
     
     public init(placeID: String) {

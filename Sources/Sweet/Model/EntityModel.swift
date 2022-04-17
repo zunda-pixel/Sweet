@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct EntityModel {
+  public struct EntityModel: Hashable {
     public let annotations: [AnnotationModel]
     public let urls: [URLModel]
     public let hashTags: [HashTagModel]
@@ -65,7 +65,7 @@ extension Sweet.EntityModel: Codable {
 }
 
 extension Sweet.EntityModel {
-  public struct HashTagModel {
+  public struct HashTagModel: Hashable {
     public let start: Int
     public let end: Int
     public let tag: String
@@ -77,7 +77,7 @@ extension Sweet.EntityModel {
     }
   }
   
-  public struct CashTagModel {
+  public struct CashTagModel: Hashable {
     public let start: Int
     public let end: Int
     public let tag: String
@@ -89,7 +89,7 @@ extension Sweet.EntityModel {
     }
   }
   
-  public struct MentionModel {
+  public struct MentionModel: Hashable {
     public let start: Int
     public let end: Int
     public let userName: String

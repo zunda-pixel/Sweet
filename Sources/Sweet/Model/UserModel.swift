@@ -9,7 +9,7 @@ import Foundation
 
 
 extension Sweet {
-  public struct UserModel {
+  public struct UserModel: Hashable, Identifiable {
     public let id: String
     public let name: String
     public let userName: String

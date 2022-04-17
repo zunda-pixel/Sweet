@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct CountTweetModel {
+  public struct CountTweetModel: Hashable {
     public let countTweet: Int
     public let startDate: Date
     public let endDate: Date

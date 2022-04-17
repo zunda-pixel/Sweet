@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct MetaModel {
+  public struct MetaModel: Hashable {
     public let resultCount: Int
     public let oldestID: String?
     public let newestID: String?

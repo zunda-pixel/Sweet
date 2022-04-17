@@ -8,13 +8,13 @@
 import Foundation
 
 extension Sweet {
-  public struct PlaceModel {
-    public let name: String
+  public struct PlaceModel: Hashable, Identifiable {
     public let id: String
-    
-    public init(name: String, id: String) {
-      self.name = name
+    public let name: String
+
+    public init(id: String, name: String) {
       self.id = id
+      self.name = name
     }
   }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct WithheldModel {
+  public struct WithheldModel: Hashable {
     public let copyright: Bool?
     public let countryCodes: [String]
     public let scope: WithheldScope

@@ -12,7 +12,7 @@ import CoreGraphics
 import Foundation
 
 extension Sweet.EntityModel {
-  public struct ImageModel {
+  public struct ImageModel: Hashable {
     public let url: URL
     public let size: CGSize
     

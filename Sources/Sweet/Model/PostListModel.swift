@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct PostListModel {
+  public struct PostListModel: Hashable {
     public let name: String?
     public let description: String?
     public let isPrivate: Bool?
