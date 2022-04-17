@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet.EntityModel {
-  public struct URLModel {
+  public struct URLModel: Hashable {
     public let start: Int
     public let end: Int
     public let url: URL
@@ -20,14 +20,14 @@ extension Sweet.EntityModel {
     public let title: String?
     public let description: String?
     
-    public init(start: Int, end: Int, url: URL, expandedURL: URL, displayURL: String, unwnoedURL: URL,
+    public init(start: Int, end: Int, url: URL, expandedURL: URL, displayURL: String, unwoundURL: URL,
                 images: [ImageModel] = [], status: Int? = nil, title: String? = nil, description: String? = nil) {
       self.start = start
       self.end = end
       self.url = url
       self.expandedURL = expandedURL
       self.displayURL = displayURL
-      self.unwoundURL = unwnoedURL
+      self.unwoundURL = unwoundURL
       self.images = images
       self.status = status
       self.title = title

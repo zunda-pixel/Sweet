@@ -9,7 +9,9 @@ import Foundation
 
 
 extension Sweet {
-  public struct PollItem {
+  public struct PollItem: Hashable, Identifiable {
+    public var id: Int { position }
+
     public let position: Int
     public let label: String
     public let votes: Int

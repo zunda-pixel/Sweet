@@ -9,7 +9,7 @@ import Foundation
 import CoreText
 
 extension Sweet {
-  public struct ListModel {
+  public struct ListModel: Hashable, Identifiable {
     public let id: String
     public let name: String
     public let followerCount: Int?

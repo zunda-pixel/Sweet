@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct AttachmentsModel {
+  public struct AttachmentsModel: Hashable {
     public let mediaKeys: [String]
     public let pollID: String?
     

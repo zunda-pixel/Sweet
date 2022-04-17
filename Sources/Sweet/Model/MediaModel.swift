@@ -12,7 +12,8 @@ import CoreGraphics
 import Foundation
 
 extension Sweet {
-  public struct MediaModel {
+  public struct MediaModel: Identifiable {
+    public var id: String { key }
     public let key: String
     public let type: MediaType
     public let size: CGSize

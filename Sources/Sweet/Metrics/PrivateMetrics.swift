@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public struct PrivateMetrics {
+  public struct PrivateMetrics: Hashable {
     public let impressionCount: Int
     public let userProfileClicks: Int
     
