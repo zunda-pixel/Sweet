@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchTimeLine(by userID: String, maxResults: Int = 10,
+  public func fetchTimeLine(by userID: String, maxResults: Int = 100,
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil,
                             paginationToken: String? = nil, exclude: TweetExclude? = nil) async throws -> TweetsResponse {
@@ -58,7 +58,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func fetchMentions(by userID: String, maxResults: Int = 10,
+  public func fetchMentions(by userID: String, maxResults: Int = 100,
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
