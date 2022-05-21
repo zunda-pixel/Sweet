@@ -19,5 +19,6 @@ extension Sweet {
     case retweetError
     case blockError
     case muteError
+    case bookmarkError
   }
 }
