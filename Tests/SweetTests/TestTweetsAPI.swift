@@ -253,6 +253,30 @@ final class TestTweetsAPI: XCTestCase {
       print($0)
     }
   }
+
+  func testAddBookmark() async throws {
+    let userID = testMyUserID
+
+    let tweetID = "1509951255388504066"
+
+    try await Sweet.test.addBookmark(userID: userID, tweetID: tweetID)
+  }
+
+  func testDeleteBookmark() async throws {
+    let userID = testMyUserID
+
+    let tweetID = "1509951255388504066"
+
+    try await Sweet.test.deleteBookmark(userID: userID, tweetID: tweetID)
+  }
+
+  func testFetchBookmarks() async throws {
+    let userID = testMyUserID
+
+    let response = try await Sweet.test.fetchBookmarks(userID: userID)
+
+    print(response)
+  }
 }
 
 class TestStream: NSObject, URLSessionDataDelegate {
