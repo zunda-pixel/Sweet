@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchBookmarks(userID: String, paginationToken: String, maxResults: Int = 100) async throws -> TweetsResponse {
+  public func fetchBookmarks(userID: String, paginationToken: String? = nil, maxResults: Int = 100) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks")!
