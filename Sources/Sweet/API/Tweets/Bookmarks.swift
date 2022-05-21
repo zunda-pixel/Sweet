@@ -43,7 +43,7 @@ extension Sweet {
   public func deleteBookmark(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id
 
-    let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/boomarks/\(tweetID)")!
+    let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks/\(tweetID)")!
 
     let headers = getBearerHeaders(type: .User)
 
@@ -67,7 +67,7 @@ extension Sweet {
   public func addBookmark(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id
 
-    let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks/")!
+    let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks")!
 
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
