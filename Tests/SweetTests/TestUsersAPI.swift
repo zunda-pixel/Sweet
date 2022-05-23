@@ -27,7 +27,7 @@ final class TestUsersAPI: XCTestCase {
     print(pendingFollow)
   }
   
-  func testFatchFollowing() async throws {
+  func testFetchFollowing() async throws {
     let userID = testMyUserID
     let response = try await Sweet.test.fetchFollowing(by: userID)
     
@@ -57,9 +57,9 @@ final class TestUsersAPI: XCTestCase {
   }
   
   func testLookUpUserByScreenID() async throws {
-    let userID = "zunda_pixel"
-    let userModel = try await Sweet.test.lookUpUser(screenID: userID)
-    print(userModel)
+    let userID = "zunda_dev"
+    let response = try await Sweet.test.lookUpUser(screenID: userID)
+    print(response)
   }
   
   func testLookUpUsersByUserID() async throws {
