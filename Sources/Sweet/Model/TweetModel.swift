@@ -28,7 +28,7 @@ extension Sweet {
     public let attachments: AttachmentsModel?
     public let withheld: WithheldModel?
     public let contextAnnotations: [ContextAnnotationModel]
-    public let entity: EntityModel?
+    public let entity: TweetEntityModel?
     public let referencedTweet: ReferencedTweetModel?
     
     public init(id: String, text: String, authorID: String? = nil, lang: String? = nil, replySetting: ReplySetting? = nil,
@@ -37,7 +37,7 @@ extension Sweet {
                 organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
                 attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
                 withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
-                entity: EntityModel? = nil, referencedTweet: ReferencedTweetModel? = nil) {
+                entity: TweetEntityModel? = nil, referencedTweet: ReferencedTweetModel? = nil) {
       self.id = id
       self.text = text
       self.authorID = authorID
@@ -62,7 +62,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.TweetModel: Decodable {
+extension Sweet.TweetModel: Codable {
   public init(from decoder: Decoder) throws {
     let value = try decoder.container(keyedBy: Sweet.TweetField.self)
     
@@ -97,7 +97,7 @@ extension Sweet.TweetModel: Decodable {
     let contextAnnotations = try? value.decode([Sweet.ContextAnnotationModel].self, forKey: .contextAnnotations)
     self.contextAnnotations = contextAnnotations ?? []
     
-    self.entity = try? value.decode(Sweet.EntityModel.self, forKey: .entities)
+    self.entity = try? value.decode(Sweet.TweetEntityModel.self, forKey: .entities)
     
     let referencedTweets = try? value.decode([Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
     self.referencedTweet = referencedTweets?.first
@@ -110,7 +110,12 @@ extension Sweet.TweetModel: Decodable {
     try container.encode(authorID, forKey: .authorID)
     try container.encode(lang, forKey: .lang)
     try container.encode(replySetting?.rawValue, forKey: .replySettings)
-    try container.encode(createdAt, forKey: .createdAt)
+
+    if let createdAt = createdAt {
+      let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
+      try container.encode(createdAtString, forKey: .createdAt)
+    }
+
     try container.encode(source, forKey: .source)
     try container.encode(sensitive, forKey: .possiblySensitive)
     try container.encode(conversationID, forKey: .conversationID)
@@ -124,6 +129,6 @@ extension Sweet.TweetModel: Decodable {
     try container.encode(withheld, forKey: .withheld)
     try container.encode(contextAnnotations, forKey: .contextAnnotations)
     try container.encode(entity, forKey: .entities)
-    try container.encode(referencedTweet, forKey: .referencedTweets)
+    try container.encode([referencedTweet], forKey: .referencedTweets)
   }
 }

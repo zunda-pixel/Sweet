@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Sweet.EntityModel {
+extension Sweet {
   public struct AnnotationModel: Hashable {
     public let start: Int
     public let end: Int
@@ -25,7 +25,7 @@ extension Sweet.EntityModel {
   }
 }
 
-extension Sweet.EntityModel.AnnotationModel: Codable {
+extension Sweet.AnnotationModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case start
     case end

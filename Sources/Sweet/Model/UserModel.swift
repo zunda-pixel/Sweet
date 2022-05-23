@@ -23,12 +23,12 @@ extension Sweet {
     public let pinnedTweetID: String?
     public let metrics: UserPublicMetrics?
     public let withheld: WithheldModel?
-    public let entity: EntityModel?
+    public let entity: UserEntityModel?
     
     public init(id: String, name: String, userName: String, verified: Bool? = nil, profileImageURL: URL? = nil,
                 description: String? = nil, protected: Bool? = nil, url: URL? = nil, createdAt: Date? = nil,
                 location: String? = nil, pinnedTweetID: String? = nil, metrics: UserPublicMetrics? = nil,
-                withheld: WithheldModel? = nil, entity: EntityModel? = nil) {
+                withheld: WithheldModel? = nil, entity: UserEntityModel? = nil) {
       self.id = id
       self.name = name
       self.userName = userName
@@ -47,7 +47,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.UserModel: Decodable {
+extension Sweet.UserModel: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: Sweet.UserField.self)
     
@@ -61,7 +61,7 @@ extension Sweet.UserModel: Decodable {
     self.location = try? values.decode(String.self, forKey: .location)
     self.pinnedTweetID = try? values.decode(String.self, forKey: .pinnedTweetID)
     self.withheld = try? values.decode(Sweet.WithheldModel.self, forKey: .withheld)
-    self.entity = try? values.decode(Sweet.EntityModel.self, forKey: .entities)
+    self.entity = try? values.decode(Sweet.UserEntityModel.self, forKey: .entities)
     
     let profileImageURL: String? = try? values.decode(String.self, forKey: .profileImageURL)
     self.profileImageURL = .init(string: profileImageURL ?? "")
@@ -70,7 +70,7 @@ extension Sweet.UserModel: Decodable {
     self.url = URL(string: url ?? "")
     
     if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
-      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)
+      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
       self.createdAt = nil
     }
@@ -83,10 +83,15 @@ extension Sweet.UserModel: Decodable {
     try container.encode(userName, forKey: .username)
     try container.encode(verified, forKey: .verified)
     try container.encode(profileImageURL, forKey: .profileImageURL)
+
+    if let createdAt = createdAt {
+      let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
+      try container.encode(createdAtString, forKey: .createdAt)
+    }
+
     try container.encode(description, forKey: .description)
     try container.encode(protected, forKey: .protected)
     try container.encode(url, forKey: .url)
-    try container.encode(createdAt, forKey: .createdAt)
     try container.encode(location, forKey: .location)
     try container.encode(pinnedTweetID, forKey: .pinnedTweetID)
     try container.encode(metrics, forKey: .publicMetrics)
