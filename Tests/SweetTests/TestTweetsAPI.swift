@@ -49,18 +49,19 @@ final class TestTweetsAPI: XCTestCase {
     
     try await Sweet.test.deleteTweet(by: tweetID)
   }
-  
+
+  func testFetchReverseChronological() async throws {
+    let userID = testMyUserID
+    let response = try await Sweet.test.fetchReverseChronological(by: userID)
+
+    print(response)
+  }
+
   func testFetchTimeLine() async throws {
     let userID = testMyUserID
     let response = try await Sweet.test.fetchTimeLine(by: userID)
     
-    print(response.tweets)
-    print(response.users)
-    print(response.medias)
-    print(response.relatedTweets)
-    print(response.polls)
-    print(response.places)
-    print(response.meta!)
+    print(response)
   }
   
   func testFetchMentions() async throws {
