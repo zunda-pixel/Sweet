@@ -81,8 +81,8 @@ final class TestUsersAPI: XCTestCase {
   }
   
   func testLookUpMe() async throws {
-    let userModel = try await Sweet.test.lookUpMe()
-    print(userModel)
+    let response = try await Sweet.test.lookUpMe()
+    print(response)
   }
   
   func testBlockUser() async throws {
