@@ -62,7 +62,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.TweetModel: Decodable {
+extension Sweet.TweetModel: Codable {
   public init(from decoder: Decoder) throws {
     let value = try decoder.container(keyedBy: Sweet.TweetField.self)
     
@@ -110,7 +110,12 @@ extension Sweet.TweetModel: Decodable {
     try container.encode(authorID, forKey: .authorID)
     try container.encode(lang, forKey: .lang)
     try container.encode(replySetting?.rawValue, forKey: .replySettings)
-    try container.encode(createdAt, forKey: .createdAt)
+
+    if let createdAt = createdAt {
+      let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
+      try container.encode(createdAtString, forKey: .createdAt)
+    }
+
     try container.encode(source, forKey: .source)
     try container.encode(sensitive, forKey: .possiblySensitive)
     try container.encode(conversationID, forKey: .conversationID)

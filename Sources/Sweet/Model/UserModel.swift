@@ -47,7 +47,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.UserModel: Decodable {
+extension Sweet.UserModel: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: Sweet.UserField.self)
     
@@ -70,7 +70,7 @@ extension Sweet.UserModel: Decodable {
     self.url = URL(string: url ?? "")
     
     if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
-      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)
+      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
       self.createdAt = nil
     }
@@ -83,10 +83,15 @@ extension Sweet.UserModel: Decodable {
     try container.encode(userName, forKey: .username)
     try container.encode(verified, forKey: .verified)
     try container.encode(profileImageURL, forKey: .profileImageURL)
+
+    if let createdAt = createdAt {
+      let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
+      try container.encode(createdAtString, forKey: .createdAt)
+    }
+
     try container.encode(description, forKey: .description)
     try container.encode(protected, forKey: .protected)
     try container.encode(url, forKey: .url)
-    try container.encode(createdAt, forKey: .createdAt)
     try container.encode(location, forKey: .location)
     try container.encode(pinnedTweetID, forKey: .pinnedTweetID)
     try container.encode(metrics, forKey: .publicMetrics)
