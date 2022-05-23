@@ -129,6 +129,6 @@ extension Sweet.TweetModel: Codable {
     try container.encode(withheld, forKey: .withheld)
     try container.encode(contextAnnotations, forKey: .contextAnnotations)
     try container.encode(entity, forKey: .entities)
-    try container.encode(referencedTweet, forKey: .referencedTweets)
+    try container.encode([referencedTweet], forKey: .referencedTweets)
   }
 }
