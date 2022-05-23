@@ -23,12 +23,12 @@ extension Sweet {
     public let pinnedTweetID: String?
     public let metrics: UserPublicMetrics?
     public let withheld: WithheldModel?
-    public let entity: EntityModel?
+    public let entity: UserEntityModel?
     
     public init(id: String, name: String, userName: String, verified: Bool? = nil, profileImageURL: URL? = nil,
                 description: String? = nil, protected: Bool? = nil, url: URL? = nil, createdAt: Date? = nil,
                 location: String? = nil, pinnedTweetID: String? = nil, metrics: UserPublicMetrics? = nil,
-                withheld: WithheldModel? = nil, entity: EntityModel? = nil) {
+                withheld: WithheldModel? = nil, entity: UserEntityModel? = nil) {
       self.id = id
       self.name = name
       self.userName = userName
@@ -61,7 +61,7 @@ extension Sweet.UserModel: Decodable {
     self.location = try? values.decode(String.self, forKey: .location)
     self.pinnedTweetID = try? values.decode(String.self, forKey: .pinnedTweetID)
     self.withheld = try? values.decode(Sweet.WithheldModel.self, forKey: .withheld)
-    self.entity = try? values.decode(Sweet.EntityModel.self, forKey: .entities)
+    self.entity = try? values.decode(Sweet.UserEntityModel.self, forKey: .entities)
     
     let profileImageURL: String? = try? values.decode(String.self, forKey: .profileImageURL)
     self.profileImageURL = .init(string: profileImageURL ?? "")
