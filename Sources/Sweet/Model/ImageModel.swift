@@ -11,7 +11,7 @@ import CoreGraphics
 
 import Foundation
 
-extension Sweet.EntityModel {
+extension Sweet {
   public struct ImageModel: Hashable {
     public let url: URL
     public let size: CGSize
@@ -23,7 +23,7 @@ extension Sweet.EntityModel {
   }
 }
 
-extension Sweet.EntityModel.ImageModel: Codable {
+extension Sweet.ImageModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case url
     case width
