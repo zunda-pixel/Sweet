@@ -14,13 +14,13 @@ extension Sweet {
     public let url: URL
     public let expandedURL: String
     public let displayURL: String
-    public let unwoundURL: URL?
+    public let unwoundURL: String?
     public let images: [ImageModel]
     public let status: Int?
     public let title: String?
     public let description: String?
     
-    public init(start: Int, end: Int, url: URL, expandedURL: String, displayURL: String, unwoundURL: URL? = nil,
+    public init(start: Int, end: Int, url: URL, expandedURL: String, displayURL: String, unwoundURL: String? = nil,
                 images: [ImageModel] = [], status: Int? = nil, title: String? = nil, description: String? = nil) {
       self.start = start
       self.end = end
@@ -63,11 +63,7 @@ extension Sweet.URLModel: Codable {
 
     self.displayURL = try values.decode(String.self, forKey: .displayURL)
     
-    if let unwoundURL = try? values.decode(String.self, forKey: .unwoundURL) {
-      self.unwoundURL = .init(string: unwoundURL)!
-    } else {
-      self.unwoundURL = nil
-    }
+    self.unwoundURL = try? values.decode(String.self, forKey: .unwoundURL)
 
     let images = try? values.decode([Sweet.ImageModel].self, forKey: .images)
     self.images = images ?? []
