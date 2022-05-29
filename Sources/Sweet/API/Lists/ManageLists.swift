@@ -60,7 +60,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func deleteList(by listID: String) async throws {
+  public func deleteList(listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!

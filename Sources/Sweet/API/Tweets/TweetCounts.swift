@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchRecentCountTweet(by query: String, startTime: Date? = nil,
+  public func fetchRecentCountTweet(query: String, startTime: Date? = nil,
                                     endTime: Date? = nil, untilID: String? = nil,
                                     sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> CountTweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
@@ -50,7 +50,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func fetchCountTweet(by query: String, nextToken: String? = nil,
+  public func fetchCountTweet(query: String, nextToken: String? = nil,
                               startTime: Date? = nil, endTime: Date? = nil, untilID: String? = nil,
                               sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> CountTweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all

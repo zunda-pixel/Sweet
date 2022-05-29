@@ -34,7 +34,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func fetchCompliance(by jobID: String) async throws -> ComplianceModel {
+  public func fetchCompliance(jobID: String) async throws -> ComplianceModel {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs/\(jobID)")!

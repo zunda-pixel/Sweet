@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func searchRecentTweet(by query: String, maxResults: Int = 10, startTime: Date? = nil, endTime: Date? = nil,
+  public func searchRecentTweet(query: String, maxResults: Int = 10, startTime: Date? = nil, endTime: Date? = nil,
                                 untilID: String? = nil, sinceID: String? = nil, sortOrder: SortOrder? = nil,
                                 nextToken: String? = nil) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
@@ -58,7 +58,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func searchTweet(by query: String, maxResults: Int = 10,
+  public func searchTweet(query: String, maxResults: Int = 10,
                           startTime: Date? = nil, endTime: Date? = nil,
                           untilID: String? = nil, sinceID: String? = nil,
                           sortOrder: SortOrder? = nil, nextToken: String? = nil) async throws -> TweetsResponse {

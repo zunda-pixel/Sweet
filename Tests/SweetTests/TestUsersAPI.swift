@@ -29,7 +29,7 @@ final class TestUsersAPI: XCTestCase {
   
   func testFetchFollowing() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchFollowing(by: userID)
+    let response = try await Sweet.test.fetchFollowing(userID: userID)
     
     print(response.meta!)
     
@@ -40,7 +40,7 @@ final class TestUsersAPI: XCTestCase {
   
   func testFetchFollower() async throws {
     let userID = "2244994945"
-    let response = try await Sweet.test.fetchFollower(by: userID)
+    let response = try await Sweet.test.fetchFollower(userID: userID)
     
     print(response.meta!)
     
@@ -93,7 +93,7 @@ final class TestUsersAPI: XCTestCase {
   
   func testFetchBlockUser() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchBlocking(by: userID)
+    let response = try await Sweet.test.fetchBlocking(userID: userID)
     
     print(response.meta!)
     
@@ -116,7 +116,7 @@ final class TestUsersAPI: XCTestCase {
   
   func testFetchMutingUser() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchMuting(by: userID)
+    let response = try await Sweet.test.fetchMuting(userID: userID)
     
     print(response.meta!)
     

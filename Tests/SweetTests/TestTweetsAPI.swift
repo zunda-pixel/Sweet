@@ -14,7 +14,7 @@ final class TestTweetsAPI: XCTestCase {
   func testLookUpTweets() async throws {
     let tweetIDs = ["1489644269447315458", "1489895008300056578"]
     
-    let response = try await Sweet.test.lookUpTweets(by: tweetIDs)
+    let response = try await Sweet.test.lookUpTweets(ids: tweetIDs)
     
     response.tweets.forEach {
       print($0)
@@ -24,7 +24,7 @@ final class TestTweetsAPI: XCTestCase {
   func testLookUpTweet() async throws {
     let tweetID = "1506723004994174981"
     
-    let response = try await Sweet.test.lookUpTweet(by: tweetID)
+    let response = try await Sweet.test.lookUpTweet(id: tweetID)
     
     print(response.tweet)
     print(response.users)
@@ -47,26 +47,26 @@ final class TestTweetsAPI: XCTestCase {
   func testDeleteTweet() async throws {
     let tweetID = "1490010315945177088"
     
-    try await Sweet.test.deleteTweet(by: tweetID)
+    try await Sweet.test.deleteTweet(id: tweetID)
   }
 
   func testFetchReverseChronological() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchReverseChronological(by: userID)
+    let response = try await Sweet.test.fetchReverseChronological(userID: userID)
 
     print(response)
   }
 
   func testFetchTimeLine() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchTimeLine(by: userID)
+    let response = try await Sweet.test.fetchTimeLine(userID: userID)
     
     print(response)
   }
   
   func testFetchMentions() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchMentions(by: userID)
+    let response = try await Sweet.test.fetchMentions(userID: userID)
     response.tweets.forEach {
       print($0)
     }
@@ -76,7 +76,7 @@ final class TestTweetsAPI: XCTestCase {
   
   func testSearchRecentTweet() async throws {
     let query = "#twitterapiv2"
-    let response = try await Sweet.test.searchRecentTweet(by: query)
+    let response = try await Sweet.test.searchRecentTweet(query: query)
     
     response.tweets.forEach {
       print($0)
@@ -87,7 +87,7 @@ final class TestTweetsAPI: XCTestCase {
   
   func testSearchTweet() async throws {
     let query = "#twitterapiv2"
-    let response = try await Sweet.test.searchTweet(by: query)
+    let response = try await Sweet.test.searchTweet(query: query)
     
     response.tweets.forEach {
       print($0)
@@ -99,7 +99,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchRecentCountTweet() async throws {
     let query = "#twitterapiv2"
     
-    let response = try await Sweet.test.fetchRecentCountTweet(by: query)
+    let response = try await Sweet.test.fetchRecentCountTweet(query: query)
     
     print(response.meta)
     
@@ -111,7 +111,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchCountTweet() async throws {
     let query = "#twitterapiv2"
     
-    let response = try await Sweet.test.fetchCountTweet(by: query)
+    let response = try await Sweet.test.fetchCountTweet(query: query)
     
     print(response.meta)
     
@@ -176,7 +176,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchRetweetUsers() async throws {
     let tweetID = "1505700468617617414"
     
-    let response = try await Sweet.test.fetchRetweetUsers(by: tweetID)
+    let response = try await Sweet.test.fetchRetweetUsers(tweetID: tweetID)
     
     print(response.meta!)
     
@@ -202,7 +202,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchLikingTweetUser() async throws {
     let tweetID = "1481674458586927105"
     
-    let response = try await Sweet.test.fetchLikingTweetUser(by: tweetID)
+    let response = try await Sweet.test.fetchLikingTweetUser(tweetID: tweetID)
     
     print(response.meta!)
     
@@ -214,7 +214,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchLikedTweet() async throws {
     let userID = testMyUserID
     
-    let response = try await Sweet.test.fetchLikedTweet(by: userID)
+    let response = try await Sweet.test.fetchLikedTweet(userID: userID)
     
     response.tweets.forEach {
       print($0)
