@@ -19,6 +19,7 @@ extension Sweet {
       "max_results": String(maxResults),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+      // TODO なぜかコメントアウトされている。エラーになる？
       //PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       //MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       //PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
