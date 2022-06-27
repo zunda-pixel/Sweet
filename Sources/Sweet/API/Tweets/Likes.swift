@@ -19,17 +19,13 @@ extension Sweet {
       "max_results": String(maxResults),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-      // TODO なぜかコメントアウトされている。エラーになる？
-      //PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
-      //MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
-      //PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-    
+
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response
     }
