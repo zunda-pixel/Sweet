@@ -9,6 +9,12 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Create List
+  /// - Parameters:
+  ///   - name: List Name
+  ///   - description: List Description
+  ///   - isPrivate: isPrivate
+  /// - Returns: Created List
   public func createList(name: String, description: String? = nil, isPrivate: Bool? = nil) async throws -> ListModel {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
     
@@ -32,7 +38,13 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Update List Information
+  /// - Parameters:
+  ///   - listID: List ID to updated
+  ///   - name: List Name
+  ///   - description: List Description
+  ///   - isPrivate: isPrivate
   public func updateList(listID: String, name: String? = nil, description: String? = nil, isPrivate: Bool? = false) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id
     
@@ -59,7 +71,9 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Delete List of List ID
+  /// - Parameter listID: List ID
   public func deleteList(listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id
     

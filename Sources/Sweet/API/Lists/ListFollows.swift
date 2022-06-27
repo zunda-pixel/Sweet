@@ -9,6 +9,10 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Unfollow List
+  /// - Parameters:
+  ///   - userID: UnFollowing by This User
+  ///   - listID: UnFollowed List ID
   public func unFollowList(userID: String, listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/delete-users-id-followed-lists-list_id
     
@@ -32,7 +36,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Follow List
+  /// - Parameters:
+  ///   - userID: Following by This User
+  ///   - listID: Following List ID
   public func followList(userID: String, listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/post-users-id-followed-lists
     
@@ -59,7 +67,13 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Followers(Users) that is following List
+  /// - Parameters:
+  ///   - listID: List ID
+  ///   - maxResults: Max User Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Followers(Users)
   public func fetchListFollowers(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
     
@@ -87,7 +101,13 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch List that is followed by this user
+  /// - Parameters:
+  ///   - userID: Following User
+  ///   - maxResults: Max List Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Lists
   public func fetchListsFollowed(by userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
     

@@ -9,6 +9,10 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Pin List from User
+  /// - Parameters:
+  ///   - userID: Pinned From This User
+  ///   - listID: List ID
   public func pinList(userID: String, listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/post-users-id-pinned-lists
     
@@ -35,7 +39,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// UnPin List from User
+  /// - Parameters:
+  ///   - userID: UnPinned From This User
+  ///   - listID: UnPinned List ID
   public func unPinList(userID: String, listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/delete-users-id-pinned-lists-list_id
     
@@ -61,6 +69,10 @@ extension Sweet {
   }
   
   public func fetchPinnedLists(userID: String) async throws -> ListsResponse {
+
+  /// Fetch Lists that Pinned by User
+  /// - Parameter userID: Pinned By User
+  /// - Returns: Lists
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!

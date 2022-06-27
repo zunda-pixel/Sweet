@@ -9,6 +9,10 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Add Member To List
+  /// - Parameters:
+  ///   - listID: List ID
+  ///   - userID: User(Member) ID
   public func addListMember(to listID: String, userID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/post-lists-id-members
     
@@ -35,7 +39,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Delete Member From List
+  /// - Parameters:
+  ///   - listID: List ID
+  ///   - userID: User ID
   public func deleteListMember(listID: String, userID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/delete-lists-id-members-user_id
     
@@ -59,7 +67,13 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch  List that users added
+  /// - Parameters:
+  ///   - userID: Added User ID
+  ///   - maxResults: Max List Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Lists
   public func fetchAddedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
     
@@ -87,7 +101,13 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Members(Users) belonging to the List
+  /// - Parameters:
+  ///   - listID: List ID
+  ///   - maxResults: Max User Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Members(Users)
   public func fetchListMembers(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
     
