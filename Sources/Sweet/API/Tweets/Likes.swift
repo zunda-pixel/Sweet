@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchLikingTweetUser(by tweetID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
+  public func fetchLikingTweetUsers(tweetID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
@@ -19,16 +19,13 @@ extension Sweet {
       "max_results": String(maxResults),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-      //PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
-      //MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
-      //PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
     
     let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
-    
+
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response
     }
@@ -40,7 +37,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func fetchLikedTweet(by userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> TweetsResponse {
+  public func fetchLikedTweet(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!

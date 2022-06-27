@@ -60,7 +60,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func fetchFollowedUsers(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
+  public func fetchListFollowers(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/followers")!
@@ -88,7 +88,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func fetchFollowingLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> ListsResponse {
+  public func fetchListsFollowed(by userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!

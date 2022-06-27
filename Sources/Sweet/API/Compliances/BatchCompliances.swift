@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchCompliances(type: JobType, status: CoplianceStatus? = nil) async throws -> [ComplianceModel] {
+  public func fetchCompliances(type: JobType, status: ComplianceStatus? = nil) async throws -> [ComplianceModel] {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!

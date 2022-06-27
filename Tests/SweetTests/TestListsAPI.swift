@@ -25,10 +25,10 @@ final class TestListsAPI: XCTestCase {
     try await Sweet.test.unFollowList(userID: userID, listID: listID)
   }
   
-  func testFetchFollowedUsers() async throws {
+  func testFetchListFollowers() async throws {
     let listID = "900944005042585602"
     
-    let response = try await Sweet.test.fetchFollowedUsers(listID: listID)
+    let response = try await Sweet.test.fetchListFollowers(listID: listID)
     
     print(response.meta!)
     
@@ -37,10 +37,10 @@ final class TestListsAPI: XCTestCase {
     }
   }
   
-  func testFetchFollowingLists() async throws {
+  func testFetchListsFollowed() async throws {
     let userID = testMyUserID
     
-    let response = try await Sweet.test.fetchFollowingLists(userID: userID)
+    let response = try await Sweet.test.fetchListsFollowed(by: userID)
     
     print(response.meta)
     
@@ -60,7 +60,7 @@ final class TestListsAPI: XCTestCase {
     let userID = "2244994945"
     let listID = "1489620669822160899"
     
-    try await Sweet.test.deleteListMember(from: listID, userID: userID)
+    try await Sweet.test.deleteListMember(listID: listID, userID: userID)
   }
   
   func testFetchAddedLists() async throws {
@@ -75,10 +75,10 @@ final class TestListsAPI: XCTestCase {
     }
   }
   
-  func testFetchAddingUsers() async throws {
+  func testFetchListMembers() async throws {
     let listID = "1463289657190404097"
     
-    let response = try await Sweet.test.fetchAddedUsersToList(listID: listID)
+    let response = try await Sweet.test.fetchListMembers(listID: listID)
     
     print(response.meta!)
     
@@ -134,7 +134,7 @@ final class TestListsAPI: XCTestCase {
   func testDeleteList() async throws {
     let listID = "1489548406032769025"
     
-    try await Sweet.test.deleteList(by: listID)
+    try await Sweet.test.deleteList(listID: listID)
   }
   
   func testPinList() async throws {

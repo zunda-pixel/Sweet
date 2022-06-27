@@ -36,7 +36,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func deleteListMember(from listID: String, userID: String) async throws {
+  public func deleteListMember(listID: String, userID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/delete-lists-id-members-user_id
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members/\(userID)")!
@@ -88,7 +88,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func fetchAddedUsersToList(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
+  public func fetchListMembers(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!

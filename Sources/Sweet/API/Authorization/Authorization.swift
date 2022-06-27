@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public func getAuthorizeToken(of type: AuthorizeType) -> String {
+  public func getAuthorizeToken(type: AuthorizeType) -> String {
     switch type {
       case .User:
         return bearerTokenUser
@@ -18,7 +18,7 @@ extension Sweet {
   }
   
   public func getBearerHeaders(type: AuthorizeType) -> [String: String] {
-    let bearerToken = getAuthorizeToken(of: type)
+    let bearerToken = getAuthorizeToken(type: type)
     
     let headers = [
       "Authorization": "Bearer \(bearerToken)",

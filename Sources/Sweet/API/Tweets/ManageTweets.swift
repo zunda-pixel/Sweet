@@ -31,7 +31,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func deleteTweet(by id: String) async throws {
+  public func deleteTweet(id: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/delete-tweets-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(id)")!
