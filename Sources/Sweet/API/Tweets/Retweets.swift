@@ -16,9 +16,6 @@ extension Sweet {
     
     let queries: [String: String?] = [
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-      //PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
-      //MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
-      //PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
       "pagination_token": paginationToken,
