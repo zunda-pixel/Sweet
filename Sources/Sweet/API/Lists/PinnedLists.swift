@@ -67,12 +67,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
-  public func fetchPinnedLists(userID: String) async throws -> ListsResponse {
 
   /// Fetch Lists that Pinned by User
   /// - Parameter userID: Pinned By User
   /// - Returns: Lists
+  public func fetchListsPinned(by userID: String) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
