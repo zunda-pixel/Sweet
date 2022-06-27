@@ -202,7 +202,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchLikingTweetUser() async throws {
     let tweetID = "1481674458586927105"
     
-    let response = try await Sweet.test.fetchLikingTweetUser(tweetID: tweetID)
+    let response = try await Sweet.test.fetchLikingTweetUsers(tweetID: tweetID)
     
     print(response.meta!)
     
