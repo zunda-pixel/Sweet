@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Formatter For Date used in Twitter API
   public class TwitterDateFormatter: ISO8601DateFormatter {
     public override init() {
       super.init()
