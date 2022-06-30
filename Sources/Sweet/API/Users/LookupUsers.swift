@@ -9,6 +9,9 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Look Up User by User ID
+  /// - Parameter userID: User ID
+  /// - Returns: User
   public func lookUpUser(userID: String) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id
     
@@ -34,7 +37,10 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Look Up User by Screen ID
+  /// - Parameter screenID: Screen User ID
+  /// - Returns: User
   public func lookUpUser(screenID: String) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
     
@@ -60,7 +66,10 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Look Up Users by User IDs
+  /// - Parameter userIDs: User IDs
+  /// - Returns: Users
   public func lookUpUsers(userIDs: [String]) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
     
@@ -87,7 +96,10 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Look Up Users by Screen IDs
+  /// - Parameter screenIDs: Screen User IDs
+  /// - Returns: Users
   public func lookUpUsers(screenIDs: [String]) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by
     
@@ -114,7 +126,9 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Look Up Me(based Bearer Token)
+  /// - Returns: User
   public func lookUpMe() async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
     
