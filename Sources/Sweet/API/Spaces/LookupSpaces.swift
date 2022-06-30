@@ -1,5 +1,5 @@
 //
-//  FilterdStream.swift
+//  FilteredStream.swift
 //  
 //
 //  Created by zunda on 2022/01/16.
@@ -9,6 +9,9 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch Space by Space ID
+  /// - Parameter spaceID: Space ID
+  /// - Returns: Space
   public func fetchSpace(spaceID: String) async throws -> SpaceResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
     
@@ -34,7 +37,10 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Spaces by Space IDs
+  /// - Parameter spaceIDs: Space IDs
+  /// - Returns: Spaces
   public func fetchSpaces(spaceIDs: [String]) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
     
@@ -61,7 +67,10 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Spaces that created by user ids
+  /// - Parameter creatorIDs: Creator User IDs
+  /// - Returns: Spaces
   public func fetchSpaces(creatorIDs: [String]) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
     
@@ -88,7 +97,10 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Users that buy Space
+  /// - Parameter spaceID: Space IDs
+  /// - Returns: Users(Buyers)
   public func fetchSpaceBuyers(spaceID: String) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
     
@@ -116,7 +128,10 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Tweets in Space
+  /// - Parameter spaceID: Space ID
+  /// - Returns: Tweets
   public func fetchSpaceTweets(spaceID: String) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
     
