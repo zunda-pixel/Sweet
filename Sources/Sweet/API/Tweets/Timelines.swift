@@ -9,6 +9,18 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch Recent Tweets and Retweets posted by you and users you follow.
+  /// - Parameters:
+  ///   - userID: User ID
+  ///   - maxResults: Max Tweet Count
+  ///   - startTime: Start Time
+  ///   - endTime: End Time
+  ///   - untilID: Return Tweet ID less than (that is, older than) the specified ID
+  ///   - sinceID: Return Tweet ID greater than (that is, more recent than) the specified ID
+  ///   - paginationToken: This parameter is used to get the next 'page' of results.
+  ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
+  ///   - exclude: Exclude Tweet Type
+  /// - Returns: Tweets
   public func fetchReverseChronological(userID: String, maxResults: Int = 100,
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil,
@@ -58,6 +70,19 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 
+  /// Fetch Tweets composed by a single user, specified by the requested user ID.
+  /// By default, the most recent ten Tweets are returned per request. Using pagination, the most recent 3,200 Tweets can be retrieved.
+  /// - Parameters:
+  ///   - userID: User ID
+  ///   - maxResults: Max Tweet Count
+  ///   - startTime: Start Time
+  ///   - endTime: End Time
+  ///   - untilID: Return Tweet ID less than (that is, older than) the specified ID
+  ///   - sinceID: Return Tweet ID greater than (that is, more recent than) the specified ID
+  ///   - paginationToken: This parameter is used to get the next 'page' of results.
+  ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
+  ///   - exclude: Exclude Tweet Type
+  /// - Returns: Tweets
   public func fetchTimeLine(userID: String, maxResults: Int = 100,
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil,
@@ -106,7 +131,19 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Tweets mentioning a single user specified by the requested user ID. By default, the most recent ten Tweets are returned per request. Using pagination, up to the most recent 800 Tweets can be retrieved.
+
+  /// - Parameters:
+  ///   - userID: User ID
+  ///   - maxResults: Max Tweet Count
+  ///   - startTime: Start Time
+  ///   - endTime: End Time
+  ///   - untilID: Return Tweet ID less than (that is, older than) the specified ID
+  ///   - sinceID: Return Tweet ID greater than (that is, more recent than) the specified ID
+  ///   - paginationToken: This parameter is used to get the next 'page' of results.
+  ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
+  /// - Returns: Tweets
   public func fetchMentions(userID: String, maxResults: Int = 100,
                             startTime: Date? = nil, endTime: Date? = nil,
                             untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil) async throws -> TweetsResponse {

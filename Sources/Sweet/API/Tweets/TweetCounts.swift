@@ -9,6 +9,15 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch Recent Tweet Count
+  /// - Parameters:
+  ///   - query: Query
+  ///   - startTime: StartTime
+  ///   - endTime: EndTime
+  ///   - untilID: Return Tweet ID less than (that is, older than) the specified ID
+  ///   - sinceID: Return Tweet ID greater than (that is, more recent than) the specified ID
+  ///   - granularity: This is the granularity that you want the time series count data to be grouped by. You can request minute, hour, or day granularity. The default granularity, if not specified is hour.
+  /// - Returns: TweetCount
   public func fetchRecentCountTweet(query: String, startTime: Date? = nil,
                                     endTime: Date? = nil, untilID: String? = nil,
                                     sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> CountTweetResponse {
@@ -49,7 +58,17 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Count Tweet
+  /// - Parameters:
+  ///   - query: Query
+  ///   - nextToken: This parameter is used to get the next 'page' of results. The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
+  ///   - startTime: Start Time
+  ///   - endTime: End Time
+  ///   - untilID: Return Tweet ID less than (that is, older than) the specified ID
+  ///   - sinceID: Return Tweet ID less than (that is, older than) the specified ID
+  ///   - granularity: This is the granularity that you want the time series count data to be grouped by. You can request minute, hour, or day granularity. The default granularity, if not specified is hour.
+  /// - Returns: TweetCount
   public func fetchCountTweet(query: String, nextToken: String? = nil,
                               startTime: Date? = nil, endTime: Date? = nil, untilID: String? = nil,
                               sinceID: String? = nil, granularity: DateGranularity = .hour) async throws -> CountTweetResponse {

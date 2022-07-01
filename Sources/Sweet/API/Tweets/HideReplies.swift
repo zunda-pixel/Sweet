@@ -9,6 +9,10 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Hide/ UnHide Reply
+  /// - Parameters:
+  ///   - tweetID: Tweet ID
+  ///   - hidden: Hidden Status
   public func hideReply(tweetID: String, hidden: Bool) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
     
