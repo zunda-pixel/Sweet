@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Withheld Scope
   public enum WithheldScope: String {
     case tweet
     case user

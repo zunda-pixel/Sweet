@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Job Type
   public enum JobType: String {
     case tweets
     case users

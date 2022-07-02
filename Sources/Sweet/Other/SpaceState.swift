@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Space State
   public enum SpaceState: String {
     case all
     case live
