@@ -8,7 +8,8 @@
 import Foundation
 
 extension Sweet{
-  internal struct FollowResponseModel {
+  /// Follow Response Model
+  struct FollowResponseModel {
     public let following: Bool
     public let pendingFollow: Bool
   }

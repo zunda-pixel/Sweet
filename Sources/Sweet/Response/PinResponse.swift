@@ -8,7 +8,8 @@
 import Foundation
 
 extension Sweet {
-  internal struct PinResponse {
+  /// Pin Response
+  struct PinResponse {
     public let pinned: Bool
   }
 }

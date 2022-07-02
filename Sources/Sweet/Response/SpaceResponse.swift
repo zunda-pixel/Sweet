@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Spaces Response
   public struct SpacesResponse {
     public let spaces: [SpaceModel]
     public let users: [UserModel]

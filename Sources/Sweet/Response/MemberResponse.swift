@@ -9,7 +9,8 @@ import Foundation
 
 
 extension Sweet {
-  internal struct MemberResponse {
+  /// Member Response
+  struct MemberResponse {
     public let isMember: Bool
   }
 }

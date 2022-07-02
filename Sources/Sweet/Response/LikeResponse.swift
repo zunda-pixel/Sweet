@@ -8,11 +8,11 @@
 import Foundation
 
 extension Sweet {
-  internal struct LikeResponse {
+  /// Like Response
+  struct LikeResponse {
     public let liked: Bool
   }
 }
-
 
 extension Sweet.LikeResponse: Decodable {
   private enum DataCodingKeys: String, CodingKey {
