@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Context Entity Model
   public struct ContextEntityModel: Hashable, Identifiable {
     public let id: String
     public let name: String

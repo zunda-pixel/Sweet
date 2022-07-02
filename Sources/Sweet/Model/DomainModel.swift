@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Domain Model
   public struct DomainModel: Hashable, Identifiable {
     public let id: String
     public let name: String

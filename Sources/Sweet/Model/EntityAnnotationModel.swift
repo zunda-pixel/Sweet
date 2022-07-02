@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Annotation Model
   public struct AnnotationModel: Hashable {
     public let start: Int
     public let end: Int

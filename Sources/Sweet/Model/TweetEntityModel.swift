@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Tweet Entity Model
   public struct TweetEntityModel: Hashable {
     public let annotations: [AnnotationModel]
     public let urls: [URLModel]

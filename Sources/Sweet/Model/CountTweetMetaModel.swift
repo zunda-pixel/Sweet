@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Count Tweet Meta Model
   public struct CountTweetMetaModel: Hashable {
     public let totalTweetCount: Int
     public let nextToken: String?
