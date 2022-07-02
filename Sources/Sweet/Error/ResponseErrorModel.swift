@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Error that includes API Error
   public struct ResponseErrorModel {
     public let messages: [String]
     public let title: String
