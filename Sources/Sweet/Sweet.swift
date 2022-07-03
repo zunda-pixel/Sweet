@@ -6,10 +6,15 @@
 //
 
 /// Sweet for Twitter API v2
+
+import Foundation
+
 public struct Sweet {
   public let bearerTokenApp: String
   public let bearerTokenUser: String
-  
+
+  public let session: URLSession
+
   public var tweetExpansions: [TweetExpansion] = TweetExpansion.allCases
   public var userExpansions: [UserExpansion] = UserExpansion.allCases
   public var mediaExpansions: [MediaExpansion] = MediaExpansion.allCases
@@ -25,15 +30,17 @@ public struct Sweet {
   public var topicFields: [TopicField] = TopicField.allCases
   public var spaceFields: [SpaceField] = SpaceField.allCases
   
-  public init(app bearerTokenApp: String, user bearerTokenUser: String) {
+  public init(app bearerTokenApp: String, user bearerTokenUser: String, session: URLSession) {
     self.bearerTokenApp = bearerTokenApp
     self.bearerTokenUser = bearerTokenUser
+
+    self.session = session
   }
   
   static var test: Sweet {
     let bearerTokenUser = ""
     let bearerTokenApp = ""
-    var sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser)
+    var sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser, session: .shared)
     sweet.tweetFields = [.id, .text, .attachments, .authorID, .contextAnnotations, .createdAt, .entities, .geo, .replyToUserID, .lang, .possiblySensitive, .referencedTweets, .replySettings, .source, .withheld]
     return sweet
   }
