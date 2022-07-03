@@ -21,7 +21,7 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(CompliancesResponse.self, from: data) {
       return response.compliances
@@ -41,7 +41,7 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers)
+    let (data, urlResponse) = try await session.get(url: url, headers: headers)
     
     if let response = try? JSONDecoder().decode(ComplianceResponse.self, from: data) {
       return response.compliance
@@ -84,7 +84,7 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, urlResponse) = try await HTTPClient.post(url: url, body: body, headers: headers)
+    let (data, urlResponse) = try await session.post(url: url, body: body, headers: headers)
     
     if let response = try? JSONDecoder().decode(ComplianceResponse.self, from: data) {
       return response.compliance

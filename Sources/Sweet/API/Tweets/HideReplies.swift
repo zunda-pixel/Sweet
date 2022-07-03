@@ -23,7 +23,7 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, urlResponse) = try await HTTPClient.put(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await session.put(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(HideResponse.self, from: data) {
       if hidden == response.hidden {
