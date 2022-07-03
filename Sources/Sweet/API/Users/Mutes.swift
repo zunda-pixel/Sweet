@@ -30,7 +30,7 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, urlResponse) = try await HTTPClient.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response
@@ -57,7 +57,7 @@ extension Sweet {
     let body = ["target_user_id": toUserID]
     let bodyData = try JSONEncoder().encode(body)
     
-    let (data, urlResponse) = try await HTTPClient.post(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers)
     
     if let response = try? JSONDecoder().decode(MuteResponse.self, from: data) {
       if response.muting {
@@ -85,7 +85,7 @@ extension Sweet {
     
     let headers = getBearerHeaders(type: .User)
     
-    let (data, urlResponse) = try await HTTPClient.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await session.delete(url: url, headers: headers)
     
     if let response = try? JSONDecoder().decode(MuteResponse.self, from: data) {
       if response.muting {
