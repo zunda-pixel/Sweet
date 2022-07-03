@@ -8,7 +8,8 @@
 import Foundation
 
 extension Sweet {
-  internal struct DeleteResponse {
+  /// Delete Response
+  struct DeleteResponse {
     public let deleted: Bool
   }
 }

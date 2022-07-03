@@ -9,6 +9,12 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch User that Blocking
+  /// - Parameters:
+  ///   - userID: Blocking User ID
+  ///   - maxResults: Max Space Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Users
   public func fetchBlocking(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
     
@@ -36,7 +42,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Block User
+  /// - Parameters:
+  ///   - fromUserID: Blocking User ID
+  ///   - toUserID: Blocked User iD
   public func blockUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/post-users-user_id-blocking
     
@@ -63,7 +73,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Un Block User
+  /// - Parameters:
+  ///   - fromUserID: Blocking User ID
+  ///   - toUserID: Blocked User ID
   public func unBlockUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking
     

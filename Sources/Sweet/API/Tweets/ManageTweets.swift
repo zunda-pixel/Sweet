@@ -9,6 +9,9 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Create New Tweet
+  /// - Parameter postTweetModel: Post TweetModel
+  /// - Returns: Created Tweet
   public func createTweet(_ postTweetModel: PostTweetModel) async throws -> TweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
     
@@ -30,11 +33,13 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
-  public func deleteTweet(id: String) async throws {
+
+  /// Delete Tweet of TweetID
+  /// - Parameter id: TweetID
+  public func deleteTweet(of tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/delete-tweets-id
     
-    let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(id)")!
+    let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)")!
     
     let headers = getBearerHeaders(type: .User)
     

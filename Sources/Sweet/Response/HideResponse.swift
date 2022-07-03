@@ -8,7 +8,8 @@
 import Foundation
 
 extension Sweet {
-  internal struct HideResponse {
+  /// Hide Response
+  struct HideResponse {
     public let hidden: Bool
   }
 }

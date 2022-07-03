@@ -8,11 +8,11 @@
 import Foundation
 
 extension Sweet {
-  internal struct MuteResponse {
+  /// Mute Response
+  struct MuteResponse {
     public let muting: Bool
   }
 }
-
 
 extension Sweet.MuteResponse: Decodable {
   private enum DataCodingKeys: String, CodingKey {

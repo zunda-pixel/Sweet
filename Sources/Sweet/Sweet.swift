@@ -5,6 +5,7 @@
 //  Created by zunda on 2022/01/14.
 //
 
+/// Sweet for Twitter API v2
 public struct Sweet {
   public let bearerTokenApp: String
   public let bearerTokenUser: String
@@ -29,7 +30,7 @@ public struct Sweet {
     self.bearerTokenUser = bearerTokenUser
   }
   
-  internal static var test: Sweet {
+  static var test: Sweet {
     let bearerTokenUser = ""
     let bearerTokenApp = ""
     var sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser)

@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Geo Model
   public struct GeoModel: Hashable, Identifiable {
     public var id: String { placeID }
 

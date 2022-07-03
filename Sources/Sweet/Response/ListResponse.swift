@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// List Response
   public struct ListResponse {
     public let list: ListModel
     public let users: [UserModel]
@@ -40,6 +41,7 @@ extension Sweet.ListResponse: Decodable {
 }
 
 extension Sweet {
+  /// Lists Response
   public struct ListsResponse {
     public let lists: [ListModel]
     public let meta: MetaModel

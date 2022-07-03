@@ -14,7 +14,7 @@ final class TestTweetsAPI: XCTestCase {
   func testLookUpTweets() async throws {
     let tweetIDs = ["1489644269447315458", "1489895008300056578"]
     
-    let response = try await Sweet.test.lookUpTweets(ids: tweetIDs)
+    let response = try await Sweet.test.lookUpTweets(by: tweetIDs)
     
     response.tweets.forEach {
       print($0)
@@ -24,7 +24,7 @@ final class TestTweetsAPI: XCTestCase {
   func testLookUpTweet() async throws {
     let tweetID = "1506723004994174981"
     
-    let response = try await Sweet.test.lookUpTweet(id: tweetID)
+    let response = try await Sweet.test.lookUpTweet(by: tweetID)
     
     print(response.tweet)
     print(response.users)
@@ -47,7 +47,7 @@ final class TestTweetsAPI: XCTestCase {
   func testDeleteTweet() async throws {
     let tweetID = "1490010315945177088"
     
-    try await Sweet.test.deleteTweet(id: tweetID)
+    try await Sweet.test.deleteTweet(of: tweetID)
   }
 
   func testFetchReverseChronological() async throws {
@@ -246,7 +246,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchQuoteTweets() async throws {
     let tweetID = "1503755656771346447"
 
-    let response = try await Sweet.test.fetchQuoteTweets(tweetID: tweetID, paginationToken: nil, maxResults: 10)
+    let response = try await Sweet.test.fetchQuoteTweets(source: tweetID, paginationToken: nil, maxResults: 10)
     
     print(response.meta!)
     

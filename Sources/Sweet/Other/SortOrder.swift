@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Sort Order
   public enum SortOrder: String {
     case recency
     case relevancy

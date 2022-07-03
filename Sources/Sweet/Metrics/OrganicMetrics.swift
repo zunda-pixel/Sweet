@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  ///  Organic Metrics
   public  struct OrganicMetrics: Hashable {
     public let likeCount: Int
     public let userProfileClicks: Int
@@ -28,7 +29,7 @@ extension Sweet {
 extension Sweet.OrganicMetrics: Codable {
   private enum CodingKeys: String, CodingKey {
     case likeCount = "like_count"
-    case userProfilleClicks = "user_profile_clicks"
+    case userProfileClicks = "user_profile_clicks"
     case replyCount = "reply_count"
     case impressionCount = "impression_count"
     case retweetCount = "retweet_count"
@@ -37,7 +38,7 @@ extension Sweet.OrganicMetrics: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     self.likeCount = try values.decode(Int.self, forKey: .likeCount)
-    self.userProfileClicks = try values.decode(Int.self, forKey: .userProfilleClicks)
+    self.userProfileClicks = try values.decode(Int.self, forKey: .userProfileClicks)
     self.replyCount = try values.decode(Int.self, forKey: .replyCount)
     self.impressionCount = try values.decode(Int.self, forKey: .impressionCount)
     self.retweetCount = try values.decode(Int.self, forKey: .retweetCount)
@@ -46,7 +47,7 @@ extension Sweet.OrganicMetrics: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(likeCount, forKey: .likeCount)
-    try container.encode(userProfileClicks, forKey: .userProfilleClicks)
+    try container.encode(userProfileClicks, forKey: .userProfileClicks)
     try container.encode(replyCount, forKey: .replyCount)
     try container.encode(impressionCount, forKey: .impressionCount)
     try container.encode(retweetCount, forKey: .retweetCount)

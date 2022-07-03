@@ -60,7 +60,7 @@ final class TestSpacesAPI: XCTestCase {
   func testSearchSpace() async throws {
     let query = "円"
     
-    let response = try await Sweet.test.searchSpaces(query: query)
+    let response = try await Sweet.test.searchSpaces(by: query)
     
     response.spaces.forEach {
       print($0)

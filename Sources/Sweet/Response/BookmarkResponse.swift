@@ -8,7 +8,8 @@
 import Foundation
 
 extension Sweet {
-  internal struct BookmarkResponse {
+  /// Bookmark Response
+  struct BookmarkResponse {
     public let bookmarked: Bool
   }
 }

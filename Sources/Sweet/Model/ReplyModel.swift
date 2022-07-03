@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// ReplyModel
   public struct ReplyModel {
     public var excludeReplyUserIDs: [String]
     public var replyToTweetIDs: [String]

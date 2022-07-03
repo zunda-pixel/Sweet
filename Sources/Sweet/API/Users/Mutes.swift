@@ -9,6 +9,12 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch Users that Muting
+  /// - Parameters:
+  ///   - userID: User ID
+  ///   - maxResults: Max User Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Users
   public func fetchMuting(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/get-users-muting
     
@@ -36,7 +42,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Mute User
+  /// - Parameters:
+  ///   - fromUserID: Muting User ID
+  ///   - toUserID: Muted User ID
   public func muteUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/post-users-user_id-muting
     
@@ -63,7 +73,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Un Mute User
+  /// - Parameters:
+  ///   - fromUserID: Un Muting User ID
+  ///   - toUserID: Un Muted User ID
   public func unMuteUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting
     

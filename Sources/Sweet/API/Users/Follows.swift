@@ -9,6 +9,11 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Follow User
+  /// - Parameters:
+  ///   - fromUserID: Following User ID
+  ///   - toUserID: Followed User ID
+  /// - Returns: Success, Pending State(Awaiting Approval)
   public func follow(from fromUserID: String, to toUserID: String) async throws -> (Bool, Bool) {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
     
@@ -31,7 +36,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Un Follow User
+  /// - Parameters:
+  ///   - fromUserID: Un Following User ID
+  ///   - toUserID: Un Followed User ID
   public func unFollow(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following
     
@@ -55,7 +64,13 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch User that user  following
+  /// - Parameters:
+  ///   - userID: Following User ID
+  ///   - maxResults: Max User Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Users
   public func fetchFollowing(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
     
@@ -83,7 +98,13 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch User Followed By
+  /// - Parameters:
+  ///   - userID: User ID
+  ///   - maxResults: Max User Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Users
   public func fetchFollower(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers
     

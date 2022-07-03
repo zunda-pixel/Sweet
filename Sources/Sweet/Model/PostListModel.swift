@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Post List Model
   public struct PostListModel: Hashable {
     public let name: String?
     public let description: String?

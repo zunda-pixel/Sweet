@@ -154,7 +154,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchPinnedLists() async throws {
     let userID = testMyUserID
     
-    let response = try await Sweet.test.fetchPinnedLists(userID: userID)
+    let response = try await Sweet.test.fetchListsPinned(by: userID)
     
     print(response.meta)
     

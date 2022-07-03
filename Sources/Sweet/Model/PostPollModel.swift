@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Post Poll Model
   public struct PostPollModel {
     public var options: [String]
     public var durationMinutes: Int

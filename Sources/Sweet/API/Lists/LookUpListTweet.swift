@@ -9,6 +9,12 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch Tweets in List
+  /// - Parameters:
+  ///   - listID: List ID
+  ///   - maxResults: Max Tweet Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Tweets
   public func fetchListTweets(listID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/api-reference/get-lists-id-tweets
 

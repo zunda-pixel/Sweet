@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Poll Status
   public enum PollStatus: String {
     case isOpen = "open"
     case isClosed = "closed"

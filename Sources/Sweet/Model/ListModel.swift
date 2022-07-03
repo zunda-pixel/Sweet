@@ -9,6 +9,7 @@ import Foundation
 import CoreText
 
 extension Sweet {
+  /// List Model
   public struct ListModel: Hashable, Identifiable {
     public let id: String
     public let name: String

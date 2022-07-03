@@ -9,6 +9,7 @@ import Foundation
 
 
 extension Sweet {
+  /// Tweet Model
   public struct TweetModel: Hashable, Identifiable {
     public let id: String
     public let text: String

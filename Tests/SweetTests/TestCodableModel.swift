@@ -20,7 +20,7 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testTweetModelCodable() async throws {
-    let response = try await Sweet.test.lookUpTweet(id: "1528605562954727425")
+    let response = try await Sweet.test.lookUpTweet(by: "1528605562954727425")
 
     let data = try JSONEncoder().encode(response.tweet)
 

@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Compliance Status
   public enum ComplianceStatus: String {
     case created
     case inProgress = "in_progress"

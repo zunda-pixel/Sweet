@@ -8,7 +8,8 @@
 import Foundation
 
 extension Sweet {
-  internal struct UpdateResponse {
+  /// Update Reponse
+  struct UpdateResponse {
     public let updated: Bool
   }
 }

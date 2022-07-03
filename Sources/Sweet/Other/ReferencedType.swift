@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Referenced Type
   public enum ReferencedType: String {
     case retweeted
     case quoted

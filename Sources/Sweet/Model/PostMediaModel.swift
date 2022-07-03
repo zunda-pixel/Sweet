@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Post Media Model
   public struct PostMediaModel {
     public var mediaIDs: [String]
     public var taggedUserIDs: [String]

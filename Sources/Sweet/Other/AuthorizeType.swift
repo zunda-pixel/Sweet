@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// AuthorizeType
   public enum AuthorizeType {
     case User
     case App

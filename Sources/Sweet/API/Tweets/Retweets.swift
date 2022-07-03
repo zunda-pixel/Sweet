@@ -9,6 +9,12 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch Users that Retweet Tweet
+  /// - Parameters:
+  ///   - tweetID: Retweet Tweet ID
+  ///   - maxResults: Max Tweet Count
+  ///   - paginationToken: Next Page Token for loading more than maxResults Count
+  /// - Returns: Users
   public func fetchRetweetUsers(tweetID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
     
@@ -36,7 +42,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Retweet Tweet
+  /// - Parameters:
+  ///   - userID: User ID
+  ///   - tweetID: Tweet ID
   public func retweet(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
     
@@ -63,7 +73,11 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Delete Retweet Tweet
+  /// - Parameters:
+  ///   - userID: User ID
+  ///   - tweetID: Tweet ID
   public func deleteRetweet(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
     

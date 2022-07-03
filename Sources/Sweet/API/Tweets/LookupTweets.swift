@@ -10,13 +10,16 @@ import HTTPClient
 
 
 extension Sweet {
-  public func lookUpTweets(ids: [String]) async throws -> TweetsResponse {
+  /// Look Up Tweets By IDs
+  /// - Parameter ids: Tweet IDs
+  /// - Returns: Tweets
+  public func lookUpTweets(by tweetIDs: [String]) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
     
     let queries: [String: String?] = [
-      "ids": ids.joined(separator: ","),
+      "ids": tweetIDs.joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
@@ -39,11 +42,14 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
-  public func lookUpTweet(id: String) async throws -> TweetResponse {
+
+  /// Look Up Tweet by ID
+  /// - Parameter id: Tweet ID
+  /// - Returns: Tweets
+  public func lookUpTweet(by tweetID: String) async throws -> TweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
     
-    let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(id)")!
+    let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)")!
     
     let queries: [String: String?] = [
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),

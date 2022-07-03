@@ -9,6 +9,11 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch Stream Volume
+  /// - Parameters:
+  ///   - delegate: URLSessionDataDelegate for Stream
+  ///   - backfillMinutes: Recovering missed data after a disconnection
+  /// - Returns: URLSessionDataTask
   public func fetchStreamVolume(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
     

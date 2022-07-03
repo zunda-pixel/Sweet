@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Post Tweet Model
   public struct PostTweetModel {
     public let text: String?
     public let directMessageDeepLink: URL?

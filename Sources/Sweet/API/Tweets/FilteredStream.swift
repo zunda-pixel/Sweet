@@ -1,5 +1,5 @@
 //
-//  FilterdStream.swift
+//  FilteredStream.swift
 //  
 //
 //  Created by zunda on 2022/01/16.
@@ -9,6 +9,9 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
+  /// Fetch Stream Rule with ids
+  /// - Parameter ids: Stream Rule IDs
+  /// - Returns: Stream Rules
   public func fetchStreamRule(ids: [String]? = nil) async throws -> StreamRuleResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
@@ -34,7 +37,12 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Fetch Stream
+  /// - Parameters:
+  ///   - delegate: URLSessionDataDelegate for Stream
+  ///   - backfillMinutes: Recovering missed data after a disconnection
+  /// - Returns: URLSessionDataTask
   public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil) -> URLSessionDataTask {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
     
@@ -66,7 +74,13 @@ extension Sweet {
     let session = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
     return session.dataTask(with: request)
   }
-  
+
+  /// Create Stream Rule
+  /// - Parameters:
+  ///   - streamRuleModels: Stream Rule Models
+  ///   - dryRun: Set to true to test a the syntax of your rule without submitting it.
+  ///   useful if you want to check the syntax of a rule before removing one or more of your existing rules.
+  /// - Returns: StreamRuleModel
   public func createStreamRule(_ streamRuleModels: [StreamRuleModel], dryRun: Bool = false) async throws -> StreamRuleModel {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     
@@ -94,7 +108,12 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
+  /// Delete Stream Rules with IDs
+  /// - Parameters:
+  ///   - ids: Stream Rules ID
+  ///   - dryRun: Set to true to test a the syntax of your rule without submitting it.
+  ///   useful if you want to check the syntax of a rule before removing one or more of your existing rules.
   public func deleteStreamRule(ids: [String], dryRun: Bool = false) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     
@@ -112,7 +131,12 @@ extension Sweet {
     
     let _ = try await HTTPClient.post(url: url, body: bodyData, headers: headers, queries: queries)
   }
-  
+
+  /// Delete Stream Rules With Value
+  /// - Parameters:
+  ///   - values: Values
+  ///   - dryRun: Set to true to test a the syntax of your rule without submitting it.
+  ///   useful if you want to check the syntax of a rule before removing one or more of your existing rules.
   public func deleteStreamRule(values: [String], dryRun: Bool = false) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     

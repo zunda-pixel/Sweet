@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Stream Rule Meta Model
   public struct StreamRuleMetaModel: Hashable {
     public let sent: Date
     

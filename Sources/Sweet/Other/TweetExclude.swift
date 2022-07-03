@@ -8,6 +8,7 @@
 import Foundation
 
 extension Sweet {
+  /// Tweet Exclude
   public enum TweetExclude: String {
     case retweets
     case replies
