@@ -25,13 +25,13 @@ extension Sweet.PostListModel: Codable {
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    if let name = name {
+    if let name {
       try container.encode(name, forKey: .name)
     }
-    if let description = description {
+    if let description {
       try container.encode(description, forKey: .description)
     }
-    if let isPrivate = isPrivate  {
+    if let isPrivate {
       try container.encode(isPrivate, forKey: .isPrivate)
     }
   }
