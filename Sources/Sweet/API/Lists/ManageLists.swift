@@ -15,7 +15,7 @@ extension Sweet {
   ///   - description: List Description
   ///   - isPrivate: isPrivate
   /// - Returns: Created List
-  public func createList(name: String, description: String? = nil, isPrivate: Bool? = nil) async throws -> ListModel {
+  public func createList(name: String, description: String? = nil, isPrivate: Bool = false) async throws -> ListModel {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
     
     let url: URL = .init(string: "https://api.twitter.com/2/lists")!
