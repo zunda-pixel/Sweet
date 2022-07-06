@@ -85,7 +85,7 @@ extension Sweet.UserModel: Codable {
     try container.encode(verified, forKey: .verified)
     try container.encode(profileImageURL, forKey: .profileImageURL)
 
-    if let createdAt = createdAt {
+    if let createdAt {
       let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
       try container.encode(createdAtString, forKey: .createdAt)
     }

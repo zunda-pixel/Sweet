@@ -51,19 +51,17 @@ extension Sweet.PostTweetModel: Encodable {
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    if let text = text { try container.encode(text, forKey: .text) }
-    if let directMessageDeepLink = directMessageDeepLink { try container.encode(directMessageDeepLink, forKey: .directMessageDeepLink) }
+    if let text { try container.encode(text, forKey: .text) }
+    if let directMessageDeepLink { try container.encode(directMessageDeepLink, forKey: .directMessageDeepLink) }
     try container.encode(forSuperFollowersOnly, forKey: .forSuperFollowersOnly)
-    if let geo = geo { try container.encode(geo, forKey: .geo) }
-    if let media = media { try container.encode(media, forKey: .media) }
-    if let poll = poll { try container.encode(poll, forKey: .poll) }
-    if let quoteTweetID = quoteTweetID { try container.encode(quoteTweetID, forKey: .quoteTweetID) }
-    if let reply = reply { try container.encode(reply, forKey: .reply) }
+    if let geo { try container.encode(geo, forKey: .geo) }
+    if let media { try container.encode(media, forKey: .media) }
+    if let poll { try container.encode(poll, forKey: .poll) }
+    if let quoteTweetID { try container.encode(quoteTweetID, forKey: .quoteTweetID) }
+    if let reply  { try container.encode(reply, forKey: .reply) }
     
-    if let replySettings = replySettings,
-       replySettings != .everyone { // if `everyone`, doesnt need value
+    if let replySettings, replySettings != .everyone { // if `everyone`, does not need value
       try container.encode(replySettings.rawValue, forKey: .replySettings)
-      
     }
   }
 }
