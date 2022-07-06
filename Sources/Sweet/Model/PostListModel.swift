@@ -13,12 +13,6 @@ extension Sweet {
     public let name: String?
     public let description: String?
     public let isPrivate: Bool?
-    
-    public init(name: String? = nil, description: String? = nil, isPrivate: Bool? = nil) {
-      self.name = name
-      self.description = description
-      self.isPrivate = isPrivate
-    }
   }
 }
 
@@ -31,13 +25,13 @@ extension Sweet.PostListModel: Codable {
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    if let name = name {
+    if let name {
       try container.encode(name, forKey: .name)
     }
-    if let description = description {
+    if let description {
       try container.encode(description, forKey: .description)
     }
-    if let isPrivate = isPrivate  {
+    if let isPrivate {
       try container.encode(isPrivate, forKey: .isPrivate)
     }
   }

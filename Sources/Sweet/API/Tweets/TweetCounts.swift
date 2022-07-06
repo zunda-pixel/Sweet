@@ -34,11 +34,11 @@ extension Sweet {
     
     let formatter = TwitterDateFormatter()
     
-    if let startTime = startTime {
+    if let startTime {
       queries["start_time"] = formatter.string(from: startTime)
     }
     
-    if let endTime = endTime {
+    if let endTime {
       queries["end_time"] = formatter.string(from: endTime)
     }
     
@@ -87,11 +87,11 @@ extension Sweet {
     
     let formatter = TwitterDateFormatter()
     
-    if let startTime = startTime {
+    if let startTime {
       queries["start_time"] = formatter.string(from: startTime)
     }
     
-    if let endTime = endTime {
+    if let endTime {
       queries["end_time"] = formatter.string(from: endTime)
     }
     

@@ -112,7 +112,7 @@ extension Sweet.TweetModel: Codable {
     try container.encode(lang, forKey: .lang)
     try container.encode(replySetting?.rawValue, forKey: .replySettings)
 
-    if let createdAt = createdAt {
+    if let createdAt {
       let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
       try container.encode(createdAtString, forKey: .createdAt)
     }

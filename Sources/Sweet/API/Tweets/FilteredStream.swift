@@ -19,7 +19,7 @@ extension Sweet {
     
     var queries: [String: String?] = [:]
     
-    if let ids = ids {
+    if let ids {
 			queries["ids"] = ids.joined(separator: ",")
     }
     

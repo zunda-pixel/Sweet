@@ -33,7 +33,7 @@ extension Sweet {
     var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
     components.queryItems = queries.map { .init(name: $0, value: $1)}
     
-    if let backfillMinutes = backfillMinutes {
+    if let backfillMinutes {
       let queries = ["backfill_minutes": String(backfillMinutes)]
       components.queryItems = queries.map { .init(name: $0, value: $1) }
     }

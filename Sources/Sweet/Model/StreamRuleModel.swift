@@ -26,8 +26,8 @@ extension Sweet.StreamRuleModel: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(value, forKey: .value)
-    if let tag = tag {
-        try container.encode(tag, forKey: .tag)
+    if let tag {
+      try container.encode(tag, forKey: .tag)
     }
   }
 }
