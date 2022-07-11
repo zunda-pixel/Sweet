@@ -110,7 +110,7 @@ extension Sweet.SpaceModel: Decodable {
     let invitedUserIDs = try? values.decode([String].self, forKey: .invitedUserIDs)
     self.invitedUserIDs = invitedUserIDs ?? []
     
-    let speakerIDs = try? values.decode([String].self, forKey: .speakeIDs)
+    let speakerIDs = try? values.decode([String].self, forKey: .speakerIDs)
     self.speakerIDs = speakerIDs ?? []
     
     self.subscriberCount = try? values.decode(Int.self, forKey: .subscriberCount)
@@ -135,7 +135,7 @@ extension Sweet.SpaceModel: Decodable {
     try container.encode(endedAt, forKey: .endedAt)
     try container.encode(invitedUserIDs, forKey: .invitedUserIDs)
     try container.encode(scheduledStart, forKey: .scheduledStart)
-    try container.encode(speakerIDs, forKey: .speakeIDs)
+    try container.encode(speakerIDs, forKey: .speakerIDs)
     try container.encode(subscriberCount, forKey: .subscriberCount)
     try container.encode(topicIDs, forKey: .topicIDs)
   }
