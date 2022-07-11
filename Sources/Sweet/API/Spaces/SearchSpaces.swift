@@ -22,6 +22,7 @@ extension Sweet {
     let queries: [String: String?] = [
       "query": query,
       "state": state.rawValue,
+      Expansion.key: SpaceExpansion.allCases.map(\.rawValue).joined(separator: ","),
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
