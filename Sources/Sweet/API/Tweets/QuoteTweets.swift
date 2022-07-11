@@ -15,7 +15,7 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   ///   - maxResults: Max Tweet Count
   /// - Returns: Tweets
-  func fetchQuoteTweets(source tweetID: String, paginationToken: String? = nil, maxResults: Int = 10) async throws -> TweetsResponse {
+  public func fetchQuoteTweets(source tweetID: String, paginationToken: String? = nil, maxResults: Int = 100) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/quote-tweets/api-reference/get-tweets-id-quote_tweets
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/quote_tweets")!
