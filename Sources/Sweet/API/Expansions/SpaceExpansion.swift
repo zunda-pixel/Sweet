@@ -10,7 +10,7 @@ import Foundation
 extension Sweet {
   public enum SpaceExpansion: String, CaseIterable {
     case invitedUserIDs = "invited_user_ids"
-    case speakerIDs = "speaker_id"
+    case speakerIDs = "speaker_ids"
     case creatorID = "creator_id"
     case hostIDs = "host_ids"
     case topicsIDs = "topics_ids"
