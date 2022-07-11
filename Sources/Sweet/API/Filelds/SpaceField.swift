@@ -22,7 +22,7 @@ extension Sweet {
     case invitedUserIDs = "invited_user_ids"
     case participantCount = "participant_count"
     case scheduledStart = "scheduled_start"
-    case speakeIDs = "speaker_ids"
+    case speakerIDs = "speaker_ids"
     case startedAt = "started_at"
     case title
     case topicIDs = "topic_ids"
