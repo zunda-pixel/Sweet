@@ -13,6 +13,6 @@ extension Sweet {
     case speakerIDs = "speaker_ids"
     case creatorID = "creator_id"
     case hostIDs = "host_ids"
-    case topicsIDs = "topics_ids"
+   // case topicsIDs = "topics_ids"
   }
 }
