@@ -28,7 +28,7 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: authorizeType)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
 
@@ -65,7 +65,7 @@ extension Sweet {
       "max_results": String(maxResults),
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: authorizeType)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     

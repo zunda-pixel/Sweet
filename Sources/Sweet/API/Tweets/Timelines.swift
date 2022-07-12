@@ -117,7 +117,7 @@ extension Sweet {
     
     let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: authorizeType)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: removedEmptyQueries)
     
@@ -176,7 +176,7 @@ extension Sweet {
     
     let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: authorizeType)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: removedEmptyQueries)
     
