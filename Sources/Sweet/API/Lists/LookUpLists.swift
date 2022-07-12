@@ -23,7 +23,7 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: authorizeType)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
@@ -57,7 +57,7 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: authorizeType)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     

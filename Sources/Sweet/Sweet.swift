@@ -14,6 +14,8 @@ public struct Sweet {
   public let bearerTokenUser: String
 
   public let session: URLSession
+  
+  public var authorizeType: AuthorizeType = .User
 
   public var tweetExpansions: [TweetExpansion] = TweetExpansion.allCases
   public var userExpansions: [UserExpansion] = UserExpansion.allCases
