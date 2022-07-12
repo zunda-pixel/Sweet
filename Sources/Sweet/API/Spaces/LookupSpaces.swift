@@ -148,7 +148,6 @@ extension Sweet {
       PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
-      Expansion.key: allTweetExpansion.joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
     let headers = getBearerHeaders(type: .User)
