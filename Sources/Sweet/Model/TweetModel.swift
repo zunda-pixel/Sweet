@@ -30,7 +30,7 @@ extension Sweet {
     public let withheld: WithheldModel?
     public let contextAnnotations: [ContextAnnotationModel]
     public let entity: TweetEntityModel?
-    public let referencedTweet: ReferencedTweetModel?
+    public let referencedTweets: [ReferencedTweetModel]
     
     public init(id: String, text: String, authorID: String? = nil, lang: String? = nil, replySetting: ReplySetting? = nil,
                 createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil, conversationID: String? = nil,
@@ -38,7 +38,7 @@ extension Sweet {
                 organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
                 attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
                 withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
-                entity: TweetEntityModel? = nil, referencedTweet: ReferencedTweetModel? = nil) {
+                entity: TweetEntityModel? = nil, referencedTweets: [ReferencedTweetModel] = []) {
       self.id = id
       self.text = text
       self.authorID = authorID
@@ -58,7 +58,7 @@ extension Sweet {
       self.withheld = withheld
       self.contextAnnotations = contextAnnotations
       self.entity = entity
-      self.referencedTweet = referencedTweet
+      self.referencedTweets = referencedTweets
     }
   }
 }
@@ -101,7 +101,7 @@ extension Sweet.TweetModel: Codable {
     self.entity = try? value.decode(Sweet.TweetEntityModel.self, forKey: .entities)
     
     let referencedTweets = try? value.decode([Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
-    self.referencedTweet = referencedTweets?.first
+    self.referencedTweets = referencedTweets ?? []
   }
   
   public func encode(to encoder: Encoder) throws {
@@ -130,6 +130,6 @@ extension Sweet.TweetModel: Codable {
     try container.encode(withheld, forKey: .withheld)
     try container.encode(contextAnnotations, forKey: .contextAnnotations)
     try container.encode(entity, forKey: .entities)
-    try container.encode([referencedTweet], forKey: .referencedTweets)
+    try container.encode(referencedTweets, forKey: .referencedTweets)
   }
 }
