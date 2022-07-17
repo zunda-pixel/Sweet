@@ -5,7 +5,7 @@
 //  Created by zunda on 2022/02/08.
 //
 
-#if !os(macOS)
+#if canImport(CoreGraphics)
 import CoreGraphics
 #endif
 
