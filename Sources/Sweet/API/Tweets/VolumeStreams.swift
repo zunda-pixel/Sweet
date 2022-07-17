@@ -8,6 +8,10 @@
 import Foundation
 import HTTPClient
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 extension Sweet {
   /// Fetch Stream Volume
   /// - Parameters:
