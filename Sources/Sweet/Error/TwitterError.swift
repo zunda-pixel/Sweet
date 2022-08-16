@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 extension Sweet {
   /// Twitter Error
   public enum TwitterError: Error {
