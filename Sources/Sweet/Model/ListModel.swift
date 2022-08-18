@@ -6,7 +6,10 @@
 //
 
 import Foundation
+
+#if canImport(CoreText)
 import CoreText
+#endif
 
 extension Sweet {
   /// List Model

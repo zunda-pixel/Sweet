@@ -9,6 +9,10 @@
 
 import Foundation
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 public struct Sweet {
   public let bearerTokenApp: String
   public let bearerTokenUser: String
