@@ -1,0 +1,29 @@
+name: Format
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install swift
+      run: |
+        sudo apt update
+        sudo apt upgrade
+        sudo apt install swift
+    - name: Format
+      run: |
+        swift run -c release swift-format format Sources Tests -r -i -p
+        swift run -c release swift-format lint Sources Tests -r -p  -s
+    - name: Git Setting
+      run: |
+        git config --global user.email "swift-formatter@swift.com"
+        git config --global user.name "swift-formatter"
+    - name: Git Commit
+      run: git commit -m "swift-format" -a
+    - name: Git push
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
