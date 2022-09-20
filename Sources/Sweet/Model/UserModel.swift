@@ -65,7 +65,8 @@ extension Sweet.UserModel: Codable {
     self.entity = try? values.decode(Sweet.UserEntityModel.self, forKey: .entities)
     
     let profileImageURL: String? = try? values.decode(String.self, forKey: .profileImageURL)
-    self.profileImageURL = .init(string: profileImageURL ?? "")
+    let removedNormalProfileImageURL: String = profileImageURL?.replacingOccurrences(of: "_normal", with: "") ?? ""
+    self.profileImageURL = .init(string: removedNormalProfileImageURL)!
     
     let url: String? = try? values.decode(String.self, forKey: .url)
     self.url = URL(string: url ?? "")
