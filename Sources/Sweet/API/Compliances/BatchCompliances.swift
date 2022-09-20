@@ -59,7 +59,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
     
-    struct JobModel: Encodable {
+    struct JobModel: Encodable, Sendable {
       public let type: JobType
       public let name: String?
       public let resumable: Bool?

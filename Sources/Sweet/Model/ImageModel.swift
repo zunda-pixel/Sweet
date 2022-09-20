@@ -13,7 +13,7 @@ import Foundation
 
 extension Sweet {
   /// Image Model
-  public struct ImageModel: Hashable {
+  public struct ImageModel: Hashable, Sendable {
     public let url: URL
     public let size: CGSize
     

@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Poll Status
-  public enum PollStatus: String {
+  public enum PollStatus: String, Sendable {
     case isOpen = "open"
     case isClosed = "closed"
   }

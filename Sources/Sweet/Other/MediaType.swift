@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Media Type
-  public enum MediaType: String {
+  public enum MediaType: String, Sendable {
     case animatedGig = "animated_gif"
     case photo
     case video

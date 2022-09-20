@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Retweet Response
-  struct RetweetResponse {
+  struct RetweetResponse: Sendable {
     public let retweeted: Bool
   }
 }

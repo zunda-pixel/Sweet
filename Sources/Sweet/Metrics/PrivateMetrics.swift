@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Private Metrics
-  public struct PrivateMetrics: Hashable {
+  public struct PrivateMetrics: Hashable, Sendable {
     public let impressionCount: Int
     public let userProfileClicks: Int
     

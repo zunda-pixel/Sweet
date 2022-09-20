@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Space Model
-  public struct SpaceModel: Hashable, Identifiable {
+  public struct SpaceModel: Hashable, Identifiable, Sendable {
     public let id: String
     public let state: SpaceState
     public let creatorID: String

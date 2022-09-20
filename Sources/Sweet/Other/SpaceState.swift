@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Space State
-  public enum SpaceState: String {
+  public enum SpaceState: String, Sendable {
     case all
     case live
     case scheduled

@@ -10,7 +10,7 @@ import Foundation
 
 extension Sweet {
   /// Poll Item
-  public struct PollItem: Hashable, Identifiable {
+  public struct PollItem: Hashable, Identifiable, Sendable {
     public var id: Int { position }
 
     public let position: Int

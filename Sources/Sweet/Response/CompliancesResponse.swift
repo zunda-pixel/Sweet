@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// CompliancesResponse
-  struct CompliancesResponse {
+  struct CompliancesResponse: Sendable {
     public let compliances: [ComplianceModel]
   }
 }
@@ -21,7 +21,7 @@ extension Sweet.CompliancesResponse: Decodable {
 }
 
 extension Sweet {
-  struct ComplianceResponse {
+  struct ComplianceResponse: Sendable {
     public let compliance: ComplianceModel
   }
 }

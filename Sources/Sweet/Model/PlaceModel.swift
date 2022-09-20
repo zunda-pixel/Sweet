@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Place Model
-  public struct PlaceModel: Hashable, Identifiable {
+  public struct PlaceModel: Hashable, Identifiable, Sendable {
     public let id: String
     public let name: String
 

@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/space
 
 extension Sweet {
-  public enum SpaceField: String, Field {
+  public enum SpaceField: String, Field, Sendable {
     static public var key: String { "space.fields" }
     
     case id

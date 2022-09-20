@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public enum PollExpansion: String, CaseIterable {
+  public enum PollExpansion: String, CaseIterable, Sendable {
     case attachmentsPollIDs = "attachments.poll_ids"
   }
 }

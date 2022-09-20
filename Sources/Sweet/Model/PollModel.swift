@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Poll Model
-  public struct PollModel: Hashable, Identifiable {
+  public struct PollModel: Hashable, Identifiable, Sendable {
     public let id: String
     public let votingStatus: PollStatus
     public let endDateTime: Date

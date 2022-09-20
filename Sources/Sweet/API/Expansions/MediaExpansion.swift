@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public enum MediaExpansion: String, CaseIterable {
+  public enum MediaExpansion: String, CaseIterable, Sendable {
     case attachmentsMediaKeys = "attachments.media_keys"
   }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Withheld Model
-  public struct WithheldModel: Hashable {
+  public struct WithheldModel: Hashable, Sendable {
     public let copyright: Bool?
     public let countryCodes: [String]
     public let scope: WithheldScope

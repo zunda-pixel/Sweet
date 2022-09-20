@@ -13,7 +13,7 @@ import Foundation
 import FoundationNetworking
 #endif
 
-public struct Sweet {
+public struct Sweet: Sendable {
   public let bearerTokenApp: String
   public let bearerTokenUser: String
 

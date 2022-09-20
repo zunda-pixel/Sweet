@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Update Reponse
-  struct UpdateResponse {
+  struct UpdateResponse: Sendable {
     public let updated: Bool
   }
 }

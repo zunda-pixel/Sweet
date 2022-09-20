@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Attachments Model for Tweet
-  public struct AttachmentsModel: Hashable {
+  public struct AttachmentsModel: Hashable, Sendable {
     public let mediaKeys: [String]
     public let pollID: String?
     
