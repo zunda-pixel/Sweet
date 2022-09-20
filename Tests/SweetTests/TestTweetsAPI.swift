@@ -22,16 +22,11 @@ final class TestTweetsAPI: XCTestCase {
   }
   
   func testLookUpTweet() async throws {
-    let tweetID = "1506723004994174981"
+    let tweetID = "1572253944348545026"
     
     let response = try await Sweet.test.lookUpTweet(by: tweetID)
     
-    print(response.tweet)
-    print(response.users)
-    print(response.polls)
-    print(response.places)
-    print(response.medias)
-    print(response.relatedTweets)
+    print(response)
   }
   
   func testCreateTweet() async throws {

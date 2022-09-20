@@ -20,13 +20,15 @@ extension Sweet {
     public let size: CGSize
     public let previewImageURL: URL?
     public let url: URL?
+    public let variants: [MediaVariant]
     
-    public init(key: String, type: MediaType, size: CGSize, previewImageURL: URL? = nil, url: URL? = nil) {
+    public init(key: String, type: MediaType, size: CGSize, previewImageURL: URL? = nil, url: URL? = nil, variants: [MediaVariant] = []) {
       self.key = key
       self.type = type
       self.size = size
       self.previewImageURL = previewImageURL
       self.url = url
+      self.variants = variants
     }
   }
 }
@@ -39,6 +41,7 @@ extension Sweet.MediaModel: Codable {
     case height
     case previewImageURL = "preview_image_url"
     case url
+    case variants
   }
   
   public init(from decoder: Decoder) throws {
@@ -63,6 +66,12 @@ extension Sweet.MediaModel: Codable {
       self.url = .init(string: url)
     } else {
       self.url = nil
+    }
+    
+    if let variants = try? value.decode([Sweet.MediaVariant].self, forKey: .variants) {
+      self.variants = variants
+    } else {
+      self.variants = []
     }
   }
   
