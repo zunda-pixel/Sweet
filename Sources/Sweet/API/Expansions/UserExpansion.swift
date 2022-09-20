@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public enum UserExpansion: String, CaseIterable {
+  public enum UserExpansion: String, CaseIterable, Sendable {
     case pinnedTweetID = "pinned_tweet_id"
   }
 }

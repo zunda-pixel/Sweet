@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Spaces Response
-  public struct SpacesResponse {
+  public struct SpacesResponse: Sendable {
     public let spaces: [SpaceModel]
     public let users: [UserModel]
   }
@@ -40,7 +40,7 @@ extension Sweet.SpacesResponse: Decodable {
 }
 
 extension Sweet {
-  public struct SpaceResponse {
+  public struct SpaceResponse: Sendable {
     public var space: SpaceModel
     public let users: [UserModel]
   }

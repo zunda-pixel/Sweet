@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Post Tweet Model
-  public struct PostTweetModel {
+  public struct PostTweetModel: Sendable {
     public let text: String?
     public let directMessageDeepLink: URL?
     public let forSuperFollowersOnly: Bool

@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Domain Model
-  public struct DomainModel: Hashable, Identifiable {
+  public struct DomainModel: Hashable, Identifiable, Sendable {
     public let id: String
     public let name: String
     public let description: String

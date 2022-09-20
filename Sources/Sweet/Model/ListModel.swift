@@ -13,7 +13,7 @@ import CoreText
 
 extension Sweet {
   /// List Model
-  public struct ListModel: Hashable, Identifiable {
+  public struct ListModel: Hashable, Identifiable, Sendable {
     public let id: String
     public let name: String
     public let followerCount: Int?

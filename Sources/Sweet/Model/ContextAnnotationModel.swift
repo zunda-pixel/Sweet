@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Context Annotation Model
-  public struct ContextAnnotationModel: Hashable {
+  public struct ContextAnnotationModel: Hashable, Sendable {
     public let domain: DomainModel
     public let entity: ContextEntityModel
     

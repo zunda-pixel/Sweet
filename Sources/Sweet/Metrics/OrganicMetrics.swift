@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   ///  Organic Metrics
-  public  struct OrganicMetrics: Hashable {
+  public  struct OrganicMetrics: Hashable, Sendable {
     public let likeCount: Int
     public let userProfileClicks: Int
     public let replyCount: Int

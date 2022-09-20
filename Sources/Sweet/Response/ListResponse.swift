@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// List Response
-  public struct ListResponse {
+  public struct ListResponse: Sendable {
     public let list: ListModel
     public let users: [UserModel]
   }
@@ -42,7 +42,7 @@ extension Sweet.ListResponse: Decodable {
 
 extension Sweet {
   /// Lists Response
-  public struct ListsResponse {
+  public struct ListsResponse: Sendable {
     public let lists: [ListModel]
     public let meta: MetaModel
     public let users: [UserModel]

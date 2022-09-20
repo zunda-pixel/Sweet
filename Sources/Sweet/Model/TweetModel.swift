@@ -10,7 +10,7 @@ import Foundation
 
 extension Sweet {
   /// Tweet Model
-  public struct TweetModel: Hashable, Identifiable {
+  public struct TweetModel: Hashable, Identifiable, Sendable {
     public let id: String
     public let text: String
     public let authorID: String?

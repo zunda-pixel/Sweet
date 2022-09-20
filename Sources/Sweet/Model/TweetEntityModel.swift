@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Tweet Entity Model
-  public struct TweetEntityModel: Hashable {
+  public struct TweetEntityModel: Hashable, Sendable {
     public let annotations: [AnnotationModel]
     public let urls: [URLModel]
     public let hashtags: [HashTagModel]
@@ -66,7 +66,7 @@ extension Sweet.TweetEntityModel: Codable {
 }
 
 extension Sweet {
-  public struct HashTagModel: Hashable {
+  public struct HashTagModel: Hashable, Sendable {
     public let start: Int
     public let end: Int
     public let tag: String
@@ -78,7 +78,7 @@ extension Sweet {
     }
   }
 
-  public struct CashTagModel: Hashable {
+  public struct CashTagModel: Hashable, Sendable {
     public let start: Int
     public let end: Int
     public let tag: String
@@ -90,7 +90,7 @@ extension Sweet {
     }
   }
 
-  public struct MentionModel: Hashable {
+  public struct MentionModel: Hashable, Sendable {
     public let start: Int
     public let end: Int
     public let userName: String

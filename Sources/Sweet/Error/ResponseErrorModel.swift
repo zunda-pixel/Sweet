@@ -9,14 +9,14 @@ import Foundation
 
 extension Sweet {
   /// Error that includes API Error
-  public struct ResponseErrorModel {
+  public struct ResponseErrorModel: Sendable {
     public let messages: [String]
     public let title: String
     public let detail: String
     public let type: String
     public let status: Int?
 
-    private struct ErrorMessageModel: Decodable {
+    private struct ErrorMessageModel: Decodable, Sendable {
       public let message: String
     }
   }

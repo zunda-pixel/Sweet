@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// URL Model
-  public struct URLModel: Hashable {
+  public struct URLModel: Hashable, Sendable {
     public let start: Int
     public let end: Int
     public let url: URL

@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Bookmark Response
-  struct BookmarkResponse {
+  struct BookmarkResponse: Sendable {
     public let bookmarked: Bool
   }
 }

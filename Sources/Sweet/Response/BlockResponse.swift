@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Block Response
-  struct BlockResponse {
+  struct BlockResponse: Sendable {
     public let blocking: Bool
   }
 }

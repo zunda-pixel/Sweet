@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Mute Response
-  struct MuteResponse {
+  struct MuteResponse: Sendable {
     public let muting: Bool
   }
 }

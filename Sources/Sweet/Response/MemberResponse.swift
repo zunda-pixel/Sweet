@@ -10,7 +10,7 @@ import Foundation
 
 extension Sweet {
   /// Member Response
-  struct MemberResponse {
+  struct MemberResponse: Sendable {
     public let isMember: Bool
   }
 }

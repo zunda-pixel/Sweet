@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Pin Response
-  struct PinResponse {
+  struct PinResponse: Sendable {
     public let pinned: Bool
   }
 }
