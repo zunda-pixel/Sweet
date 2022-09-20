@@ -23,5 +23,6 @@ extension Sweet {
     case organicMetrics = "organic_metrics"
     case promotedMetrics = "promoted_metrics"
     case altText = "alt_text"
+    case variants
   }
 }
