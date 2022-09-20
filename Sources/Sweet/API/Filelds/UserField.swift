@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/user
 
 extension Sweet {
-  public enum UserField: String, Field {
+  public enum UserField: String, Field, Sendable {
     static public var key: String { "user.fields" }
     
     case id

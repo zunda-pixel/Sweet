@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Sort Order
-  public enum SortOrder: String {
+  public enum SortOrder: String, Sendable {
     case recency
     case relevancy
   }

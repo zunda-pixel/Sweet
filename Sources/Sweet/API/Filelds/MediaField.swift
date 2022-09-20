@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/media
 
 extension Sweet {
-  public enum MediaField: String, Field {
+  public enum MediaField: String, Field, Sendable {
     static public var key: String { "media.fields" }
     
     case mediaKey = "media_key"

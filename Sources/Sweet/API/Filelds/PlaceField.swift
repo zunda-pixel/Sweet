@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/place
 
 extension Sweet {
-  public enum PlaceField: String, Field {
+  public enum PlaceField: String, Field, Sendable {
     static public var key: String { "place.fields" }
     
     case containedWithin = "contained_within"

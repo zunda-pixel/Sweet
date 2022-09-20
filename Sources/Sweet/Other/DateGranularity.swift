@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Date Granularity
-  public enum DateGranularity: String {
+  public enum DateGranularity: String, Sendable {
     case day
     case hour
     case minute

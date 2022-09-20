@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Compliance Status
-  public enum ComplianceStatus: String {
+  public enum ComplianceStatus: String, Sendable {
     case created
     case inProgress = "in_progress"
     case failed

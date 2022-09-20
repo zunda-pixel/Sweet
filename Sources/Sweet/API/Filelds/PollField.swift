@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/poll
 
 extension Sweet {
-  public enum PollField: String, Field {
+  public enum PollField: String, Field, Sendable {
     static public var key: String { "poll.fields" }
     
     case durationMinutes = "duration_minutes"
