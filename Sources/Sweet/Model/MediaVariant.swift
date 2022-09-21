@@ -28,7 +28,7 @@ extension Sweet.MediaVariant: Codable {
     self.bitRate = try? value.decode(Int.self, forKey: .bitRate)
     self.contentType = try value.decode(String.self, forKey: .contentType)
     
-    let urlString = try value.decode(String.self, forKey: .contentType)
+    let urlString = try value.decode(String.self, forKey: .url)
     self.url = URL(string: urlString)!
   }
 }
