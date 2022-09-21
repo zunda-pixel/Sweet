@@ -9,9 +9,9 @@ import Foundation
 
 extension Sweet {
   public struct MediaVariant: Hashable, Sendable {
-    let bitRate: Int?
-    let contentType: String
-    let url: URL
+    public let bitRate: Int?
+    public let contentType: String
+    public let url: URL
   }
 }
 
