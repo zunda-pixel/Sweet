@@ -7,19 +7,22 @@
 
 import Foundation
 
-public struct EditControl: Sendable, Hashable {
-  public let isEditEligible: Bool
-  public let editableUntil: Date
-  public let editsRemaining: Int
-  
-  public init(isEditEligible: Bool, editableUntil: Date, editsRemaining: Int) {
-    self.isEditEligible = isEditEligible
-    self.editableUntil = editableUntil
-    self.editsRemaining = editsRemaining
+extension Sweet {
+  /// EditControl
+  public struct EditControl: Sendable, Hashable {
+    public let isEditEligible: Bool
+    public let editableUntil: Date
+    public let editsRemaining: Int
+    
+    public init(isEditEligible: Bool, editableUntil: Date, editsRemaining: Int) {
+      self.isEditEligible = isEditEligible
+      self.editableUntil = editableUntil
+      self.editsRemaining = editsRemaining
+    }
   }
 }
 
-extension EditControl: Codable {
+extension Sweet.EditControl: Codable {
   private enum CodingKeys: String, CodingKey {
     case isEditEligible = "is_edit_eligible"
     case editableUntil = "editable_until"

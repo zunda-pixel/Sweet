@@ -111,7 +111,7 @@ extension Sweet.TweetModel: Codable {
     let editHistoryTweetIDs = try? value.decode([String].self, forKey: .editHistoryTweetIDs)
     self.editHistoryTweetIDs = editHistoryTweetIDs ?? []
     
-    self.editControl = try? value.decode(EditControl.self, forKey: .editControls)
+    self.editControl = try? value.decode(Sweet.EditControl.self, forKey: .editControls)
   }
   
   public func encode(to encoder: Encoder) throws {
