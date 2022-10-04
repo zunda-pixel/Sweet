@@ -41,7 +41,11 @@ extension EditControl: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(isEditEligible, forKey: .isEditEligible)
+    
+    let editableUntil = Sweet.TwitterDateFormatter().string(from: editableUntil)
     try container.encode(editableUntil, forKey: .editableUntil)
+    
+    let editsRemaining = String(editsRemaining)
     try container.encode(editsRemaining, forKey: .editsRemaining)
   }
 }
