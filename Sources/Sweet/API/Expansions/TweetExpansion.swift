@@ -14,5 +14,6 @@ extension Sweet {
     case inReplyToUserID = "in_reply_to_user_id"
     case referencedTweetsID = "referenced_tweets.id"
     case referencedTweetsIdAuthorID = "referenced_tweets.id.author_id"
+    case editHistoryTweetIDs = "edit_history_tweet_ids"
   }
 }

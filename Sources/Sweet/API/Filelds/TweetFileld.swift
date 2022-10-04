@@ -31,5 +31,7 @@ extension Sweet {
     case privateMetrics = "non_public_metrics"
     case organicMetrics = "organic_metrics"
     case promotedMetrics = "promoted_metrics"
+    case editControls = "edit_controls"
+    case editHistoryTweetIDs = "edit_history_tweet_ids"
   }
 }
