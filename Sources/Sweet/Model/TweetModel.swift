@@ -31,6 +31,8 @@ extension Sweet {
     public let contextAnnotations: [ContextAnnotationModel]
     public let entity: TweetEntityModel?
     public let referencedTweets: [ReferencedTweetModel]
+    public let editHistoryTweetIDs: [String]
+    public let editControl: EditControl?
     
     public init(id: String, text: String, authorID: String? = nil, lang: String? = nil, replySetting: ReplySetting? = nil,
                 createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil, conversationID: String? = nil,
@@ -38,7 +40,8 @@ extension Sweet {
                 organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
                 attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
                 withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
-                entity: TweetEntityModel? = nil, referencedTweets: [ReferencedTweetModel] = []) {
+                entity: TweetEntityModel? = nil, referencedTweets: [ReferencedTweetModel] = [],
+                editHistoryTweetIDs: [String] = [], editControl: EditControl? = nil) {
       self.id = id
       self.text = text
       self.authorID = authorID
@@ -59,6 +62,8 @@ extension Sweet {
       self.contextAnnotations = contextAnnotations
       self.entity = entity
       self.referencedTweets = referencedTweets
+      self.editHistoryTweetIDs = editHistoryTweetIDs
+      self.editControl = editControl
     }
   }
 }
@@ -102,6 +107,11 @@ extension Sweet.TweetModel: Codable {
     
     let referencedTweets = try? value.decode([Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
     self.referencedTweets = referencedTweets ?? []
+    
+    let editHistoryTweetIDs = try? value.decode([String].self, forKey: .editHistoryTweetIDs)
+    self.editHistoryTweetIDs = editHistoryTweetIDs ?? []
+    
+    self.editControl = try? value.decode(EditControl.self, forKey: .editControls)
   }
   
   public func encode(to encoder: Encoder) throws {
@@ -131,5 +141,7 @@ extension Sweet.TweetModel: Codable {
     try container.encode(contextAnnotations, forKey: .contextAnnotations)
     try container.encode(entity, forKey: .entities)
     try container.encode(referencedTweets, forKey: .referencedTweets)
+    try container.encode(editHistoryTweetIDs, forKey: .editHistoryTweetIDs)
+    try container.encode(editControl, forKey: .editControls)
   }
 }
