@@ -12,7 +12,7 @@ var package = Package(
     ],
     dependencies: [
       .package(url: "https://github.com/zunda-pixel/HTTPClient", .upToNextMajor(from: "1.3.3")),
-      .package(url: "https://github.com/apple/swift-format", .upToNextMajor(from: "0.50600.1")),
+      .package(url: "https://github.com/apple/swift-format", branch: "main"),
     ],
     targets: [
         .target(
