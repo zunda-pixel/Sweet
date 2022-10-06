@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Tweets Response
-  public struct TweetsResponse {
+  public struct TweetsResponse: Sendable {
     public let tweets: [TweetModel]
     public let meta: MetaModel?
     public let users: [UserModel]
@@ -80,7 +80,7 @@ extension Sweet.TweetsResponse: Decodable {
 
 extension Sweet {
   /// Tweet Response
-  public struct TweetResponse {
+  public struct TweetResponse: Sendable {
     public let tweet: TweetModel
     public let users: [UserModel]
     public let medias: [MediaModel]

@@ -29,7 +29,7 @@ final class TestCodableModel: XCTestCase {
     XCTAssertEqual(tweetData, response.tweet)
   }
 
-  func testUserModelCodableOffline() async throws {
+  func testUserModelCodableOffline() throws {
     let twitterDateString = "2020-05-15T16:03:42.000Z"
     let twitterDate = Sweet.TwitterDateFormatter().date(from: twitterDateString)!
 
@@ -42,16 +42,56 @@ final class TestCodableModel: XCTestCase {
     XCTAssertEqual(user, decodedUser)
   }
 
-  func testTweetModelCodableOffline() async throws {
+  func testTweetModelCodableOffline() throws {
     let twitterDateString = "2020-05-15T16:03:42.000Z"
     let twitterDate = Sweet.TwitterDateFormatter().date(from: twitterDateString)!
 
-    let tweet: Sweet.TweetModel = .init(id: "id", text: "text", authorID: "authorID", lang: "lang", replySetting: .following, createdAt: twitterDate, source: "source", sensitive: true, conversationID: "coversationID", replyUserID: "replyUserID", geo: .init(placeID: "placeID"), publicMetrics: .init(retweetCount: 1, replyCount: 2, likeCount: 3, quoteCount: 4), organicMetrics: .init(likeCount: 5, userProfileClicks: 6, replyCount: 7, impressionCount: 8, retweetCount: 9), privateMetrics: .init(impressionCount: 11, userProfileClicks: 22), attachments: .init(mediaKeys: ["mediaKey1", "mediaKey2"], pollID: "pollID"), promotedMetrics: .init(impressionCount: 33, urlLinkClicks: 44, userProfileClicks: 55, retweetCount: 66, replyCount: 77), withheld: .init(copyright: true, countryCodes: ["countryCode1", "countryCode2"], scope: .tweet), contextAnnotations: [.init(domain: .init(id: "id", name: "name", description: "description"), entity: .init(id: "id", name: "name", description: "description"))], entity: .init(annotations: [.init(start: 1, end: 2, probability: 3, type: "type", normalizedText: "normalizedText")], urls: [.init(start: 4, end: 5, url: .init(string: "https://twitter.com")!, expandedURL: "https://twitter.com", displayURL: "https://twitter.com", unwoundURL: "https://twitter.com", images: [.init(url: .init(string: "https://twitter.com")!, size: .init(width: 100, height: 200))], status: 21, title: "title", description: "description")], hashTags: [.init(start: 3, end: 4, tag: "tag")], mentions: [.init(start: 4, end: 7, userName: "userName")], cashTags: [.init(start: 43, end: 51, tag: "cashTag")]), referencedTweets: [ Sweet.ReferencedTweetModel(id: "id", type: .retweeted)])
+    let tweet: Sweet.TweetModel = .init(
+      id: "id",
+      text: "text",
+      authorID: "authorID",
+      lang: "lang",
+      replySetting: .following,
+      createdAt: twitterDate,
+      source: "source",
+      sensitive: true,
+      conversationID: "coversationID",
+      replyUserID: "replyUserID",
+      geo: .init(placeID: "placeID"),
+      publicMetrics: .init(retweetCount: 1, replyCount: 2, likeCount: 3, quoteCount: 4),
+      organicMetrics: .init(likeCount: 5, userProfileClicks: 6, replyCount: 7, impressionCount: 8, retweetCount: 9),
+      privateMetrics: .init(impressionCount: 11, userProfileClicks: 22),
+      attachments: .init(mediaKeys: ["mediaKey1", "mediaKey2"], pollID: "pollID"),
+      promotedMetrics: .init(impressionCount: 33, urlLinkClicks: 44, userProfileClicks: 55, retweetCount: 66, replyCount: 77),
+      withheld: .init(copyright: true, countryCodes: ["countryCode1", "countryCode2"], scope: .tweet),
+      contextAnnotations: [
+        .init(domain: .init(id: "id", name: "name", description: "description"), entity: .init(id: "id", name: "name", description: "description"))
+      ],
+      entity: .init(
+        annotations: [.init(start: 1, end: 2, probability: 3, type: "type", normalizedText: "normalizedText")],
+        urls: [.init(start: 4,
+                     end: 5,
+                     url: .init(string: "https://twitter.com")!,
+                     expandedURL: "https://twitter.com",
+                     displayURL: "https://twitter.com",
+                     unwoundURL: "https://twitter.com",
+                     images: [.init(url: .init(string: "https://twitter.com")!, size: .init(width: 100, height: 200))],
+                     status: 21,
+                     title: "title",
+                     description: "description"
+                    )],
+        hashtags: [.init(start: 3, end: 4, tag: "tag")],
+        mentions: [.init(start: 4, end: 7, userName: "userName")],
+        cashtags: [.init(start: 43, end: 51, tag: "cashTag")]
+      ),
+      referencedTweets: [.init(id: "id", type: .retweeted)],
+      editHistoryTweetIDs: ["edit1", "edit2"],
+      editControl: .init(isEditEligible: true, editableUntil: twitterDate, editsRemaining: 3)
+    )
 
     let data = try JSONEncoder().encode(tweet)
 
     let decodedTweet = try JSONDecoder().decode(Sweet.TweetModel.self, from: data)
-
 
     XCTAssertEqual(tweet, decodedTweet)
   }

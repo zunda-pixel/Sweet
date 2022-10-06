@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Un Follow Response
-  struct UnFollowResponse {
+  struct UnFollowResponse: Sendable {
     public let following: Bool
   }
 }

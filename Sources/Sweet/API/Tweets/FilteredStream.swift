@@ -61,7 +61,7 @@ extension Sweet {
       Expansion.key: allTweetExpansion.joined(separator: ","),
     ]
     
-    if let backfillMinutes = backfillMinutes {
+    if let backfillMinutes {
       queries["backfill_minutes"] =  String(backfillMinutes)
     }
     

@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  public enum PlaceExpansion: String, CaseIterable {
+  public enum PlaceExpansion: String, CaseIterable, Sendable {
     case placeID = "geo.place_id"
   }
 }

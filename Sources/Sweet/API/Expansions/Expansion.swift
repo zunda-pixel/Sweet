@@ -5,7 +5,7 @@
 //  Created by zunda on 2022/01/31.
 //
 
-public struct Expansion {
+public struct Expansion: Sendable {
   static var key: String = "expansions"
 }
 

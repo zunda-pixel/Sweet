@@ -10,7 +10,7 @@ import Foundation
 
 extension Sweet {
   /// Stream Rule Response
-  public struct StreamRuleResponse {
+  public struct StreamRuleResponse: Sendable {
     public let streamRules: [StreamRuleModel]
     public let meta: StreamRuleMetaModel
   }

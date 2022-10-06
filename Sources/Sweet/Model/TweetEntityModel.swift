@@ -9,20 +9,20 @@ import Foundation
 
 extension Sweet {
   /// Tweet Entity Model
-  public struct TweetEntityModel: Hashable {
+  public struct TweetEntityModel: Hashable, Sendable {
     public let annotations: [AnnotationModel]
     public let urls: [URLModel]
-    public let hashTags: [HashTagModel]
+    public let hashtags: [HashTagModel]
     public let mentions: [MentionModel]
-    public let cashTags: [CashTagModel]
+    public let cashtags: [CashTagModel]
 
-    public init(annotations: [AnnotationModel] = [], urls: [URLModel] = [], hashTags: [HashTagModel] = [],
-                mentions: [MentionModel] = [], cashTags: [CashTagModel] = []) {
+    public init(annotations: [AnnotationModel] = [], urls: [URLModel] = [], hashtags: [HashTagModel] = [],
+                mentions: [MentionModel] = [], cashtags: [CashTagModel] = []) {
       self.annotations = annotations
       self.urls = urls
-      self.hashTags = hashTags
+      self.hashtags = hashtags
       self.mentions = mentions
-      self.cashTags = cashTags
+      self.cashtags = cashtags
     }
   }
 }
@@ -31,9 +31,9 @@ extension Sweet.TweetEntityModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case annotations
     case urls
-    case hashTags
+    case hashtags
     case mentions
-    case cashTags
+    case cashtags
   }
 
   public init(from decoder: Decoder) throws {
@@ -45,28 +45,28 @@ extension Sweet.TweetEntityModel: Codable {
     let urls = try? values.decode([Sweet.URLModel].self, forKey: .urls)
     self.urls = urls ?? []
 
-    let hashTags = try? values.decode([Sweet.HashTagModel].self, forKey: .hashTags)
-    self.hashTags = hashTags ?? []
+    let hashtags = try? values.decode([Sweet.HashTagModel].self, forKey: .hashtags)
+    self.hashtags = hashtags ?? []
 
     let mentions = try? values.decode([Sweet.MentionModel].self, forKey: .mentions)
     self.mentions = mentions ?? []
 
-    let cashTags = try? values.decode([Sweet.CashTagModel].self, forKey: .cashTags)
-    self.cashTags = cashTags ?? []
+    let cashtags = try? values.decode([Sweet.CashTagModel].self, forKey: .cashtags)
+    self.cashtags = cashtags ?? []
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(annotations, forKey: .annotations)
     try container.encode(urls, forKey: .urls)
-    try container.encode(hashTags, forKey: .hashTags)
+    try container.encode(hashtags, forKey: .hashtags)
     try container.encode(mentions, forKey: .mentions)
-    try container.encode(cashTags, forKey: .cashTags)
+    try container.encode(cashtags, forKey: .cashtags)
   }
 }
 
 extension Sweet {
-  public struct HashTagModel: Hashable {
+  public struct HashTagModel: Hashable, Sendable {
     public let start: Int
     public let end: Int
     public let tag: String
@@ -78,7 +78,7 @@ extension Sweet {
     }
   }
 
-  public struct CashTagModel: Hashable {
+  public struct CashTagModel: Hashable, Sendable {
     public let start: Int
     public let end: Int
     public let tag: String
@@ -90,7 +90,7 @@ extension Sweet {
     }
   }
 
-  public struct MentionModel: Hashable {
+  public struct MentionModel: Hashable, Sendable {
     public let start: Int
     public let end: Int
     public let userName: String

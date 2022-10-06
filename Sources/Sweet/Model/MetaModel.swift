@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Meta Model
-  public struct MetaModel: Hashable {
+  public struct MetaModel: Hashable, Sendable {
     public let resultCount: Int
     public let oldestID: String?
     public let newestID: String?

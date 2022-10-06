@@ -6,7 +6,7 @@
 //
 
 extension Sweet {
-  public enum TopicField: String, Field {
+  public enum TopicField: String, Field, Sendable {
     static public var key: String { "topic.fields" }
     
     case id

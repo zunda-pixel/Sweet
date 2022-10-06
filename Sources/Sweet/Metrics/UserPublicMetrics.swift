@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Public Metrics for User
-  public struct UserPublicMetrics: Hashable {
+  public struct UserPublicMetrics: Hashable, Sendable {
     public let followersCount: Int
     public let followingCount: Int
     public let tweetCount: Int

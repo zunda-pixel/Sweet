@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Hide Response
-  struct HideResponse {
+  struct HideResponse: Sendable {
     public let hidden: Bool
   }
 }

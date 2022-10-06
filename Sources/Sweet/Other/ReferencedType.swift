@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Referenced Type
-  public enum ReferencedType: String {
+  public enum ReferencedType: String, Sendable {
     case retweeted
     case quoted
     case repliedTo = "replied_to"

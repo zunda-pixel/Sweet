@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Like Response
-  struct LikeResponse {
+  struct LikeResponse: Sendable {
     public let liked: Bool
   }
 }

@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/tweet
 
 extension Sweet {
-  public enum TweetField: String, Field {
+  public enum TweetField: String, Field, Sendable {
     static public var key: String { "tweet.fields" }
     
     case id
@@ -31,5 +31,7 @@ extension Sweet {
     case privateMetrics = "non_public_metrics"
     case organicMetrics = "organic_metrics"
     case promotedMetrics = "promoted_metrics"
+    case editControls = "edit_controls"
+    case editHistoryTweetIDs = "edit_history_tweet_ids"
   }
 }

@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Tweet Exclude
-  public enum TweetExclude: String {
+  public enum TweetExclude: String, Sendable {
     case retweets
     case replies
   }

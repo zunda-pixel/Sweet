@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// User Entity Model
-  public struct UserEntityModel: Hashable {
+  public struct UserEntityModel: Hashable, Sendable {
     public let urls: [URLModel]
     public let descriptionURLs: [URLModel]
     public let hashTags: [HashTagModel]

@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Reply Setting
-  public enum ReplySetting: String, CaseIterable {
+  public enum ReplySetting: String, CaseIterable, Sendable {
     case everyone
     case mentionedUsers
     case following

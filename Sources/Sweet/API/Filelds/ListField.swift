@@ -8,7 +8,7 @@
 // https://developer.twitter.com/en/docs/twitter-api/data-dictionary/object-model/lists
 
 extension Sweet {
-  public enum ListField: String, Field {
+  public enum ListField: String, Field, Sendable {
     static public var key: String { "list.fields" }
     
     case id

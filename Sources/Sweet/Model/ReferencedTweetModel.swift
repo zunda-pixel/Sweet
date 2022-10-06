@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Referenced Tweet Model
-  public struct ReferencedTweetModel: Hashable {
+  public struct ReferencedTweetModel: Hashable, Sendable {
     public let id: String
     public let type: ReferencedType
     

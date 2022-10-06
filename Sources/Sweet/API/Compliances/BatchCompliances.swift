@@ -59,7 +59,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
     
-    struct JobModel: Encodable {
+    struct JobModel: Encodable, Sendable {
       public let type: JobType
       public let name: String?
       public let resumable: Bool?
@@ -73,8 +73,8 @@ extension Sweet {
       public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type.rawValue, forKey: .type)
-        if let name = name { try container.encode(name, forKey: .name) }
-        if let resumable = resumable { try container.encode(resumable, forKey: .resumable) }
+        if let name { try container.encode(name, forKey: .name) }
+        if let resumable { try container.encode(resumable, forKey: .resumable) }
       }
     }
     

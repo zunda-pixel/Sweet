@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Geo Model
-  public struct GeoModel: Hashable, Identifiable {
+  public struct GeoModel: Hashable, Identifiable, Sendable {
     public var id: String { placeID }
 
     public let placeID: String

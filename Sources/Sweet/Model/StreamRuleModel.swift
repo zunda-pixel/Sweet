@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Stream Rule Model
-  public struct StreamRuleModel: Hashable, Identifiable {
+  public struct StreamRuleModel: Hashable, Identifiable, Sendable {
     public let id: String
     public let value: String
     public let tag: String?

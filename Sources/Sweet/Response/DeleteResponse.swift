@@ -9,7 +9,7 @@ import Foundation
 
 extension Sweet {
   /// Delete Response
-  struct DeleteResponse {
+  struct DeleteResponse: Sendable {
     public let deleted: Bool
   }
 }
