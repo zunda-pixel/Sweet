@@ -15,18 +15,18 @@ final class TestAuthorization: XCTestCase {
   
   func testBasicAuthorization() {
     let apiKey = "xvz1evFS4wEEPTGEFPHBog"
-    let apiSecretKey = "L8qq9PZyRg6ieKGEKhZolGC0vJWLw8iEJ88DRdyOg"
+    let apiSecret = "L8qq9PZyRg6ieKGEKhZolGC0vJWLw8iEJ88DRdyOg"
     
-    let basic = Sweet.getBasicAuthorization(id: apiKey, password: apiSecretKey)
+    let basic = Sweet.getBasicAuthorization(id: apiKey, password: apiSecret)
     
     XCTAssertEqual(basic, "eHZ6MWV2RlM0d0VFUFRHRUZQSEJvZzpMOHFxOVBaeVJnNmllS0dFS2hab2xHQzB2SldMdzhpRUo4OERSZHlPZw==")
   }
   
   func testGetAppBearerToken() async throws {
     let apiKey = "mQMFhgaJH45lp3q0sK2TJJEKv"
-    let apiSecretKey = "BsN6fbfDTq61BPyPovPeILjdieP4JjG4b6Ha6mNBShaMdJSVvc"
+    let apiSecret = "BsN6fbfDTq61BPyPovPeILjdieP4JjG4b6Ha6mNBShaMdJSVvc"
     
-    let appBearerToken = try await Sweet.getAppBearerToken(apiKey: apiKey, apiSecretKey: apiSecretKey)
+    let appBearerToken = try await Sweet.getAppBearerToken(apiKey: apiKey, apiSecretKey: apiSecret)
     
     print(appBearerToken)
   }
