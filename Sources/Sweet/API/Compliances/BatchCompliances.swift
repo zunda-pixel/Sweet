@@ -9,7 +9,7 @@ import Foundation
 import HTTPClient
 
 extension Sweet {
-  public func fetchCompliances(type: JobType, status: ComplianceStatus? = nil) async throws -> [ComplianceModel] {
+  public func fetchComplianceJobs(type: JobType, status: JobStatus? = nil) async throws -> [ComplianceJobModel] {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
@@ -34,7 +34,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func fetchCompliance(jobID: String) async throws -> ComplianceModel {
+  public func fetchComplianceJob(jobID: String) async throws -> ComplianceJobModel {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs/\(jobID)")!
@@ -54,7 +54,7 @@ extension Sweet {
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
   
-  public func createCompliance(type: JobType, name: String? = nil, resumable: Bool? = nil) async throws -> ComplianceModel {
+  public func createComplianceJob(type: JobType, name: String? = nil, resumable: Bool = false) async throws -> ComplianceJobModel {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/post-compliance-jobs
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
