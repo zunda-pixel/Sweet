@@ -96,4 +96,37 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
+  
+  public static func uploadComplianceData(uploadURL: URL, ids: [String], session: URLSession = .shared) async throws {
+    let headers = ["Content-Type": "text/plain"]
+    
+    let body = ids.joined(separator: "\n").data(using: .utf8)!
+    
+    let (_, response) = try await session.put(url: uploadURL, body: body, headers: headers)
+    
+    let httpResponse = response as! HTTPURLResponse
+        
+    if httpResponse.statusCode != 200 {
+      throw Sweet.TwitterError.uploadCompliance
+    }
+  }
+  
+  public static func downloadComplianceData(downloadURL: URL, session: URLSession = .shared) async throws -> [ComplianceModel] {
+    let (data, _) = try await session.get(url: downloadURL)
+    
+    let stringData = String(data: data, encoding: .utf8)!
+    
+    let lines = stringData.split(separator: "\n")
+    
+    let decoder = JSONDecoder()
+    
+    var compliances: [ComplianceModel] = []
+    
+    for line in lines {
+      let compliance = try decoder.decode(ComplianceModel.self, from: line.data(using: .utf8)!)
+      compliances.append(compliance)
+    }
+    
+    return compliances
+  }
 }
