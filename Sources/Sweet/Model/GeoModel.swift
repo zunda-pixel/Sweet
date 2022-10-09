@@ -1,27 +1,25 @@
 //
 //  GeoModel.swift
-//  
-//
-//  Created by zunda on 2022/03/19.
 //
 
 import Foundation
 
 extension Sweet {
   /// Geo Model
-  public struct GeoModel: Hashable, Identifiable, Sendable {
-    public var id: String { placeID }
-
-    public let placeID: String
+  public struct GeoModel: Sendable, Hashable {
+    public let type: String
+    public let bbox: [String]
+    public let properties: [String]
     
-    public init(placeID: String) {
-      self.placeID = placeID
+    public init(type: String, bbox: [String] = [], properties: [String] = []) {
+      self.type = type
+      self.bbox = bbox
+      self.properties = properties
     }
   }
 }
 
 extension Sweet.GeoModel: Codable {
-  private enum CodingKeys: String, CodingKey {
-    case placeID = "place_id"
-  }
+  
 }
+
