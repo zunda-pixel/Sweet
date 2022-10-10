@@ -68,7 +68,7 @@ final class TestCodableModel: XCTestCase {
         .init(domain: .init(id: "id", name: "name", description: "description"), entity: .init(id: "id", name: "name", description: "description"))
       ],
       entity: .init(
-        annotations: [.init(start: 1, end: 2, probability: 3, type: "type", normalizedText: "normalizedText")],
+        annotations: [.init(start: 1, end: 2, probability: 3, type: .product, normalizedText: "normalizedText")],
         urls: [.init(start: 4,
                      end: 5,
                      url: .init(string: "https://twitter.com")!,

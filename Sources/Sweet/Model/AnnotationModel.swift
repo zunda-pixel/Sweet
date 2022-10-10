@@ -1,9 +1,6 @@
 //
 //  AnnotationModel.swift
 //
-//
-//  Created by zunda on 2022/03/13.
-//
 
 import Foundation
 
@@ -13,10 +10,10 @@ extension Sweet {
     public let start: Int
     public let end: Int
     public let probability: Double
-    public let type: String
+    public let type: AnnotationType
     public let normalizedText: String
     
-    public init(start: Int, end: Int, probability: Double, type: String, normalizedText: String) {
+    public init(start: Int, end: Int, probability: Double, type: AnnotationType, normalizedText: String) {
       self.start = start
       self.end = end
       self.probability = probability
@@ -33,5 +30,25 @@ extension Sweet.AnnotationModel: Codable {
     case probability
     case type
     case normalizedText = "normalized_text"
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.start = try container.decode(Int.self, forKey: .start)
+    self.end = try container.decode(Int.self, forKey: .end)
+    self.probability = try container.decode(Double.self, forKey: .probability)
+    self.normalizedText = try container.decode(String.self, forKey: .normalizedText)
+    
+    let type = try container.decode(String.self, forKey: .type)
+    self.type = .init(rawValue: type)!
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(start, forKey: .start)
+    try container.encode(end, forKey: .end)
+    try container.encode(probability, forKey: .probability)
+    try container.encode(normalizedText, forKey: .normalizedText)
+    try container.encode(type.rawValue, forKey: .type)
   }
 }
