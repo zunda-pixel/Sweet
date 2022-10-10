@@ -17,17 +17,17 @@ extension Sweet {
     public let country: String?
     public let countryCode: String?
     public let geo: GeoModel?
-    public let placeType: String?
+    public let type: PlaceType?
     public let containedWithin: [String]
     
-    public init(id: String, fullName: String, name: String? = nil, country: String? = nil, countryCode: String?, geo: GeoModel? = nil, placeType: String? = nil, containedWithin: [String] = []) {
+    public init(id: String, fullName: String, name: String? = nil, country: String? = nil, countryCode: String?, geo: GeoModel? = nil, type: PlaceType? = nil, containedWithin: [String] = []) {
       self.id = id
       self.fullName = fullName
       self.name = name
       self.country = country
       self.countryCode = countryCode
       self.geo = geo
-      self.placeType = placeType
+      self.type = type
       self.containedWithin = containedWithin
     }
   }
@@ -42,9 +42,26 @@ extension Sweet.PlaceModel: Codable {
     self.country = try? container.decode(String.self, forKey: .country)
     self.countryCode = try? container.decode(String.self, forKey: .countryCode)
     self.geo = try? container.decode(Sweet.GeoModel.self, forKey: .geo)
-    self.placeType = try? container.decode(String.self, forKey: .placeType)
+    
+    if let type = try? container.decode(String.self, forKey: .placeType) {
+      self.type = .init(rawValue: type)!
+    } else {
+      self.type = nil
+    }
     
     let containedWithin = try? container.decode([String].self, forKey: .containedWithin)
     self.containedWithin = containedWithin ?? []
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: Sweet.PlaceField.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(fullName, forKey: .fullName)
+    try container.encode(name, forKey: .name)
+    try container.encode(country, forKey: .country)
+    try container.encode(countryCode, forKey: .countryCode)
+    try container.encode(geo, forKey: .geo)
+    try container.encode(type?.rawValue, forKey: .placeType)
+    try container.encode(containedWithin, forKey: .containedWithin)
   }
 }
