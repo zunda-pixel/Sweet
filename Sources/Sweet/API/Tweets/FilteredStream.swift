@@ -85,7 +85,7 @@ extension Sweet {
   ///   - dryRun: Set to true to test a the syntax of your rule without submitting it.
   ///   useful if you want to check the syntax of a rule before removing one or more of your existing rules.
   /// - Returns: StreamRuleModel
-  public func createStreamRule(_ streamRuleModels: [StreamRuleModel], dryRun: Bool = false) async throws -> StreamRuleModel {
+  public func createStreamRule(_ streamRuleModels: [StreamRuleModel], dryRun: Bool = false) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -102,11 +102,13 @@ extension Sweet {
     
     let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers, queries: queries)
     
-    if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
-      return response.streamRules.first!
+    let decoder = JSONDecoder()
+    
+    if let response = try? decoder.decode(CreateStreamRuleResponse.self, from: data) {
+      return response.streamRules
     }
     
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
     
