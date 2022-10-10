@@ -12,11 +12,11 @@ extension Sweet {
   public struct AnnotationModel: Hashable, Sendable {
     public let start: Int
     public let end: Int
-    public let probability: Int
+    public let probability: Double
     public let type: String
     public let normalizedText: String
     
-    public init(start: Int, end: Int, probability: Int, type: String, normalizedText: String) {
+    public init(start: Int, end: Int, probability: Double, type: String, normalizedText: String) {
       self.start = start
       self.end = end
       self.probability = probability
