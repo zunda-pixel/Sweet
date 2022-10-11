@@ -10,5 +10,6 @@ extension Sweet {
     case person = "Person"
     case place = "Place"
     case organization = "Organization"
+    case other = "Other"
   }
 }
