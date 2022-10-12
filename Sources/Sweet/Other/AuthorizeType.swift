@@ -10,7 +10,7 @@ import Foundation
 extension Sweet {
   /// AuthorizeType
   public enum AuthorizeType: Sendable {
-    case User
-    case App
+    case user
+    case app
   }
 }

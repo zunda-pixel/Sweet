@@ -41,7 +41,7 @@ extension Sweet {
     
     let emptyRemovedQueries = queries.filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
     components.queryItems = emptyRemovedQueries.map { .init(name: $0, value: $1)}

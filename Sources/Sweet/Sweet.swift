@@ -19,7 +19,7 @@ public struct Sweet: Sendable {
 
   public let session: URLSession
   
-  public var authorizeType: AuthorizeType = .User
+  public var authorizeType: AuthorizeType = .user
 
   public var tweetExpansions: [TweetExpansion] = TweetExpansion.allCases
   public var userExpansions: [UserExpansion] = UserExpansion.allCases

@@ -28,7 +28,7 @@ extension Sweet {
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
@@ -52,7 +52,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/blocking")!
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let body = ["target_user_id": toUserID]
     let bodyData = try JSONEncoder().encode(body)
@@ -83,7 +83,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/blocking/\(toUserID)")!
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.delete(url: url, headers: headers)
     
