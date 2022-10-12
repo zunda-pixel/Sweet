@@ -1,6 +1,6 @@
 //
 //  ListModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/17.
 //
@@ -8,7 +8,7 @@
 import Foundation
 
 #if canImport(CoreText)
-import CoreText
+  import CoreText
 #endif
 
 extension Sweet {
@@ -22,9 +22,12 @@ extension Sweet {
     public let description: String?
     public let isPrivate: Bool?
     public let createdAt: Date?
-    
-    public init(id: String, name: String, followerCount: Int? = nil, memberCount: Int? = nil,
-                ownerID: String? = nil, description: String? = nil, isPrivate: Bool? = nil, createdAt: Date? = nil) {
+
+    public init(
+      id: String, name: String, followerCount: Int? = nil, memberCount: Int? = nil,
+      ownerID: String? = nil, description: String? = nil, isPrivate: Bool? = nil,
+      createdAt: Date? = nil
+    ) {
       self.id = id
       self.name = name
       self.followerCount = followerCount
@@ -47,14 +50,14 @@ extension Sweet.ListModel: Codable {
     self.ownerID = try? values.decode(String.self, forKey: .ownerID)
     self.description = try? values.decode(String.self, forKey: .description)
     self.isPrivate = try? values.decode(Bool.self, forKey: .isPrivate)
-    
+
     if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)
     } else {
       self.createdAt = nil
-    }    
+    }
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.ListField.self)
     try container.encode(id, forKey: .id)

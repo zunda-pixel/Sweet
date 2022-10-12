@@ -1,6 +1,6 @@
 //
 //  SearchTweets.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/17.
 //
@@ -20,13 +20,15 @@ extension Sweet {
   ///   - sortOrder: Sort Order Type
   ///   - nextToken: This parameter is used to get the next 'page' of results. The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   /// - Returns: Tweets
-  public func searchRecentTweet(query: String, maxResults: Int = 100, startTime: Date? = nil, endTime: Date? = nil,
-                                untilID: String? = nil, sinceID: String? = nil, sortOrder: SortOrder? = nil,
-                                nextToken: String? = nil) async throws -> TweetsResponse {
+  public func searchRecentTweet(
+    query: String, maxResults: Int = 100, startTime: Date? = nil, endTime: Date? = nil,
+    untilID: String? = nil, sinceID: String? = nil, sortOrder: SortOrder? = nil,
+    nextToken: String? = nil
+  ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/recent")!
-    
+
     let formatter = TwitterDateFormatter()
 
     @DictionaryBuilder<String, String?>
@@ -45,30 +47,33 @@ extension Sweet {
         PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
         Expansion.key: allTweetExpansion.joined(separator: ","),
       ] as [String: String?]
-      
+
       if let startTime {
         ["start_time": formatter.string(from: startTime)]
       }
-      
+
       if let endTime {
         ["end_time": formatter.string(from: endTime)]
       }
     }
-    
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
-    
+
+    let removedEmptyQueries: [String: String?] = queries.filter {
+      $0.value != nil && $0.value != ""
+    }
+
     let headers = getBearerHeaders(type: authorizeType)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: removedEmptyQueries)
-    
+
+    let (data, urlResponse) = try await session.get(
+      url: url, headers: headers, queries: removedEmptyQueries)
+
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 
@@ -84,15 +89,17 @@ extension Sweet {
   ///   - nextToken: This parameter is used to get the next 'page' of results.
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   /// - Returns: Tweets
-  public func searchTweet(query: String, maxResults: Int = 500,
-                          startTime: Date? = nil, endTime: Date? = nil,
-                          untilID: String? = nil, sinceID: String? = nil,
-                          sortOrder: SortOrder? = nil, nextToken: String? = nil) async throws -> TweetsResponse {
+  public func searchTweet(
+    query: String, maxResults: Int = 500,
+    startTime: Date? = nil, endTime: Date? = nil,
+    untilID: String? = nil, sinceID: String? = nil,
+    sortOrder: SortOrder? = nil, nextToken: String? = nil
+  ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
     // This endpoint is only available for Academic Research access.
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/all")!
-    
+
     let formatter = TwitterDateFormatter()
 
     @DictionaryBuilder<String, String?>
@@ -111,30 +118,31 @@ extension Sweet {
         PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
         Expansion.key: allTweetExpansion.joined(separator: ","),
       ] as [String: String?]
-      
+
       if let startTime {
         ["start_time": formatter.string(from: startTime)]
       }
-      
+
       if let endTime {
         ["end_time": formatter.string(from: endTime)]
       }
     }
-    
-    let removedEmptyQueries = queries.filter { $0.value != nil && $0.value != ""}
-    
+
+    let removedEmptyQueries = queries.filter { $0.value != nil && $0.value != "" }
+
     let headers = getBearerHeaders(type: .app)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: removedEmptyQueries)
-    
+
+    let (data, urlResponse) = try await session.get(
+      url: url, headers: headers, queries: removedEmptyQueries)
+
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }

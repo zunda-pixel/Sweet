@@ -6,12 +6,12 @@ import Foundation
 
 @resultBuilder
 struct DictionaryBuilder<Key: Hashable, Value> {
-  static func buildBlock(_ dictionaries: Dictionary<Key, Value>...) -> Dictionary<Key, Value> {
+  static func buildBlock(_ dictionaries: [Key: Value]...) -> [Key: Value] {
     dictionaries.reduce(into: [:]) {
       $0.merge($1) { _, new in new }
     }
   }
-  static func buildOptional(_ dictionary: Dictionary<Key, Value>?) -> Dictionary<Key, Value> {
+  static func buildOptional(_ dictionary: [Key: Value]?) -> [Key: Value] {
     dictionary ?? [:]
   }
 }

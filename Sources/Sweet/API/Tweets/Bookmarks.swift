@@ -15,7 +15,9 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   ///   - maxResults: Max Bookmark Count
   /// - Returns: Tweets
-  public func fetchBookmarks(userID: String, paginationToken: String? = nil, maxResults: Int = 100) async throws -> TweetsResponse {
+  public func fetchBookmarks(userID: String, paginationToken: String? = nil, maxResults: Int = 100)
+    async throws -> TweetsResponse
+  {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks")!
@@ -31,8 +33,8 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != ""}
-    
+    ].filter { $0.value != nil && $0.value != "" }
+
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
 
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {

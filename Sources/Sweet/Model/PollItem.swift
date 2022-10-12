@@ -1,12 +1,11 @@
 //
 //  PollItem.swift
-//  
+//
 //
 //  Created by zunda on 2022/03/22.
 //
 
 import Foundation
-
 
 extension Sweet {
   /// Poll Item
@@ -16,7 +15,7 @@ extension Sweet {
     public let position: Int
     public let label: String
     public let votes: Int
-    
+
     public init(position: Int, label: String, votes: Int) {
       self.position = position
       self.label = label
@@ -26,5 +25,5 @@ extension Sweet {
 }
 
 extension Sweet.PollItem: Codable {
-  
+
 }

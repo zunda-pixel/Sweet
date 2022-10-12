@@ -1,6 +1,6 @@
 //
 //  TweetResponseModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
@@ -26,7 +26,7 @@ extension Sweet.TweetsResponse: Decodable {
     case includes
     case meta
   }
-  
+
   private enum TweetIncludesCodingKeys: String, CodingKey {
     case media
     case users
@@ -34,12 +34,12 @@ extension Sweet.TweetsResponse: Decodable {
     case polls
     case tweets
   }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     self.meta = try? values.decode(Sweet.MetaModel.self, forKey: .meta)
-    
+
     if meta?.resultCount == 0 {
       self.tweets = []
       self.medias = []
@@ -49,10 +49,13 @@ extension Sweet.TweetsResponse: Decodable {
       self.relatedTweets = []
       return
     }
-    
+
     self.tweets = try values.decode([Sweet.TweetModel].self, forKey: .tweets)
-    
-    guard let includes = try? values.nestedContainer(keyedBy: TweetIncludesCodingKeys.self, forKey: .includes) else {
+
+    guard
+      let includes = try? values.nestedContainer(
+        keyedBy: TweetIncludesCodingKeys.self, forKey: .includes)
+    else {
       self.medias = []
       self.users = []
       self.places = []
@@ -60,19 +63,19 @@ extension Sweet.TweetsResponse: Decodable {
       self.relatedTweets = []
       return
     }
-    
+
     let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
-    
+
     let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
-    
+
     let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places)
     self.places = places ?? []
-    
+
     let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
-    
+
     let relatedTweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
   }
@@ -95,7 +98,7 @@ extension Sweet.TweetResponse: Decodable {
     case tweet = "data"
     case includes
   }
-  
+
   private enum TweetIncludesCodingKeys: String, CodingKey {
     case media
     case users
@@ -103,13 +106,16 @@ extension Sweet.TweetResponse: Decodable {
     case polls
     case tweets
   }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-        
+
     self.tweet = try values.decode(Sweet.TweetModel.self, forKey: .tweet)
-    
-    guard let includes = try? values.nestedContainer(keyedBy: TweetIncludesCodingKeys.self, forKey: .includes) else {
+
+    guard
+      let includes = try? values.nestedContainer(
+        keyedBy: TweetIncludesCodingKeys.self, forKey: .includes)
+    else {
       self.medias = []
       self.users = []
       self.places = []
@@ -117,19 +123,19 @@ extension Sweet.TweetResponse: Decodable {
       self.relatedTweets = []
       return
     }
-    
+
     let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
-    
+
     let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
-    
+
     let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places)
     self.places = places ?? []
-    
+
     let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
-    
+
     let relatedTweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
   }
