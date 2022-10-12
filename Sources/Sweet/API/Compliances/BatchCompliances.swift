@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import HTTPClient
 
 extension Sweet {
