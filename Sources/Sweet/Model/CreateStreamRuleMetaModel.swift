@@ -1,26 +1,27 @@
 //
-//  StreamRuleMetaModel.swift
+//  CreateStreamRuleMetaModel.swift
 //
 
 import Foundation
 
+
 extension Sweet {
-  /// Stream Rule Meta Model
-  public struct StreamRuleMetaModel: Hashable, Sendable {
+  /// Create Stream Rule Meta Model
+  public struct CreateStreamRuleMetaModel: Hashable, Sendable {
     public let sent: Date
-    public let resultCount: Int
+    public let summary: StreamRuleSummary
     
-    public init(sent: Date, resultCount: Int) {
+    public init(sent: Date, summary: StreamRuleSummary) {
       self.sent = sent
-      self.resultCount = resultCount
+      self.summary = summary
     }
   }
 }
 
-extension Sweet.StreamRuleMetaModel: Decodable {
+extension Sweet.CreateStreamRuleMetaModel: Decodable {
   private enum CodingKeys: String, CodingKey {
     case sent
-    case resultCount = "result_count"
+    case summary
   }
   
   public init(from decoder: Decoder) throws {
@@ -29,7 +30,7 @@ extension Sweet.StreamRuleMetaModel: Decodable {
     let sent = try values.decode(String.self, forKey: .sent)
     self.sent = Sweet.TwitterDateFormatter().date(from: sent)!
     
-    self.resultCount = try values.decode(Int.self, forKey: .resultCount)
+    self.summary = try values.decode(Sweet.StreamRuleSummary.self, forKey: .summary)
   }
   
   public func encode(to encoder: Encoder) throws {
@@ -37,6 +38,7 @@ extension Sweet.StreamRuleMetaModel: Decodable {
     
     let stringSent = Sweet.TwitterDateFormatter().string(from: sent)
     try container.encode(stringSent, forKey: .sent)
-    try container.encode(resultCount, forKey: .resultCount)
+    
+    try container.encode(summary, forKey: .summary)
   }
 }

@@ -21,7 +21,7 @@ extension Sweet {
     public let sensitive: Bool?
     public let conversationID: String?
     public let replyUserID: String?
-    public let geo: GeoModel?
+    public let geo: SimpleGeoModel?
     public let publicMetrics: TweetPublicMetrics?
     public let privateMetrics: PrivateMetrics?
     public let promotedMetrics: PromotedMetrics?
@@ -36,7 +36,7 @@ extension Sweet {
     
     public init(id: String, text: String, authorID: String? = nil, lang: String? = nil, replySetting: ReplySetting? = nil,
                 createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil, conversationID: String? = nil,
-                replyUserID: String? = nil, geo: GeoModel? = nil, publicMetrics: TweetPublicMetrics? = nil,
+                replyUserID: String? = nil, geo: SimpleGeoModel? = nil, publicMetrics: TweetPublicMetrics? = nil,
                 organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
                 attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
                 withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
@@ -91,7 +91,7 @@ extension Sweet.TweetModel: Codable {
     self.sensitive = try? value.decode(Bool.self, forKey: .possiblySensitive)
     self.conversationID = try? value.decode(String.self, forKey: .conversationID)
     self.replyUserID = try? value.decode(String.self, forKey: .replyToUserID)
-    self.geo = try? value.decode(Sweet.GeoModel.self, forKey: .geo)
+    self.geo = try? value.decode(Sweet.SimpleGeoModel.self, forKey: .geo)
     
     self.publicMetrics = try? value.decode(Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
     self.organicMetrics = try? value.decode(Sweet.OrganicMetrics.self, forKey: .organicMetrics)

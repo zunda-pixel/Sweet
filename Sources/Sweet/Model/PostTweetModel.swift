@@ -13,7 +13,7 @@ extension Sweet {
     public let text: String?
     public let directMessageDeepLink: URL?
     public let forSuperFollowersOnly: Bool
-    public let geo: Sweet.GeoModel?
+    public let geo: Sweet.PostGeoModel?
     public let media: Sweet.PostMediaModel?
     public let poll: Sweet.PostPollModel?
     public let quoteTweetID: String?
@@ -21,7 +21,7 @@ extension Sweet {
     public let replySettings: Sweet.ReplySetting?
     
     public init(text: String? = nil, directMessageDeepLink: URL? = nil, forSuperFollowersOnly: Bool = false,
-                geo: Sweet.GeoModel? = nil, media: Sweet.PostMediaModel? = nil, poll: Sweet.PostPollModel? = nil,
+                geo: Sweet.PostGeoModel? = nil, media: Sweet.PostMediaModel? = nil, poll: Sweet.PostPollModel? = nil,
                 quoteTweetID: String? = nil, reply: Sweet.ReplyModel? = nil, replySettings: Sweet.ReplySetting? = nil) {
       self.text = text
       self.directMessageDeepLink = directMessageDeepLink

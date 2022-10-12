@@ -25,5 +25,6 @@ extension Sweet {
     case blockError
     case muteError
     case bookmarkError
+    case uploadCompliance
   }
 }

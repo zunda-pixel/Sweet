@@ -134,19 +134,19 @@ final class TestTweetsAPI: XCTestCase {
   
   func testCreateStreamRule() async throws {
     let streamModels: [Sweet.StreamRuleModel] = [
-      .init(value: "zunda633", tag: nil),
+      .init(value: "zunda633", tag: "tag1"),
+      .init(value: "mikan323", tag: "tag2")
     ]
     
-    let streamRuleModel = try await Sweet.test.createStreamRule(streamModels)
+    let streamRuleModels = try await Sweet.test.createStreamRule(streamModels)
     
-    print(streamRuleModel)
+    print(streamRuleModels)
   }
   
   func testDeleteStreamRuleByID() async throws {
     let ids = [
-      "1484489761767104513",
-      "1482602294482857989",
-      "1482602422727966722",
+      "1579281320907132928",
+      "1579281320907132929",
     ]
     
     try await Sweet.test.deleteStreamRule(ids: ids)

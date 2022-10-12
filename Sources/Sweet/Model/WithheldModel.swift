@@ -1,8 +1,5 @@
 //
 //  WithheldModel.swift
-//  
-//
-//  Created by zunda on 2022/02/08.
 //
 
 import Foundation
