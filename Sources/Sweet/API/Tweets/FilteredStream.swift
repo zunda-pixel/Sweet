@@ -16,23 +16,21 @@ extension Sweet {
   /// Fetch Stream Rule with ids
   /// - Parameter ids: Stream Rule IDs
   /// - Returns: Stream Rules
-  public func fetchStreamRule(ids: [String]? = nil) async throws -> StreamRuleResponse {
+  public func fetchStreamRule(ids: [String]? = nil) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    var queries: [String: String?] = [:]
-    
-    if let ids {
-			queries["ids"] = ids.joined(separator: ",")
-    }
+    let queries: [String: String?] = [
+      "ids": ids?.joined(separator: ",")
+    ]
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, urlResponse) = try await session.get(url: url, headers: headers)
+    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
-      return response
+      return response.streamRules
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
@@ -41,7 +39,7 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-
+  
   /// Fetch Stream
   /// - Parameters:
   ///   - delegate: URLSessionDataDelegate for Stream
@@ -52,17 +50,20 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
     
-    var queries: [String: String?] = [
-      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-      MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
-      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
-      PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
-      Expansion.key: allTweetExpansion.joined(separator: ","),
-    ]
-    
-    if let backfillMinutes {
-      queries["backfill_minutes"] =  String(backfillMinutes)
+    @DictionaryBuilder<String, String?>
+    var queries: [String: String?] {
+      [
+        TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+        MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
+        UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+        PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
+        PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
+        Expansion.key: allTweetExpansion.joined(separator: ","),
+      ]
+      
+      if let backfillMinutes {
+        ["backfill_minutes": String(backfillMinutes)]
+      }
     }
     
     let filteredQueries = queries.filter { $0.value != nil && $0.value != ""}
@@ -78,7 +79,7 @@ extension Sweet {
     let session = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
     return session.dataTask(with: request)
   }
-
+  
   /// Create Stream Rule
   /// - Parameters:
   ///   - streamRuleModels: Stream Rule Models
@@ -114,7 +115,7 @@ extension Sweet {
     
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-
+  
   /// Delete Stream Rules with IDs
   /// - Parameters:
   ///   - ids: Stream Rules ID
@@ -137,7 +138,7 @@ extension Sweet {
     
     let _ = try await session.post(url: url, body: bodyData, headers: headers, queries: queries)
   }
-
+  
   /// Delete Stream Rules With Value
   /// - Parameters:
   ///   - values: Values

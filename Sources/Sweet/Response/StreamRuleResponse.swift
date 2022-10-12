@@ -10,9 +10,9 @@ import Foundation
 
 extension Sweet {
   /// Stream Rule Response
-  public struct StreamRuleResponse: Sendable {
-    public let streamRules: [StreamRuleModel]
-    public let meta: StreamRuleMetaModel
+  struct StreamRuleResponse: Sendable {
+    let streamRules: [StreamRuleModel]
+    let meta: StreamRuleMetaModel
   }
 }
 
@@ -22,12 +22,12 @@ extension Sweet.StreamRuleResponse: Decodable {
     case meta
   }
   
-  public init(from decoder: Decoder) throws {
+  init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     
     self.meta = try container.decode(Sweet.StreamRuleMetaModel.self, forKey: .meta)
 
-    if self.meta.resultCount == 0 {
+    if (self.meta.resultCount ?? 0) == 0 {
       self.streamRules = []
     } else {
       self.streamRules = try container.decode([Sweet.StreamRuleModel].self, forKey: .streamRules)
