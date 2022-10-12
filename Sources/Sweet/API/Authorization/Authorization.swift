@@ -10,9 +10,9 @@ import Foundation
 extension Sweet {
   public func getAuthorizeToken(type: AuthorizeType) -> String {
     switch type {
-    case .User:
+    case .user:
       return bearerTokenUser
-    case .App:
+    case .app:
       return bearerTokenApp
     }
   }

@@ -21,7 +21,7 @@ extension Sweet {
     let body = ["list_id": listID]
     let bodyData = try JSONEncoder().encode(body)
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers)
     
@@ -49,7 +49,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists/\(listID)")!
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.delete(url: url, headers: headers)
     
@@ -82,7 +82,7 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     

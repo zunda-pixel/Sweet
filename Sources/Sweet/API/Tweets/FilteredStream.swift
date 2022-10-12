@@ -25,7 +25,7 @@ extension Sweet {
       "ids": ids?.joined(separator: ",")
     ]
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
@@ -68,7 +68,7 @@ extension Sweet {
     
     let filteredQueries = queries.filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     var components: URLComponents = .init(url: url, resolvingAgainstBaseURL: true)!
     components.queryItems = filteredQueries.map { .init(name: $0, value: $1)}
@@ -91,7 +91,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     let queries: [String: String?] = [
       "dry_run": String(dryRun)
@@ -130,7 +130,7 @@ extension Sweet {
       "dry_run": String(dryRun)
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     let body = ["delete": ["ids": ids]]
     
@@ -153,7 +153,7 @@ extension Sweet {
       "dry_run": String(dryRun)
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     let body = ["delete": ["values": values]]
     

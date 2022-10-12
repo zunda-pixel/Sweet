@@ -21,7 +21,7 @@ extension Sweet {
     let body = ["hidden": hidden]
     let bodyData = try JSONEncoder().encode(body)
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.put(url: url, body: bodyData, headers: headers)
     

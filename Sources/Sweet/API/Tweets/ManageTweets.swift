@@ -17,7 +17,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let bodyData = try JSONEncoder().encode(postTweetModel)
     
@@ -41,7 +41,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)")!
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.delete(url: url, headers: headers)
     
