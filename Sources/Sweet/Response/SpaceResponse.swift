@@ -41,7 +41,7 @@ extension Sweet.SpacesResponse: Decodable {
 
 extension Sweet {
   public struct SpaceResponse: Sendable {
-    public var space: SpaceModel
+    public let space: SpaceModel
     public let users: [UserModel]
   }
 }
