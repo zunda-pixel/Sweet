@@ -21,15 +21,13 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
     
-    var queries: [String: String?] = [:]
-    
-    if let ids {
-			queries["ids"] = ids.joined(separator: ",")
-    }
+    let queries: [String: String?] = [
+      "ids": ids?.joined(separator: ",")
+    ]
     
     let headers = getBearerHeaders(type: .App)
     
-    let (data, urlResponse) = try await session.get(url: url, headers: headers)
+    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
       return response
