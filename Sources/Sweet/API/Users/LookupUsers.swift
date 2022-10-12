@@ -140,7 +140,7 @@ extension Sweet {
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     

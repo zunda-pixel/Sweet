@@ -55,7 +55,7 @@ extension Sweet {
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers)
     
@@ -83,7 +83,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets/\(tweetID)")!
     
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
     
     let (data, urlResponse) = try await session.delete(url: url, headers: headers)
     

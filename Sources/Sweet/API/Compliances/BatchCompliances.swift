@@ -19,7 +19,7 @@ extension Sweet {
       "status": status?.rawValue,
     ].filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
@@ -39,7 +39,7 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs/\(jobID)")!
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     let (data, urlResponse) = try await session.get(url: url, headers: headers)
     
@@ -82,7 +82,7 @@ extension Sweet {
     
     let body = try JSONEncoder().encode(jobModel)
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     let (data, urlResponse) = try await session.post(url: url, body: body, headers: headers)
     

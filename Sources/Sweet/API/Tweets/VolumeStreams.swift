@@ -23,22 +23,25 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/sample/stream")!
     
-    var queries: [String: String?] = [
-      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
-      MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
-      PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
-      Expansion.key: allTweetExpansion.joined(separator: ","),
-    ]
-    
-    if let backfillMinutes {
-      queries["backfill_minutes"] = String(backfillMinutes)
+    @DictionaryBuilder<String, String?>
+    var queries: [String: String?] {
+      [
+        TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+        UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+        PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
+        MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
+        PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
+        Expansion.key: allTweetExpansion.joined(separator: ","),
+      ]
+      
+      if let backfillMinutes {
+        ["backfill_minutes": String(backfillMinutes)]
+      }
     }
     
     let emptyRemovedQueries = queries.filter { $0.value != nil && $0.value != ""}
     
-    let headers = getBearerHeaders(type: .App)
+    let headers = getBearerHeaders(type: .app)
     
     var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
     components.queryItems = emptyRemovedQueries.map { .init(name: $0, value: $1)}

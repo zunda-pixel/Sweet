@@ -19,7 +19,7 @@ public struct Sweet: Sendable {
 
   public let session: URLSession
   
-  public var authorizeType: AuthorizeType = .User
+  public var authorizeType: AuthorizeType = .user
 
   public var tweetExpansions: [TweetExpansion] = TweetExpansion.allCases
   public var userExpansions: [UserExpansion] = UserExpansion.allCases
@@ -41,15 +41,5 @@ public struct Sweet: Sendable {
     self.bearerTokenUser = bearerTokenUser
 
     self.session = session
-  }
-  
-  static var test: Sweet {
-    let bearerTokenUser = ""
-    let bearerTokenApp = ""
-    var sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser, session: .shared)
-    sweet.authorizeType = .App
-    sweet.tweetFields = TweetField.allCases.filter { $0 != .promotedMetrics && $0 != .privateMetrics && $0 != .organicMetrics }
-    sweet.mediaFields = MediaField.allCases.filter { $0 != .privateMetrics  && $0 != .promotedMetrics && $0 != .organicMetrics }
-    return sweet
   }
 }

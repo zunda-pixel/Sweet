@@ -8,9 +8,9 @@ extension Sweet {
   /// Stream Rule Meta Model
   public struct StreamRuleMetaModel: Hashable, Sendable {
     public let sent: Date
-    public let resultCount: Int
+    public let resultCount: Int?
     
-    public init(sent: Date, resultCount: Int) {
+    public init(sent: Date, resultCount: Int?) {
       self.sent = sent
       self.resultCount = resultCount
     }
@@ -29,7 +29,7 @@ extension Sweet.StreamRuleMetaModel: Decodable {
     let sent = try values.decode(String.self, forKey: .sent)
     self.sent = Sweet.TwitterDateFormatter().date(from: sent)!
     
-    self.resultCount = try values.decode(Int.self, forKey: .resultCount)
+    self.resultCount = try? values.decode(Int.self, forKey: .resultCount)
   }
   
   public func encode(to encoder: Encoder) throws {
