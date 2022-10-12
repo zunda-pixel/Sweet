@@ -27,29 +27,32 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/recent")!
     
-    var queries: [String: String?] = [
-      "query": query,
-      "max_results": String(maxResults),
-      "until_id": untilID,
-      "since_id": sinceID,
-      "next_token": nextToken,
-      "sort_order": sortOrder?.rawValue,
-      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
-      MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
-      PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
-      Expansion.key: allTweetExpansion.joined(separator: ","),
-    ]
-    
     let formatter = TwitterDateFormatter()
-    
-    if let startTime {
-      queries["start_time"] = formatter.string(from: startTime)
-    }
-    
-    if let endTime {
-      queries["end_time"] = formatter.string(from: endTime)
+
+    @DictionaryBuilder<String, String?>
+    var queries: [String: String?] {
+      [
+        "query": query,
+        "max_results": String(maxResults),
+        "until_id": untilID,
+        "since_id": sinceID,
+        "next_token": nextToken,
+        "sort_order": sortOrder?.rawValue,
+        TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+        UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+        PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
+        MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
+        PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
+        Expansion.key: allTweetExpansion.joined(separator: ","),
+      ] as [String: String?]
+      
+      if let startTime {
+        ["start_time": formatter.string(from: startTime)]
+      }
+      
+      if let endTime {
+        ["end_time": formatter.string(from: endTime)]
+      }
     }
     
     let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
@@ -90,29 +93,32 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/all")!
     
-    var queries: [String: String?] = [
-      "query": query,
-      "max_results": String(maxResults),
-      "until_id": untilID,
-      "since_id": sinceID,
-      "next_token": nextToken,
-      "sort_order": sortOrder?.rawValue,
-      TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-      UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-      PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
-      MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
-      PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
-      Expansion.key: allTweetExpansion.joined(separator: ","),
-    ]
-    
     let formatter = TwitterDateFormatter()
-    
-    if let startTime {
-      queries["start_time"] = formatter.string(from: startTime)
-    }
-    
-    if let endTime {
-      queries["end_time"] = formatter.string(from: endTime)
+
+    @DictionaryBuilder<String, String?>
+    var queries: [String: String?] {
+      [
+        "query": query,
+        "max_results": String(maxResults),
+        "until_id": untilID,
+        "since_id": sinceID,
+        "next_token": nextToken,
+        "sort_order": sortOrder?.rawValue,
+        TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
+        UserField.key: userFields.map(\.rawValue).joined(separator: ","),
+        PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
+        MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
+        PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
+        Expansion.key: allTweetExpansion.joined(separator: ","),
+      ] as [String: String?]
+      
+      if let startTime {
+        ["start_time": formatter.string(from: startTime)]
+      }
+      
+      if let endTime {
+        ["end_time": formatter.string(from: endTime)]
+      }
     }
     
     let removedEmptyQueries = queries.filter { $0.value != nil && $0.value != ""}

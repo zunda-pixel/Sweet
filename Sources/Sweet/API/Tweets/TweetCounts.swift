@@ -25,22 +25,26 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/recent")!
     
-    var queries = [
-      "query": query,
-      "until_id": untilID,
-      "since_id": sinceID,
-      "granularity": granularity.rawValue,
-    ]
-    
     let formatter = TwitterDateFormatter()
-    
-    if let startTime {
-      queries["start_time"] = formatter.string(from: startTime)
+
+    @DictionaryBuilder<String, String?>
+    var queries: [String: String?] {
+      [
+        "query": query,
+        "until_id": untilID,
+        "since_id": sinceID,
+        "granularity": granularity.rawValue,
+      ]
+      
+      if let startTime {
+        ["start_time": formatter.string(from: startTime)]
+      }
+      
+      if let endTime {
+        ["end_time": formatter.string(from: endTime)]
+      }
     }
-    
-    if let endTime {
-      queries["end_time"] = formatter.string(from: endTime)
-    }
+
     
     let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
@@ -77,23 +81,27 @@ extension Sweet {
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/all")!
     
-    var queries = [
-      "query": query,
-      "until_id": untilID,
-      "since_id": sinceID,
-      "granularity": granularity.rawValue,
-      "next_token": nextToken,
-    ]
-    
     let formatter = TwitterDateFormatter()
-    
-    if let startTime {
-      queries["start_time"] = formatter.string(from: startTime)
+
+    @DictionaryBuilder<String, String?>
+    var queries: [String: String?] {
+      [
+        "query": query,
+        "until_id": untilID,
+        "since_id": sinceID,
+        "granularity": granularity.rawValue,
+        "next_token": nextToken,
+      ]
+      
+      if let startTime {
+        ["start_time": formatter.string(from: startTime)]
+      }
+      
+      if let endTime {
+        ["end_time": formatter.string(from: endTime)]
+      }
     }
-    
-    if let endTime {
-      queries["end_time"] = formatter.string(from: endTime)
-    }
+
     
     let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
     
