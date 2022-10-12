@@ -32,8 +32,18 @@ final class TestTweetsAPI: XCTestCase {
   func testCreateTweet() async throws {
     let text = UUID().uuidString
     
-    let postTweetModel = Sweet.PostTweetModel(text: text, directMessageDeepLink: nil, forSuperFollowersOnly: false,
-                                              geo: nil, media: nil, poll: .init(options: ["OK", "SAKANA"], durationMinutes: 10), quoteTweetID: nil, reply: nil, replySettings: nil)
+    let postTweetModel = Sweet.PostTweetModel(
+      text: text,
+      directMessageDeepLink: nil,
+      forSuperFollowersOnly: false,
+      geo: nil,
+      media: nil,
+      poll: .init(options: ["option1", "option2"], durationMinutes: 10),
+      quoteTweetID: nil,
+      reply: nil,
+      replySettings: nil
+    )
+    
     let tweet = try await Sweet.test.createTweet(postTweetModel)
     
     print(tweet)
@@ -113,59 +123,6 @@ final class TestTweetsAPI: XCTestCase {
     response.countTweets.forEach {
       print($0)
     }
-  }
-  
-  func testFetchStreamRule() async throws {
-    let response = try await Sweet.test.fetchStreamRule()
-    
-    print(response.meta)
-    
-    response.streamRules.forEach {
-      print($0)
-    }
-  }
-  
-  func testFetchStream() async throws {
-    let stream = TestStream()
-    stream.testFilteredStreams()
-    let timeoutSeconds:UInt64 = 60 * 3 * 1_000_000_000
-    try await Task.sleep(nanoseconds: timeoutSeconds)
-  }
-  
-  func testCreateStreamRule() async throws {
-    let streamModels: [Sweet.StreamRuleModel] = [
-      .init(value: "zunda633", tag: "tag1"),
-      .init(value: "mikan323", tag: "tag2")
-    ]
-    
-    let streamRuleModels = try await Sweet.test.createStreamRule(streamModels)
-    
-    print(streamRuleModels)
-  }
-  
-  func testDeleteStreamRuleByID() async throws {
-    let ids = [
-      "1579281320907132928",
-      "1579281320907132929",
-    ]
-    
-    try await Sweet.test.deleteStreamRule(ids: ids)
-  }
-  
-  func testDeleteStreamRuleByValue() async throws {
-    let values = [
-      "meme",
-      "cat has:media"
-    ]
-    
-    try await Sweet.test.deleteStreamRule(values: values)
-  }
-  
-  func testFetchStreamVolume() async throws {
-    let testStream = TestStream()
-    testStream.testVolumeStreams()
-    let timeoutSeconds: UInt64 = 60 * 3 * 1_000_000_000
-    try await Task.sleep(nanoseconds: timeoutSeconds)
   }
   
   func testFetchRetweetUsers() async throws {
@@ -272,23 +229,5 @@ final class TestTweetsAPI: XCTestCase {
     let response = try await Sweet.test.fetchBookmarks(userID: userID)
 
     print(response)
-  }
-}
-
-class TestStream: NSObject, URLSessionDataDelegate {
-  func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-    if let response = try? JSONDecoder().decode(Sweet.TweetResponse.self, from: data) {
-      print(response)
-    }
-  }
-  
-  func testVolumeStreams() {
-    let task = Sweet.test.fetchStreamVolume(delegate: self)
-    task.resume()
-  }
-  
-  func testFilteredStreams() {
-    let task = Sweet.test.fetchStream(delegate: self)
-    task.resume()
   }
 }
