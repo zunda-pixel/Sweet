@@ -9,13 +9,11 @@ final class TestStreamAPI: XCTestCase {
   let testMyUserID = "1048032521361866752"
   
   func testFetchStreamRule() async throws {
-    let ids = ["fsad4jkfa98", "poi3343u34"]
+    let ids = ["1580172994608963584", "1580172994608963585"]
     
-    let response = try await Sweet.test.fetchStreamRule(ids: ids)
-    
-    print(response.meta)
-    
-    response.streamRules.forEach {
+    let streamRules = try await Sweet.test.fetchStreamRule(ids: ids)
+          
+    streamRules.forEach {
       print($0)
     }
   }
@@ -40,8 +38,8 @@ final class TestStreamAPI: XCTestCase {
   
   func testDeleteStreamRuleByID() async throws {
     let ids = [
-      "1579281320907132928",
-      "1579281320907132929",
+      "1579285720509710336",
+      "1579285720509710337",
     ]
     
     try await Sweet.test.deleteStreamRule(ids: ids)
