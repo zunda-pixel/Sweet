@@ -16,7 +16,7 @@ extension Sweet {
   /// Fetch Stream Rule with ids
   /// - Parameter ids: Stream Rule IDs
   /// - Returns: Stream Rules
-  public func fetchStreamRule(ids: [String]? = nil) async throws -> StreamRuleResponse {
+  public func fetchStreamRule(ids: [String]? = nil) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
     
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -30,7 +30,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
     
     if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
-      return response
+      return response.streamRules
     }
     
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
