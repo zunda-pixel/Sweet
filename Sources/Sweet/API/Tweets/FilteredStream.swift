@@ -27,7 +27,7 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.data(for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
       return response.streamRules
@@ -105,8 +105,7 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let (data, urlResponse) = try await session.post(
-      url: url, body: bodyData, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.data(for: .post(url: url, body: bodyData, headers: headers, queries: queries))
 
     let decoder = JSONDecoder()
 
@@ -141,7 +140,7 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let _ = try await session.post(url: url, body: bodyData, headers: headers, queries: queries)
+    let _ = try await session.data(for: .post(url: url, body: bodyData, headers: headers, queries: queries))
   }
 
   /// Delete Stream Rules With Value
@@ -164,6 +163,6 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let _ = try await session.post(url: url, body: bodyData, headers: headers, queries: queries)
+    let _ = try await session.data(for: .post(url: url, body: bodyData, headers: headers, queries: queries))
   }
 }

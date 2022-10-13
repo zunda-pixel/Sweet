@@ -23,7 +23,7 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await session.data(for: .post(url: url, body: bodyData, headers: headers))
 
     if let response = try? JSONDecoder().decode(MemberResponse.self, from: data) {
       if response.isMember {
@@ -51,7 +51,7 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await session.data(for: .delete(url: url, headers: headers))
 
     if let response = try? JSONDecoder().decode(MemberResponse.self, from: data) {
       if response.isMember {
@@ -91,7 +91,7 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.data(for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(ListsResponse.self, from: data) {
       return response
@@ -127,7 +127,7 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.data(for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response

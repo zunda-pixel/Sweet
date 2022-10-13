@@ -29,7 +29,7 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.data(for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
@@ -61,7 +61,7 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.data(for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(TweetResponse.self, from: data) {
       return response

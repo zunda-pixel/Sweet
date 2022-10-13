@@ -77,11 +77,11 @@ extension Sweet {
         "code_verifier": challenge,
       ]
 
-      let (data, urlResponse) = try await URLSession(configuration: configuration).post(
+      let (data, urlResponse) = try await URLSession(configuration: configuration).data(for: .post(
         url: url,
         headers: headers,
         queries: queries
-      )
+      ))
 
       if let response = try? JSONDecoder().decode(OAuth2Model.self, from: data) {
         return response
@@ -107,8 +107,8 @@ extension Sweet {
         "client_id": clientID,
       ]
 
-      let (data, urlResponse) = try await URLSession(configuration: configuration).post(
-        url: url, queries: queries)
+      let (data, urlResponse) = try await URLSession(configuration: configuration).data(for: .post(
+        url: url, queries: queries))
 
       if let response = try? JSONDecoder().decode(OAuth2Model.self, from: data) {
         return response
