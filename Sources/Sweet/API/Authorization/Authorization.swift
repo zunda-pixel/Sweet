@@ -39,7 +39,7 @@ extension Sweet {
   }
 
   static public func getAppBearerToken(
-    apiKey: String, apiSecretKey: String, session: URLSession = .shared
+    apiKey: String, apiSecretKey: String, config: URLSessionConfiguration = .default
   ) async throws -> String {
     let basicAuthorization = Sweet.getBasicAuthorization(id: apiKey, password: apiSecretKey)
 
@@ -53,7 +53,7 @@ extension Sweet {
 
     let url = URL(string: "https://api.twitter.com/oauth2/token")!
 
-    let (data, _) = try await session.data(for: .post(url: url, headers: headers, queries: queries))
+    let (data, _) = try await URLSession(configuration: config).data(for: .post(url: url, headers: headers, queries: queries))
 
     let appBearerToken = try JSONDecoder().decode(AppBearerToken.self, from: data)
 

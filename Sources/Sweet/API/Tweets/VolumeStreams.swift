@@ -15,11 +15,10 @@ import HTTPClient
 extension Sweet {
   /// Fetch Stream Volume
   /// - Parameters:
-  ///   - delegate: URLSessionDataDelegate for Stream
   ///   - backfillMinutes: Recovering missed data after a disconnection
-  /// - Returns: URLSessionDataTask
-  public func fetchStreamVolume(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil)
-    -> URLSessionDataTask
+  /// - Returns: URLRequest
+  public func fetchStreamVolume(backfillMinutes: Int? = nil)
+    -> URLRequest
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
 
@@ -45,13 +44,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
-    components.queryItems = emptyRemovedQueries.map { .init(name: $0, value: $1) }
-
-    var request = URLRequest(url: components.url!)
-    request.allHTTPHeaderFields = headers
-
-    let session = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
-    return session.dataTask(with: request)
+    let request = URLRequest.get(url: url, headers: headers, queries: emptyRemovedQueries)
+    
+    return request
   }
 }

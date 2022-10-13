@@ -19,7 +19,7 @@ public struct Sweet: Sendable {
 
   public let config: URLSessionConfiguration
   
-  public var session: URLSession { .init(configuration: config) }
+  var session: URLSession { .init(configuration: config) }
 
   public var authorizeType: AuthorizeType = .user
 

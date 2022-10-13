@@ -102,13 +102,13 @@ extension Sweet {
   }
 
   public static func uploadComplianceData(
-    uploadURL: URL, ids: [String], session: URLSession = .shared
+    uploadURL: URL, ids: [String], config: URLSessionConfiguration = .default
   ) async throws {
     let headers = ["Content-Type": "text/plain"]
 
     let body = ids.joined(separator: "\n").data(using: .utf8)!
 
-    let (_, response) = try await session.data(for: .put(url: uploadURL, body: body, headers: headers))
+    let (_, response) = try await URLSession(configuration: config).data(for: .put(url: uploadURL, body: body, headers: headers))
 
     let httpResponse = response as! HTTPURLResponse
 
@@ -117,10 +117,10 @@ extension Sweet {
     }
   }
 
-  public static func downloadComplianceData(downloadURL: URL, session: URLSession = .shared)
+  public static func downloadComplianceData(downloadURL: URL, config: URLSessionConfiguration = .default)
     async throws -> [ComplianceModel]
   {
-    let (data, _) = try await session.data(for: .get(url: downloadURL))
+    let (data, _) = try await URLSession(configuration: config).data(for: .get(url: downloadURL))
 
     let stringData = String(data: data, encoding: .utf8)!
 

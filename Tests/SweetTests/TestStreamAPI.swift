@@ -71,12 +71,16 @@ private class TestStream: NSObject, URLSessionDataDelegate {
   }
 
   func testVolumeStreams() {
-    let task = Sweet.test.fetchStreamVolume(delegate: self)
+    let request =  Sweet.test.fetchStreamVolume(backfillMinutes: nil)
+    let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+    let task = session.dataTask(with: request)
     task.resume()
   }
 
   func testFilteredStreams() {
-    let task = Sweet.test.fetchStream(delegate: self)
+    let request = Sweet.test.fetchStream(backfillMinutes: nil)
+    let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+    let task = session.dataTask(with: request)
     task.resume()
   }
 }

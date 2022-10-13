@@ -43,11 +43,10 @@ extension Sweet {
       ]
 
       let authorizationURL: URL = .init(string: "https://twitter.com/i/oauth2/authorize")!
-      var urlComponents: URLComponents = .init(
-        url: authorizationURL, resolvingAgainstBaseURL: true)!
-      urlComponents.queryItems = queries.map { .init(name: $0, value: $1) }
+      
+      let request = URLRequest.get(url: authorizationURL, queries: queries)
 
-      return urlComponents.url!
+      return request.url!
     }
 
     /// Get User Bearer Token
