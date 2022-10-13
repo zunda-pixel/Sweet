@@ -10,7 +10,7 @@ extension Sweet {
   static var test: Sweet {
     let bearerTokenUser = ""
     let bearerTokenApp = ""
-    var sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser, session: .shared)
+    var sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser, config: .default)
     sweet.authorizeType = .app
     sweet.tweetFields = TweetField.allCases.filter {
       $0 != .promotedMetrics && $0 != .privateMetrics && $0 != .organicMetrics

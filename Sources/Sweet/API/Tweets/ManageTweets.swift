@@ -21,7 +21,8 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(postTweetModel)
 
-    let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers))
 
     if let response = try? JSONDecoder().decode(TweetResponse.self, from: data) {
       return response
@@ -43,7 +44,7 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await session.data(for: .delete(url: url, headers: headers))
 
     if let response = try? JSONDecoder().decode(DeleteResponse.self, from: data) {
       if response.deleted {

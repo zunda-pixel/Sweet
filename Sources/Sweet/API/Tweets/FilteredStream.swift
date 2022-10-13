@@ -23,11 +23,12 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "ids": ids?.joined(separator: ",")
-    ]
+    ].filter { $0.value != nil && $0.value != "" }
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.data(
+      for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
       return response.streamRules
@@ -42,11 +43,10 @@ extension Sweet {
 
   /// Fetch Stream
   /// - Parameters:
-  ///   - delegate: URLSessionDataDelegate for Stream
   ///   - backfillMinutes: Recovering missed data after a disconnection
-  /// - Returns: URLSessionDataTask
-  public func fetchStream(delegate: URLSessionDataDelegate, backfillMinutes: Int? = nil)
-    -> URLSessionDataTask
+  /// - Returns: URLRequest
+  public func fetchStream(backfillMinutes: Int? = nil)
+    -> URLRequest
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
 
@@ -72,14 +72,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    var components: URLComponents = .init(url: url, resolvingAgainstBaseURL: true)!
-    components.queryItems = filteredQueries.map { .init(name: $0, value: $1) }
+    let request = URLRequest.get(url: url, headers: headers, queries: filteredQueries)
 
-    var request = URLRequest(url: components.url!)
-    request.allHTTPHeaderFields = headers
-
-    let session = URLSession(configuration: .default, delegate: delegate, delegateQueue: nil)
-    return session.dataTask(with: request)
+    return request
   }
 
   /// Create Stream Rule
@@ -105,8 +100,8 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let (data, urlResponse) = try await session.post(
-      url: url, body: bodyData, headers: headers, queries: queries)
+    let (data, urlResponse) = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers, queries: queries))
 
     let decoder = JSONDecoder()
 
@@ -141,7 +136,8 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let _ = try await session.post(url: url, body: bodyData, headers: headers, queries: queries)
+    let _ = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers, queries: queries))
   }
 
   /// Delete Stream Rules With Value
@@ -164,6 +160,7 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let _ = try await session.post(url: url, body: bodyData, headers: headers, queries: queries)
+    let _ = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers, queries: queries))
   }
 }

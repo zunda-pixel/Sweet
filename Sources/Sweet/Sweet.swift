@@ -1,11 +1,6 @@
 //
 //  Sweet.swift
 //
-//
-//  Created by zunda on 2022/01/14.
-//
-
-/// Sweet for Twitter API v2
 
 import Foundation
 
@@ -13,11 +8,14 @@ import Foundation
   import FoundationNetworking
 #endif
 
+/// Sweet for Twitter API v2
 public struct Sweet: Sendable {
   public let bearerTokenApp: String
   public let bearerTokenUser: String
 
-  public let session: URLSession
+  public let config: URLSessionConfiguration
+
+  var session: URLSession { .init(configuration: config) }
 
   public var authorizeType: AuthorizeType = .user
 
@@ -36,10 +34,12 @@ public struct Sweet: Sendable {
   public var topicFields: [TopicField] = TopicField.allCases
   public var spaceFields: [SpaceField] = SpaceField.allCases
 
-  public init(app bearerTokenApp: String, user bearerTokenUser: String, session: URLSession) {
+  public init(
+    app bearerTokenApp: String, user bearerTokenUser: String, config: URLSessionConfiguration
+  ) {
     self.bearerTokenApp = bearerTokenApp
     self.bearerTokenUser = bearerTokenUser
 
-    self.session = session
+    self.config = config
   }
 }
