@@ -23,7 +23,7 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "ids": ids?.joined(separator: ",")
-    ]
+    ].filter { $0.value != nil && $0.value != ""}
 
     let headers = getBearerHeaders(type: .app)
 
