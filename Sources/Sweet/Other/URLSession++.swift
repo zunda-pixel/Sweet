@@ -1,7 +1,7 @@
 import Foundation
 
 #if os(Linux) || os(Windows)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 @available(macOS, deprecated: 12.0, message: "Use the built-in API instead")
