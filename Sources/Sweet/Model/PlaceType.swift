@@ -9,5 +9,6 @@ extension Sweet {
     case poi
     case city
     case admin
+    case country
   }
 }
