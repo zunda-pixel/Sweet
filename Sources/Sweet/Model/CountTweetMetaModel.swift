@@ -1,6 +1,6 @@
 //
 //  CountTweetMetaModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/03/19.
 //
@@ -12,7 +12,7 @@ extension Sweet {
   public struct CountTweetMetaModel: Hashable, Sendable {
     public let totalTweetCount: Int
     public let nextToken: String?
-    
+
     public init(totalTweetCount: Int, nextToken: String? = nil) {
       self.totalTweetCount = totalTweetCount
       self.nextToken = nextToken

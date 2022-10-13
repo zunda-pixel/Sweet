@@ -25,4 +25,3 @@ extension Sweet.MediaPromotedMetrics: Codable {
     case playback100Count = "playback_100_count"
   }
 }
-

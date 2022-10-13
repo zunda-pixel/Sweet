@@ -1,6 +1,6 @@
 //
 //  EntityModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/05/23.
 //
@@ -16,8 +16,10 @@ extension Sweet {
     public let mentions: [MentionModel]
     public let cashtags: [CashTagModel]
 
-    public init(annotations: [AnnotationModel] = [], urls: [URLModel] = [], hashtags: [HashTagModel] = [],
-                mentions: [MentionModel] = [], cashtags: [CashTagModel] = []) {
+    public init(
+      annotations: [AnnotationModel] = [], urls: [URLModel] = [], hashtags: [HashTagModel] = [],
+      mentions: [MentionModel] = [], cashtags: [CashTagModel] = []
+    ) {
       self.annotations = annotations
       self.urls = urls
       self.hashtags = hashtags

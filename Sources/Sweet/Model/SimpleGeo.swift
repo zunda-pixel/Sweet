@@ -10,7 +10,7 @@ extension Sweet {
     public var id: String { placeID }
 
     public let placeID: String
-    
+
     public init(placeID: String) {
       self.placeID = placeID
     }

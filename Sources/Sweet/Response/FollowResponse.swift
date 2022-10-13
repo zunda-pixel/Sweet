@@ -1,13 +1,13 @@
 //
 //  FollowResponseModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
 
 import Foundation
 
-extension Sweet{
+extension Sweet {
   /// Follow Response Model
   struct FollowResponseModel: Sendable {
     public let following: Bool
@@ -15,16 +15,16 @@ extension Sweet{
   }
 }
 
-extension  Sweet.FollowResponseModel: Decodable {
+extension Sweet.FollowResponseModel: Decodable {
   private enum DataCodingKeys: String, CodingKey {
     case data = "data"
   }
-  
+
   private enum CodingKeys: String, CodingKey {
     case following
     case pendingFollow = "pending_follow"
   }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: DataCodingKeys.self)
     let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)

@@ -8,7 +8,7 @@ extension Sweet {
   /// PostGeo Model
   public struct PostGeoModel: Hashable, Sendable {
     public let placeID: String
-    
+
     public init(placeID: String) {
       self.placeID = placeID
     }

@@ -1,6 +1,6 @@
 //
 //  SendPollModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/03/19.
 //
@@ -12,7 +12,7 @@ extension Sweet {
   public struct PostPollModel: Sendable {
     public var options: [String]
     public var durationMinutes: Int
-    
+
     public init(options: [String] = [], durationMinutes: Int) {
       self.options = options
       self.durationMinutes = durationMinutes
@@ -25,7 +25,7 @@ extension Sweet.PostPollModel: Encodable {
     case options
     case durationMinutes = "duration_minutes"
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(options, forKey: .options)

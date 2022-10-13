@@ -13,8 +13,10 @@ extension Sweet {
     public let mentions: [MentionModel]
     public let cashTags: [CashTagModel]
 
-    public init(urls: [URLModel] = [], descriptionURLs: [URLModel], hashTags: [HashTagModel] = [],
-                mentions: [MentionModel] = [], cashTags: [CashTagModel] = []) {
+    public init(
+      urls: [URLModel] = [], descriptionURLs: [URLModel], hashTags: [HashTagModel] = [],
+      mentions: [MentionModel] = [], cashTags: [CashTagModel] = []
+    ) {
       self.urls = urls
 
       self.descriptionURLs = descriptionURLs
@@ -24,7 +26,6 @@ extension Sweet {
     }
   }
 }
-
 
 extension Sweet.UserEntityModel: Codable {
   private enum CodingKeys: String, CodingKey {
@@ -52,7 +53,8 @@ extension Sweet.UserEntityModel: Codable {
 
     self.urls = urls ?? []
 
-    let descriptionData = try? values.nestedContainer(keyedBy: DescriptionCodingKeys.self, forKey: .description)
+    let descriptionData = try? values.nestedContainer(
+      keyedBy: DescriptionCodingKeys.self, forKey: .description)
 
     let descriptionURLs = try? descriptionData?.decode([Sweet.URLModel].self, forKey: .urls)
 
@@ -74,7 +76,8 @@ extension Sweet.UserEntityModel: Codable {
     var urlContainer = container.nestedContainer(keyedBy: URLCodingKeys.self, forKey: .url)
     try urlContainer.encode(urls, forKey: .urls)
 
-    var descriptionContainer = container.nestedContainer(keyedBy: DescriptionCodingKeys.self, forKey: .description)
+    var descriptionContainer = container.nestedContainer(
+      keyedBy: DescriptionCodingKeys.self, forKey: .description)
     try descriptionContainer.encode(descriptionURLs, forKey: .urls)
     try descriptionContainer.encode(hashTags, forKey: .hashTags)
     try descriptionContainer.encode(mentions, forKey: .mentions)

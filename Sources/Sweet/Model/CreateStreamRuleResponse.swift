@@ -1,12 +1,11 @@
 //
 //  CreateStreamRuleResponse.swift
-//  
+//
 //
 //  Created by zunda on 2022/10/10.
 //
 
 import Foundation
-
 
 extension Sweet {
   /// Stream Rule Response
@@ -21,10 +20,10 @@ extension Sweet.CreateStreamRuleResponse: Decodable {
     case streamRules = "data"
     case meta
   }
-  
+
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     self.meta = try container.decode(Sweet.CreateStreamRuleMetaModel.self, forKey: .meta)
 
     if self.meta.summary.created + self.meta.summary.notCreated == 0 {

@@ -1,6 +1,6 @@
 //
 //  TwitterDateFormatter.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
@@ -14,7 +14,7 @@ extension Sweet {
       super.init()
       self.formatOptions.insert(.withFractionalSeconds)
     }
-    
+
     public required init?(coder: NSCoder) {
       super.init(coder: coder)
     }

@@ -1,6 +1,6 @@
 //
 //  PrivateMetricsModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
@@ -12,7 +12,7 @@ extension Sweet {
   public struct PrivateMetrics: Hashable, Sendable {
     public let impressionCount: Int
     public let userProfileClicks: Int
-    
+
     public init(impressionCount: Int, userProfileClicks: Int) {
       self.impressionCount = impressionCount
       self.userProfileClicks = userProfileClicks
@@ -20,7 +20,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.PrivateMetrics: Codable {  
+extension Sweet.PrivateMetrics: Codable {
   private enum CodingKeys: String, CodingKey {
     case userProfileClicks = "user_profile_clicks"
     case impressionCount = "impression_count"

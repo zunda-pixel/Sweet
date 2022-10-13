@@ -1,6 +1,6 @@
 //
 //  PromotedMetrics.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
@@ -15,8 +15,11 @@ extension Sweet {
     public let userProfileClicks: Int
     public let retweetCount: Int
     public let replyCount: Int
-    
-    public init(impressionCount: Int, urlLinkClicks: Int, userProfileClicks: Int, retweetCount: Int, replyCount: Int) {
+
+    public init(
+      impressionCount: Int, urlLinkClicks: Int, userProfileClicks: Int, retweetCount: Int,
+      replyCount: Int
+    ) {
       self.impressionCount = impressionCount
       self.urlLinkClicks = urlLinkClicks
       self.userProfileClicks = userProfileClicks

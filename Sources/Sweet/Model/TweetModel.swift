@@ -1,12 +1,11 @@
 //
 //  TweetModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/14.
 //
 
 import Foundation
-
 
 extension Sweet {
   /// Tweet Model
@@ -33,15 +32,20 @@ extension Sweet {
     public let referencedTweets: [ReferencedTweetModel]
     public let editHistoryTweetIDs: [String]
     public let editControl: EditControl?
-    
-    public init(id: String, text: String, authorID: String? = nil, lang: String? = nil, replySetting: ReplySetting? = nil,
-                createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil, conversationID: String? = nil,
-                replyUserID: String? = nil, geo: SimpleGeoModel? = nil, publicMetrics: TweetPublicMetrics? = nil,
-                organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
-                attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
-                withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
-                entity: TweetEntityModel? = nil, referencedTweets: [ReferencedTweetModel] = [],
-                editHistoryTweetIDs: [String] = [], editControl: EditControl? = nil) {
+
+    public init(
+      id: String, text: String, authorID: String? = nil, lang: String? = nil,
+      replySetting: ReplySetting? = nil,
+      createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil,
+      conversationID: String? = nil,
+      replyUserID: String? = nil, geo: SimpleGeoModel? = nil,
+      publicMetrics: TweetPublicMetrics? = nil,
+      organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
+      attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
+      withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
+      entity: TweetEntityModel? = nil, referencedTweets: [ReferencedTweetModel] = [],
+      editHistoryTweetIDs: [String] = [], editControl: EditControl? = nil
+    ) {
       self.id = id
       self.text = text
       self.authorID = authorID
@@ -71,16 +75,16 @@ extension Sweet {
 extension Sweet.TweetModel: Codable {
   public init(from decoder: Decoder) throws {
     let value = try decoder.container(keyedBy: Sweet.TweetField.self)
-    
+
     self.id = try value.decode(String.self, forKey: .id)
     self.text = try value.decode(String.self, forKey: .text)
-    
+
     self.authorID = try? value.decode(String.self, forKey: .authorID)
     self.lang = try? value.decode(String.self, forKey: .lang)
-    
+
     let replySetting = try? value.decode(String.self, forKey: .replySettings)
     self.replySetting = .init(rawValue: replySetting ?? "")
-    
+
     if let createdAt = try? value.decode(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
@@ -92,28 +96,30 @@ extension Sweet.TweetModel: Codable {
     self.conversationID = try? value.decode(String.self, forKey: .conversationID)
     self.replyUserID = try? value.decode(String.self, forKey: .replyToUserID)
     self.geo = try? value.decode(Sweet.SimpleGeoModel.self, forKey: .geo)
-    
+
     self.publicMetrics = try? value.decode(Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
     self.organicMetrics = try? value.decode(Sweet.OrganicMetrics.self, forKey: .organicMetrics)
     self.privateMetrics = try? value.decode(Sweet.PrivateMetrics.self, forKey: .privateMetrics)
     self.attachments = try? value.decode(Sweet.AttachmentsModel.self, forKey: .attachments)
     self.promotedMetrics = try? value.decode(Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
     self.withheld = try? value.decode(Sweet.WithheldModel.self, forKey: .withheld)
-    
-    let contextAnnotations = try? value.decode([Sweet.ContextAnnotationModel].self, forKey: .contextAnnotations)
+
+    let contextAnnotations = try? value.decode(
+      [Sweet.ContextAnnotationModel].self, forKey: .contextAnnotations)
     self.contextAnnotations = contextAnnotations ?? []
-    
+
     self.entity = try? value.decode(Sweet.TweetEntityModel.self, forKey: .entities)
-    
-    let referencedTweets = try? value.decode([Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
+
+    let referencedTweets = try? value.decode(
+      [Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
     self.referencedTweets = referencedTweets ?? []
-    
+
     let editHistoryTweetIDs = try? value.decode([String].self, forKey: .editHistoryTweetIDs)
     self.editHistoryTweetIDs = editHistoryTweetIDs ?? []
-    
+
     self.editControl = try? value.decode(Sweet.EditControl.self, forKey: .editControls)
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.TweetField.self)
     try container.encode(id, forKey: .id)

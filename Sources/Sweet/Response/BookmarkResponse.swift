@@ -1,11 +1,6 @@
 //
 //  BookmarkResponse.swift
 //
-//
-//  Created by zunda on 2022/05/21.
-//
-
-import Foundation
 
 extension Sweet {
   /// Bookmark Response

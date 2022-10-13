@@ -10,7 +10,7 @@
 import Foundation
 
 #if canImport(FoundationNetworking)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 public struct Sweet: Sendable {
@@ -18,7 +18,7 @@ public struct Sweet: Sendable {
   public let bearerTokenUser: String
 
   public let session: URLSession
-  
+
   public var authorizeType: AuthorizeType = .user
 
   public var tweetExpansions: [TweetExpansion] = TweetExpansion.allCases
@@ -26,7 +26,7 @@ public struct Sweet: Sendable {
   public var mediaExpansions: [MediaExpansion] = MediaExpansion.allCases
   public var pollExpansions: [PollExpansion] = PollExpansion.allCases
   public var placeExpansions: [PlaceExpansion] = PlaceExpansion.allCases
-  
+
   public var tweetFields: [TweetField] = TweetField.allCases
   public var userFields: [UserField] = UserField.allCases
   public var mediaFields: [MediaField] = MediaField.allCases
@@ -35,7 +35,7 @@ public struct Sweet: Sendable {
   public var listFields: [ListField] = ListField.allCases
   public var topicFields: [TopicField] = TopicField.allCases
   public var spaceFields: [SpaceField] = SpaceField.allCases
-  
+
   public init(app bearerTokenApp: String, user bearerTokenUser: String, session: URLSession) {
     self.bearerTokenApp = bearerTokenApp
     self.bearerTokenUser = bearerTokenUser

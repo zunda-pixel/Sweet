@@ -11,7 +11,7 @@ extension Sweet {
     public let followingCount: Int
     public let tweetCount: Int
     public let listedCount: Int
-    
+
     public init(followersCount: Int, followingCount: Int, tweetCount: Int, listedCount: Int) {
       self.followersCount = followersCount
       self.followingCount = followingCount
@@ -20,7 +20,6 @@ extension Sweet {
     }
   }
 }
-
 
 extension Sweet.UserPublicMetrics: Codable {
   private enum CodingKeys: String, CodingKey {

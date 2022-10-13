@@ -1,6 +1,6 @@
 //
 //  Timelines.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/17.
 //
@@ -21,18 +21,21 @@ extension Sweet {
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   ///   - exclude: Exclude Tweet Type
   /// - Returns: Tweets
-  public func fetchReverseChronological(userID: String, maxResults: Int = 100,
-                                        startTime: Date? = nil, endTime: Date? = nil,
-                                        untilID: String? = nil, sinceID: String? = nil,
-                                        paginationToken: String? = nil, exclude: TweetExclude? = nil) async throws -> TweetsResponse {
+  public func fetchReverseChronological(
+    userID: String, maxResults: Int = 100,
+    startTime: Date? = nil, endTime: Date? = nil,
+    untilID: String? = nil, sinceID: String? = nil,
+    paginationToken: String? = nil, exclude: TweetExclude? = nil
+  ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-reverse-chronological
-    
-    let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/timelines/reverse_chronological")!
+
+    let url: URL = .init(
+      string: "https://api.twitter.com/2/users/\(userID)/timelines/reverse_chronological")!
 
     let formatter = TwitterDateFormatter()
 
     @DictionaryBuilder<String, String?>
-    var queries: [String:  String?] {
+    var queries: [String: String?] {
       [
         "max_results": String(maxResults),
         "until_id": untilID,
@@ -46,33 +49,36 @@ extension Sweet {
         PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
         Expansion.key: allTweetExpansion.joined(separator: ","),
       ] as [String: String?]
-      
+
       if let startTime {
         ["start_time": formatter.string(from: startTime)]
       }
-      
+
       if let endTime {
         ["end_time": formatter.string(from: endTime)]
       }
     }
-    
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
-    
+
+    let removedEmptyQueries: [String: String?] = queries.filter {
+      $0.value != nil && $0.value != ""
+    }
+
     let headers = getBearerHeaders(type: .user)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: removedEmptyQueries)
-    
+
+    let (data, urlResponse) = try await session.get(
+      url: url, headers: headers, queries: removedEmptyQueries)
+
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
   /// Fetch Tweets composed by a single user, specified by the requested user ID.
   /// By default, the most recent ten Tweets are returned per request. Using pagination, the most recent 3,200 Tweets can be retrieved.
   /// - Parameters:
@@ -86,18 +92,20 @@ extension Sweet {
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   ///   - exclude: Exclude Tweet Type
   /// - Returns: Tweets
-  public func fetchTimeLine(userID: String, maxResults: Int = 100,
-                            startTime: Date? = nil, endTime: Date? = nil,
-                            untilID: String? = nil, sinceID: String? = nil,
-                            paginationToken: String? = nil, exclude: TweetExclude? = nil) async throws -> TweetsResponse {
+  public func fetchTimeLine(
+    userID: String, maxResults: Int = 100,
+    startTime: Date? = nil, endTime: Date? = nil,
+    untilID: String? = nil, sinceID: String? = nil,
+    paginationToken: String? = nil, exclude: TweetExclude? = nil
+  ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/tweets")!
-    
+
     let formatter = TwitterDateFormatter()
 
     @DictionaryBuilder<String, String?>
-    var queries: [String:  String?] {
+    var queries: [String: String?] {
       [
         "max_results": String(maxResults),
         "until_id": untilID,
@@ -111,35 +119,38 @@ extension Sweet {
         PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
         Expansion.key: allTweetExpansion.joined(separator: ","),
       ] as [String: String?]
-      
+
       if let startTime {
         ["start_time": formatter.string(from: startTime)]
       }
-      
+
       if let endTime {
         ["end_time": formatter.string(from: endTime)]
       }
     }
-    
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
-    
+
+    let removedEmptyQueries: [String: String?] = queries.filter {
+      $0.value != nil && $0.value != ""
+    }
+
     let headers = getBearerHeaders(type: authorizeType)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: removedEmptyQueries)
-    
+
+    let (data, urlResponse) = try await session.get(
+      url: url, headers: headers, queries: removedEmptyQueries)
+
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
-  
+
   /// Fetch Tweets mentioning a single user specified by the requested user ID. By default, the most recent ten Tweets are returned per request. Using pagination, up to the most recent 800 Tweets can be retrieved.
-  
+
   /// - Parameters:
   ///   - userID: User ID
   ///   - maxResults: Max Tweet Count
@@ -150,15 +161,17 @@ extension Sweet {
   ///   - paginationToken: This parameter is used to get the next 'page' of results.
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   /// - Returns: Tweets
-  public func fetchMentions(userID: String, maxResults: Int = 100,
-                            startTime: Date? = nil, endTime: Date? = nil,
-                            untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil) async throws -> TweetsResponse {
+  public func fetchMentions(
+    userID: String, maxResults: Int = 100,
+    startTime: Date? = nil, endTime: Date? = nil,
+    untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil
+  ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/mentions")!
-    
+
     let formatter = TwitterDateFormatter()
-    
+
     @DictionaryBuilder<String, String?>
     var queries: [String: String?] {
       [
@@ -173,30 +186,33 @@ extension Sweet {
         PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
         Expansion.key: allTweetExpansion.joined(separator: ","),
       ] as [String: String?]
-      
+
       if let startTime {
         ["start_time": formatter.string(from: startTime)]
       }
-      
+
       if let endTime {
         ["end_time": formatter.string(from: endTime)]
       }
     }
-    
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && $0.value != ""}
-    
+
+    let removedEmptyQueries: [String: String?] = queries.filter {
+      $0.value != nil && $0.value != ""
+    }
+
     let headers = getBearerHeaders(type: authorizeType)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: removedEmptyQueries)
-    
+
+    let (data, urlResponse) = try await session.get(
+      url: url, headers: headers, queries: removedEmptyQueries)
+
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }

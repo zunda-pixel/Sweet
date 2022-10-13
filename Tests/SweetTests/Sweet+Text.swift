@@ -3,6 +3,7 @@
 //
 
 import Foundation
+
 @testable import Sweet
 
 extension Sweet {
@@ -11,8 +12,12 @@ extension Sweet {
     let bearerTokenApp = ""
     var sweet = Sweet(app: bearerTokenApp, user: bearerTokenUser, session: .shared)
     sweet.authorizeType = .app
-    sweet.tweetFields = TweetField.allCases.filter { $0 != .promotedMetrics && $0 != .privateMetrics && $0 != .organicMetrics }
-    sweet.mediaFields = MediaField.allCases.filter { $0 != .privateMetrics  && $0 != .promotedMetrics && $0 != .organicMetrics }
+    sweet.tweetFields = TweetField.allCases.filter {
+      $0 != .promotedMetrics && $0 != .privateMetrics && $0 != .organicMetrics
+    }
+    sweet.mediaFields = MediaField.allCases.filter {
+      $0 != .privateMetrics && $0 != .promotedMetrics && $0 != .organicMetrics
+    }
     return sweet
   }
 }

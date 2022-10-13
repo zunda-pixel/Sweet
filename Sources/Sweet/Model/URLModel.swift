@@ -1,6 +1,6 @@
 //
 //  URLModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/03/13.
 //
@@ -20,9 +20,13 @@ extension Sweet {
     public let status: Int?
     public let title: String?
     public let description: String?
-    
-    public init(start: Int, end: Int, url: URL, expandedURL: String, displayURL: String, unwoundURL: String? = nil,
-                images: [ImageModel] = [], status: Int? = nil, title: String? = nil, description: String? = nil) {
+
+    public init(
+      start: Int, end: Int, url: URL, expandedURL: String, displayURL: String,
+      unwoundURL: String? = nil,
+      images: [ImageModel] = [], status: Int? = nil, title: String? = nil,
+      description: String? = nil
+    ) {
       self.start = start
       self.end = end
       self.url = url
@@ -50,31 +54,31 @@ extension Sweet.URLModel: Codable {
     case title
     case description
   }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     self.start = try values.decode(Int.self, forKey: .start)
     self.end = try values.decode(Int.self, forKey: .end)
-    
+
     let url = try values.decode(String.self, forKey: .url)
     self.url = .init(string: url)!
-    
+
     self.expandedURL = try values.decode(String.self, forKey: .expandedURL)
 
     self.displayURL = try values.decode(String.self, forKey: .displayURL)
-    
+
     self.unwoundURL = try? values.decode(String.self, forKey: .unwoundURL)
 
     let images = try? values.decode([Sweet.ImageModel].self, forKey: .images)
     self.images = images ?? []
-    
+
     self.status = try? values.decode(Int.self, forKey: .status)
-    
+
     self.title = try? values.decode(String.self, forKey: .title)
     self.description = try? values.decode(String.self, forKey: .description)
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(start, forKey: .start)
