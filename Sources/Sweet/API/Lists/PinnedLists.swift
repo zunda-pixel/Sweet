@@ -23,7 +23,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(for: .post(url: url, body: bodyData, headers: headers))
+    let (data, urlResponse) = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers))
 
     if let response = try? JSONDecoder().decode(PinResponse.self, from: data) {
       if response.pinned {
@@ -85,7 +86,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(for: .get(url: url, headers: headers, queries: queries))
+    let (data, urlResponse) = try await session.data(
+      for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(ListsResponse.self, from: data) {
       return response

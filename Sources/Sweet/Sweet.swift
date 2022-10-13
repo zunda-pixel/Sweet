@@ -14,7 +14,7 @@ public struct Sweet: Sendable {
   public let bearerTokenUser: String
 
   public let config: URLSessionConfiguration
-  
+
   var session: URLSession { .init(configuration: config) }
 
   public var authorizeType: AuthorizeType = .user
@@ -34,7 +34,9 @@ public struct Sweet: Sendable {
   public var topicFields: [TopicField] = TopicField.allCases
   public var spaceFields: [SpaceField] = SpaceField.allCases
 
-  public init(app bearerTokenApp: String, user bearerTokenUser: String, config: URLSessionConfiguration) {
+  public init(
+    app bearerTokenApp: String, user bearerTokenUser: String, config: URLSessionConfiguration
+  ) {
     self.bearerTokenApp = bearerTokenApp
     self.bearerTokenUser = bearerTokenUser
 
