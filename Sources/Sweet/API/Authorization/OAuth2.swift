@@ -4,6 +4,10 @@
 
 import Foundation
 
+#if os(Linux) || os(Windows)
+import FoundationNetworking
+#endif
+
 extension Sweet {
   public struct OAuth2 {
     let clientID: String
