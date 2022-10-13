@@ -12,6 +12,7 @@ jobs:
     - name: Format And Lint
       run: |
         swift run -c release swift-format format Sources Tests -r -p -i
+        swift run -c release swift-format lint   Sources Tests -r -p -s
     - name: Git Setting
       run: |
         git config --global user.email "swift-formatter[bot]@swift.com"
