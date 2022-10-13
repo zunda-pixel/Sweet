@@ -53,7 +53,8 @@ extension Sweet {
 
     let url = URL(string: "https://api.twitter.com/oauth2/token")!
 
-    let (data, _) = try await URLSession(configuration: config).data(for: .post(url: url, headers: headers, queries: queries))
+    let (data, _) = try await URLSession(configuration: config).data(
+      for: .post(url: url, headers: headers, queries: queries))
 
     let appBearerToken = try JSONDecoder().decode(AppBearerToken.self, from: data)
 

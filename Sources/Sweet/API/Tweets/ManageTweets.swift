@@ -21,7 +21,8 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(postTweetModel)
 
-    let (data, urlResponse) = try await session.data(for: .post(url: url, body: bodyData, headers: headers))
+    let (data, urlResponse) = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers))
 
     if let response = try? JSONDecoder().decode(TweetResponse.self, from: data) {
       return response

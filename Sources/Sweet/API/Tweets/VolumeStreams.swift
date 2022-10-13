@@ -45,7 +45,7 @@ extension Sweet {
     let headers = getBearerHeaders(type: .app)
 
     let request = URLRequest.get(url: url, headers: headers, queries: emptyRemovedQueries)
-    
+
     return request
   }
 }

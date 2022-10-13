@@ -43,7 +43,7 @@ extension Sweet {
       ]
 
       let authorizationURL: URL = .init(string: "https://twitter.com/i/oauth2/authorize")!
-      
+
       let request = URLRequest.get(url: authorizationURL, queries: queries)
 
       return request.url!
@@ -76,11 +76,12 @@ extension Sweet {
         "code_verifier": challenge,
       ]
 
-      let (data, urlResponse) = try await URLSession(configuration: configuration).data(for: .post(
-        url: url,
-        headers: headers,
-        queries: queries
-      ))
+      let (data, urlResponse) = try await URLSession(configuration: configuration).data(
+        for: .post(
+          url: url,
+          headers: headers,
+          queries: queries
+        ))
 
       if let response = try? JSONDecoder().decode(OAuth2Model.self, from: data) {
         return response
@@ -106,8 +107,9 @@ extension Sweet {
         "client_id": clientID,
       ]
 
-      let (data, urlResponse) = try await URLSession(configuration: configuration).data(for: .post(
-        url: url, queries: queries))
+      let (data, urlResponse) = try await URLSession(configuration: configuration).data(
+        for: .post(
+          url: url, queries: queries))
 
       if let response = try? JSONDecoder().decode(OAuth2Model.self, from: data) {
         return response

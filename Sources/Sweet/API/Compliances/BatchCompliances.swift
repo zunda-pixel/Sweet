@@ -23,7 +23,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.data(for: .get(url: url, headers: headers, queries: queries))
+    let (data, urlResponse) = try await session.data(
+      for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(CompliancesResponse.self, from: data) {
       return response.compliances
@@ -88,7 +89,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.data(for: .post(url: url, body: body, headers: headers))
+    let (data, urlResponse) = try await session.data(
+      for: .post(url: url, body: body, headers: headers))
 
     if let response = try? JSONDecoder().decode(ComplianceResponse.self, from: data) {
       return response.compliance
@@ -108,7 +110,8 @@ extension Sweet {
 
     let body = ids.joined(separator: "\n").data(using: .utf8)!
 
-    let (_, response) = try await URLSession(configuration: config).data(for: .put(url: uploadURL, body: body, headers: headers))
+    let (_, response) = try await URLSession(configuration: config).data(
+      for: .put(url: uploadURL, body: body, headers: headers))
 
     let httpResponse = response as! HTTPURLResponse
 
@@ -117,7 +120,9 @@ extension Sweet {
     }
   }
 
-  public static func downloadComplianceData(downloadURL: URL, config: URLSessionConfiguration = .default)
+  public static func downloadComplianceData(
+    downloadURL: URL, config: URLSessionConfiguration = .default
+  )
     async throws -> [ComplianceModel]
   {
     let (data, _) = try await URLSession(configuration: config).data(for: .get(url: downloadURL))
