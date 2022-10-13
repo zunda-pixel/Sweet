@@ -1,11 +1,6 @@
 //
 //  Sweet.swift
 //
-//
-//  Created by zunda on 2022/01/14.
-//
-
-/// Sweet for Twitter API v2
 
 import Foundation
 
@@ -13,6 +8,7 @@ import Foundation
   import FoundationNetworking
 #endif
 
+/// Sweet for Twitter API v2
 public struct Sweet: Sendable {
   public let bearerTokenApp: String
   public let bearerTokenUser: String
