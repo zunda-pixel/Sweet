@@ -81,14 +81,12 @@ private class TestStream: NSObject, URLSessionDataDelegate {
   func testStreamUsersCompliance() {
     let request = Sweet.test.streamUsersCompliance(partition: 1)
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-    let task = session.dataTask(with: request)
-    task.resume()
+    session.dataTask(with: request).resume()
   }
 
   func testStreamTweetsCompliance() {
     let request = Sweet.test.streamTweetsCompliance(partition: 1)
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-    let task = session.dataTask(with: request)
-    task.resume()
+    session.dataTask(with: request).resume()
   }
 }
