@@ -1,6 +1,6 @@
 //
 //  CompliancesResponseModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
@@ -11,12 +11,12 @@ extension Sweet {
   /// ComplianceMeta
   struct ComplianceMeta: Sendable, Codable {
     public let resultCount: Int
-    
+
     private enum CodingKeys: String, CodingKey {
       case resultCount = "result_count"
     }
   }
-  
+
   /// CompliancesResponse
   struct CompliancesResponse: Sendable {
     public let meta: ComplianceMeta
@@ -29,11 +29,11 @@ extension Sweet.CompliancesResponse: Decodable {
     case meta
     case compliances = "data"
   }
-  
+
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.meta = try container.decode(Sweet.ComplianceMeta.self, forKey: .meta)
-    
+
     if self.meta.resultCount == 0 {
       self.compliances = []
     } else {

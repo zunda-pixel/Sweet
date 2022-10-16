@@ -1,6 +1,6 @@
 //
 //  ListField.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/31.
 //
@@ -10,7 +10,7 @@
 extension Sweet {
   public enum ListField: String, Field, Sendable {
     static public var key: String { "list.fields" }
-    
+
     case id
     case name
     case createdAt = "created_at"

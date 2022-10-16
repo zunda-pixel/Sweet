@@ -1,12 +1,11 @@
 //
 //  UserModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/14.
 //
 
 import Foundation
-
 
 extension Sweet {
   /// User Model
@@ -25,11 +24,14 @@ extension Sweet {
     public let metrics: UserPublicMetrics?
     public let withheld: WithheldModel?
     public let entity: UserEntityModel?
-    
-    public init(id: String, name: String, userName: String, verified: Bool? = nil, profileImageURL: URL? = nil,
-                description: String? = nil, protected: Bool? = nil, url: URL? = nil, createdAt: Date? = nil,
-                location: String? = nil, pinnedTweetID: String? = nil, metrics: UserPublicMetrics? = nil,
-                withheld: WithheldModel? = nil, entity: UserEntityModel? = nil) {
+
+    public init(
+      id: String, name: String, userName: String, verified: Bool? = nil,
+      profileImageURL: URL? = nil,
+      description: String? = nil, protected: Bool? = nil, url: URL? = nil, createdAt: Date? = nil,
+      location: String? = nil, pinnedTweetID: String? = nil, metrics: UserPublicMetrics? = nil,
+      withheld: WithheldModel? = nil, entity: UserEntityModel? = nil
+    ) {
       self.id = id
       self.name = name
       self.userName = userName
@@ -51,7 +53,7 @@ extension Sweet {
 extension Sweet.UserModel: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: Sweet.UserField.self)
-    
+
     self.id = try values.decode(String.self, forKey: .id)
     self.name = try values.decode(String.self, forKey: .name)
     self.userName = try values.decode(String.self, forKey: .username)
@@ -63,21 +65,22 @@ extension Sweet.UserModel: Codable {
     self.pinnedTweetID = try? values.decode(String.self, forKey: .pinnedTweetID)
     self.withheld = try? values.decode(Sweet.WithheldModel.self, forKey: .withheld)
     self.entity = try? values.decode(Sweet.UserEntityModel.self, forKey: .entities)
-    
+
     let profileImageURL: String? = try? values.decode(String.self, forKey: .profileImageURL)
-    let removedNormalProfileImageURL: String = profileImageURL?.replacingOccurrences(of: "_normal", with: "") ?? ""
+    let removedNormalProfileImageURL: String =
+      profileImageURL?.replacingOccurrences(of: "_normal", with: "") ?? ""
     self.profileImageURL = .init(string: removedNormalProfileImageURL)!
-    
+
     let url: String? = try? values.decode(String.self, forKey: .url)
     self.url = URL(string: url ?? "")
-    
+
     if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
       self.createdAt = nil
     }
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.UserField.self)
     try container.encode(id, forKey: .id)

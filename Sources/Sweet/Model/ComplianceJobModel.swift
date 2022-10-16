@@ -1,6 +1,6 @@
 //
 //  ComplianceModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/14.
 //
@@ -20,9 +20,12 @@ extension Sweet {
     public let downloadURL: URL
     public let downloadExpiresAt: Date
     public let status: JobStatus
-    
-    public init(id: String, name: String, createdAt: Date, type: JobType, resumable: Bool,
-                uploadURL: URL, uploadExpiresAt: Date, downloadExpiresAt: Date, downloadURL: URL, status: JobStatus) {
+
+    public init(
+      id: String, name: String, createdAt: Date, type: JobType, resumable: Bool,
+      uploadURL: URL, uploadExpiresAt: Date, downloadExpiresAt: Date, downloadURL: URL,
+      status: JobStatus
+    ) {
       self.id = id
       self.name = name
       self.createdAt = createdAt
@@ -50,38 +53,38 @@ extension Sweet.ComplianceJobModel: Codable {
     case createdAt = "created_at"
     case status
   }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     let typeRawValue = try values.decode(String.self, forKey: .type)
     self.type = .init(rawValue: typeRawValue)!
-    
+
     self.id = try values.decode(String.self, forKey: .id)
     self.name = try values.decode(String.self, forKey: .name)
     self.resumable = try values.decode(Bool.self, forKey: .resumable)
-    
+
     let status = try values.decode(String.self, forKey: .status)
     self.status = .init(rawValue: status)!
-    
+
     let uploadURL = try values.decode(String.self, forKey: .uploadURL)
     self.uploadURL = .init(string: uploadURL)!
-    
+
     let downloadURL: String = try values.decode(String.self, forKey: .downloadURL)
     self.downloadURL = .init(string: downloadURL)!
-    
+
     let formatter = Sweet.TwitterDateFormatter()
-    
+
     let uploadExpiresAt: String = try values.decode(String.self, forKey: .uploadExpiresAt)
     self.uploadExpiresAt = formatter.date(from: uploadExpiresAt)!
-    
+
     let downloadExpiresAt: String = try values.decode(String.self, forKey: .downloadExpiresAt)
     self.downloadExpiresAt = formatter.date(from: downloadExpiresAt)!
-    
+
     let createdAt: String = try values.decode(String.self, forKey: .createdAt)
     self.createdAt = formatter.date(from: createdAt)!
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(type.rawValue, forKey: .type)

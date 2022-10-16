@@ -1,6 +1,6 @@
 //
 //  SpaceField.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/31.
 //
@@ -10,7 +10,7 @@
 extension Sweet {
   public enum SpaceField: String, Field, Sendable {
     static public var key: String { "space.fields" }
-    
+
     case id
     case state
     case creatorID = "creator_id"

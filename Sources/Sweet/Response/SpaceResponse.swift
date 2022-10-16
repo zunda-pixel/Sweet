@@ -1,6 +1,6 @@
 //
 //  SpacesResponseModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
@@ -23,17 +23,19 @@ extension Sweet.SpacesResponse: Decodable {
   private enum UserCodingKeys: String, CodingKey {
     case users
   }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     self.spaces = try values.decode([Sweet.SpaceModel].self, forKey: .spaces)
-    
-    guard let includes = try? values.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes) else {
+
+    guard
+      let includes = try? values.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
+    else {
       self.users = []
       return
     }
-    
+
     let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
@@ -41,7 +43,7 @@ extension Sweet.SpacesResponse: Decodable {
 
 extension Sweet {
   public struct SpaceResponse: Sendable {
-    public var space: SpaceModel
+    public let space: SpaceModel
     public let users: [UserModel]
   }
 }
@@ -51,21 +53,23 @@ extension Sweet.SpaceResponse: Decodable {
     case space = "data"
     case includes
   }
-  
+
   private enum UserCodingKeys: String, CodingKey {
     case users
   }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     self.space = try values.decode(Sweet.SpaceModel.self, forKey: .space)
-    
-    guard let includes = try? values.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes) else {
+
+    guard
+      let includes = try? values.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
+    else {
       self.users = []
       return
     }
-    
+
     let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }

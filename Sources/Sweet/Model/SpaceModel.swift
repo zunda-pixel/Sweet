@@ -27,12 +27,15 @@ extension Sweet {
     public let speakerIDs: [String]
     public let subscriberCount: Int?
     public let topicIDs: [String]
-    
-    public init(id: String, state: SpaceState, creatorID: String, title: String? = nil, hostIDs: [String] = [],
-                lang: String? = nil, participantCount: Int? = nil, isTicketed: Bool? = nil,
-                startedAt: Date? = nil, updatedAt: Date? = nil, createdAt: Date? = nil, endedAt: Date? = nil,
-                invitedUserIDs: [String] = [], scheduledStart: Date? = nil, speakerIDs: [String],
-                subscriberCount: Int? = nil, topicIDs: [String] = []) {
+
+    public init(
+      id: String, state: SpaceState, creatorID: String, title: String? = nil,
+      hostIDs: [String] = [],
+      lang: String? = nil, participantCount: Int? = nil, isTicketed: Bool? = nil,
+      startedAt: Date? = nil, updatedAt: Date? = nil, createdAt: Date? = nil, endedAt: Date? = nil,
+      invitedUserIDs: [String] = [], scheduledStart: Date? = nil, speakerIDs: [String],
+      subscriberCount: Int? = nil, topicIDs: [String] = []
+    ) {
       self.id = id
       self.state = state
       self.creatorID = creatorID
@@ -58,67 +61,66 @@ extension Sweet.SpaceModel: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: Sweet.SpaceField.self)
     self.id = try values.decode(String.self, forKey: .id)
-    
+
     let state = try values.decode(String.self, forKey: .state)
     self.state = .init(rawValue: state)!
-    
+
     self.creatorID = try values.decode(String.self, forKey: .creatorID)
-    
-    
+
     let hostIDs = try? values.decode([String].self, forKey: .hostIDs)
     self.hostIDs = hostIDs ?? []
-    
+
     self.isTicketed = try? values.decode(Bool.self, forKey: .isTicketed)
 
     self.participantCount = try? values.decode(Int.self, forKey: .participantCount)
-        
+
     self.lang = try? values.decode(String.self, forKey: .lang)
     self.title = try? values.decode(String.self, forKey: .title)
-    
+
     let formatter = Sweet.TwitterDateFormatter()
-    
+
     if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
       self.createdAt = formatter.date(from: createdAt)
     } else {
       self.createdAt = nil
     }
-    
+
     if let startedAt = try? values.decode(String.self, forKey: .startedAt) {
       self.startedAt = formatter.date(from: startedAt)
     } else {
       self.startedAt = nil
     }
-    
+
     if let updatedAt = try? values.decode(String.self, forKey: .updatedAt) {
       self.updatedAt = formatter.date(from: updatedAt)
     } else {
       self.updatedAt = nil
     }
-    
+
     if let endedAt = try? values.decode(String.self, forKey: .endedAt) {
       self.endedAt = formatter.date(from: endedAt)
     } else {
       self.endedAt = nil
     }
-    
+
     if let scheduledStart = try? values.decode(String.self, forKey: .scheduledStart) {
       self.scheduledStart = formatter.date(from: scheduledStart)
     } else {
       self.scheduledStart = nil
     }
-    
+
     let invitedUserIDs = try? values.decode([String].self, forKey: .invitedUserIDs)
     self.invitedUserIDs = invitedUserIDs ?? []
-    
+
     let speakerIDs = try? values.decode([String].self, forKey: .speakerIDs)
     self.speakerIDs = speakerIDs ?? []
-    
+
     self.subscriberCount = try? values.decode(Int.self, forKey: .subscriberCount)
-    
+
     let topicIDs = try? values.decode([String].self, forKey: .topicIDs)
     self.topicIDs = topicIDs ?? []
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.SpaceField.self)
     try container.encode(id, forKey: .id)

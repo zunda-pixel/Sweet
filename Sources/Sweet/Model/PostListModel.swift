@@ -1,6 +1,6 @@
 //
 //  SendListModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
@@ -22,7 +22,7 @@ extension Sweet.PostListModel: Codable {
     case description
     case isPrivate = "private"
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     if let name {

@@ -1,6 +1,6 @@
 //
 //  UserField.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/31.
 //
@@ -10,7 +10,7 @@
 extension Sweet {
   public enum UserField: String, Field, Sendable {
     static public var key: String { "user.fields" }
-    
+
     case id
     case name
     case username

@@ -15,12 +15,14 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   ///   - maxResults: Max Bookmark Count
   /// - Returns: Tweets
-  public func fetchBookmarks(userID: String, paginationToken: String? = nil, maxResults: Int = 100) async throws -> TweetsResponse {
+  public func fetchBookmarks(userID: String, paginationToken: String? = nil, maxResults: Int = 100)
+    async throws -> TweetsResponse
+  {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks")!
 
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
 
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
@@ -31,9 +33,10 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != ""}
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
+    ].filter { $0.value != nil && $0.value != "" }
+
+    let (data, urlResponse) = try await session.data(
+      for: .get(url: url, headers: headers, queries: queries))
 
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
@@ -55,9 +58,9 @@ extension Sweet {
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks/\(tweetID)")!
 
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.delete(url: url, headers: headers)
+    let (data, urlResponse) = try await session.data(for: .delete(url: url, headers: headers))
 
     if let response = try? JSONDecoder().decode(BookmarkResponse.self, from: data) {
       if response.bookmarked {
@@ -86,9 +89,10 @@ extension Sweet {
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .User)
+    let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers)
+    let (data, urlResponse) = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers))
 
     if let response = try? JSONDecoder().decode(BookmarkResponse.self, from: data) {
       if response.bookmarked {

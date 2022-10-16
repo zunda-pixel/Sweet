@@ -1,6 +1,6 @@
 //
 //  Blocks.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/17.
 //
@@ -15,31 +15,34 @@ extension Sweet {
   ///   - maxResults: Max Space Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func fetchBlocking(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
+  public func fetchBlocking(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
+    async throws -> UsersResponse
+  {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/blocking")!
-    
+
     let queries: [String: String?] = [
       "max_results": String(maxResults),
       "pagination_token": paginationToken,
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != ""}
-    
-    let headers = getBearerHeaders(type: .User)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
-    
+    ].filter { $0.value != nil && $0.value != "" }
+
+    let headers = getBearerHeaders(type: .user)
+
+    let (data, urlResponse) = try await session.data(
+      for: .get(url: url, headers: headers, queries: queries))
+
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 
@@ -49,16 +52,17 @@ extension Sweet {
   ///   - toUserID: Blocked User iD
   public func blockUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/post-users-user_id-blocking
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/blocking")!
-    
-    let headers = getBearerHeaders(type: .User)
-    
+
+    let headers = getBearerHeaders(type: .user)
+
     let body = ["target_user_id": toUserID]
     let bodyData = try JSONEncoder().encode(body)
-    
-    let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers)
-    
+
+    let (data, urlResponse) = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers))
+
     if let response = try? JSONDecoder().decode(BlockResponse.self, from: data) {
       if response.blocking {
         return
@@ -66,11 +70,11 @@ extension Sweet {
         throw TwitterError.blockError
       }
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 
@@ -80,13 +84,14 @@ extension Sweet {
   ///   - toUserID: Blocked User ID
   public func unBlockUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking
-    
-    let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/blocking/\(toUserID)")!
-    
-    let headers = getBearerHeaders(type: .User)
-    
-    let (data, urlResponse) = try await session.delete(url: url, headers: headers)
-    
+
+    let url: URL = .init(
+      string: "https://api.twitter.com/2/users/\(fromUserID)/blocking/\(toUserID)")!
+
+    let headers = getBearerHeaders(type: .user)
+
+    let (data, urlResponse) = try await session.data(for: .delete(url: url, headers: headers))
+
     if let response = try? JSONDecoder().decode(BlockResponse.self, from: data) {
       if response.blocking {
         throw TwitterError.blockError
@@ -94,11 +99,11 @@ extension Sweet {
         return
       }
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }

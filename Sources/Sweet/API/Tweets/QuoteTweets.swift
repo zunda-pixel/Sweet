@@ -1,6 +1,6 @@
 //
 //  QuoteTweets.swift
-//  
+//
 //
 //  Created by zunda on 2022/03/20.
 //
@@ -15,11 +15,13 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   ///   - maxResults: Max Tweet Count
   /// - Returns: Tweets
-  public func fetchQuoteTweets(source tweetID: String, paginationToken: String? = nil, maxResults: Int = 100) async throws -> TweetsResponse {
+  public func fetchQuoteTweets(
+    source tweetID: String, paginationToken: String? = nil, maxResults: Int = 100
+  ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/quote-tweets/api-reference/get-tweets-id-quote_tweets
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/quote_tweets")!
-    
+
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
@@ -29,20 +31,21 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != ""}
-    
+    ].filter { $0.value != nil && $0.value != "" }
+
     let headers = getBearerHeaders(type: authorizeType)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
-    
+
+    let (data, urlResponse) = try await session.data(
+      for: .get(url: url, headers: headers, queries: queries))
+
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }

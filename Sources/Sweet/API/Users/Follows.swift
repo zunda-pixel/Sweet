@@ -1,6 +1,6 @@
 //
 //  Follows.swift
-//  
+//
 //
 //  Created by zunda on 2022/01/17.
 //
@@ -16,24 +16,25 @@ extension Sweet {
   /// - Returns: Success, Pending State(Awaiting Approval)
   public func follow(from fromUserID: String, to toUserID: String) async throws -> (Bool, Bool) {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/following")!
-    
-    let headers = getBearerHeaders(type: .User)
-    
+
+    let headers = getBearerHeaders(type: .user)
+
     let body = ["target_user_id": toUserID]
     let bodyData = try JSONEncoder().encode(body)
-    
-    let (data, urlResponse) = try await session.post(url: url, body: bodyData, headers: headers)
-    
+
+    let (data, urlResponse) = try await session.data(
+      for: .post(url: url, body: bodyData, headers: headers))
+
     if let response = try? JSONDecoder().decode(FollowResponseModel.self, from: data) {
       return (response.following, response.pendingFollow)
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 
@@ -43,13 +44,14 @@ extension Sweet {
   ///   - toUserID: Un Followed User ID
   public func unFollow(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following
-    
-    let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/following/\(toUserID)")!
-    
-    let headers = getBearerHeaders(type: .User)
-    
-    let (data, urlResponse) = try await session.delete(url: url, headers: headers)
-    
+
+    let url: URL = .init(
+      string: "https://api.twitter.com/2/users/\(fromUserID)/following/\(toUserID)")!
+
+    let headers = getBearerHeaders(type: .user)
+
+    let (data, urlResponse) = try await session.data(for: .delete(url: url, headers: headers))
+
     if let response = try? JSONDecoder().decode(UnFollowResponse.self, from: data) {
       if response.following {
         throw TwitterError.followError
@@ -57,11 +59,11 @@ extension Sweet {
         return
       }
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 
@@ -71,31 +73,34 @@ extension Sweet {
   ///   - maxResults: Max User Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func fetchFollowing(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
+  public func fetchFollowing(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
+    async throws -> UsersResponse
+  {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/following")!
-    
+
     let queries: [String: String?] = [
       "max_results": String(maxResults),
       "pagination_token": paginationToken,
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != ""}
-    
+    ].filter { $0.value != nil && $0.value != "" }
+
     let headers = getBearerHeaders(type: authorizeType)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
-    
+
+    let (data, urlResponse) = try await session.data(
+      for: .get(url: url, headers: headers, queries: queries))
+
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 
@@ -105,31 +110,34 @@ extension Sweet {
   ///   - maxResults: Max User Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func fetchFollower(userID: String, maxResults: Int = 100, paginationToken: String? = nil) async throws -> UsersResponse {
+  public func fetchFollower(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
+    async throws -> UsersResponse
+  {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followers")!
-    
+
     let queries: [String: String?] = [
       "max_results": String(maxResults),
       "pagination_token": paginationToken,
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != ""}
-    
+    ].filter { $0.value != nil && $0.value != "" }
+
     let headers = getBearerHeaders(type: authorizeType)
-    
-    let (data, urlResponse) = try await session.get(url: url, headers: headers, queries: queries)
-    
+
+    let (data, urlResponse) = try await session.data(
+      for: .get(url: url, headers: headers, queries: queries))
+
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response
     }
-    
+
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
       throw TwitterError.invalidRequest(error: response)
     }
-    
+
     throw TwitterError.unknown(data: data, response: urlResponse)
   }
 }

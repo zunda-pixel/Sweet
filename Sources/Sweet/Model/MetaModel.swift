@@ -1,6 +1,6 @@
 //
 //  MetaModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/03/13.
 //
@@ -15,10 +15,12 @@ extension Sweet {
     public let newestID: String?
     public let nextToken: String?
     public let previousToken: String?
-    
-    public init(resultCount: Int, oldestID: String? = nil, newestID: String? = nil,
-                nextToken: String? = nil, previousToken: String? = nil) {
-      self.resultCount =  resultCount
+
+    public init(
+      resultCount: Int, oldestID: String? = nil, newestID: String? = nil,
+      nextToken: String? = nil, previousToken: String? = nil
+    ) {
+      self.resultCount = resultCount
       self.oldestID = oldestID
       self.newestID = newestID
       self.nextToken = nextToken
@@ -35,7 +37,7 @@ extension Sweet.MetaModel: Codable {
     case nextToken = "next_token"
     case previousToken = "previous_token"
   }
-  
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     self.resultCount = try values.decode(Int.self, forKey: .resultCount)
@@ -44,7 +46,7 @@ extension Sweet.MetaModel: Codable {
     self.nextToken = try? values.decode(String.self, forKey: .nextToken)
     self.previousToken = try? values.decode(String.self, forKey: .previousToken)
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(resultCount, forKey: .resultCount)

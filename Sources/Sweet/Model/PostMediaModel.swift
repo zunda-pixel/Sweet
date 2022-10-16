@@ -1,6 +1,6 @@
 //
 //  PostMediaModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/03/19.
 //
@@ -12,7 +12,7 @@ extension Sweet {
   public struct PostMediaModel: Sendable {
     public var mediaIDs: [String]
     public var taggedUserIDs: [String]
-    
+
     public init(mediaIDs: [String] = [], taggedUserIDs: [String] = []) {
       self.mediaIDs = mediaIDs
       self.taggedUserIDs = taggedUserIDs
@@ -25,7 +25,7 @@ extension Sweet.PostMediaModel: Encodable {
     case mediaIDs = "media_ids"
     case taggedUserIDs = "tagged_user_ids"
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(mediaIDs, forKey: .mediaIDs)

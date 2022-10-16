@@ -1,6 +1,6 @@
 //
 //  TwitterError.swift
-//  
+//
 //
 //  Created by zunda on 2022/03/14.
 //
@@ -8,7 +8,7 @@
 import Foundation
 
 #if canImport(FoundationNetworking)
-import FoundationNetworking
+  import FoundationNetworking
 #endif
 
 extension Sweet {

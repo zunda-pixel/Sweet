@@ -1,6 +1,6 @@
 //
 //  AttachmentsModel.swift
-//  
+//
 //
 //  Created by zunda on 2022/02/08.
 //
@@ -12,7 +12,7 @@ extension Sweet {
   public struct AttachmentsModel: Hashable, Sendable {
     public let mediaKeys: [String]
     public let pollID: String?
-    
+
     public init(mediaKeys: [String] = [], pollID: String? = nil) {
       self.mediaKeys = mediaKeys
       self.pollID = pollID
@@ -25,17 +25,17 @@ extension Sweet.AttachmentsModel: Codable {
     case mediaKeys = "media_keys"
     case pollIDs = "poll_ids"
   }
-  
+
   public init(from decoder: Decoder) throws {
     let value = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     let mediaKeys = try? value.decode([String].self, forKey: .mediaKeys)
     self.mediaKeys = mediaKeys ?? []
-    
+
     let pollIDs = try? value.decode([String].self, forKey: .pollIDs)
     self.pollID = pollIDs?.first
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(mediaKeys, forKey: .mediaKeys)
