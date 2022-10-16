@@ -57,14 +57,14 @@ final class TestCompliancesAPI: XCTestCase {
 
     print(compliances)
   }
-  
+
   func testStreamUsersCompliance() async throws {
     let stream = TestStream()
     stream.testStreamUsersCompliance()
     let timeoutSeconds: UInt64 = 60 * 3 * 1_000_000_000
     try await Task.sleep(nanoseconds: timeoutSeconds)
   }
-  
+
   func testStreamTweetsCompliance() async throws {
     let stream = TestStream()
     stream.testStreamTweetsCompliance()
