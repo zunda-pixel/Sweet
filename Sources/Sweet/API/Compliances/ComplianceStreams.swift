@@ -15,7 +15,9 @@ extension Sweet {
   ///   - partition: Must be set to 1, 2, 3 or 4. User compliance events are split across 4 partitions, so 4 separate streams are needed to receive all events.
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func streamUsersCompliance(partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil) -> URLRequest {
+  public func streamUsersCompliance(
+    partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil
+  ) -> URLRequest {
     let url: URL = .init(string: "https://api.twitter.com/2/users/compliance/stream")!
 
     let formatter = TwitterDateFormatter()
@@ -29,11 +31,11 @@ extension Sweet {
       if let backfillMinutes {
         ["backfill_minutes": String(backfillMinutes)]
       }
-      
+
       if let startTime {
         ["start_time": formatter.string(from: startTime)]
       }
-      
+
       if let endTime {
         ["end_time": formatter.string(from: endTime)]
       }
@@ -54,13 +56,15 @@ extension Sweet {
   ///   - partition: Must be set to 1, 2, 3 or 4. User compliance events are split across 4 partitions, so 4 separate streams are needed to receive all events.
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func streamTweetsCompliance(partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil)
+  public func streamTweetsCompliance(
+    partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil
+  )
     -> URLRequest
   {
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/compliance/stream")!
 
     let formatter = TwitterDateFormatter()
-    
+
     @DictionaryBuilder<String, String?>
     var queries: [String: String?] {
       ["partition": String(partition)]
@@ -68,11 +72,11 @@ extension Sweet {
       if let backfillMinutes {
         ["backfill_minutes": String(backfillMinutes)]
       }
-      
+
       if let startTime {
         ["start_time": formatter.string(from: startTime)]
       }
-      
+
       if let endTime {
         ["end_time": formatter.string(from: endTime)]
       }
