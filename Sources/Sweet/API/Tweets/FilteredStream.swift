@@ -1,9 +1,6 @@
 //
 //  FilteredStream.swift
 //
-//
-//  Created by zunda on 2022/01/16.
-//
 
 import Foundation
 import HTTPClient
@@ -45,7 +42,7 @@ extension Sweet {
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func fetchStream(backfillMinutes: Int? = nil)
+  public func streamTweets(backfillMinutes: Int? = nil)
     -> URLRequest
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream

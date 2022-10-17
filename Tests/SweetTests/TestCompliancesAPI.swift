@@ -57,4 +57,38 @@ final class TestCompliancesAPI: XCTestCase {
 
     print(compliances)
   }
+
+  func testStreamUsersCompliance() async throws {
+    let stream = TestStream()
+    stream.testStreamUsersCompliance()
+    let timeoutSeconds: UInt64 = 60 * 3 * 1_000_000_000
+    try await Task.sleep(nanoseconds: timeoutSeconds)
+  }
+
+  func testStreamTweetsCompliance() async throws {
+    let stream = TestStream()
+    stream.testStreamTweetsCompliance()
+    let timeoutSeconds: UInt64 = 60 * 3 * 1_000_000_000
+    try await Task.sleep(nanoseconds: timeoutSeconds)
+  }
+}
+
+private class TestStream: NSObject, URLSessionDataDelegate {
+  func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+    print(String(data: data, encoding: .utf8)!)
+  }
+
+  func testStreamUsersCompliance() {
+    let request = Sweet.test.streamUsersCompliance(
+      partition: 1, startTime: Date().addingTimeInterval(-123_456_789), endTime: Date())
+    let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+    session.dataTask(with: request).resume()
+  }
+
+  func testStreamTweetsCompliance() {
+    let request = Sweet.test.streamTweetsCompliance(
+      partition: 1, startTime: Date().addingTimeInterval(-123_456_789), endTime: Date())
+    let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+    session.dataTask(with: request).resume()
+  }
 }
