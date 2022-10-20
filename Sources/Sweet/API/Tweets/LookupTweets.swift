@@ -29,8 +29,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(url: url, headers: headers, queries: queries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
@@ -40,7 +41,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Look Up Tweet by ID
@@ -62,8 +63,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(url: url, headers: headers, queries: queries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(TweetResponse.self, from: data) {
       return response
@@ -73,6 +75,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 }

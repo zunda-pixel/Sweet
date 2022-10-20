@@ -23,8 +23,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(
-      for: .put(url: url, body: bodyData, headers: headers))
+    let request: URLRequest = .put(url: url, body: bodyData, headers: headers)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(HideResponse.self, from: data) {
       if hidden == response.hidden {
@@ -38,6 +39,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 }

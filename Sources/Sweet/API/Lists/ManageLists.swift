@@ -28,8 +28,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(
-      for: .post(url: url, body: bodyData, headers: headers))
+    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(ListResponse.self, from: data) {
       return response.list
@@ -39,7 +40,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Update List Information
@@ -60,8 +61,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(
-      for: .put(url: url, body: bodyData, headers: headers))
+    let request: URLRequest = .put(url: url, body: bodyData, headers: headers)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(UpdateResponse.self, from: data) {
       if response.updated {
@@ -75,7 +77,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Delete List of List ID
@@ -87,7 +89,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(for: .delete(url: url, headers: headers))
+    let request: URLRequest = .delete(url: url, headers: headers)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(DeleteResponse.self, from: data) {
       if response.deleted {
@@ -101,6 +105,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 }

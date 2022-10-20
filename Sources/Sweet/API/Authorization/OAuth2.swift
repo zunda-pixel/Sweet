@@ -80,12 +80,11 @@ extension Sweet {
         "code_verifier": challenge,
       ]
 
-      let (data, urlResponse) = try await URLSession(configuration: configuration).data(
-        for: .post(
-          url: url,
-          headers: headers,
-          queries: queries
-        ))
+      let request: URLRequest = .post(url: url, headers: headers, queries: queries)
+
+      let session = URLSession(configuration: configuration)
+
+      let (data, urlResponse) = try await session.data(for: request)
 
       if let response = try? JSONDecoder().decode(OAuth2Model.self, from: data) {
         return response
@@ -95,7 +94,7 @@ extension Sweet {
         throw Sweet.TwitterError.invalidRequest(error: response)
       }
 
-      throw Sweet.TwitterError.unknown(data: data, response: urlResponse)
+      throw TwitterError.unknown(request: request, data: data, response: urlResponse)
     }
 
     /// Refresh User Bearer Token
@@ -111,9 +110,11 @@ extension Sweet {
         "client_id": clientID,
       ]
 
-      let (data, urlResponse) = try await URLSession(configuration: configuration).data(
-        for: .post(
-          url: url, queries: queries))
+      let request: URLRequest = .post(url: url, queries: queries)
+
+      let session = URLSession(configuration: configuration)
+
+      let (data, urlResponse) = try await session.data(for: request)
 
       if let response = try? JSONDecoder().decode(OAuth2Model.self, from: data) {
         return response
@@ -123,7 +124,7 @@ extension Sweet {
         throw Sweet.TwitterError.invalidRequest(error: response)
       }
 
-      throw Sweet.TwitterError.unknown(data: data, response: urlResponse)
+      throw TwitterError.unknown(request: request, data: data, response: urlResponse)
     }
   }
 }
