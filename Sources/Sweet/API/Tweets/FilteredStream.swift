@@ -24,8 +24,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(url: url, headers: headers, queries: queries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
       return response.streamRules
@@ -35,7 +36,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch Stream
@@ -97,8 +98,9 @@ extension Sweet {
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let (data, urlResponse) = try await session.data(
-      for: .post(url: url, body: bodyData, headers: headers, queries: queries))
+    let request: URLRequest = .post(url: url, body: bodyData, headers: headers, queries: queries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder()
 
@@ -110,7 +112,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Delete Stream Rules with IDs

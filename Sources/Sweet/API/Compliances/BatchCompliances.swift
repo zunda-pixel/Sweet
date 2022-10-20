@@ -27,8 +27,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(url: url, headers: headers, queries: queries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(CompliancesResponse.self, from: data) {
       return response.compliances
@@ -38,7 +39,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   public func fetchComplianceJob(jobID: String) async throws -> ComplianceJobModel {
@@ -48,7 +49,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.data(for: .get(url: url, headers: headers))
+    let request: URLRequest = .get(url: url, headers: headers)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(ComplianceResponse.self, from: data) {
       return response.compliance
@@ -58,7 +61,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   public func createComplianceJob(type: JobType, name: String? = nil, resumable: Bool = false)
@@ -93,8 +96,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.data(
-      for: .post(url: url, body: body, headers: headers))
+    let request: URLRequest = .post(url: url, body: body, headers: headers)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(ComplianceResponse.self, from: data) {
       return response.compliance
@@ -104,7 +108,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   public static func uploadComplianceData(
@@ -129,7 +133,9 @@ extension Sweet {
   )
     async throws -> [ComplianceModel]
   {
-    let (data, _) = try await URLSession(configuration: config).data(for: .get(url: downloadURL))
+    let request: URLRequest = .get(url: downloadURL)
+
+    let (data, _) = try await URLSession(configuration: config).data(for: request)
 
     let stringData = String(data: data, encoding: .utf8)!
 

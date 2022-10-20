@@ -53,9 +53,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(
-        url: url, headers: headers, queries: removedEmptyQueries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(CountTweetResponse.self, from: data) {
       return response
@@ -65,7 +65,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch Count Tweet
@@ -115,9 +115,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .app)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(
-        url: url, headers: headers, queries: removedEmptyQueries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(CountTweetResponse.self, from: data) {
       return response
@@ -127,6 +127,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 }

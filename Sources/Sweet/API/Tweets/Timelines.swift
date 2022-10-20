@@ -65,9 +65,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(
-        url: url, headers: headers, queries: removedEmptyQueries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
@@ -77,7 +77,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch Tweets composed by a single user, specified by the requested user ID.
@@ -136,8 +136,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(url: url, headers: headers, queries: removedEmptyQueries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
@@ -147,7 +148,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch Tweets mentioning a single user specified by the requested user ID. By default, the most recent ten Tweets are returned per request. Using pagination, up to the most recent 800 Tweets can be retrieved.
@@ -203,8 +204,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(url: url, headers: headers, queries: removedEmptyQueries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
       return response
@@ -214,6 +216,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 }
