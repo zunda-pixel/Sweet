@@ -37,8 +37,8 @@ extension Sweet.EditControl: Codable {
     let editableUntilString = try values.decode(String.self, forKey: .editableUntil)
     self.editableUntil = Sweet.TwitterDateFormatter().date(from: editableUntilString)!
 
-    let editsRemaining = try values.decode(String.self, forKey: .editsRemaining)
-    self.editsRemaining = Int(editsRemaining)!
+    let editsRemaining = try values.decode(Int.self, forKey: .editsRemaining)
+    self.editsRemaining = editsRemaining
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -48,7 +48,6 @@ extension Sweet.EditControl: Codable {
     let editableUntil = Sweet.TwitterDateFormatter().string(from: editableUntil)
     try container.encode(editableUntil, forKey: .editableUntil)
 
-    let editsRemaining = String(editsRemaining)
     try container.encode(editsRemaining, forKey: .editsRemaining)
   }
 }
