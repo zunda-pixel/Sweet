@@ -8,6 +8,10 @@
 import Foundation
 import HTTPClient
 
+#if os(Linux) || os(Windows)
+  import FoundationNetworking
+#endif
+
 extension Sweet {
   /// Unfollow List
   /// - Parameters:

@@ -8,6 +8,10 @@
 import Foundation
 import HTTPClient
 
+#if os(Linux) || os(Windows)
+  import FoundationNetworking
+#endif
+
 extension Sweet {
   /// Look Up Tweets By IDs
   /// - Parameter ids: Tweet IDs
