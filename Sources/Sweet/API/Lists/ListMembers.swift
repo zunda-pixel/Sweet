@@ -23,8 +23,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(
-      for: .post(url: url, body: bodyData, headers: headers))
+    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(MemberResponse.self, from: data) {
       if response.isMember {
@@ -38,7 +39,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Delete Member From List
@@ -52,7 +53,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: .user)
 
-    let (data, urlResponse) = try await session.data(for: .delete(url: url, headers: headers))
+    let request: URLRequest = .delete(url: url, headers: headers)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(MemberResponse.self, from: data) {
       if response.isMember {
@@ -66,7 +69,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch  List that users added
@@ -92,8 +95,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(url: url, headers: headers, queries: queries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(ListsResponse.self, from: data) {
       return response
@@ -103,7 +107,7 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch Members(Users) belonging to the List
@@ -129,8 +133,9 @@ extension Sweet {
 
     let headers = getBearerHeaders(type: authorizeType)
 
-    let (data, urlResponse) = try await session.data(
-      for: .get(url: url, headers: headers, queries: queries))
+    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+
+    let (data, urlResponse) = try await session.data(for: request)
 
     if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
       return response
@@ -140,6 +145,6 @@ extension Sweet {
       throw TwitterError.invalidRequest(error: response)
     }
 
-    throw TwitterError.unknown(data: data, response: urlResponse)
+    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 }

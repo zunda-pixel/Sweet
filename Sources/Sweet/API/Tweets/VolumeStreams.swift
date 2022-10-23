@@ -13,11 +13,11 @@ import HTTPClient
 #endif
 
 extension Sweet {
-  /// Fetch Stream Volume
+  /// Stream Volume
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func fetchStreamVolume(backfillMinutes: Int? = nil)
+  public func streamVolume(backfillMinutes: Int? = nil)
     -> URLRequest
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream

@@ -65,22 +65,19 @@ final class TestStreamAPI: XCTestCase {
 
 private class TestStream: NSObject, URLSessionDataDelegate {
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-    if let response = try? JSONDecoder().decode(Sweet.TweetResponse.self, from: data) {
-      print(response)
-    }
+    let response = try! JSONDecoder().decode(Sweet.TweetResponse.self, from: data)
+    print(response)
   }
 
   func testVolumeStreams() {
-    let request = Sweet.test.fetchStreamVolume(backfillMinutes: nil)
+    let request = Sweet.test.streamVolume(backfillMinutes: nil)
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-    let task = session.dataTask(with: request)
-    task.resume()
+    session.dataTask(with: request).resume()
   }
 
   func testFilteredStreams() {
-    let request = Sweet.test.fetchStream(backfillMinutes: nil)
+    let request = Sweet.test.streamTweets(backfillMinutes: nil)
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-    let task = session.dataTask(with: request)
-    task.resume()
+    session.dataTask(with: request).resume()
   }
 }

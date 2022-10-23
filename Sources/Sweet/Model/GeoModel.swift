@@ -8,11 +8,11 @@ extension Sweet {
   /// Geo Model
   public struct GeoModel: Sendable, Hashable {
     public let type: GeoType
-    public let bbox: [Double]
+    public let boundingBox: [Double]
 
-    public init(type: GeoType, bbox: [Double] = []) {
+    public init(type: GeoType, boundingBox: [Double] = []) {
       self.type = type
-      self.bbox = bbox
+      self.boundingBox = boundingBox
     }
   }
 }
@@ -20,7 +20,7 @@ extension Sweet {
 extension Sweet.GeoModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case type
-    case bbox
+    case boundingBox = "bbox"
   }
 
   public init(from decoder: Decoder) throws {
@@ -28,13 +28,13 @@ extension Sweet.GeoModel: Codable {
     let type = try container.decode(String.self, forKey: .type)
     self.type = .init(rawValue: type)!
 
-    self.bbox = try container.decode([Double].self, forKey: .bbox)
+    self.boundingBox = try container.decode([Double].self, forKey: .boundingBox)
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(type.rawValue, forKey: .type)
 
-    try container.encode(bbox, forKey: .bbox)
+    try container.encode(boundingBox, forKey: .boundingBox)
   }
 }
