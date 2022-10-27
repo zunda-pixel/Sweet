@@ -67,57 +67,57 @@ extension Sweet.SpaceModel: Decodable {
 
     self.creatorID = try values.decode(String.self, forKey: .creatorID)
 
-    let hostIDs = try? values.decode([String].self, forKey: .hostIDs)
+    let hostIDs = try values.decodeIfPresent([String].self, forKey: .hostIDs)
     self.hostIDs = hostIDs ?? []
 
-    self.isTicketed = try? values.decode(Bool.self, forKey: .isTicketed)
+    self.isTicketed = try values.decodeIfPresent(Bool.self, forKey: .isTicketed)
 
-    self.participantCount = try? values.decode(Int.self, forKey: .participantCount)
+    self.participantCount = try values.decodeIfPresent(Int.self, forKey: .participantCount)
 
-    self.lang = try? values.decode(String.self, forKey: .lang)
-    self.title = try? values.decode(String.self, forKey: .title)
+    self.lang = try values.decodeIfPresent(String.self, forKey: .lang)
+    self.title = try values.decodeIfPresent(String.self, forKey: .title)
 
     let formatter = Sweet.TwitterDateFormatter()
 
-    if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
+    if let createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt) {
       self.createdAt = formatter.date(from: createdAt)
     } else {
       self.createdAt = nil
     }
 
-    if let startedAt = try? values.decode(String.self, forKey: .startedAt) {
+    if let startedAt = try values.decodeIfPresent(String.self, forKey: .startedAt) {
       self.startedAt = formatter.date(from: startedAt)
     } else {
       self.startedAt = nil
     }
 
-    if let updatedAt = try? values.decode(String.self, forKey: .updatedAt) {
+    if let updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt) {
       self.updatedAt = formatter.date(from: updatedAt)
     } else {
       self.updatedAt = nil
     }
 
-    if let endedAt = try? values.decode(String.self, forKey: .endedAt) {
+    if let endedAt = try values.decodeIfPresent(String.self, forKey: .endedAt) {
       self.endedAt = formatter.date(from: endedAt)
     } else {
       self.endedAt = nil
     }
 
-    if let scheduledStart = try? values.decode(String.self, forKey: .scheduledStart) {
+    if let scheduledStart = try values.decodeIfPresent(String.self, forKey: .scheduledStart) {
       self.scheduledStart = formatter.date(from: scheduledStart)
     } else {
       self.scheduledStart = nil
     }
 
-    let invitedUserIDs = try? values.decode([String].self, forKey: .invitedUserIDs)
+    let invitedUserIDs = try values.decodeIfPresent([String].self, forKey: .invitedUserIDs)
     self.invitedUserIDs = invitedUserIDs ?? []
 
-    let speakerIDs = try? values.decode([String].self, forKey: .speakerIDs)
+    let speakerIDs = try values.decodeIfPresent([String].self, forKey: .speakerIDs)
     self.speakerIDs = speakerIDs ?? []
 
-    self.subscriberCount = try? values.decode(Int.self, forKey: .subscriberCount)
+    self.subscriberCount = try values.decodeIfPresent(Int.self, forKey: .subscriberCount)
 
-    let topicIDs = try? values.decode([String].self, forKey: .topicIDs)
+    let topicIDs = try values.decodeIfPresent([String].self, forKey: .topicIDs)
     self.topicIDs = topicIDs ?? []
   }
 
@@ -126,19 +126,37 @@ extension Sweet.SpaceModel: Decodable {
     try container.encode(id, forKey: .id)
     try container.encode(state.rawValue, forKey: .state)
     try container.encode(creatorID, forKey: .creatorID)
-    try container.encode(title, forKey: .title)
+    try container.encodeIfPresent(title, forKey: .title)
     try container.encode(hostIDs, forKey: .hostIDs)
-    try container.encode(lang, forKey: .lang)
-    try container.encode(participantCount, forKey: .participantCount)
-    try container.encode(isTicketed, forKey: .isTicketed)
-    try container.encode(startedAt, forKey: .startedAt)
-    try container.encode(updatedAt, forKey: .updatedAt)
-    try container.encode(createdAt, forKey: .creatorID)
-    try container.encode(endedAt, forKey: .endedAt)
+    try container.encodeIfPresent(lang, forKey: .lang)
+    try container.encodeIfPresent(participantCount, forKey: .participantCount)
+    try container.encodeIfPresent(isTicketed, forKey: .isTicketed)
+    let formatter = Sweet.TwitterDateFormatter()
+
+    if let startedAt {
+      try container.encode(formatter.string(from: startedAt), forKey: .startedAt)
+    }
+    
+    if let updatedAt {
+      try container.encode(formatter.string(from: updatedAt), forKey: .updatedAt)
+    }
+    
+    if let createdAt {
+      try container.encode(formatter.string(from: createdAt), forKey: .creatorID)
+    }
+    
+    if let endedAt {
+      try container.encode(formatter.string(from: endedAt), forKey: .endedAt)
+    }
+    
     try container.encode(invitedUserIDs, forKey: .invitedUserIDs)
-    try container.encode(scheduledStart, forKey: .scheduledStart)
+    
+    if let scheduledStart {
+      try container.encode(formatter.string(from: scheduledStart), forKey: .scheduledStart)
+    }
+    
     try container.encode(speakerIDs, forKey: .speakerIDs)
-    try container.encode(subscriberCount, forKey: .subscriberCount)
+    try container.encodeIfPresent(subscriberCount, forKey: .subscriberCount)
     try container.encode(topicIDs, forKey: .topicIDs)
   }
 }

@@ -29,7 +29,7 @@ extension Sweet.StreamRuleMetaModel: Decodable {
     let sent = try values.decode(String.self, forKey: .sent)
     self.sent = Sweet.TwitterDateFormatter().date(from: sent)!
 
-    self.resultCount = try? values.decode(Int.self, forKey: .resultCount)
+    self.resultCount = try values.decodeIfPresent(Int.self, forKey: .resultCount)
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -37,6 +37,6 @@ extension Sweet.StreamRuleMetaModel: Decodable {
 
     let stringSent = Sweet.TwitterDateFormatter().string(from: sent)
     try container.encode(stringSent, forKey: .sent)
-    try container.encode(resultCount, forKey: .resultCount)
+    try container.encodeIfPresent(resultCount, forKey: .resultCount)
   }
 }

@@ -49,24 +49,24 @@ extension Sweet.UserEntityModel: Codable {
 
     let urlData = try? values.nestedContainer(keyedBy: URLCodingKeys.self, forKey: .url)
 
-    let urls = try? urlData?.decode([Sweet.URLModel].self, forKey: .urls)
+    let urls = try urlData?.decodeIfPresent([Sweet.URLModel].self, forKey: .urls)
 
     self.urls = urls ?? []
 
     let descriptionData = try? values.nestedContainer(
       keyedBy: DescriptionCodingKeys.self, forKey: .description)
 
-    let descriptionURLs = try? descriptionData?.decode([Sweet.URLModel].self, forKey: .urls)
+    let descriptionURLs = try descriptionData?.decodeIfPresent([Sweet.URLModel].self, forKey: .urls)
 
     self.descriptionURLs = descriptionURLs ?? []
 
-    let hashTags = try? descriptionData?.decode([Sweet.HashTagModel].self, forKey: .hashTags)
+    let hashTags = try descriptionData?.decodeIfPresent([Sweet.HashTagModel].self, forKey: .hashTags)
     self.hashTags = hashTags ?? []
 
-    let mentions = try? descriptionData?.decode([Sweet.MentionModel].self, forKey: .mentions)
+    let mentions = try descriptionData?.decodeIfPresent([Sweet.MentionModel].self, forKey: .mentions)
     self.mentions = mentions ?? []
 
-    let cashTags = try? descriptionData?.decode([Sweet.CashTagModel].self, forKey: .cashTags)
+    let cashTags = try descriptionData?.decodeIfPresent([Sweet.CashTagModel].self, forKey: .cashTags)
     self.cashTags = cashTags ?? []
   }
 

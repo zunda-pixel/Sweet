@@ -45,13 +45,13 @@ extension Sweet.ListModel: Codable {
     let values = try decoder.container(keyedBy: Sweet.ListField.self)
     self.id = try values.decode(String.self, forKey: .id)
     self.name = try values.decode(String.self, forKey: .name)
-    self.followerCount = try? values.decode(Int.self, forKey: .followerCount)
-    self.memberCount = try? values.decode(Int.self, forKey: .memberCount)
-    self.ownerID = try? values.decode(String.self, forKey: .ownerID)
-    self.description = try? values.decode(String.self, forKey: .description)
-    self.isPrivate = try? values.decode(Bool.self, forKey: .isPrivate)
+    self.followerCount = try values.decodeIfPresent(Int.self, forKey: .followerCount)
+    self.memberCount = try values.decodeIfPresent(Int.self, forKey: .memberCount)
+    self.ownerID = try values.decodeIfPresent(String.self, forKey: .ownerID)
+    self.description = try values.decodeIfPresent(String.self, forKey: .description)
+    self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: .isPrivate)
 
-    if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
+    if let createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)
     } else {
       self.createdAt = nil
@@ -62,11 +62,15 @@ extension Sweet.ListModel: Codable {
     var container = encoder.container(keyedBy: Sweet.ListField.self)
     try container.encode(id, forKey: .id)
     try container.encode(name, forKey: .name)
-    try container.encode(followerCount, forKey: .followerCount)
-    try container.encode(memberCount, forKey: .memberCount)
-    try container.encode(ownerID, forKey: .ownerID)
-    try container.encode(description, forKey: .description)
-    try container.encode(isPrivate, forKey: .isPrivate)
-    try container.encode(createdAt, forKey: .createdAt)
+    try container.encodeIfPresent(followerCount, forKey: .followerCount)
+    try container.encodeIfPresent(memberCount, forKey: .memberCount)
+    try container.encodeIfPresent(ownerID, forKey: .ownerID)
+    try container.encodeIfPresent(description, forKey: .description)
+    try container.encodeIfPresent(isPrivate, forKey: .isPrivate)
+    
+    if let createdAt {
+      let date = Sweet.TwitterDateFormatter().string(from: createdAt)
+      try container.encode(date, forKey: .createdAt)
+    }
   }
 }

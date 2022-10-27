@@ -92,9 +92,13 @@ extension Sweet.ComplianceJobModel: Codable {
     try container.encode(id, forKey: .id)
     try container.encode(resumable, forKey: .resumable)
     try container.encode(uploadURL, forKey: .uploadURL)
-    try container.encode(uploadExpiresAt, forKey: .uploadExpiresAt)
-    try container.encode(downloadURL, forKey: .downloadURL)
-    try container.encode(createdAt, forKey: .createdAt)
     try container.encode(status.rawValue, forKey: .status)
+    try container.encode(downloadURL, forKey: .downloadURL)
+
+    let formatter = Sweet.TwitterDateFormatter()
+    try container.encode(formatter.string(from: uploadExpiresAt), forKey: .uploadExpiresAt)
+    try container.encode(formatter.string(from: createdAt), forKey: .createdAt)
+    try container.encode(formatter.string(from: downloadExpiresAt), forKey: .downloadExpiresAt)
+    try container.encode(formatter.string(from: createdAt), forKey: .createdAt)
   }
 }

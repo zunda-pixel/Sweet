@@ -45,6 +45,7 @@ extension Sweet.CountTweetModel: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(countTweet, forKey: .countTweet)
+    let startDate = Sweet.TwitterDateFormatter().string(from: startDate)
     try container.encode(startDate, forKey: .startDate)
     try container.encode(endDate, forKey: .endDate)
   }
