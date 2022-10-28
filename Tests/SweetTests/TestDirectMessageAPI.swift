@@ -10,7 +10,7 @@ final class TestDirectMessageAPI: XCTestCase {
   let testMyUserID = "1048032521361866752"
   
   func testDirectMessageEvents() async throws {
-    let response = try await Sweet.test.directMessageEvents(eventType: .participantsLeave)
+    let response = try await Sweet.test.directMessageEvents(eventType: .messageCreate)
     print(response)
   }
   

@@ -8,7 +8,7 @@ extension Sweet {
   /// Get Direct Message Events
   /// https://developer.twitter.com/en/docs/twitter-api/direct-messages/lookup/api-reference/get-dm_events
   /// - Parameters:
-  ///   - eventType: The type of Direct Message event to returm. If not included, all types are returned.
+  ///   - eventType: The type of Direct Message event to return. If not included, all types are returned.
   ///   - maxResults: The maximum number of results to be returned in a page. Must be between 1 and 100. The default is 100.
   ///   - paginationToken: Contains either the next_token or previous_token value.
   func directMessageEvents(eventType: DirectMessageEventType? = nil, maxResults: Int = 100, paginationToken: String? = nil) async throws -> DirectMessagesResponse {
