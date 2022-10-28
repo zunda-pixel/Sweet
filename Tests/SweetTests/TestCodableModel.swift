@@ -179,4 +179,14 @@ final class TestCodableModel: XCTestCase {
     
     XCTAssertEqual(space1, space2)
   }
+  
+  func testDirectMessageModelCodable() throws {
+    let dm1 = Sweet.DirectMessageModel(eventType: .messageCreate, id: "id", text: "text", conversationID: "conversationID", createdAt: nil, senderID: "senderID", attachments: .init(mediaKeys: ["1", "2"]), referencedTweets: [.init(id: "id")])
+    
+    let data = try JSONEncoder().encode(dm1)
+    
+    let dm2 = try JSONDecoder().decode(Sweet.DirectMessageModel.self, from: data)
+    
+    XCTAssertEqual(dm1, dm2)
+  }
 }
