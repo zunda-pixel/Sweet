@@ -5,7 +5,7 @@
 import Foundation
 
 extension Sweet {
-  public struct NewDirectMessage: Codable, Sendable {
+  public struct NewDirectMessage: Codable, Sendable, Hashable {
     public let conversationType: ConversationType
     public let message: Message
     public let participantIDs: [String]
@@ -47,7 +47,7 @@ extension Sweet.NewDirectMessage {
 }
 
 extension Sweet.NewDirectMessage {
-  public struct Message: Codable, Sendable {
+  public struct Message: Codable, Sendable, Hashable {
     public let text: String?
     public let attachments: [Attachment]
     
@@ -64,7 +64,7 @@ extension Sweet.NewDirectMessage {
 }
 
 extension Sweet.NewDirectMessage.Message {
-  public struct Attachment: Codable, Sendable {
+  public struct Attachment: Codable, Sendable, Hashable {
     public let mediaID: String
     
     public init(mediaID: String) {
