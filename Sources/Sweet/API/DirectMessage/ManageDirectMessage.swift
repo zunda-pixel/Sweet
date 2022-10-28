@@ -11,7 +11,7 @@ extension Sweet {
   ///   - participantID: The User ID of the account this one-to-one Direct Message is to be sent to.
   ///   - message: Direct Message Content
   /// - Returns: DirectMessageResponse
-  func postDirectMessage(participantID: String, message: NewDirectMessage.Message) async throws -> DirectMessageResultResponse {
+  public func postDirectMessage(participantID: String, message: NewDirectMessage.Message) async throws -> DirectMessageResultResponse {
     let url = URL(string: "https://api.twitter.com/2/dm_conversations/with/\(participantID)/messages")!
     
     let body = try JSONEncoder().encode(message)
@@ -39,7 +39,7 @@ extension Sweet {
   ///   - participantID: The User ID of the account this one-to-one Direct Message is to be sent to.
   ///   - message: Direct Message Content
   /// - Returns: DirectMessageResponse
-  func postDirectMessage(conversationID: String, message: NewDirectMessage.Message) async throws -> DirectMessageResultResponse {
+  public func postDirectMessage(conversationID: String, message: NewDirectMessage.Message) async throws -> DirectMessageResultResponse {
     let url = URL(string: "https://api.twitter.com/2/dm_conversations/\(conversationID)/messages")!
     
     let body = try JSONEncoder().encode(message)
@@ -65,7 +65,7 @@ extension Sweet {
   /// https://developer.twitter.com/en/docs/twitter-api/direct-messages/manage/api-reference/post-dm_conversations
   /// - Parameter directMessage: Direct Message
   /// - Returns: DirectMessageResponse
-  func createDirectMessageGroup(directMessage: NewDirectMessage) async throws -> DirectMessageResultResponse {
+  public func createDirectMessageGroup(directMessage: NewDirectMessage) async throws -> DirectMessageResultResponse {
     let url = URL(string: "https://api.twitter.com/2/dm_conversations")!
     let body = try JSONEncoder().encode(directMessage)
     
