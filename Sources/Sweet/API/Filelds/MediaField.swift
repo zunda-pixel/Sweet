@@ -9,7 +9,7 @@
 
 extension Sweet {
   public enum MediaField: String, Field, Sendable {
-    static public var key: String { "media.fields" }
+    static public let key: String = "media.fields"
 
     case mediaKey = "media_key"
     case type

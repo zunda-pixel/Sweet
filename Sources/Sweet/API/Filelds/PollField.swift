@@ -9,7 +9,7 @@
 
 extension Sweet {
   public enum PollField: String, Field, Sendable {
-    static public var key: String { "poll.fields" }
+    static public let key: String = "poll.fields"
 
     case id
     case durationMinutes = "duration_minutes"

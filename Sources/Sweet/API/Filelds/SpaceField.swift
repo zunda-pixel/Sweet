@@ -9,7 +9,7 @@
 
 extension Sweet {
   public enum SpaceField: String, Field, Sendable {
-    static public var key: String { "space.fields" }
+    static public let key: String = "space.fields"
 
     case id
     case state

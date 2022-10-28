@@ -9,7 +9,7 @@
 
 extension Sweet {
   public enum ListField: String, Field, Sendable {
-    static public var key: String { "list.fields" }
+    static public let key: String = "list.fields"
 
     case id
     case name

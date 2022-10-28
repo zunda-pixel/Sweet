@@ -9,7 +9,7 @@
 
 extension Sweet {
   public enum TweetField: String, Field, Sendable {
-    static public var key: String { "tweet.fields" }
+    static public let key: String = "tweet.fields"
 
     case id
     case text
