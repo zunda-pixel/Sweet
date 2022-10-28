@@ -32,7 +32,7 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 

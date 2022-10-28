@@ -20,7 +20,7 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "ids": ids?.joined(separator: ",")
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: .app)
 
@@ -66,7 +66,7 @@ extension Sweet {
       }
     }
 
-    let filteredQueries = queries.filter { $0.value != nil && $0.value != "" }
+    let filteredQueries = queries.filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: .app)
 
@@ -92,7 +92,7 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let body = ["add": streamRuleModels]
 
@@ -127,7 +127,7 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: .app)
 
@@ -151,7 +151,7 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: .app)
 

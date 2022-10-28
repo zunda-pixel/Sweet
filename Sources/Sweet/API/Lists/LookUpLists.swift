@@ -25,7 +25,7 @@ extension Sweet {
       Expansion.key: allListExpansion.joined(separator: ","),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 
@@ -63,7 +63,7 @@ extension Sweet {
       Expansion.key: allListExpansion.joined(separator: ","),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 

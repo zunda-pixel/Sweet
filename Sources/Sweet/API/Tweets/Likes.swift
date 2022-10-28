@@ -32,7 +32,7 @@ extension Sweet {
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 
@@ -73,7 +73,7 @@ extension Sweet {
       Expansion.key: allTweetExpansion.joined(separator: ","),
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 

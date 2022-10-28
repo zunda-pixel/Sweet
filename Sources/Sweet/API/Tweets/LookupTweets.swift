@@ -29,7 +29,7 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 
@@ -63,7 +63,7 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 

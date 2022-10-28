@@ -40,7 +40,7 @@ extension Sweet {
       }
     }
 
-    let emptyRemovedQueries = queries.filter { $0.value != nil && $0.value != "" }
+    let emptyRemovedQueries = queries.filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: .app)
 
