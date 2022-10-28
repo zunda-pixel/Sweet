@@ -136,25 +136,25 @@ extension Sweet.SpaceModel: Decodable {
     if let startedAt {
       try container.encode(formatter.string(from: startedAt), forKey: .startedAt)
     }
-    
+
     if let updatedAt {
       try container.encode(formatter.string(from: updatedAt), forKey: .updatedAt)
     }
-    
+
     if let createdAt {
       try container.encode(formatter.string(from: createdAt), forKey: .creatorID)
     }
-    
+
     if let endedAt {
       try container.encode(formatter.string(from: endedAt), forKey: .endedAt)
     }
-    
+
     try container.encode(invitedUserIDs, forKey: .invitedUserIDs)
-    
+
     if let scheduledStart {
       try container.encode(formatter.string(from: scheduledStart), forKey: .scheduledStart)
     }
-    
+
     try container.encode(speakerIDs, forKey: .speakerIDs)
     try container.encodeIfPresent(subscriberCount, forKey: .subscriberCount)
     try container.encode(topicIDs, forKey: .topicIDs)

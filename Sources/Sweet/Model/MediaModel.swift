@@ -85,10 +85,12 @@ extension Sweet.MediaModel: Codable {
     self.alternateText = try value.decodeIfPresent(String.self, forKey: .alternateText)
 
     self.metrics = try value.decodeIfPresent(Sweet.MediaPublicMetrics.self, forKey: .publicMetrics)
-    self.privateMetrics = try value.decodeIfPresent(Sweet.MediaPrivateMetrics.self, forKey: .privateMetrics)
+    self.privateMetrics = try value.decodeIfPresent(
+      Sweet.MediaPrivateMetrics.self, forKey: .privateMetrics)
     self.promotedMetrics = try value.decodeIfPresent(
       Sweet.MediaPromotedMetrics.self, forKey: .promotedMetrics)
-    self.organicMetrics = try value.decodeIfPresent(Sweet.MediaOrganicMetrics.self, forKey: .organicMetrics)
+    self.organicMetrics = try value.decodeIfPresent(
+      Sweet.MediaOrganicMetrics.self, forKey: .organicMetrics)
   }
 
   public func encode(to encoder: Encoder) throws {

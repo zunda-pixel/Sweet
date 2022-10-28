@@ -67,7 +67,7 @@ extension Sweet.ListModel: Codable {
     try container.encodeIfPresent(ownerID, forKey: .ownerID)
     try container.encodeIfPresent(description, forKey: .description)
     try container.encodeIfPresent(isPrivate, forKey: .isPrivate)
-    
+
     if let createdAt {
       let date = Sweet.TwitterDateFormatter().string(from: createdAt)
       try container.encode(date, forKey: .createdAt)

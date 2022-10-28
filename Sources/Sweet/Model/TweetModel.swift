@@ -97,11 +97,15 @@ extension Sweet.TweetModel: Codable {
     self.replyUserID = try value.decodeIfPresent(String.self, forKey: .replyToUserID)
     self.geo = try value.decodeIfPresent(Sweet.SimpleGeoModel.self, forKey: .geo)
 
-    self.publicMetrics = try value.decodeIfPresent(Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
-    self.organicMetrics = try value.decodeIfPresent(Sweet.OrganicMetrics.self, forKey: .organicMetrics)
-    self.privateMetrics = try value.decodeIfPresent(Sweet.PrivateMetrics.self, forKey: .privateMetrics)
+    self.publicMetrics = try value.decodeIfPresent(
+      Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
+    self.organicMetrics = try value.decodeIfPresent(
+      Sweet.OrganicMetrics.self, forKey: .organicMetrics)
+    self.privateMetrics = try value.decodeIfPresent(
+      Sweet.PrivateMetrics.self, forKey: .privateMetrics)
     self.attachments = try value.decodeIfPresent(Sweet.AttachmentsModel.self, forKey: .attachments)
-    self.promotedMetrics = try value.decodeIfPresent(Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
+    self.promotedMetrics = try value.decodeIfPresent(
+      Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
     self.withheld = try value.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
 
     let contextAnnotations = try value.decodeIfPresent(
