@@ -42,18 +42,18 @@ extension Sweet.PlaceModel: Codable {
     let container = try decoder.container(keyedBy: Sweet.PlaceField.self)
     self.id = try container.decode(String.self, forKey: .id)
     self.fullName = try container.decode(String.self, forKey: .fullName)
-    self.name = try? container.decode(String.self, forKey: .name)
-    self.country = try? container.decode(String.self, forKey: .country)
-    self.countryCode = try? container.decode(String.self, forKey: .countryCode)
-    self.geo = try? container.decode(Sweet.GeoModel.self, forKey: .geo)
+    self.name = try container.decodeIfPresent(String.self, forKey: .name)
+    self.country = try container.decodeIfPresent(String.self, forKey: .country)
+    self.countryCode = try container.decodeIfPresent(String.self, forKey: .countryCode)
+    self.geo = try container.decodeIfPresent(Sweet.GeoModel.self, forKey: .geo)
 
-    if let type = try? container.decode(String.self, forKey: .placeType) {
+    if let type = try container.decodeIfPresent(String.self, forKey: .placeType) {
       self.type = .init(rawValue: type)!
     } else {
       self.type = nil
     }
 
-    let containedWithin = try? container.decode([String].self, forKey: .containedWithin)
+    let containedWithin = try container.decodeIfPresent([String].self, forKey: .containedWithin)
     self.containedWithin = containedWithin ?? []
   }
 
@@ -61,11 +61,11 @@ extension Sweet.PlaceModel: Codable {
     var container = encoder.container(keyedBy: Sweet.PlaceField.self)
     try container.encode(id, forKey: .id)
     try container.encode(fullName, forKey: .fullName)
-    try container.encode(name, forKey: .name)
-    try container.encode(country, forKey: .country)
-    try container.encode(countryCode, forKey: .countryCode)
-    try container.encode(geo, forKey: .geo)
-    try container.encode(type?.rawValue, forKey: .placeType)
-    try container.encode(containedWithin, forKey: .containedWithin)
+    try container.encodeIfPresent(name, forKey: .name)
+    try container.encodeIfPresent(country, forKey: .country)
+    try container.encodeIfPresent(countryCode, forKey: .countryCode)
+    try container.encodeIfPresent(geo, forKey: .geo)
+    try container.encodeIfPresent(type?.rawValue, forKey: .placeType)
+    try container.encodeIfPresent(containedWithin, forKey: .containedWithin)
   }
 }

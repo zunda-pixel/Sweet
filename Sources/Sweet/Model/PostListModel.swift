@@ -22,17 +22,4 @@ extension Sweet.PostListModel: Codable {
     case description
     case isPrivate = "private"
   }
-
-  public func encode(to encoder: Encoder) throws {
-    var container = encoder.container(keyedBy: CodingKeys.self)
-    if let name {
-      try container.encode(name, forKey: .name)
-    }
-    if let description {
-      try container.encode(description, forKey: .description)
-    }
-    if let isPrivate {
-      try container.encode(isPrivate, forKey: .isPrivate)
-    }
-  }
 }

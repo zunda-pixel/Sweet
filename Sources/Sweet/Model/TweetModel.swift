@@ -91,63 +91,67 @@ extension Sweet.TweetModel: Codable {
       self.createdAt = nil
     }
 
-    self.source = try? value.decode(String.self, forKey: .source)
-    self.sensitive = try? value.decode(Bool.self, forKey: .possiblySensitive)
-    self.conversationID = try? value.decode(String.self, forKey: .conversationID)
-    self.replyUserID = try? value.decode(String.self, forKey: .replyToUserID)
-    self.geo = try? value.decode(Sweet.SimpleGeoModel.self, forKey: .geo)
+    self.source = try value.decodeIfPresent(String.self, forKey: .source)
+    self.sensitive = try value.decodeIfPresent(Bool.self, forKey: .possiblySensitive)
+    self.conversationID = try value.decodeIfPresent(String.self, forKey: .conversationID)
+    self.replyUserID = try value.decodeIfPresent(String.self, forKey: .replyToUserID)
+    self.geo = try value.decodeIfPresent(Sweet.SimpleGeoModel.self, forKey: .geo)
 
-    self.publicMetrics = try? value.decode(Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
-    self.organicMetrics = try? value.decode(Sweet.OrganicMetrics.self, forKey: .organicMetrics)
-    self.privateMetrics = try? value.decode(Sweet.PrivateMetrics.self, forKey: .privateMetrics)
-    self.attachments = try? value.decode(Sweet.AttachmentsModel.self, forKey: .attachments)
-    self.promotedMetrics = try? value.decode(Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
-    self.withheld = try? value.decode(Sweet.WithheldModel.self, forKey: .withheld)
+    self.publicMetrics = try value.decodeIfPresent(
+      Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
+    self.organicMetrics = try value.decodeIfPresent(
+      Sweet.OrganicMetrics.self, forKey: .organicMetrics)
+    self.privateMetrics = try value.decodeIfPresent(
+      Sweet.PrivateMetrics.self, forKey: .privateMetrics)
+    self.attachments = try value.decodeIfPresent(Sweet.AttachmentsModel.self, forKey: .attachments)
+    self.promotedMetrics = try value.decodeIfPresent(
+      Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
+    self.withheld = try value.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
 
-    let contextAnnotations = try? value.decode(
+    let contextAnnotations = try value.decodeIfPresent(
       [Sweet.ContextAnnotationModel].self, forKey: .contextAnnotations)
     self.contextAnnotations = contextAnnotations ?? []
 
-    self.entity = try? value.decode(Sweet.TweetEntityModel.self, forKey: .entities)
+    self.entity = try value.decodeIfPresent(Sweet.TweetEntityModel.self, forKey: .entities)
 
-    let referencedTweets = try? value.decode(
+    let referencedTweets = try value.decodeIfPresent(
       [Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
     self.referencedTweets = referencedTweets ?? []
 
-    let editHistoryTweetIDs = try? value.decode([String].self, forKey: .editHistoryTweetIDs)
+    let editHistoryTweetIDs = try value.decodeIfPresent([String].self, forKey: .editHistoryTweetIDs)
     self.editHistoryTweetIDs = editHistoryTweetIDs ?? []
 
-    self.editControl = try? value.decode(Sweet.EditControl.self, forKey: .editControls)
+    self.editControl = try value.decodeIfPresent(Sweet.EditControl.self, forKey: .editControls)
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.TweetField.self)
     try container.encode(id, forKey: .id)
     try container.encode(text, forKey: .text)
-    try container.encode(authorID, forKey: .authorID)
-    try container.encode(lang, forKey: .lang)
-    try container.encode(replySetting?.rawValue, forKey: .replySettings)
+    try container.encodeIfPresent(authorID, forKey: .authorID)
+    try container.encodeIfPresent(lang, forKey: .lang)
+    try container.encodeIfPresent(replySetting?.rawValue, forKey: .replySettings)
 
     if let createdAt {
-      let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
-      try container.encode(createdAtString, forKey: .createdAt)
+      let formatter = Sweet.TwitterDateFormatter()
+      try container.encode(formatter.string(from: createdAt), forKey: .createdAt)
     }
 
-    try container.encode(source, forKey: .source)
-    try container.encode(sensitive, forKey: .possiblySensitive)
-    try container.encode(conversationID, forKey: .conversationID)
-    try container.encode(replyUserID, forKey: .replyToUserID)
-    try container.encode(geo, forKey: .geo)
-    try container.encode(publicMetrics, forKey: .publicMetrics)
-    try container.encode(organicMetrics, forKey: .organicMetrics)
-    try container.encode(privateMetrics, forKey: .privateMetrics)
-    try container.encode(attachments, forKey: .attachments)
-    try container.encode(promotedMetrics, forKey: .promotedMetrics)
-    try container.encode(withheld, forKey: .withheld)
-    try container.encode(contextAnnotations, forKey: .contextAnnotations)
-    try container.encode(entity, forKey: .entities)
-    try container.encode(referencedTweets, forKey: .referencedTweets)
-    try container.encode(editHistoryTweetIDs, forKey: .editHistoryTweetIDs)
-    try container.encode(editControl, forKey: .editControls)
+    try container.encodeIfPresent(source, forKey: .source)
+    try container.encodeIfPresent(sensitive, forKey: .possiblySensitive)
+    try container.encodeIfPresent(conversationID, forKey: .conversationID)
+    try container.encodeIfPresent(replyUserID, forKey: .replyToUserID)
+    try container.encodeIfPresent(geo, forKey: .geo)
+    try container.encodeIfPresent(publicMetrics, forKey: .publicMetrics)
+    try container.encodeIfPresent(organicMetrics, forKey: .organicMetrics)
+    try container.encodeIfPresent(privateMetrics, forKey: .privateMetrics)
+    try container.encodeIfPresent(attachments, forKey: .attachments)
+    try container.encodeIfPresent(promotedMetrics, forKey: .promotedMetrics)
+    try container.encodeIfPresent(withheld, forKey: .withheld)
+    try container.encodeIfPresent(contextAnnotations, forKey: .contextAnnotations)
+    try container.encodeIfPresent(entity, forKey: .entities)
+    try container.encodeIfPresent(referencedTweets, forKey: .referencedTweets)
+    try container.encodeIfPresent(editHistoryTweetIDs, forKey: .editHistoryTweetIDs)
+    try container.encodeIfPresent(editControl, forKey: .editControls)
   }
 }

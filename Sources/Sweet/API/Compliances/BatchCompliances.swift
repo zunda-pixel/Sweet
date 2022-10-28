@@ -85,8 +85,8 @@ extension Sweet {
       public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type.rawValue, forKey: .type)
-        if let name { try container.encode(name, forKey: .name) }
-        if let resumable { try container.encode(resumable, forKey: .resumable) }
+        try container.encodeIfPresent(name, forKey: .name)
+        try container.encodeIfPresent(resumable, forKey: .resumable)
       }
     }
 

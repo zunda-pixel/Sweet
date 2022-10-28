@@ -68,15 +68,15 @@ extension Sweet.URLModel: Codable {
 
     self.displayURL = try values.decode(String.self, forKey: .displayURL)
 
-    self.unwoundURL = try? values.decode(String.self, forKey: .unwoundURL)
+    self.unwoundURL = try values.decodeIfPresent(String.self, forKey: .unwoundURL)
 
-    let images = try? values.decode([Sweet.ImageModel].self, forKey: .images)
+    let images = try values.decodeIfPresent([Sweet.ImageModel].self, forKey: .images)
     self.images = images ?? []
 
-    self.status = try? values.decode(Int.self, forKey: .status)
+    self.status = try values.decodeIfPresent(Int.self, forKey: .status)
 
-    self.title = try? values.decode(String.self, forKey: .title)
-    self.description = try? values.decode(String.self, forKey: .description)
+    self.title = try values.decodeIfPresent(String.self, forKey: .title)
+    self.description = try values.decodeIfPresent(String.self, forKey: .description)
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -86,10 +86,10 @@ extension Sweet.URLModel: Codable {
     try container.encode(url, forKey: .url)
     try container.encode(expandedURL, forKey: .expandedURL)
     try container.encode(displayURL, forKey: .displayURL)
-    try container.encode(unwoundURL, forKey: .unwoundURL)
-    try container.encode(images, forKey: .images)
-    try container.encode(status, forKey: .status)
-    try container.encode(title, forKey: .title)
-    try container.encode(description, forKey: .description)
+    try container.encodeIfPresent(unwoundURL, forKey: .unwoundURL)
+    try container.encodeIfPresent(images, forKey: .images)
+    try container.encodeIfPresent(status, forKey: .status)
+    try container.encodeIfPresent(title, forKey: .title)
+    try container.encodeIfPresent(description, forKey: .description)
   }
 }

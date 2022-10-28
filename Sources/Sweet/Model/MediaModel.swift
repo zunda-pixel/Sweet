@@ -63,32 +63,34 @@ extension Sweet.MediaModel: Codable {
     let width = try value.decode(Int.self, forKey: .width)
     self.size = .init(width: width, height: height)
 
-    if let previewImageURL = try? value.decode(String.self, forKey: .previewImageURL) {
+    if let previewImageURL = try value.decodeIfPresent(String.self, forKey: .previewImageURL) {
       self.previewImageURL = .init(string: previewImageURL)
     } else {
       self.previewImageURL = nil
     }
 
-    if let url = try? value.decode(String.self, forKey: .url) {
+    if let url = try value.decodeIfPresent(String.self, forKey: .url) {
       self.url = .init(string: url)
     } else {
       self.url = nil
     }
 
-    if let variants = try? value.decode([Sweet.MediaVariant].self, forKey: .variants) {
+    if let variants = try value.decodeIfPresent([Sweet.MediaVariant].self, forKey: .variants) {
       self.variants = variants
     } else {
       self.variants = []
     }
 
-    self.durationMicroSeconds = try? value.decode(Int.self, forKey: .durationMicroSeconds)
-    self.alternateText = try? value.decode(String.self, forKey: .alternateText)
+    self.durationMicroSeconds = try value.decodeIfPresent(Int.self, forKey: .durationMicroSeconds)
+    self.alternateText = try value.decodeIfPresent(String.self, forKey: .alternateText)
 
-    self.metrics = try? value.decode(Sweet.MediaPublicMetrics.self, forKey: .publicMetrics)
-    self.privateMetrics = try? value.decode(Sweet.MediaPrivateMetrics.self, forKey: .privateMetrics)
-    self.promotedMetrics = try? value.decode(
+    self.metrics = try value.decodeIfPresent(Sweet.MediaPublicMetrics.self, forKey: .publicMetrics)
+    self.privateMetrics = try value.decodeIfPresent(
+      Sweet.MediaPrivateMetrics.self, forKey: .privateMetrics)
+    self.promotedMetrics = try value.decodeIfPresent(
       Sweet.MediaPromotedMetrics.self, forKey: .promotedMetrics)
-    self.organicMetrics = try? value.decode(Sweet.MediaOrganicMetrics.self, forKey: .organicMetrics)
+    self.organicMetrics = try value.decodeIfPresent(
+      Sweet.MediaOrganicMetrics.self, forKey: .organicMetrics)
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -97,14 +99,14 @@ extension Sweet.MediaModel: Codable {
     try container.encode(key, forKey: .mediaKey)
     try container.encode(size.width, forKey: .width)
     try container.encode(size.height, forKey: .height)
-    try container.encode(previewImageURL, forKey: .previewImageURL)
-    try container.encode(url, forKey: .url)
-    try container.encode(variants, forKey: .variants)
-    try container.encode(durationMicroSeconds, forKey: .durationMicroSeconds)
-    try container.encode(alternateText, forKey: .alternateText)
-    try container.encode(metrics, forKey: .publicMetrics)
-    try container.encode(privateMetrics, forKey: .privateMetrics)
-    try container.encode(promotedMetrics, forKey: .promotedMetrics)
-    try container.encode(organicMetrics, forKey: .organicMetrics)
+    try container.encodeIfPresent(previewImageURL, forKey: .previewImageURL)
+    try container.encodeIfPresent(url, forKey: .url)
+    try container.encodeIfPresent(variants, forKey: .variants)
+    try container.encodeIfPresent(durationMicroSeconds, forKey: .durationMicroSeconds)
+    try container.encodeIfPresent(alternateText, forKey: .alternateText)
+    try container.encodeIfPresent(metrics, forKey: .publicMetrics)
+    try container.encodeIfPresent(privateMetrics, forKey: .privateMetrics)
+    try container.encodeIfPresent(promotedMetrics, forKey: .promotedMetrics)
+    try container.encodeIfPresent(organicMetrics, forKey: .organicMetrics)
   }
 }
