@@ -57,7 +57,7 @@ extension Sweet {
   }
 }
 
-extension Sweet.SpaceModel: Decodable {
+extension Sweet.SpaceModel: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: Sweet.SpaceField.self)
     self.id = try values.decode(String.self, forKey: .id)
