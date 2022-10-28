@@ -5,7 +5,7 @@
 import Foundation
 
 extension Sweet {
-  public struct DirectMessageModel: Codable, Sendable, Identifiable {
+  public struct DirectMessageModel: Codable, Sendable, Identifiable, Hashable {
     public let eventType: Sweet.DirectMessageEventType
     public let id: String
     public let text: String
@@ -15,7 +15,7 @@ extension Sweet {
     public let attachments: DirectMessageAttachmentsModel?
     public let referencedTweets: [DirectMessageReferencedTweetModel]
     
-    public init(eventType: DirectMessageEventType, id: String, text: String, conversationID: String, createdAt: Date, senderID: String, attachments: DirectMessageAttachmentsModel? = nil, referencedTweets: [DirectMessageReferencedTweetModel] = []) {
+    public init(eventType: DirectMessageEventType, id: String, text: String, conversationID: String?, createdAt: Date?, senderID: String?, attachments: DirectMessageAttachmentsModel? = nil, referencedTweets: [DirectMessageReferencedTweetModel] = []) {
       self.eventType = eventType
       self.id = id
       self.text = text
