@@ -22,7 +22,7 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
 
     let queries: [String: String?] = [
-      Expansion.key: SpaceExpansion.allCases.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allSpaceExpansion.joined(separator: ","),
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
@@ -55,7 +55,7 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "ids": spaceIDs.joined(separator: ","),
-      Expansion.key: SpaceExpansion.allCases.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allSpaceExpansion.joined(separator: ","),
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
@@ -88,7 +88,7 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "user_ids": creatorIDs.joined(separator: ","),
-      Expansion.key: SpaceExpansion.allCases.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allSpaceExpansion.joined(separator: ","),
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),

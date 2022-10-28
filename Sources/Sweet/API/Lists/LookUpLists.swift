@@ -22,7 +22,7 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
 
     let queries: [String: String?] = [
-      Expansion.key: [ListExpansion.ownerID].map(\.rawValue).joined(separator: ","),
+      Expansion.key: allListExpansion.joined(separator: ","),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != "" }
@@ -60,7 +60,7 @@ extension Sweet {
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-      Expansion.key: [ListExpansion.ownerID].map(\.rawValue).joined(separator: ","),
+      Expansion.key: allListExpansion.joined(separator: ","),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ].filter { $0.value != nil && $0.value != "" }

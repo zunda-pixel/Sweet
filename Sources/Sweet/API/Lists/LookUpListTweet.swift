@@ -27,7 +27,7 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/tweets")!
 
     let queries: [String: String?] = [
-      Expansion.key: [ListExpansion.authorID].map(\.rawValue).joined(separator: ","),
+      Expansion.key: allTweetExpansion.joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       "pagination_token": paginationToken,
