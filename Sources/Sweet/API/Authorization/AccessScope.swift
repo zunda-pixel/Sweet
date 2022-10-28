@@ -35,5 +35,8 @@ extension Sweet {
 
     case bookmarkRead = "bookmark.read"
     case bookmarkWrite = "bookmark.write"
+    
+    case dmRead = "dm.read"
+    case dmWrite = "dm.write"
   }
 }

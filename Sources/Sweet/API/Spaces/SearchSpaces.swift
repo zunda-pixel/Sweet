@@ -28,11 +28,11 @@ extension Sweet {
     let queries: [String: String?] = [
       "query": query,
       "state": state.rawValue,
-      Expansion.key: SpaceExpansion.allCases.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allSpaceExpansion.joined(separator: ","),
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 

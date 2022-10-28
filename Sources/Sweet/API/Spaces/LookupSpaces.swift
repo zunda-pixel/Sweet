@@ -22,11 +22,11 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
 
     let queries: [String: String?] = [
-      Expansion.key: SpaceExpansion.allCases.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allSpaceExpansion.joined(separator: ","),
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 
@@ -55,11 +55,11 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "ids": spaceIDs.joined(separator: ","),
-      Expansion.key: SpaceExpansion.allCases.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allSpaceExpansion.joined(separator: ","),
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 
@@ -88,11 +88,11 @@ extension Sweet {
 
     let queries: [String: String?] = [
       "user_ids": creatorIDs.joined(separator: ","),
-      Expansion.key: SpaceExpansion.allCases.map(\.rawValue).joined(separator: ","),
+      Expansion.key: allSpaceExpansion.joined(separator: ","),
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: authorizeType)
 
@@ -126,7 +126,7 @@ extension Sweet {
       PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: .user)
 
@@ -160,7 +160,7 @@ extension Sweet {
       PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ].filter { $0.value != nil && !$0.value!.isEmpty }
 
     let headers = getBearerHeaders(type: .user)
 
