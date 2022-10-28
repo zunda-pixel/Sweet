@@ -1,8 +1,5 @@
 //
 //  DirectMessageEventType.swift
-//  
-//
-//  Created by zunda on 2022/10/28.
 //
 
 import Foundation
