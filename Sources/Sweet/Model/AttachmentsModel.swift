@@ -29,16 +29,16 @@ extension Sweet.AttachmentsModel: Codable {
   public init(from decoder: Decoder) throws {
     let value = try decoder.container(keyedBy: CodingKeys.self)
 
-    let mediaKeys = try? value.decode([String].self, forKey: .mediaKeys)
+    let mediaKeys = try value.decodeIfPresent([String].self, forKey: .mediaKeys)
     self.mediaKeys = mediaKeys ?? []
 
-    let pollIDs = try? value.decode([String].self, forKey: .pollIDs)
+    let pollIDs = try value.decodeIfPresent([String].self, forKey: .pollIDs)
     self.pollID = pollIDs?.first
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(mediaKeys, forKey: .mediaKeys)
-    try container.encode([pollID], forKey: .pollIDs)
+    try container.encode([pollID].compactMap { $0 }, forKey: .pollIDs)
   }
 }

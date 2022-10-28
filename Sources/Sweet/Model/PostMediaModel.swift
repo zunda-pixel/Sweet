@@ -20,15 +20,9 @@ extension Sweet {
   }
 }
 
-extension Sweet.PostMediaModel: Encodable {
+extension Sweet.PostMediaModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case mediaIDs = "media_ids"
     case taggedUserIDs = "tagged_user_ids"
-  }
-
-  public func encode(to encoder: Encoder) throws {
-    var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(mediaIDs, forKey: .mediaIDs)
-    try container.encode(taggedUserIDs, forKey: .taggedUserIDs)
   }
 }

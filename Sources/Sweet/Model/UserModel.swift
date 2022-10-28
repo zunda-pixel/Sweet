@@ -57,24 +57,24 @@ extension Sweet.UserModel: Codable {
     self.id = try values.decode(String.self, forKey: .id)
     self.name = try values.decode(String.self, forKey: .name)
     self.userName = try values.decode(String.self, forKey: .username)
-    self.verified = try? values.decode(Bool.self, forKey: .verified)
-    self.description = try? values.decode(String.self, forKey: .description)
-    self.metrics = try? values.decode(Sweet.UserPublicMetrics.self, forKey: .publicMetrics)
-    self.protected = try? values.decode(Bool.self, forKey: .protected)
-    self.location = try? values.decode(String.self, forKey: .location)
-    self.pinnedTweetID = try? values.decode(String.self, forKey: .pinnedTweetID)
-    self.withheld = try? values.decode(Sweet.WithheldModel.self, forKey: .withheld)
-    self.entity = try? values.decode(Sweet.UserEntityModel.self, forKey: .entities)
+    self.verified = try values.decodeIfPresent(Bool.self, forKey: .verified)
+    self.description = try values.decodeIfPresent(String.self, forKey: .description)
+    self.metrics = try values.decodeIfPresent(Sweet.UserPublicMetrics.self, forKey: .publicMetrics)
+    self.protected = try values.decodeIfPresent(Bool.self, forKey: .protected)
+    self.location = try values.decodeIfPresent(String.self, forKey: .location)
+    self.pinnedTweetID = try values.decodeIfPresent(String.self, forKey: .pinnedTweetID)
+    self.withheld = try values.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
+    self.entity = try values.decodeIfPresent(Sweet.UserEntityModel.self, forKey: .entities)
 
-    let profileImageURL: String? = try? values.decode(String.self, forKey: .profileImageURL)
+    let profileImageURL: String? = try values.decodeIfPresent(String.self, forKey: .profileImageURL)
     let removedNormalProfileImageURL: String =
       profileImageURL?.replacingOccurrences(of: "_normal", with: "") ?? ""
     self.profileImageURL = .init(string: removedNormalProfileImageURL)!
 
-    let url: String? = try? values.decode(String.self, forKey: .url)
+    let url: String? = try values.decodeIfPresent(String.self, forKey: .url)
     self.url = URL(string: url ?? "")
 
-    if let createdAt = try? values.decode(String.self, forKey: .createdAt) {
+    if let createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
       self.createdAt = nil
@@ -86,21 +86,21 @@ extension Sweet.UserModel: Codable {
     try container.encode(id, forKey: .id)
     try container.encode(name, forKey: .name)
     try container.encode(userName, forKey: .username)
-    try container.encode(verified, forKey: .verified)
-    try container.encode(profileImageURL, forKey: .profileImageURL)
+    try container.encodeIfPresent(verified, forKey: .verified)
+    try container.encodeIfPresent(profileImageURL, forKey: .profileImageURL)
 
     if let createdAt {
       let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
       try container.encode(createdAtString, forKey: .createdAt)
     }
 
-    try container.encode(description, forKey: .description)
-    try container.encode(protected, forKey: .protected)
-    try container.encode(url, forKey: .url)
-    try container.encode(location, forKey: .location)
-    try container.encode(pinnedTweetID, forKey: .pinnedTweetID)
-    try container.encode(metrics, forKey: .publicMetrics)
-    try container.encode(withheld, forKey: .withheld)
-    try container.encode(entity, forKey: .entities)
+    try container.encodeIfPresent(description, forKey: .description)
+    try container.encodeIfPresent(protected, forKey: .protected)
+    try container.encodeIfPresent(url, forKey: .url)
+    try container.encodeIfPresent(location, forKey: .location)
+    try container.encodeIfPresent(pinnedTweetID, forKey: .pinnedTweetID)
+    try container.encodeIfPresent(metrics, forKey: .publicMetrics)
+    try container.encodeIfPresent(withheld, forKey: .withheld)
+    try container.encodeIfPresent(entity, forKey: .entities)
   }
 }
