@@ -65,7 +65,7 @@ extension Sweet {
   /// https://developer.twitter.com/en/docs/twitter-api/direct-messages/manage/api-reference/post-dm_conversations
   /// - Parameter directMessage: Direct Message
   /// - Returns: DirectMessageResponse
-  func createDicrectMessageGroup(directMessage: NewDirectMessage) async throws -> DirectMessageResultResponse {
+  func createDirectMessageGroup(directMessage: NewDirectMessage) async throws -> DirectMessageResultResponse {
     let url = URL(string: "https://api.twitter.com/2/dm_conversations")!
     let body = try JSONEncoder().encode(directMessage)
     

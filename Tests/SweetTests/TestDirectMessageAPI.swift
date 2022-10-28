@@ -33,7 +33,7 @@ final class TestDirectMessageAPI: XCTestCase {
   func testCreateDirectMessageGroup() async throws {
     let dm = Sweet.NewDirectMessage(conversationType: .group, message: .init(text: "Hello Zunda"), participantIDs: ["3014184570", "1048032521361866752"])
     
-    let response = try await Sweet.test.createDicrectMessageGroup(directMessage: dm)
+    let response = try await Sweet.test.createDirectMessageGroup(directMessage: dm)
     
     print(response)
   }
