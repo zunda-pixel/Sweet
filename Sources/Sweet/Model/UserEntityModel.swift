@@ -60,13 +60,16 @@ extension Sweet.UserEntityModel: Codable {
 
     self.descriptionURLs = descriptionURLs ?? []
 
-    let hashTags = try descriptionData?.decodeIfPresent([Sweet.HashTagModel].self, forKey: .hashTags)
+    let hashTags = try descriptionData?.decodeIfPresent(
+      [Sweet.HashTagModel].self, forKey: .hashTags)
     self.hashTags = hashTags ?? []
 
-    let mentions = try descriptionData?.decodeIfPresent([Sweet.MentionModel].self, forKey: .mentions)
+    let mentions = try descriptionData?.decodeIfPresent(
+      [Sweet.MentionModel].self, forKey: .mentions)
     self.mentions = mentions ?? []
 
-    let cashTags = try descriptionData?.decodeIfPresent([Sweet.CashTagModel].self, forKey: .cashTags)
+    let cashTags = try descriptionData?.decodeIfPresent(
+      [Sweet.CashTagModel].self, forKey: .cashTags)
     self.cashTags = cashTags ?? []
   }
 
