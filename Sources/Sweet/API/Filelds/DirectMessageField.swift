@@ -13,7 +13,7 @@ extension Sweet {
     case text
     case eventType = "event_type"
     case createdAt = "created_at"
-    case dmConversationID = "dm_conversation_id"
+    case conversationID = "dm_conversation_id"
     case senderID = "sender_id"
     case participantIDs = "participant_ids"
     case referencedTweets = "referenced_tweets"

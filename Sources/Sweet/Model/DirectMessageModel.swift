@@ -26,20 +26,8 @@ extension Sweet {
       self.referencedTweets = referencedTweets
     }
     
-    private enum CodingKeys: String, CodingKey {
-      case eventType = "event_type"
-      case id
-      case text
-      case conversationID = "dm_conversation_id"
-      case createdAt = "created_at"
-      case senderID = "sender_id"
-      case attachments
-      case referencedTweets = "referenced_tweets"
-    }
-    
-    
     public init(from decoder: Decoder) throws {
-      let container = try decoder.container(keyedBy: CodingKeys.self)
+      let container = try decoder.container(keyedBy: DirectMessageField.self)
       
       let eventType = try container.decode(String.self, forKey: .eventType)
       self.eventType = .init(rawValue: eventType)!
@@ -63,7 +51,7 @@ extension Sweet {
     }
     
     public func encode(to encoder: Encoder) throws {
-      var container = encoder.container(keyedBy: CodingKeys.self)
+      var container = encoder.container(keyedBy: DirectMessageField.self)
       try container.encode(eventType.rawValue, forKey: .eventType)
       try container.encode(id, forKey: .id)
       try container.encode(text, forKey: .text)
