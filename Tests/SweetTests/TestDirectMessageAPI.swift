@@ -16,17 +16,17 @@ final class TestDirectMessageAPI: XCTestCase {
 
   func testDirectMessageConversationsWithParticipantID() async throws {
     let participantID = "3014184570"
-    
+
     let response = try await Sweet.test.directMessageConversations(participantID: participantID)
-    
+
     print(response)
   }
 
   func testDirectMessageConversationsWithConversationID() async throws {
     let conversationID = "1585874950879334400"
-    
+
     let response = try await Sweet.test.directMessageConversations(conversationID: conversationID)
-    
+
     print(response)
   }
 
