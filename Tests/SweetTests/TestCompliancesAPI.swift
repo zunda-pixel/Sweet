@@ -11,14 +11,14 @@ import XCTest
 
 final class TestCompliancesAPI: XCTestCase {
   func testFetchComplianceJobs() async throws {
-    let complianceJobs = try await Sweet.test.fetchComplianceJobs(type: .tweets)
+    let complianceJobs = try await Sweet.test.complianceJobs(type: .tweets)
 
     print(complianceJobs.first!)
   }
 
   func testFetchComplianceJob() async throws {
     let jobID = "1579194619895480320"
-    let complianceJob = try await Sweet.test.fetchComplianceJob(jobID: jobID)
+    let complianceJob = try await Sweet.test.complianceJob(jobID: jobID)
 
     print(complianceJob)
   }
@@ -79,14 +79,14 @@ private class TestStream: NSObject, URLSessionDataDelegate {
   }
 
   func testStreamUsersCompliance() {
-    let request = Sweet.test.streamUsersCompliance(
+    let request = Sweet.test.streamUsersComplianceRequest(
       partition: 1, startTime: Date().addingTimeInterval(-123_456_789), endTime: Date())
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
     session.dataTask(with: request).resume()
   }
 
   func testStreamTweetsCompliance() {
-    let request = Sweet.test.streamTweetsCompliance(
+    let request = Sweet.test.streamTweetsComplianceRequest(
       partition: 1, startTime: Date().addingTimeInterval(-123_456_789), endTime: Date())
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
     session.dataTask(with: request).resume()

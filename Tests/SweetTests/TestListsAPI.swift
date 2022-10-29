@@ -29,7 +29,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchListFollowers() async throws {
     let listID = "900944005042585602"
 
-    let response = try await Sweet.test.fetchListFollowers(listID: listID)
+    let response = try await Sweet.test.listFollowers(listID: listID)
 
     print(response.meta!)
 
@@ -41,7 +41,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchListsFollowed() async throws {
     let userID = testMyUserID
 
-    let response = try await Sweet.test.fetchListsFollowed(by: userID)
+    let response = try await Sweet.test.listsFollowed(by: userID)
 
     print(response.meta)
 
@@ -67,7 +67,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchAddedLists() async throws {
     let userID = testMyUserID
 
-    let response = try await Sweet.test.fetchAddedLists(userID: userID)
+    let response = try await Sweet.test.addedLists(userID: userID)
 
     print(response.meta)
 
@@ -79,7 +79,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchListMembers() async throws {
     let listID = "1463289657190404097"
 
-    let response = try await Sweet.test.fetchListMembers(listID: listID)
+    let response = try await Sweet.test.listMembers(listID: listID)
 
     print(response.meta!)
 
@@ -91,7 +91,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchList() async throws {
     let listID = "1463289657190404097"
 
-    let list = try await Sweet.test.fetchList(listID: listID)
+    let list = try await Sweet.test.list(listID: listID)
 
     print(list)
   }
@@ -99,7 +99,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchOwnedLists() async throws {
     let userID = testMyUserID
 
-    let response = try await Sweet.test.fetchOwnedLists(userID: userID)
+    let response = try await Sweet.test.ownedLists(userID: userID)
 
     print(response.meta)
 
@@ -111,7 +111,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchListTweets() async throws {
     let listID = "1489539509792686081"
 
-    let response = try await Sweet.test.fetchListTweets(listID: listID)
+    let response = try await Sweet.test.listTweets(listID: listID)
 
     response.tweets.forEach {
       print($0)
@@ -157,7 +157,7 @@ final class TestListsAPI: XCTestCase {
   func testFetchPinnedLists() async throws {
     let userID = testMyUserID
 
-    let response = try await Sweet.test.fetchListsPinned(by: userID)
+    let response = try await Sweet.test.pinnedLists(by: userID)
 
     print(response.meta)
 

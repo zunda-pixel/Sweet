@@ -15,7 +15,7 @@ final class TestTweetsAPI: XCTestCase {
   func testLookUpTweets() async throws {
     let tweetIDs = ["1489644269447315458", "1489895008300056578"]
 
-    let response = try await Sweet.test.lookUpTweets(by: tweetIDs)
+    let response = try await Sweet.test.tweets(by: tweetIDs)
 
     response.tweets.forEach {
       print($0)
@@ -25,7 +25,7 @@ final class TestTweetsAPI: XCTestCase {
   func testLookUpTweet() async throws {
     let tweetID = "1572253944348545026"
 
-    let response = try await Sweet.test.lookUpTweet(by: tweetID)
+    let response = try await Sweet.test.tweet(by: tweetID)
 
     print(response)
   }
@@ -58,21 +58,21 @@ final class TestTweetsAPI: XCTestCase {
 
   func testFetchReverseChronological() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchReverseChronological(userID: userID)
+    let response = try await Sweet.test.reverseChronological(userID: userID)
 
     print(response)
   }
 
   func testFetchTimeLine() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchTimeLine(userID: userID)
+    let response = try await Sweet.test.timeLine(userID: userID)
 
     print(response)
   }
 
   func testFetchMentions() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchMentions(userID: userID)
+    let response = try await Sweet.test.mentions(userID: userID)
     response.tweets.forEach {
       print($0)
     }
@@ -105,7 +105,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchRecentCountTweet() async throws {
     let query = "#twitterapiv2"
 
-    let response = try await Sweet.test.fetchRecentCountTweet(query: query)
+    let response = try await Sweet.test.recentCountTweet(query: query)
 
     print(response.meta)
 
@@ -117,7 +117,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchCountTweet() async throws {
     let query = "#twitterapiv2"
 
-    let response = try await Sweet.test.fetchCountTweet(query: query)
+    let response = try await Sweet.test.countTweet(query: query)
 
     print(response.meta)
 
@@ -129,7 +129,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchRetweetUsers() async throws {
     let tweetID = "1505700468617617414"
 
-    let response = try await Sweet.test.fetchRetweetUsers(tweetID: tweetID)
+    let response = try await Sweet.test.retweetUsers(tweetID: tweetID)
 
     print(response.meta!)
 
@@ -155,7 +155,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchLikingTweetUser() async throws {
     let tweetID = "1481674458586927105"
 
-    let response = try await Sweet.test.fetchLikingTweetUsers(tweetID: tweetID)
+    let response = try await Sweet.test.likingTweetUsers(tweetID: tweetID)
 
     print(response.meta!)
 
@@ -167,7 +167,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchLikedTweet() async throws {
     let userID = testMyUserID
 
-    let response = try await Sweet.test.fetchLikedTweet(userID: userID)
+    let response = try await Sweet.test.likedTweet(userID: userID)
 
     response.tweets.forEach {
       print($0)
@@ -199,7 +199,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchQuoteTweets() async throws {
     let tweetID = "1503755656771346447"
 
-    let response = try await Sweet.test.fetchQuoteTweets(
+    let response = try await Sweet.test.quoteTweets(
       source: tweetID, paginationToken: nil, maxResults: 10)
 
     print(response.meta!)
@@ -228,7 +228,7 @@ final class TestTweetsAPI: XCTestCase {
   func testFetchBookmarks() async throws {
     let userID = testMyUserID
 
-    let response = try await Sweet.test.fetchBookmarks(userID: userID)
+    let response = try await Sweet.test.bookmarks(userID: userID)
 
     print(response)
   }

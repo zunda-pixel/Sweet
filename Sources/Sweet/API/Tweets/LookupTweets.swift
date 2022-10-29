@@ -16,7 +16,7 @@ extension Sweet {
   /// Look Up Tweets By IDs
   /// - Parameter ids: Tweet IDs
   /// - Returns: Tweets
-  public func lookUpTweets(by tweetIDs: [String]) async throws -> TweetsResponse {
+  public func tweets(by tweetIDs: [String]) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
 
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
@@ -51,7 +51,7 @@ extension Sweet {
   /// Look Up Tweet by ID
   /// - Parameter id: Tweet ID
   /// - Returns: Tweets
-  public func lookUpTweet(by tweetID: String) async throws -> TweetResponse {
+  public func tweet(by tweetID: String) async throws -> TweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
 
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)")!

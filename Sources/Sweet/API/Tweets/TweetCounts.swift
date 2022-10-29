@@ -22,7 +22,7 @@ extension Sweet {
   ///   - sinceID: Return Tweet ID greater than (that is, more recent than) the specified ID
   ///   - granularity: This is the granularity that you want the time series count data to be grouped by. You can request minute, hour, or day granularity. The default granularity, if not specified is hour.
   /// - Returns: TweetCount
-  public func fetchRecentCountTweet(
+  public func recentCountTweet(
     query: String, startTime: Date? = nil,
     endTime: Date? = nil, untilID: String? = nil,
     sinceID: String? = nil, granularity: DateGranularity = .hour
@@ -51,7 +51,9 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && !$0.value!.isEmpty }
+    let removedEmptyQueries: [String: String?] = queries.filter {
+      $0.value != nil && !$0.value!.isEmpty
+    }
 
     let headers = getBearerHeaders(type: .app)
 
@@ -80,7 +82,7 @@ extension Sweet {
   ///   - sinceID: Return Tweet ID less than (that is, older than) the specified ID
   ///   - granularity: This is the granularity that you want the time series count data to be grouped by. You can request minute, hour, or day granularity. The default granularity, if not specified is hour.
   /// - Returns: TweetCount
-  public func fetchCountTweet(
+  public func countTweet(
     query: String, nextToken: String? = nil,
     startTime: Date? = nil, endTime: Date? = nil, untilID: String? = nil,
     sinceID: String? = nil, granularity: DateGranularity = .hour
@@ -111,7 +113,9 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && !$0.value!.isEmpty }
+    let removedEmptyQueries: [String: String?] = queries.filter {
+      $0.value != nil && !$0.value!.isEmpty
+    }
 
     let headers = getBearerHeaders(type: .app)
 

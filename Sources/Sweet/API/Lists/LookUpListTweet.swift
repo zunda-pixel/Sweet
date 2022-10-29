@@ -19,7 +19,7 @@ extension Sweet {
   ///   - maxResults: Max Tweet Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Tweets
-  public func fetchListTweets(listID: String, maxResults: Int = 100, paginationToken: String? = nil)
+  public func listTweets(listID: String, maxResults: Int = 100, paginationToken: String? = nil)
     async throws -> TweetsResponse
   {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/api-reference/get-lists-id-tweets

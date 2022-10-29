@@ -12,7 +12,7 @@ final class TestStreamAPI: XCTestCase {
   func testFetchStreamRule() async throws {
     let ids = ["1580172994608963584", "1580172994608963585"]
 
-    let streamRules = try await Sweet.test.fetchStreamRule(ids: ids)
+    let streamRules = try await Sweet.test.streamRule(ids: ids)
 
     streamRules.forEach {
       print($0)
@@ -70,13 +70,13 @@ private class TestStream: NSObject, URLSessionDataDelegate {
   }
 
   func testVolumeStreams() {
-    let request = Sweet.test.streamVolume(backfillMinutes: nil)
+    let request = Sweet.test.streamVolumeRequest(backfillMinutes: nil)
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
     session.dataTask(with: request).resume()
   }
 
   func testFilteredStreams() {
-    let request = Sweet.test.streamTweets(backfillMinutes: nil)
+    let request = Sweet.test.streamTweetsRequest(backfillMinutes: nil)
     let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
     session.dataTask(with: request).resume()
   }

@@ -19,7 +19,7 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   ///   - maxResults: Max Bookmark Count
   /// - Returns: Tweets
-  public func fetchBookmarks(userID: String, paginationToken: String? = nil, maxResults: Int = 100)
+  public func bookmarks(userID: String, paginationToken: String? = nil, maxResults: Int = 100)
     async throws -> TweetsResponse
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks

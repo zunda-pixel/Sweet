@@ -16,7 +16,7 @@ extension Sweet {
   /// Fetch Space by Space ID
   /// - Parameter spaceID: Space ID
   /// - Returns: Space
-  public func fetchSpace(spaceID: String) async throws -> SpaceResponse {
+  public func space(by spaceID: String) async throws -> SpaceResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
@@ -48,7 +48,7 @@ extension Sweet {
   /// Fetch Spaces by Space IDs
   /// - Parameter spaceIDs: Space IDs
   /// - Returns: Spaces
-  public func fetchSpaces(spaceIDs: [String]) async throws -> SpacesResponse {
+  public func spaces(spaceIDs: [String]) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces")!
@@ -81,7 +81,7 @@ extension Sweet {
   /// Fetch Spaces that created by user ids
   /// - Parameter creatorIDs: Creator User IDs
   /// - Returns: Spaces
-  public func fetchSpaces(creatorIDs: [String]) async throws -> SpacesResponse {
+  public func spaces(creatorIDs: [String]) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/by/creator_ids")!
@@ -114,7 +114,7 @@ extension Sweet {
   /// Fetch Users that buy Space
   /// - Parameter spaceID: Space IDs
   /// - Returns: Users(Buyers)
-  public func fetchSpaceBuyers(spaceID: String) async throws -> UsersResponse {
+  public func spaceBuyers(spaceID: String) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
@@ -148,7 +148,7 @@ extension Sweet {
   /// Fetch Tweets in Space
   /// - Parameter spaceID: Space ID
   /// - Returns: Tweets
-  public func fetchSpaceTweets(spaceID: String) async throws -> TweetsResponse {
+  public func spaceTweets(spaceID: String) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
 
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/tweets")!

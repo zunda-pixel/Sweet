@@ -19,7 +19,7 @@ extension Sweet {
   ///   - maxResults: Max User Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func fetchMuting(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
+  public func mutingUsers(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
     async throws -> UsersResponse
   {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/get-users-muting

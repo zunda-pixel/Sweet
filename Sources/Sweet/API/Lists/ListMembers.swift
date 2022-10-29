@@ -82,7 +82,7 @@ extension Sweet {
   ///   - maxResults: Max List Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Lists
-  public func fetchAddedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
+  public func addedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
     async throws -> ListsResponse
   {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
@@ -120,7 +120,7 @@ extension Sweet {
   ///   - maxResults: Max User Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Members(Users)
-  public func fetchListMembers(
+  public func listMembers(
     listID: String, maxResults: Int = 100, paginationToken: String? = nil
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
