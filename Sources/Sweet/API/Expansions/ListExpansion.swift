@@ -10,6 +10,5 @@ import Foundation
 extension Sweet {
   public enum ListExpansion: String, CaseIterable, Sendable {
     case ownerID = "owner_id"
-    case authorID = "author_id"
   }
 }
