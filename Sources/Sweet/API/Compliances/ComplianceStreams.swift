@@ -15,7 +15,7 @@ extension Sweet {
   ///   - partition: Must be set to 1, 2, 3 or 4. User compliance events are split across 4 partitions, so 4 separate streams are needed to receive all events.
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func streamUsersCompliance(
+  public func streamUsersComplianceRequest(
     partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil
   ) -> URLRequest {
     let url: URL = .init(string: "https://api.twitter.com/2/users/compliance/stream")!
@@ -56,7 +56,7 @@ extension Sweet {
   ///   - partition: Must be set to 1, 2, 3 or 4. User compliance events are split across 4 partitions, so 4 separate streams are needed to receive all events.
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func streamTweetsCompliance(
+  public func streamTweetsComplianceRequest(
     partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil
   )
     -> URLRequest

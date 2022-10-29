@@ -19,7 +19,7 @@ extension Sweet {
   ///   - maxResults: Max Space Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func fetchBlocking(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
+  public func blockingUsers(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
     async throws -> UsersResponse
   {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking

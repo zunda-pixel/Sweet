@@ -16,7 +16,7 @@ extension Sweet {
   /// Fetch List by List ID
   /// - Parameter listID: List ID
   /// - Returns: List
-  public func fetchList(listID: String) async throws -> ListResponse {
+  public func list(listID: String) async throws -> ListResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-lists-id
 
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
@@ -50,7 +50,7 @@ extension Sweet {
   ///   - maxResults: Max List Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Lists
-  public func fetchOwnedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
+  public func ownedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
     async throws -> ListsResponse
   {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists

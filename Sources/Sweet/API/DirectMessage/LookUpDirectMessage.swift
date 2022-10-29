@@ -49,7 +49,7 @@ extension Sweet {
   ///   - eventType: The type of Direct Message event to returm. If not included, all types are returned.
   ///   - maxResults: The maximum number of results to be returned in a page. Must be between 1 and 100. The default is 100.
   ///   - paginationToken: Contains either the next_token or previous_token value.
-  public func dmConversations(participantID: String, eventType: DirectMessageEventType? = nil, maxResults: Int = 100, paginationToken: String? = nil) async throws -> DirectMessagesResponse {
+  public func directMessageConversations(participantID: String, eventType: DirectMessageEventType? = nil, maxResults: Int = 100, paginationToken: String? = nil) async throws -> DirectMessagesResponse {
     let url = URL(string: "https://api.twitter.com/2/dm_conversations/with/\(participantID)/dm_events")!
 
     let headers = getBearerHeaders(type: .user)
@@ -87,7 +87,7 @@ extension Sweet {
   ///   - eventType: The type of Direct Message event to returm. If not included, all types are returned.
   ///   - maxResults: The maximum number of results to be returned in a page. Must be between 1 and 100. The default is 100.
   ///   - paginationToken: Contains either the next_token or previous_token value.
-  public func dmConversations(conversationID: String, eventType: DirectMessageEventType? = nil, maxResults: Int = 100, paginationToken: String? = nil) async throws -> DirectMessagesResponse{
+  public func directMessageConversations(conversationID: String, eventType: DirectMessageEventType? = nil, maxResults: Int = 100, paginationToken: String? = nil) async throws -> DirectMessagesResponse{
     let url = URL(string: "https://api.twitter.com/2/dm_conversations/\(conversationID)/dm_events")!
 
     let headers = getBearerHeaders(type: .user)

@@ -25,7 +25,7 @@ extension Sweet {
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   ///   - exclude: Exclude Tweet Type
   /// - Returns: Tweets
-  public func fetchReverseChronological(
+  public func reverseChronological(
     userID: String, maxResults: Int = 100,
     startTime: Date? = nil, endTime: Date? = nil,
     untilID: String? = nil, sinceID: String? = nil,
@@ -95,7 +95,7 @@ extension Sweet {
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   ///   - exclude: Exclude Tweet Type
   /// - Returns: Tweets
-  public func fetchTimeLine(
+  public func timeLine(
     userID: String, maxResults: Int = 100,
     startTime: Date? = nil, endTime: Date? = nil,
     untilID: String? = nil, sinceID: String? = nil,
@@ -163,7 +163,7 @@ extension Sweet {
   ///   - paginationToken: This parameter is used to get the next 'page' of results.
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   /// - Returns: Tweets
-  public func fetchMentions(
+  public func mentions(
     userID: String, maxResults: Int = 100,
     startTime: Date? = nil, endTime: Date? = nil,
     untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil

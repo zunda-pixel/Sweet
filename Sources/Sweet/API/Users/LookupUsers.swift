@@ -16,7 +16,7 @@ extension Sweet {
   /// Look Up User by User ID
   /// - Parameter userID: User ID
   /// - Returns: User
-  public func lookUpUser(userID: String) async throws -> UserResponse {
+  public func user(userID: String) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)")!
@@ -47,7 +47,7 @@ extension Sweet {
   /// Look Up User by Screen ID
   /// - Parameter screenID: Screen User ID
   /// - Returns: User
-  public func lookUpUser(screenID: String) async throws -> UserResponse {
+  public func user(screenID: String) async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/by/username/\(screenID)")!
@@ -78,7 +78,7 @@ extension Sweet {
   /// Look Up Users by User IDs
   /// - Parameter userIDs: User IDs
   /// - Returns: Users
-  public func lookUpUsers(userIDs: [String]) async throws -> UsersResponse {
+  public func users(userIDs: [String]) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
 
     let url: URL = .init(string: "https://api.twitter.com/2/users")!
@@ -110,7 +110,7 @@ extension Sweet {
   /// Look Up Users by Screen IDs
   /// - Parameter screenIDs: Screen User IDs
   /// - Returns: Users
-  public func lookUpUsers(screenIDs: [String]) async throws -> UsersResponse {
+  public func users(screenIDs: [String]) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/by")!
@@ -141,7 +141,7 @@ extension Sweet {
 
   /// Look Up Me(based Bearer Token)
   /// - Returns: User
-  public func lookUpMe() async throws -> UserResponse {
+  public func me() async throws -> UserResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me
 
     let url: URL = .init(string: "https://api.twitter.com/2/users/me")!

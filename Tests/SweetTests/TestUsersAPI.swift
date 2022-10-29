@@ -30,7 +30,7 @@ final class TestUsersAPI: XCTestCase {
 
   func testFetchFollowing() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchFollowing(userID: userID)
+    let response = try await Sweet.test.followingUsers(userID: userID)
 
     print(response.meta!)
 
@@ -41,7 +41,7 @@ final class TestUsersAPI: XCTestCase {
 
   func testFetchFollower() async throws {
     let userID = "2244994945"
-    let response = try await Sweet.test.fetchFollower(userID: userID)
+    let response = try await Sweet.test.followerUsers(userID: userID)
 
     print(response.meta!)
 
@@ -52,20 +52,20 @@ final class TestUsersAPI: XCTestCase {
 
   func testLookUpUserByUserID() async throws {
     let userID = "2244994945"
-    let userModel = try await Sweet.test.lookUpUser(userID: userID)
+    let userModel = try await Sweet.test.user(userID: userID)
 
     print(userModel)
   }
 
   func testLookUpUserByScreenID() async throws {
     let userID = "zunda_dev"
-    let response = try await Sweet.test.lookUpUser(screenID: userID)
+    let response = try await Sweet.test.user(screenID: userID)
     print(response)
   }
 
   func testLookUpUsersByUserID() async throws {
     let userIDs = ["2244994945", "1048032521361866752"]
-    let response = try await Sweet.test.lookUpUsers(userIDs: userIDs)
+    let response = try await Sweet.test.users(userIDs: userIDs)
 
     response.users.forEach {
       print($0)
@@ -74,7 +74,7 @@ final class TestUsersAPI: XCTestCase {
 
   func testLookUpUsersByScreenID() async throws {
     let userIDs = ["zunda_pixel", "zunda"]
-    let response = try await Sweet.test.lookUpUsers(screenIDs: userIDs)
+    let response = try await Sweet.test.users(screenIDs: userIDs)
 
     response.users.forEach {
       print($0)
@@ -82,7 +82,7 @@ final class TestUsersAPI: XCTestCase {
   }
 
   func testLookUpMe() async throws {
-    let response = try await Sweet.test.lookUpMe()
+    let response = try await Sweet.test.me()
     print(response)
   }
 
@@ -94,7 +94,7 @@ final class TestUsersAPI: XCTestCase {
 
   func testFetchBlockUser() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchBlocking(userID: userID)
+    let response = try await Sweet.test.blockingUsers(userID: userID)
 
     print(response.meta!)
 
@@ -117,7 +117,7 @@ final class TestUsersAPI: XCTestCase {
 
   func testFetchMutingUser() async throws {
     let userID = testMyUserID
-    let response = try await Sweet.test.fetchMuting(userID: userID)
+    let response = try await Sweet.test.mutingUsers(userID: userID)
 
     print(response.meta!)
 

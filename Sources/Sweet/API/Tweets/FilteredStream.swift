@@ -13,7 +13,7 @@ extension Sweet {
   /// Fetch Stream Rule with ids
   /// - Parameter ids: Stream Rule IDs
   /// - Returns: Stream Rules
-  public func fetchStreamRule(ids: [String]? = nil) async throws -> [StreamRuleModel] {
+  public func streamRule(ids: [String]? = nil) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
 
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
@@ -43,7 +43,7 @@ extension Sweet {
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func streamTweets(backfillMinutes: Int? = nil)
+  public func streamTweetsRequest(backfillMinutes: Int? = nil)
     -> URLRequest
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream

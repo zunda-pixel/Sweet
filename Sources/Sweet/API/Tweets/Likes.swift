@@ -19,7 +19,7 @@ extension Sweet {
   ///   - maxResults: Max User Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func fetchLikingTweetUsers(
+  public func likingTweetUsers(
     tweetID: String, maxResults: Int = 100, paginationToken: String? = nil
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
@@ -57,7 +57,7 @@ extension Sweet {
   ///   - maxResults: Max Tweet Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Tweets
-  public func fetchLikedTweet(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
+  public func likedTweet(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
     async throws -> TweetsResponse
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets

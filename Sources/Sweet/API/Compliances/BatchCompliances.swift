@@ -13,7 +13,7 @@ import HTTPClient
 #endif
 
 extension Sweet {
-  public func fetchComplianceJobs(type: JobType, status: JobStatus? = nil) async throws
+  public func complianceJobs(type: JobType, status: JobStatus? = nil) async throws
     -> [ComplianceJobModel]
   {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
@@ -42,7 +42,7 @@ extension Sweet {
     throw TwitterError.unknown(request: request, data: data, response: urlResponse)
   }
 
-  public func fetchComplianceJob(jobID: String) async throws -> ComplianceJobModel {
+  public func complianceJob(jobID: String) async throws -> ComplianceJobModel {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
 
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs/\(jobID)")!
