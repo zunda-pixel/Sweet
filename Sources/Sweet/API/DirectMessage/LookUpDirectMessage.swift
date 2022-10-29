@@ -48,7 +48,7 @@ extension Sweet {
   ///　https://developer.twitter.com/en/docs/twitter-api/direct-messages/lookup/api-reference/get-dm_conversations-with-participant_id-dm_events
   /// - Parameters:
   ///   - participantID: Participant ID
-  ///   - eventType: The type of Direct Message event to returm. If not included, all types are returned.
+  ///   - eventType: The type of Direct Message event to return. If not included, all types are returned.
   ///   - maxResults: The maximum number of results to be returned in a page. Must be between 1 and 100. The default is 100.
   ///   - paginationToken: Contains either the next_token or previous_token value.
   public func directMessageConversations(
@@ -90,7 +90,7 @@ extension Sweet {
   /// https://developer.twitter.com/en/docs/twitter-api/direct-messages/lookup/api-reference/get-dm_conversations-dm_conversation_id-dm_events
   /// - Parameters:
   ///   - conversationID: Conversation ID
-  ///   - eventType: The type of Direct Message event to returm. If not included, all types are returned.
+  ///   - eventType: The type of Direct Message event to return. If not included, all types are returned.
   ///   - maxResults: The maximum number of results to be returned in a page. Must be between 1 and 100. The default is 100.
   ///   - paginationToken: Contains either the next_token or previous_token value.
   public func directMessageConversations(
