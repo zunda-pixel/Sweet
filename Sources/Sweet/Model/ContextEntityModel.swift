@@ -1,15 +1,12 @@
 //
 //  ContextEntityModel.swift
 //
-//
-//  Created by zunda on 2022/03/13.
-//
 
 import Foundation
 
 extension Sweet {
   /// Context Entity Model
-  public struct ContextEntityModel: Hashable, Identifiable, Sendable {
+  public struct ContextEntityModel: Hashable, Identifiable, Sendable, Codable {
     public let id: String
     public let name: String
     public let description: String?
@@ -20,7 +17,4 @@ extension Sweet {
       self.description = description
     }
   }
-}
-extension Sweet.ContextEntityModel: Codable {
-
 }
