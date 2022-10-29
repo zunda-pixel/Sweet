@@ -38,7 +38,8 @@ extension Sweet.DirectMessagesResponse: Decodable {
       return
     }
 
-    self.directMessages = try values.decode([Sweet.DirectMessageModel].self, forKey: .directMessages)
+    self.directMessages = try values.decode(
+      [Sweet.DirectMessageModel].self, forKey: .directMessages)
 
     guard
       let includes = try? values.nestedContainer(
@@ -48,7 +49,7 @@ extension Sweet.DirectMessagesResponse: Decodable {
       self.users = []
       return
     }
-    
+
     let medias = try includes.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
 

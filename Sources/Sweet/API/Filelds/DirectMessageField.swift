@@ -5,10 +5,10 @@
 import Foundation
 
 extension Sweet {
-  
+
   public enum DirectMessageField: String, Field, Sendable {
     static public let key: String = "dm_event.fields"
-    
+
     case id
     case text
     case eventType = "event_type"

@@ -139,54 +139,81 @@ final class TestCodableModel: XCTestCase {
 
     XCTAssertEqual(tweet, decodedTweet)
   }
-  
+
   func testPlaceModelCodable() throws {
-    let place1 = Sweet.PlaceModel(id: "id", fullName: "fullName", name: "name", country: "country", countryCode: "countryCode", geo: .init(type: .feature, boundingBox: [100.0]), type: .admin, containedWithin: ["1", "2"])
-    
+    let place1 = Sweet.PlaceModel(
+      id: "id", fullName: "fullName", name: "name", country: "country", countryCode: "countryCode",
+      geo: .init(type: .feature, boundingBox: [100.0]), type: .admin, containedWithin: ["1", "2"])
+
     let data = try JSONEncoder().encode(place1)
-    
+
     let place2 = try JSONDecoder().decode(Sweet.PlaceModel.self, from: data)
-    
+
     XCTAssertEqual(place1, place2)
   }
-  
+
   func testMediaModelCodable() throws {
-    let media1 = Sweet.MediaModel(key: "key", type: .animatedGig, size: .init(width: 100, height: 200), previewImageURL: .init(string: "https://twitter.com")!, url: .init(string: "https://twitter.com")!, variants: [.init(bitRate: 100, contentType: .mp4, url: .init(string: "https://twitter.com")!)], durationMicroSeconds: 100, alternateText: "alternateText", metrics: .init(viewCount: 200), privateMetrics: .init(viewCount: 1, playback0Count: 2, playback25Count: 3, playback50Count: 4, playback75Count: 5, playback100Count: 6), promotedMetrics: .init(viewCount: 1, playback0Count: 2, playback25Count: 4, playback50Count: 3, playback75Count: 5, playback100Count: 6), organicMetrics: .init(viewCount: 0, playback0Count: 1, playback25Count: 2, playback50Count: 3, playback75Count: 4, playback100Count: 5))
-    
+    let media1 = Sweet.MediaModel(
+      key: "key", type: .animatedGig, size: .init(width: 100, height: 200),
+      previewImageURL: .init(string: "https://twitter.com")!,
+      url: .init(string: "https://twitter.com")!,
+      variants: [
+        .init(bitRate: 100, contentType: .mp4, url: .init(string: "https://twitter.com")!)
+      ], durationMicroSeconds: 100, alternateText: "alternateText", metrics: .init(viewCount: 200),
+      privateMetrics: .init(
+        viewCount: 1, playback0Count: 2, playback25Count: 3, playback50Count: 4, playback75Count: 5,
+        playback100Count: 6),
+      promotedMetrics: .init(
+        viewCount: 1, playback0Count: 2, playback25Count: 4, playback50Count: 3, playback75Count: 5,
+        playback100Count: 6),
+      organicMetrics: .init(
+        viewCount: 0, playback0Count: 1, playback25Count: 2, playback50Count: 3, playback75Count: 4,
+        playback100Count: 5))
+
     let data = try JSONEncoder().encode(media1)
-    
+
     let media2 = try JSONDecoder().decode(Sweet.MediaModel.self, from: data)
-    
+
     XCTAssertEqual(media1, media2)
   }
-  
+
   func testListModelCodable() throws {
-    let list1 = Sweet.ListModel(id: "id", name: "name", followerCount: 123, memberCount: 1222, ownerID: "ownerID", description: "description", isPrivate: true, createdAt: nil)
-    
+    let list1 = Sweet.ListModel(
+      id: "id", name: "name", followerCount: 123, memberCount: 1222, ownerID: "ownerID",
+      description: "description", isPrivate: true, createdAt: nil)
+
     let data = try JSONEncoder().encode(list1)
-    
+
     let list2 = try JSONDecoder().decode(Sweet.ListModel.self, from: data)
-    
+
     XCTAssertEqual(list1, list2)
   }
-  
+
   func testSpaceModelCodable() throws {
-    let space1 = Sweet.SpaceModel(id: "id", state: .all, creatorID: "createID", title: "title", hostIDs: ["hostID1"], lang: "lang", participantCount: 33, isTicketed: false, startedAt: nil, updatedAt: nil, createdAt: nil, endedAt: nil, invitedUserIDs: ["42334234", "434343"], scheduledStart: nil, speakerIDs: ["32444334", "4343434"], subscriberCount: 3232, topicIDs: ["324234234", "43242342"])
-    
+    let space1 = Sweet.SpaceModel(
+      id: "id", state: .all, creatorID: "createID", title: "title", hostIDs: ["hostID1"],
+      lang: "lang", participantCount: 33, isTicketed: false, startedAt: nil, updatedAt: nil,
+      createdAt: nil, endedAt: nil, invitedUserIDs: ["42334234", "434343"], scheduledStart: nil,
+      speakerIDs: ["32444334", "4343434"], subscriberCount: 3232,
+      topicIDs: ["324234234", "43242342"])
+
     let data = try JSONEncoder().encode(space1)
-    
+
     let space2 = try JSONDecoder().decode(Sweet.SpaceModel.self, from: data)
-    
+
     XCTAssertEqual(space1, space2)
   }
-  
+
   func testDirectMessageModelCodable() throws {
-    let dm1 = Sweet.DirectMessageModel(eventType: .messageCreate, id: "id", text: "text", conversationID: "conversationID", createdAt: nil, senderID: "senderID", attachments: .init(mediaKeys: ["1", "2"]), referencedTweets: [.init(id: "id")])
-    
+    let dm1 = Sweet.DirectMessageModel(
+      eventType: .messageCreate, id: "id", text: "text", conversationID: "conversationID",
+      createdAt: nil, senderID: "senderID", attachments: .init(mediaKeys: ["1", "2"]),
+      referencedTweets: [.init(id: "id")])
+
     let data = try JSONEncoder().encode(dm1)
-    
+
     let dm2 = try JSONDecoder().decode(Sweet.DirectMessageModel.self, from: data)
-    
+
     XCTAssertEqual(dm1, dm2)
   }
 }

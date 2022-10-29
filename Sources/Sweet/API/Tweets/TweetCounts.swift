@@ -51,7 +51,9 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && !$0.value!.isEmpty }
+    let removedEmptyQueries: [String: String?] = queries.filter {
+      $0.value != nil && !$0.value!.isEmpty
+    }
 
     let headers = getBearerHeaders(type: .app)
 
@@ -111,7 +113,9 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter { $0.value != nil && !$0.value!.isEmpty }
+    let removedEmptyQueries: [String: String?] = queries.filter {
+      $0.value != nil && !$0.value!.isEmpty
+    }
 
     let headers = getBearerHeaders(type: .app)
 
