@@ -4,6 +4,10 @@
 
 import Foundation
 
+#if os(Linux) || os(Windows)
+  import FoundationNetworking
+#endif
+
 extension Sweet {
   /// Post Direct Message
   ///  https://developer.twitter.com/en/docs/twitter-api/direct-messages/manage/api-reference/post-dm_conversations-with-participant_id-messages
