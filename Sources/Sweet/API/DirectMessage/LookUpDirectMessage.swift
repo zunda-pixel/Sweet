@@ -4,6 +4,10 @@
 
 import Foundation
 
+#if os(Linux) || os(Windows)
+  import FoundationNetworking
+#endif
+
 extension Sweet {
   /// Get Direct Message Events
   /// https://developer.twitter.com/en/docs/twitter-api/direct-messages/lookup/api-reference/get-dm_events
