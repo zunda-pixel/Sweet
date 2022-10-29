@@ -27,7 +27,7 @@ public struct Sweet: Sendable {
   public var directMesssageExpansions: [DirectMessageExpansion] = DirectMessageExpansion.allCases
   public var listExpansions: [ListExpansion] = ListExpansion.allCases
   public var spaceExpansions: [SpaceExpansion] = SpaceExpansion.allCases
-  
+
   public var tweetFields: [TweetField] = TweetField.allCases
   public var userFields: [UserField] = UserField.allCases
   public var mediaFields: [MediaField] = MediaField.allCases
@@ -37,7 +37,6 @@ public struct Sweet: Sendable {
   public var topicFields: [TopicField] = TopicField.allCases
   public var spaceFields: [SpaceField] = SpaceField.allCases
   public var directMessageFields: [DirectMessageField] = DirectMessageField.allCases
-  
 
   public init(
     app bearerTokenApp: String, user bearerTokenUser: String, config: URLSessionConfiguration
