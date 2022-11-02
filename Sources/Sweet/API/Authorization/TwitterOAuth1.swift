@@ -17,10 +17,10 @@ extension Sweet {
       self.oAuth1 = oAuth1
     }
     
-    private func authorizationToken(bearerToken: String) async throws -> String {
+    private func authorizationToken(authorization: String) async throws -> String {
       var request = URLRequest(url: oAuth1.url)
       request.httpMethod = oAuth1.httpMethod.rawValue
-      request.allHTTPHeaderFields = ["Authorization": bearerToken]
+      request.allHTTPHeaderFields = ["Authorization": authorization]
       
       let (data, _) = try await URLSession.shared.data(for: request)
       
@@ -36,8 +36,8 @@ extension Sweet {
     }
     
     public func authenticateURL() async throws -> URL {
-      let bearerToken = oAuth1.bearerToken()
-      let token = try await authorizationToken(bearerToken: bearerToken)
+      let authorization = oAuth1.authorization()
+      let token = try await authorizationToken(authorization: authorization)
       
       let authenticateURL = "https://api.twitter.com/oauth/authenticate"
       var components = URLComponents(string: authenticateURL)!

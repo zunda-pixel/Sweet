@@ -16,7 +16,7 @@ extension Sweet {
   public func getBearerHeaders(httpMethod: HTTPMethod, url: URL, queries: [String: String])
     -> [String: String]
   {
-    let bearerToken = token.bearerToken(httpMethod: httpMethod, url: url, queries: queries)
+    let bearerToken = token.authorization(httpMethod: httpMethod, url: url, queries: queries)
 
     let headers = [
       "Authorization": bearerToken,
