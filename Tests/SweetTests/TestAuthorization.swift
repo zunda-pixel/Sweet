@@ -69,14 +69,14 @@ final class TestAuthorization: XCTestCase {
   }
 
   func testOAuth1AuthorizationURL() async throws {
-    let oauth1 = OAuth1(
+    let oAuth1 = OAuth1(
       accessToken: "k1KVviIOklkmjyR6PUDWHrGUH",
       accessSecretToken: "v6OhT1iEYJYKHTsNfJpoWD0L7u2xw8pSLHRD2q0mNn1dvuTc28",
       httpMethod: .post,
       url: .init(string: "https://api.twitter.com/oauth/request_token")!
     )
 
-    let twitterOAuth1 = TwitterOAuth1(oAuth1: oauth1)
+    let twitterOAuth1 = Sweet.TwitterOAuth1(oAuth1: oAuth1)
     let url = try await twitterOAuth1.authenticateURL()
     print(url)
   }
@@ -85,7 +85,7 @@ final class TestAuthorization: XCTestCase {
     let oAuthToken = "TietTt4hYg4MYIqSFjYe8O4PYGW"
     let oAuthVerifier = "gg4PteXMwK2u2C8wwLRqeFTitlqxD46q"
 
-    let response = try await TwitterOAuth1.accessToken(
+    let response = try await Sweet.TwitterOAuth1.accessToken(
       oAuthToken: oAuthToken, oAuthVerifier: oAuthVerifier)
 
     print(response)
