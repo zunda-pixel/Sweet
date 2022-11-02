@@ -17,7 +17,7 @@ extension Sweet {
     let bearerToken = token.bearerToken(httpMethod: httpMethod, url: url, queries: queries)
 
     let headers = [
-      "Authorization": "Bearer \(bearerToken)",
+      "Authorization": bearerToken,
       "Content-type": "application/json",
     ]
 
