@@ -17,8 +17,6 @@ public struct Sweet: Sendable {
 
   var session: URLSession { .init(configuration: config) }
 
-  public var authorizeType: AuthorizeType = .user
-
   public var tweetExpansions: [TweetExpansion] = TweetExpansion.allCases
   public var userExpansions: [UserExpansion] = UserExpansion.allCases
   public var mediaExpansions: [MediaExpansion] = MediaExpansion.allCases
