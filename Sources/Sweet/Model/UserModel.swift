@@ -68,7 +68,7 @@ extension Sweet.UserModel: Codable {
 
     if let profileImageURL = try values.decodeIfPresent(String.self, forKey: .profileImageURL) {
       let removedNormalProfileImageURL: String =
-      profileImageURL.replacingOccurrences(of: "_normal", with: "")
+        profileImageURL.replacingOccurrences(of: "_normal", with: "")
       self.profileImageURL = .init(string: removedNormalProfileImageURL)!
     } else {
       self.profileImageURL = nil

@@ -21,7 +21,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/sample/stream")!
 
     @DictionaryBuilder<String, String?>
@@ -41,10 +41,11 @@ extension Sweet {
     }
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     return request
   }

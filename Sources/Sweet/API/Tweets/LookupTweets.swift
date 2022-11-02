@@ -18,7 +18,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
 
     let queries: [String: String?] = [
@@ -30,12 +30,13 @@ extension Sweet {
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -57,7 +58,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)")!
 
     let queries: [String: String?] = [
@@ -68,12 +69,13 @@ extension Sweet {
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

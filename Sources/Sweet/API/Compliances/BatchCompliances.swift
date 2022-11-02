@@ -17,19 +17,20 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
 
     let queries: [String: String?] = [
       "type": type.rawValue,
       "status": status?.rawValue,
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -48,7 +49,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs-id
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs/\(jobID)")!
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
@@ -74,7 +75,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/post-compliance-jobs
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/compliance/jobs")!
 
     struct JobModel: Encodable, Sendable {

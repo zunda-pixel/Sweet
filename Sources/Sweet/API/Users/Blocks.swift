@@ -23,7 +23,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/blocking")!
 
     let queries: [String: String?] = [
@@ -33,12 +33,13 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -61,7 +62,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/post-users-user_id-blocking
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/blocking")!
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
@@ -96,7 +97,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking
 
     let method: HTTPMethod = .delete
-    
+
     let url: URL = .init(
       string: "https://api.twitter.com/2/users/\(fromUserID)/blocking/\(toUserID)")!
 

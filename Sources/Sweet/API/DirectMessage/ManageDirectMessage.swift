@@ -20,7 +20,7 @@ extension Sweet {
     async throws -> DirectMessageResultResponse
   {
     let method: HTTPMethod = .post
-    
+
     let url = URL(
       string: "https://api.twitter.com/2/dm_conversations/with/\(participantID)/messages")!
 
@@ -53,7 +53,7 @@ extension Sweet {
     async throws -> DirectMessageResultResponse
   {
     let method: HTTPMethod = .post
-    
+
     let url = URL(string: "https://api.twitter.com/2/dm_conversations/\(conversationID)/messages")!
 
     let body = try JSONEncoder().encode(message)
@@ -83,9 +83,9 @@ extension Sweet {
     -> DirectMessageResultResponse
   {
     let method: HTTPMethod = .post
-    
+
     let url = URL(string: "https://api.twitter.com/2/dm_conversations")!
-    
+
     let body = try JSONEncoder().encode(directMessage)
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])

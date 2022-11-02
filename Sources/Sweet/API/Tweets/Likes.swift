@@ -23,7 +23,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
 
     let queries: [String: String?] = [
@@ -33,12 +33,13 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
     ]
-      
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -65,7 +66,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
 
     let queries: [String: String?] = [
@@ -80,10 +81,11 @@ extension Sweet {
     ]
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -106,7 +108,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-id-likes
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes")!
 
     let body = ["tweet_id": tweetID]
@@ -141,7 +143,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
 
     let method: HTTPMethod = .delete
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes/\(tweetID)")!
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])

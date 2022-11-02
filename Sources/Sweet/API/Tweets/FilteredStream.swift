@@ -18,18 +18,19 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
     let queries: [String: String?] = [
       "ids": ids?.joined(separator: ",")
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -54,7 +55,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
 
     @DictionaryBuilder<String, String?>
@@ -77,7 +78,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     return request
   }
@@ -94,20 +96,21 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
     let queries: [String: String] = [
       "dry_run": String(dryRun)
     ]
-        
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: queries)
 
     let body = ["add": streamRuleModels]
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let request: URLRequest = .request(method: method, url: url, queries: queries, headers: headers, body: bodyData)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: queries, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -133,21 +136,22 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
     let queries: [String: String] = [
       "dry_run": String(dryRun)
     ]
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: queries)
 
     let body = ["delete": ["ids": ids]]
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let request: URLRequest = .request(method: method, url: url, queries: queries, headers: headers, body: bodyData)
-    
+    let request: URLRequest = .request(
+      method: method, url: url, queries: queries, headers: headers, body: bodyData)
+
     let _ = try await session.data(for: request)
   }
 
@@ -160,21 +164,22 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
     let queries: [String: String] = [
       "dry_run": String(dryRun)
     ]
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: queries)
 
     let body = ["delete": ["values": values]]
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let request: URLRequest = .request(method: method, url: url, queries: queries, headers: headers, body: bodyData)
-    
+    let request: URLRequest = .request(
+      method: method, url: url, queries: queries, headers: headers, body: bodyData)
+
     let _ = try await session.data(for: request)
   }
 }

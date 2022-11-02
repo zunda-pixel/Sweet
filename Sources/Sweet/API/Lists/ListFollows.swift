@@ -22,7 +22,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/delete-users-id-followed-lists-list_id
 
     let method: HTTPMethod = .delete
-    
+
     let url: URL = .init(
       string: "https://api.twitter.com/2/users/\(userID)/followed_lists/\(listID)")!
 
@@ -55,7 +55,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/post-users-id-followed-lists
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!
 
     let body = ["list_id": listID]
@@ -94,7 +94,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/followers")!
 
     let queries: [String: String?] = [
@@ -104,12 +104,13 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ]
-      
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -136,7 +137,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followed_lists")!
 
     let queries: [String: String?] = [
@@ -146,12 +147,13 @@ extension Sweet {
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ]
-      
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

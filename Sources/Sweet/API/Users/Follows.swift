@@ -19,8 +19,8 @@ extension Sweet {
   public func follow(from fromUserID: String, to toUserID: String) async throws -> (Bool, Bool) {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
 
-    let method: HTTPMethod  = .post
-    
+    let method: HTTPMethod = .post
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/following")!
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
@@ -51,7 +51,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following
 
     let method: HTTPMethod = .delete
-    
+
     let url: URL = .init(
       string: "https://api.twitter.com/2/users/\(fromUserID)/following/\(toUserID)")!
 
@@ -88,7 +88,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/following")!
 
     let queries: [String: String?] = [
@@ -98,12 +98,13 @@ extension Sweet {
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -130,7 +131,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/followers")!
 
     let queries: [String: String?] = [
@@ -145,7 +146,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

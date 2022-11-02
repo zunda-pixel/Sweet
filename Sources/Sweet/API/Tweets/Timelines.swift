@@ -32,7 +32,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-reverse-chronological
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(
       string: "https://api.twitter.com/2/users/\(userID)/timelines/reverse_chronological")!
 
@@ -67,7 +67,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -104,7 +105,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/tweets")!
 
     let formatter = TwitterDateFormatter()
@@ -135,10 +136,11 @@ extension Sweet {
     }
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -173,7 +175,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/mentions")!
 
     let formatter = TwitterDateFormatter()
@@ -203,10 +205,11 @@ extension Sweet {
     }
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

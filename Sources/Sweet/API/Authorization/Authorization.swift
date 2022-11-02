@@ -13,7 +13,9 @@ import HTTPMethod
 #endif
 
 extension Sweet {
-  public func getBearerHeaders(httpMethod: HTTPMethod, url: URL, queries: [String: String]) -> [String: String] {
+  public func getBearerHeaders(httpMethod: HTTPMethod, url: URL, queries: [String: String])
+    -> [String: String]
+  {
     let bearerToken = token.bearerToken(httpMethod: httpMethod, url: url, queries: queries)
 
     let headers = [

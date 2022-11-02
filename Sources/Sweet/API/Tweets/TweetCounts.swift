@@ -28,7 +28,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/recent")!
 
     let formatter = TwitterDateFormatter()
@@ -52,10 +52,11 @@ extension Sweet {
     }
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -89,7 +90,7 @@ extension Sweet {
     // This endpoint is only available for Academic Research access.
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/all")!
 
     let formatter = TwitterDateFormatter()
@@ -114,10 +115,11 @@ extension Sweet {
     }
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

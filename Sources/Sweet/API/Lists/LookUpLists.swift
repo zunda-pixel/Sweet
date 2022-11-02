@@ -18,7 +18,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-lists-id
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
 
     let queries: [String: String?] = [
@@ -28,10 +28,11 @@ extension Sweet {
     ]
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -58,7 +59,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/owned_lists")!
 
     let queries: [String: String?] = [
@@ -70,10 +71,11 @@ extension Sweet {
     ]
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

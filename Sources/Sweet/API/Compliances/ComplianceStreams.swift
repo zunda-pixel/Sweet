@@ -20,7 +20,7 @@ extension Sweet {
     partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil
   ) -> URLRequest {
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/compliance/stream")!
 
     let formatter = TwitterDateFormatter()
@@ -48,7 +48,8 @@ extension Sweet {
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: emptyRemovedQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: emptyRemovedQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: emptyRemovedQueries, headers: headers)
 
     return request
   }
@@ -65,7 +66,7 @@ extension Sweet {
     -> URLRequest
   {
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/compliance/stream")!
 
     let formatter = TwitterDateFormatter()
@@ -88,10 +89,11 @@ extension Sweet {
     }
 
     let emptyRemovedQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: emptyRemovedQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: emptyRemovedQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: emptyRemovedQueries, headers: headers)
 
     return request
   }

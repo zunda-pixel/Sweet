@@ -19,7 +19,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/post-lists-id-members
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
 
     let body = ["user_id": userID]
@@ -54,7 +54,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/delete-lists-id-members-user_id
 
     let method: HTTPMethod = .delete
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members/\(userID)")!
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
@@ -90,7 +90,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/list_memberships")!
 
     let queries: [String: String?] = [
@@ -102,10 +102,11 @@ extension Sweet {
     ]
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -132,7 +133,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
 
     let queries: [String: String?] = [
@@ -144,10 +145,11 @@ extension Sweet {
     ]
 
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

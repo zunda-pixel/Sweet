@@ -18,7 +18,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets")!
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
@@ -46,7 +46,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/delete-tweets-id
 
     let method: HTTPMethod = .delete
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)")!
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])

@@ -20,7 +20,7 @@ extension Sweet {
     eventType: DirectMessageEventType? = nil, maxResults: Int = 100, paginationToken: String? = nil
   ) async throws -> DirectMessagesResponse {
     let method: HTTPMethod = .get
-    
+
     let url = URL(string: "https://api.twitter.com/2/dm_events")!
 
     let queries: [String: String?] = [
@@ -33,12 +33,13 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allDirectMessageExpansion.joined(separator: ","),
     ]
-      
-    let removedEmptyQueries =  queries.removedEmptyValue
+
+    let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -65,10 +66,9 @@ extension Sweet {
     paginationToken: String? = nil
   ) async throws -> DirectMessagesResponse {
     let method: HTTPMethod = .get
-    
+
     let url = URL(
       string: "https://api.twitter.com/2/dm_conversations/with/\(participantID)/dm_events")!
-
 
     let queries: [String: String?] = [
       "max_results": String(maxResults),
@@ -80,12 +80,13 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allDirectMessageExpansion.joined(separator: ","),
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -112,7 +113,7 @@ extension Sweet {
     paginationToken: String? = nil
   ) async throws -> DirectMessagesResponse {
     let method: HTTPMethod = .get
-    
+
     let url = URL(string: "https://api.twitter.com/2/dm_conversations/\(conversationID)/dm_events")!
 
     let queries: [String: String?] = [
@@ -125,12 +126,13 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allDirectMessageExpansion.joined(separator: ","),
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
-    
+
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

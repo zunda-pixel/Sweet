@@ -19,7 +19,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
 
     let method: HTTPMethod = .put
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/hidden")!
 
     let body = ["hidden": hidden]

@@ -19,7 +19,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/post-users-id-pinned-lists
 
     let method: HTTPMethod = .post
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
 
     let body = ["list_id": listID]
@@ -54,7 +54,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/delete-users-id-pinned-lists-list_id
 
     let method: HTTPMethod = .delete
-    
+
     let url: URL = .init(
       string: "https://api.twitter.com/2/users/\(userID)/pinned_lists/\(listID)")!
 
@@ -86,7 +86,7 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
 
     let method: HTTPMethod = .get
-    
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
 
     let queries: [String: String?] = [
@@ -94,12 +94,13 @@ extension Sweet {
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
     ]
-    
+
     let removedEmptyQueries = queries.removedEmptyValue
 
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
