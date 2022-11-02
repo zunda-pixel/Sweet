@@ -66,10 +66,13 @@ extension Sweet.UserModel: Codable {
     self.withheld = try values.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
     self.entity = try values.decodeIfPresent(Sweet.UserEntityModel.self, forKey: .entities)
 
-    let profileImageURL: String? = try values.decodeIfPresent(String.self, forKey: .profileImageURL)
-    let removedNormalProfileImageURL: String =
-      profileImageURL?.replacingOccurrences(of: "_normal", with: "") ?? ""
-    self.profileImageURL = .init(string: removedNormalProfileImageURL)!
+    if let profileImageURL = try values.decodeIfPresent(String.self, forKey: .profileImageURL) {
+      let removedNormalProfileImageURL: String =
+      profileImageURL.replacingOccurrences(of: "_normal", with: "")
+      self.profileImageURL = .init(string: removedNormalProfileImageURL)!
+    } else {
+      self.profileImageURL = nil
+    }
 
     let url: String? = try values.decodeIfPresent(String.self, forKey: .url)
     self.url = URL(string: url ?? "")
