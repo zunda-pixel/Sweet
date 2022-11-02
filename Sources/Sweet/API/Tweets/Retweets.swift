@@ -1,12 +1,10 @@
 //
 //  Retweets.swift
 //
-//
-//  Created by zunda on 2022/01/16.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -24,6 +22,8 @@ extension Sweet {
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/retweeted_by")!
 
     let queries: [String: String?] = [
@@ -32,11 +32,13 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+        
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -58,14 +60,16 @@ extension Sweet {
   public func retweet(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
 
+    let method: HTTPMethod = .post
+    
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets")!
 
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -91,11 +95,13 @@ extension Sweet {
   public func deleteRetweet(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
 
+    let method: HTTPMethod = .delete
+    
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/retweets/\(tweetID)")!
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .delete(url: url, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

@@ -1,12 +1,10 @@
 //
 //  HideReplies.swift
 //
-//
-//  Created by zunda on 2022/01/16.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -20,14 +18,16 @@ extension Sweet {
   public func hideReply(tweetID: String, hidden: Bool) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
 
+    let method: HTTPMethod = .put
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/hidden")!
 
     let body = ["hidden": hidden]
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .put(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 

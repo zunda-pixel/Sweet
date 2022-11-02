@@ -1,12 +1,10 @@
 //
 //  TweetCounts.swift
 //
-//
-//  Created by zunda on 2022/01/17.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -29,6 +27,8 @@ extension Sweet {
   ) async throws -> CountTweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/recent")!
 
     let formatter = TwitterDateFormatter()
@@ -51,13 +51,11 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter {
-      $0.value != nil && !$0.value!.isEmpty
-    }
+    let removedEmptyQueries = queries.removedEmptyValue
+    
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let headers = getBearerHeaders(type: .app)
-
-    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -90,6 +88,8 @@ extension Sweet {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
     // This endpoint is only available for Academic Research access.
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/counts/all")!
 
     let formatter = TwitterDateFormatter()
@@ -113,13 +113,11 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter {
-      $0.value != nil && !$0.value!.isEmpty
-    }
+    let removedEmptyQueries = queries.removedEmptyValue
+    
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let headers = getBearerHeaders(type: .app)
-
-    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

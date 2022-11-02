@@ -1,12 +1,10 @@
 //
 //  Timelines.swift
 //
-//
-//  Created by zunda on 2022/01/17.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -33,6 +31,8 @@ extension Sweet {
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-reverse-chronological
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(
       string: "https://api.twitter.com/2/users/\(userID)/timelines/reverse_chronological")!
 
@@ -63,13 +63,11 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter {
-      $0.value != nil && !$0.value!.isEmpty
-    }
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -105,6 +103,8 @@ extension Sweet {
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/tweets")!
 
     let formatter = TwitterDateFormatter()
@@ -134,13 +134,11 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter {
-      $0.value != nil && !$0.value!.isEmpty
-    }
+    let removedEmptyQueries = queries.removedEmptyValue
+    
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let headers = getBearerHeaders(type: authorizeType)
-
-    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -174,6 +172,8 @@ extension Sweet {
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/mentions")!
 
     let formatter = TwitterDateFormatter()
@@ -202,13 +202,11 @@ extension Sweet {
       }
     }
 
-    let removedEmptyQueries: [String: String?] = queries.filter {
-      $0.value != nil && !$0.value!.isEmpty
-    }
+    let removedEmptyQueries = queries.removedEmptyValue
+    
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let headers = getBearerHeaders(type: authorizeType)
-
-    let request: URLRequest = .get(url: url, headers: headers, queries: removedEmptyQueries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

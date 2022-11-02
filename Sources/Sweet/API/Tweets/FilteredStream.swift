@@ -4,6 +4,7 @@
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if canImport(FoundationNetworking)
   import FoundationNetworking
@@ -16,15 +17,19 @@ extension Sweet {
   public func streamRule(ids: [String]? = nil) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
     let queries: [String: String?] = [
       "ids": ids?.joined(separator: ",")
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+    
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: .app)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -48,6 +53,8 @@ extension Sweet {
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream")!
 
     @DictionaryBuilder<String, String?>
@@ -66,11 +73,11 @@ extension Sweet {
       }
     }
 
-    let filteredQueries = queries.filter { $0.value != nil && !$0.value!.isEmpty }
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: .app)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request = URLRequest.get(url: url, headers: headers, queries: filteredQueries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     return request
   }
@@ -86,19 +93,21 @@ extension Sweet {
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
 
+    let method: HTTPMethod = .post
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
-    let headers = getBearerHeaders(type: .app)
-
-    let queries: [String: String?] = [
+    let queries: [String: String] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+        
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: queries)
 
     let body = ["add": streamRuleModels]
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let request: URLRequest = .post(url: url, body: bodyData, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: queries, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -123,20 +132,23 @@ extension Sweet {
   public func deleteStreamRule(ids: [String], dryRun: Bool = false) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
 
+    let method: HTTPMethod = .post
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
-    let queries: [String: String?] = [
+    let queries: [String: String] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
-
-    let headers = getBearerHeaders(type: .app)
+    ]
+    
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: queries)
 
     let body = ["delete": ["ids": ids]]
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let _ = try await session.data(
-      for: .post(url: url, body: bodyData, headers: headers, queries: queries))
+    let request: URLRequest = .request(method: method, url: url, queries: queries, headers: headers, body: bodyData)
+    
+    let _ = try await session.data(for: request)
   }
 
   /// Delete Stream Rules With Value
@@ -147,19 +159,22 @@ extension Sweet {
   public func deleteStreamRule(values: [String], dryRun: Bool = false) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
 
+    let method: HTTPMethod = .post
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
-    let queries: [String: String?] = [
+    let queries: [String: String] = [
       "dry_run": String(dryRun)
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
-
-    let headers = getBearerHeaders(type: .app)
+    ]
+    
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: queries)
 
     let body = ["delete": ["values": values]]
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let _ = try await session.data(
-      for: .post(url: url, body: bodyData, headers: headers, queries: queries))
+    let request: URLRequest = .request(method: method, url: url, queries: queries, headers: headers, body: bodyData)
+    
+    let _ = try await session.data(for: request)
   }
 }

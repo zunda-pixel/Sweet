@@ -1,12 +1,10 @@
 //
-//  LooupSpaces.swift
-//
-//
-//  Created by zunda on 2022/01/16.
+//  LookupSpaces.swift
 //
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -19,6 +17,8 @@ extension Sweet {
   public func space(by spaceID: String) async throws -> SpaceResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)")!
 
     let queries: [String: String?] = [
@@ -26,11 +26,13 @@ extension Sweet {
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+    
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -51,6 +53,8 @@ extension Sweet {
   public func spaces(spaceIDs: [String]) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces")!
 
     let queries: [String: String?] = [
@@ -59,11 +63,13 @@ extension Sweet {
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+    
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -84,6 +90,8 @@ extension Sweet {
   public func spaces(creatorIDs: [String]) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/by/creator_ids")!
 
     let queries: [String: String?] = [
@@ -92,11 +100,13 @@ extension Sweet {
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+    
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -117,6 +127,8 @@ extension Sweet {
   public func spaceBuyers(spaceID: String) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-buyers
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/buyers")!
 
     let queries: [String: String?] = [
@@ -126,11 +138,13 @@ extension Sweet {
       PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+    
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -151,6 +165,8 @@ extension Sweet {
   public func spaceTweets(spaceID: String) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-id-tweets
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/\(spaceID)/tweets")!
 
     let queries: [String: String?] = [
@@ -160,11 +176,13 @@ extension Sweet {
       PlaceField.key: placeFields.map(\.rawValue).joined(separator: ","),
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+    
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

@@ -1,12 +1,10 @@
 //
 //  QuoteTweets.swift
 //
-//
-//  Created by zunda on 2022/03/20.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -24,6 +22,8 @@ extension Sweet {
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/quote-tweets/api-reference/get-tweets-id-quote_tweets
 
+    let method: HTTPMethod = .get
+    
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/quote_tweets")!
 
     let queries: [String: String?] = [
@@ -35,11 +35,13 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
+    
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let request: URLRequest = .request(method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

@@ -1,12 +1,10 @@
 //
 //  ManageLists.swift
 //
-//
-//  Created by zunda on 2022/01/17.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -24,15 +22,17 @@ extension Sweet {
   {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
 
+    let method: HTTPMethod = .post
+    
     let url: URL = .init(string: "https://api.twitter.com/2/lists")!
 
     let body = PostListModel(name: name, description: description, isPrivate: isPrivate)
 
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -58,14 +58,16 @@ extension Sweet {
   ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id
 
+    let method: HTTPMethod = .put
+    
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
 
     let body = PostListModel(name: name, description: description, isPrivate: isPrivate)
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .put(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -89,11 +91,13 @@ extension Sweet {
   public func deleteList(listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/delete-lists-id
 
+    let method: HTTPMethod = .delete
+    
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)")!
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .delete(url: url, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
