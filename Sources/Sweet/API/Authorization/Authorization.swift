@@ -6,26 +6,20 @@
 //
 
 import Foundation
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
 #endif
 
 extension Sweet {
-  public func getAuthorizeToken(type: AuthorizeType) -> String {
-    switch type {
-    case .user:
-      return bearerTokenUser
-    case .app:
-      return bearerTokenApp
-    }
-  }
-
-  public func getBearerHeaders(type: AuthorizeType) -> [String: String] {
-    let bearerToken = getAuthorizeToken(type: type)
+  public func getBearerHeaders(httpMethod: HTTPMethod, url: URL, queries: [String: String])
+    -> [String: String]
+  {
+    let bearerToken = token.authorization(httpMethod: httpMethod, url: url, queries: queries)
 
     let headers = [
-      "Authorization": "Bearer \(bearerToken)",
+      "Authorization": bearerToken,
       "Content-type": "application/json",
     ]
 

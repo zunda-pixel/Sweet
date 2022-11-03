@@ -10,14 +10,10 @@ import Foundation
 
 /// Sweet for Twitter API v2
 public struct Sweet: Sendable {
-  public let bearerTokenApp: String
-  public let bearerTokenUser: String
-
+  public let token: AuthorizationType
   public let config: URLSessionConfiguration
 
   var session: URLSession { .init(configuration: config) }
-
-  public var authorizeType: AuthorizeType = .user
 
   public var tweetExpansions: [TweetExpansion] = TweetExpansion.allCases
   public var userExpansions: [UserExpansion] = UserExpansion.allCases
@@ -38,12 +34,8 @@ public struct Sweet: Sendable {
   public var spaceFields: [SpaceField] = SpaceField.allCases
   public var directMessageFields: [DirectMessageField] = DirectMessageField.allCases
 
-  public init(
-    app bearerTokenApp: String, user bearerTokenUser: String, config: URLSessionConfiguration
-  ) {
-    self.bearerTokenApp = bearerTokenApp
-    self.bearerTokenUser = bearerTokenUser
-
+  public init(token: AuthorizationType, config: URLSessionConfiguration) {
+    self.token = token
     self.config = config
   }
 }

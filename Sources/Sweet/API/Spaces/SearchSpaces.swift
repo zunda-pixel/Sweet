@@ -1,12 +1,10 @@
 //
 //  SearchSpaces.swift
 //
-//
-//  Created by zunda on 2022/01/16.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -23,6 +21,8 @@ extension Sweet {
   {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
 
+    let method: HTTPMethod = .get
+
     let url: URL = .init(string: "https://api.twitter.com/2/spaces/search")!
 
     let queries: [String: String?] = [
@@ -32,11 +32,14 @@ extension Sweet {
       SpaceField.key: spaceFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TopicField.key: topicFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
+
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

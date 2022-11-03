@@ -1,12 +1,10 @@
 //
 //  Bookmarks.swift
 //
-//
-//  Created by zunda on 2022/05/21.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -24,9 +22,9 @@ extension Sweet {
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
 
-    let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks")!
+    let method: HTTPMethod = .get
 
-    let headers = getBearerHeaders(type: .user)
+    let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks")!
 
     let queries: [String: String?] = [
       "pagination_token": paginationToken,
@@ -37,9 +35,14 @@ extension Sweet {
       MediaField.key: mediaFields.map(\.rawValue).joined(separator: ","),
       PollField.key: pollFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allTweetExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let removedEmptyQueries = queries.removedEmptyValue
+
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
+
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -61,11 +64,13 @@ extension Sweet {
   public func deleteBookmark(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id
 
+    let method: HTTPMethod = .delete
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks/\(tweetID)")!
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .delete(url: url, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -91,14 +96,16 @@ extension Sweet {
   public func addBookmark(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id
 
+    let method: HTTPMethod = .post
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/bookmarks")!
 
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 

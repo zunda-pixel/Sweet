@@ -1,12 +1,10 @@
 //
 //  Likes.swift
 //
-//
-//  Created by zunda on 2022/01/16.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -24,6 +22,8 @@ extension Sweet {
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
 
+    let method: HTTPMethod = .get
+
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/\(tweetID)/liking_users")!
 
     let queries: [String: String?] = [
@@ -32,11 +32,14 @@ extension Sweet {
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       Expansion.key: allUserExpansion.joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
+
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -62,6 +65,8 @@ extension Sweet {
   {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
 
+    let method: HTTPMethod = .get
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/liked_tweets")!
 
     let queries: [String: String?] = [
@@ -73,11 +78,14 @@ extension Sweet {
       Expansion.key: allTweetExpansion.joined(separator: ","),
       "pagination_token": paginationToken,
       "max_results": String(maxResults),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
+
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -99,14 +107,16 @@ extension Sweet {
   public func like(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-id-likes
 
+    let method: HTTPMethod = .post
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes")!
 
     let body = ["tweet_id": tweetID]
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -132,11 +142,13 @@ extension Sweet {
   public func unLike(userID: String, tweetID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
 
+    let method: HTTPMethod = .delete
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/likes/\(tweetID)")!
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .delete(url: url, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

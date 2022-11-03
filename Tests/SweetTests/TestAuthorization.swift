@@ -4,6 +4,7 @@
 
 import XCTest
 
+@testable import OAuth1
 @testable import Sweet
 
 final class TestAuthorization: XCTestCase {
@@ -63,6 +64,29 @@ final class TestAuthorization: XCTestCase {
     let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret)
 
     let response = try await oauth2.refreshUserBearerToken(with: refreshToken)
+
+    print(response)
+  }
+
+  func testOAuth1AuthorizationURL() async throws {
+    let oAuth1 = OAuth1(
+      accessToken: "k1KVviIOklkmjyR6PUDWHrGUH",
+      accessSecretToken: "v6OhT1iEYJYKHTsNfJpoWD0L7u2xw8pSLHRD2q0mNn1dvuTc28",
+      httpMethod: .post,
+      url: .init(string: "https://api.twitter.com/oauth/request_token")!
+    )
+
+    let twitterOAuth1 = Sweet.TwitterOAuth1(oAuth1: oAuth1)
+    let url = try await twitterOAuth1.authenticateURL()
+    print(url)
+  }
+
+  func testOAuth1BackedURL() async throws {
+    let oAuthToken = "TietTt4hYg4MYIqSFjYe8O4PYGW"
+    let oAuthVerifier = "gg4PteXMwK2u2C8wwLRqeFTitlqxD46q"
+
+    let response = try await Sweet.TwitterOAuth1.accessToken(
+      oAuthToken: oAuthToken, oAuthVerifier: oAuthVerifier)
 
     print(response)
   }

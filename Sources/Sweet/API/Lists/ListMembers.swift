@@ -1,12 +1,10 @@
 //
 //  ListMembers.swift
 //
-//
-//  Created by zunda on 2022/01/17.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -20,14 +18,16 @@ extension Sweet {
   public func addListMember(to listID: String, userID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/post-lists-id-members
 
+    let method: HTTPMethod = .post
+
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
 
     let body = ["user_id": userID]
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -53,11 +53,13 @@ extension Sweet {
   public func deleteListMember(listID: String, userID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/delete-lists-id-members-user_id
 
+    let method: HTTPMethod = .delete
+
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members/\(userID)")!
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .delete(url: url, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -87,6 +89,8 @@ extension Sweet {
   {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 
+    let method: HTTPMethod = .get
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/list_memberships")!
 
     let queries: [String: String?] = [
@@ -95,11 +99,14 @@ extension Sweet {
       Expansion.key: allListExpansion.joined(separator: ","),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
+
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -125,6 +132,8 @@ extension Sweet {
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
 
+    let method: HTTPMethod = .get
+
     let url: URL = .init(string: "https://api.twitter.com/2/lists/\(listID)/members")!
 
     let queries: [String: String?] = [
@@ -133,11 +142,14 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && $0.value != "" }
+    ]
 
-    let headers = getBearerHeaders(type: authorizeType)
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
+
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

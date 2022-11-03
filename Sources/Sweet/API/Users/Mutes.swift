@@ -1,12 +1,10 @@
 //
 //  Mutes.swift
 //
-//
-//  Created by zunda on 2022/01/17.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -24,6 +22,8 @@ extension Sweet {
   {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/get-users-muting
 
+    let method: HTTPMethod = .get
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/muting")!
 
     let queries: [String: String?] = [
@@ -32,11 +32,14 @@ extension Sweet {
       Expansion.key: allUserExpansion.joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
       TweetField.key: tweetFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
 
-    let headers = getBearerHeaders(type: .user)
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
+
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -58,14 +61,16 @@ extension Sweet {
   public func muteUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/post-users-user_id-muting
 
+    let method: HTTPMethod = .post
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(fromUserID)/muting")!
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
     let body = ["target_user_id": toUserID]
     let bodyData = try JSONEncoder().encode(body)
 
-    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -91,12 +96,14 @@ extension Sweet {
   public func unMuteUser(from fromUserID: String, to toUserID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting
 
+    let method: HTTPMethod = .delete
+
     let url: URL = .init(
       string: "https://api.twitter.com/2/users/\(fromUserID)/muting/\(toUserID)")!
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .delete(url: url, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

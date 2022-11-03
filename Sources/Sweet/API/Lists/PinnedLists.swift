@@ -1,12 +1,10 @@
 //
 //  PinnedLists.swift
 //
-//
-//  Created by zunda on 2022/01/17.
-//
 
 import Foundation
 import HTTPClient
+import HTTPMethod
 
 #if os(Linux) || os(Windows)
   import FoundationNetworking
@@ -20,14 +18,16 @@ extension Sweet {
   public func pinList(userID: String, listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/post-users-id-pinned-lists
 
+    let method: HTTPMethod = .post
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
 
     let body = ["list_id": listID]
     let bodyData = try JSONEncoder().encode(body)
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .post(url: url, body: bodyData, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers, body: bodyData)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -53,12 +53,14 @@ extension Sweet {
   public func unPinList(userID: String, listID: String) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/delete-users-id-pinned-lists-list_id
 
+    let method: HTTPMethod = .delete
+
     let url: URL = .init(
       string: "https://api.twitter.com/2/users/\(userID)/pinned_lists/\(listID)")!
 
-    let headers = getBearerHeaders(type: .user)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: [:])
 
-    let request: URLRequest = .delete(url: url, headers: headers)
+    let request: URLRequest = .request(method: method, url: url, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -83,17 +85,22 @@ extension Sweet {
   public func pinnedLists(by userID: String) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/get-users-id-pinned_lists
 
+    let method: HTTPMethod = .get
+
     let url: URL = .init(string: "https://api.twitter.com/2/users/\(userID)/pinned_lists")!
 
     let queries: [String: String?] = [
       Expansion.key: allListExpansion.joined(separator: ","),
       ListField.key: listFields.map(\.rawValue).joined(separator: ","),
       UserField.key: userFields.map(\.rawValue).joined(separator: ","),
-    ].filter { $0.value != nil && !$0.value!.isEmpty }
+    ]
 
-    let headers = getBearerHeaders(type: .user)
+    let removedEmptyQueries = queries.removedEmptyValue
 
-    let request: URLRequest = .get(url: url, headers: headers, queries: queries)
+    let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
+
+    let request: URLRequest = .request(
+      method: method, url: url, queries: removedEmptyQueries, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
 

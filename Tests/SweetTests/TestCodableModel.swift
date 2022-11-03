@@ -216,4 +216,13 @@ final class TestCodableModel: XCTestCase {
 
     XCTAssertEqual(dm1, dm2)
   }
+
+  func testJSONFileDecodable() throws {
+    let path = Bundle.module.path(forResource: "TweetsData", ofType: "json")!
+    let rawString = try String(contentsOfFile: path)
+    let rawData = rawString.data(using: .utf8)!
+
+    let response = try JSONDecoder().decode(Sweet.TweetsResponse.self, from: rawData)
+    response.tweets.forEach { print($0.text) }
+  }
 }

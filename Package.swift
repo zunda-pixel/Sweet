@@ -13,15 +13,20 @@ var package = Package(
     dependencies: [
       .package(url: "https://github.com/zunda-pixel/HTTPClient", .upToNextMajor(from: "1.3.3")),
       .package(url: "https://github.com/apple/swift-format", branch: "main"),
+      .package(url: "https://github.com/zunda-pixel/OAuth1", .upToNextMajor(from: "1.0.0"))
     ],
     targets: [
         .target(
             name: "Sweet",
             dependencies: [
-              .product(name: "HTTPClient", package: "HTTPClient")
+              .product(name: "HTTPClient", package: "HTTPClient"),
+              .product(name: "OAuth1", package: "OAuth1")
             ]),
         .testTarget(
             name: "SweetTests",
-            dependencies: ["Sweet"]),
+            dependencies: ["Sweet"],
+            path: "Tests",
+            resources: [.process("Resources")]
+        )
     ]
 )
