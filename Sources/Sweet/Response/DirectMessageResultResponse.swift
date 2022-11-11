@@ -1,10 +1,11 @@
 //
 //  DirectMessageResultResponse.swift
 //
+
 import Foundation
 
 extension Sweet {
-  public struct DirectMessageResultResponse: Codable {
+  public struct DirectMessageResultResponse: Codable, Sendable {
     public let conversationID: String
     public let eventID: String
 
