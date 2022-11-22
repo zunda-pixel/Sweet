@@ -15,11 +15,11 @@ extension Sweet {
     case unknown(request: URLRequest, data: Data, response: URLResponse)
     case followError
     case listMemberError
-    
+
     case updateListError
     case deleteListError
     case pinnedListError
-    
+
     case hideReplyError
     case likeTweetError
     case deleteTweetError
