@@ -30,7 +30,7 @@ extension Sweet {
     ///   - callBackURL: callBack URL
     ///   - challenge: random value
     ///   - state: random value
-    /// - Returns: AUthorize URL
+    /// - Returns: Authorize URL
     public func getAuthorizeURL(
       scopes: [AccessScope], callBackURL: URL, challenge: String, state: String
     ) -> URL {
@@ -56,9 +56,9 @@ extension Sweet {
     /// Get User Bearer Token
     /// https://developer.twitter.com/en/docs/authentication/oauth-2-0/user-access-token
     /// - Parameters:
-    ///   - code: code of Callbacked URL's query
+    ///   - code: code of CallBacked URL's query
     ///   - callBackURL: callBack URL
-    ///   - challenge: randam value
+    ///   - challenge: random value
     /// - Returns: OAuth2Model
     public func getUserBearerToken(code: String, callBackURL: URL, challenge: String) async throws
       -> OAuth2Model
