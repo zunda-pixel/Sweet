@@ -19,20 +19,20 @@ extension Sweet {
     private struct ErrorMessageModel: Decodable, Sendable {
       public let message: String
     }
-    
+
     var error: TwitterError {
       if title == "Forbidden" {
         return .forbidden
       }
-      
+
       if title == "Unauthorized" {
         return .unAuthorized
       }
-      
+
       if title == "Unsupported Authentication" {
         return .unsupportedAuthentication(detail: detail)
       }
-      
+
       return .invalidRequest(error: self)
     }
   }

@@ -28,13 +28,13 @@ extension Sweet {
     case muteUserError
     case bookmarkError
     case uploadCompliance
-    
+
     // ex1: Authenticating with OAuth 1.0a User Context is forbidden for this endpoint.  Supported authentication types are [OAuth 2.0 Application-Only].
     // ex2: Authenticating with OAuth 2.0 Application-Only is forbidden for this endpoint.  Supported authentication types are [OAuth 1.0a User Context, OAuth 2.0 User Context].
     case unsupportedAuthentication(detail: String)
-    
+
     case unAuthorized
-    
+
     case forbidden
   }
 }
