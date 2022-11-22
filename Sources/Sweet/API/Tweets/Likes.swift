@@ -124,7 +124,7 @@ extension Sweet {
       if response.liked {
         return
       } else {
-        throw TwitterError.likeError
+        throw TwitterError.likeTweetError
       }
     }
 
@@ -154,7 +154,7 @@ extension Sweet {
 
     if let response = try? JSONDecoder().decode(LikeResponse.self, from: data) {
       if response.liked {
-        throw TwitterError.likeError
+        throw TwitterError.likeTweetError
       } else {
         return
       }

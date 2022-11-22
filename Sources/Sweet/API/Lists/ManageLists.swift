@@ -75,7 +75,7 @@ extension Sweet {
       if response.updated {
         return
       } else {
-        throw TwitterError.listError
+        throw TwitterError.updateListError
       }
     }
 
@@ -105,7 +105,7 @@ extension Sweet {
       if response.deleted {
         return
       } else {
-        throw TwitterError.listError
+        throw TwitterError.deleteListError
       }
     }
 

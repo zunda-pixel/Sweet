@@ -35,7 +35,7 @@ extension Sweet {
       if response.isMember {
         return
       } else {
-        throw TwitterError.listError
+        throw TwitterError.listMemberError
       }
     }
 
@@ -65,7 +65,7 @@ extension Sweet {
 
     if let response = try? JSONDecoder().decode(MemberResponse.self, from: data) {
       if response.isMember {
-        throw TwitterError.listError
+        throw TwitterError.listMemberError
       } else {
         return
       }

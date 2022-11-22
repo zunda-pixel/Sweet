@@ -14,13 +14,18 @@ extension Sweet {
     case invalidRequest(error: Sweet.ResponseErrorModel)
     case unknown(request: URLRequest, data: Data, response: URLResponse)
     case followError
-    case listError
-    case hiddenError
-    case likeError
-    case deleteError
+    case listMemberError
+    
+    case updateListError
+    case deleteListError
+    case pinnedListError
+    
+    case hideReplyError
+    case likeTweetError
+    case deleteTweetError
     case retweetError
-    case blockError
-    case muteError
+    case blockUserError
+    case muteUserError
     case bookmarkError
     case uploadCompliance
     

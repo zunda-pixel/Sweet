@@ -59,7 +59,7 @@ extension Sweet {
       if response.deleted {
         return
       } else {
-        throw TwitterError.deleteError
+        throw TwitterError.deleteTweetError
       }
     }
 

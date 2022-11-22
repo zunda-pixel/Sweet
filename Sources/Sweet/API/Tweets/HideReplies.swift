@@ -35,7 +35,7 @@ extension Sweet {
       if hidden == response.hidden {
         return
       } else {
-        throw TwitterError.hiddenError
+        throw TwitterError.hideReplyError
       }
     }
 

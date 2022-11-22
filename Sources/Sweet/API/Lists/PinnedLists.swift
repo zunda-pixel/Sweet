@@ -35,7 +35,7 @@ extension Sweet {
       if response.pinned {
         return
       } else {
-        throw TwitterError.listError
+        throw TwitterError.pinnedListError
       }
     }
 
@@ -66,7 +66,7 @@ extension Sweet {
 
     if let response = try? JSONDecoder().decode(PinResponse.self, from: data) {
       if response.pinned {
-        throw TwitterError.listError
+        throw TwitterError.pinnedListError
       } else {
         return
       }
