@@ -36,7 +36,7 @@ extension Sweet.UserResponse: Decodable {
       return
     }
 
-    let tweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let tweets = try includes.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
   }
 }
@@ -64,7 +64,7 @@ extension Sweet.UsersResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.meta = try? values.decode(Sweet.MetaModel.self, forKey: .meta)
+    self.meta = try values.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
       self.users = []
@@ -81,7 +81,7 @@ extension Sweet.UsersResponse: Decodable {
       return
     }
 
-    let tweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let tweets = try includes.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
   }
 }

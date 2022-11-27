@@ -79,13 +79,13 @@ extension Sweet.TweetModel: Codable {
     self.id = try value.decode(String.self, forKey: .id)
     self.text = try value.decode(String.self, forKey: .text)
 
-    self.authorID = try? value.decode(String.self, forKey: .authorID)
-    self.lang = try? value.decode(String.self, forKey: .lang)
+    self.authorID = try value.decodeIfPresent(String.self, forKey: .authorID)
+    self.lang = try value.decodeIfPresent(String.self, forKey: .lang)
 
-    let replySetting = try? value.decode(String.self, forKey: .replySettings)
+    let replySetting = try value.decodeIfPresent(String.self, forKey: .replySettings)
     self.replySetting = .init(rawValue: replySetting ?? "")
 
-    if let createdAt = try? value.decode(String.self, forKey: .createdAt) {
+    if let createdAt = try value.decodeIfPresent(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
       self.createdAt = nil

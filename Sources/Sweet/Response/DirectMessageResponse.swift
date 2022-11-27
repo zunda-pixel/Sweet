@@ -29,7 +29,7 @@ extension Sweet.DirectMessagesResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.meta = try? values.decode(Sweet.MetaModel.self, forKey: .meta)
+    self.meta = try values.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
       self.directMessages = []

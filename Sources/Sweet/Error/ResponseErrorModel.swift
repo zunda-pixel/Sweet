@@ -34,7 +34,7 @@ extension Sweet.ResponseErrorModel: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
 
-    if let messages = try? values.decode([ErrorMessageModel].self, forKey: .errors) {
+    if let messages = try values.decodeIfPresent([ErrorMessageModel].self, forKey: .errors) {
       self.messages = messages.map(\.message)
     } else {
       self.messages = []
@@ -43,6 +43,6 @@ extension Sweet.ResponseErrorModel: Decodable {
     self.title = try values.decode(String.self, forKey: .title)
     self.detail = try values.decode(String.self, forKey: .detail)
     self.type = try values.decode(String.self, forKey: .type)
-    self.status = try? values.decode(Int.self, forKey: .status)
+    self.status = try values.decodeIfPresent(Int.self, forKey: .status)
   }
 }

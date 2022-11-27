@@ -38,7 +38,7 @@ extension Sweet.ListResponse: Decodable {
       return
     }
 
-    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }
@@ -84,7 +84,7 @@ extension Sweet.ListsResponse: Decodable {
       return
     }
 
-    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }

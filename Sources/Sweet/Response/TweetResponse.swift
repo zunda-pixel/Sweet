@@ -38,7 +38,7 @@ extension Sweet.TweetsResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.meta = try? values.decode(Sweet.MetaModel.self, forKey: .meta)
+    self.meta = try values.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
       self.tweets = []
@@ -64,19 +64,19 @@ extension Sweet.TweetsResponse: Decodable {
       return
     }
 
-    let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
+    let medias = try includes.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
 
-    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
 
-    let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places)
+    let places = try includes.decodeIfPresent([Sweet.PlaceModel].self, forKey: .places)
     self.places = places ?? []
 
-    let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
+    let polls = try includes.decodeIfPresent([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
 
-    let relatedTweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let relatedTweets = try includes.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
   }
 }
@@ -124,19 +124,19 @@ extension Sweet.TweetResponse: Decodable {
       return
     }
 
-    let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
+    let medias = try includes.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
 
-    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
 
-    let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places)
+    let places = try includes.decodeIfPresent([Sweet.PlaceModel].self, forKey: .places)
     self.places = places ?? []
 
-    let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
+    let polls = try includes.decodeIfPresent([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
 
-    let relatedTweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let relatedTweets = try includes.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
   }
 }
