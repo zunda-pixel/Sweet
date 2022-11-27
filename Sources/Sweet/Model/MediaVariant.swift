@@ -30,13 +30,13 @@ extension Sweet.MediaVariant: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let value = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.bitRate = try value.decodeIfPresent(Int.self, forKey: .bitRate)
-    let contentType = try value.decode(String.self, forKey: .contentType)
+    self.bitRate = try container.decodeIfPresent(Int.self, forKey: .bitRate)
+    let contentType = try container.decode(String.self, forKey: .contentType)
     self.contentType = .init(rawValue: contentType)!
 
-    let urlString = try value.decode(String.self, forKey: .url)
+    let urlString = try container.decode(String.self, forKey: .url)
     self.url = URL(string: urlString)!
   }
 }

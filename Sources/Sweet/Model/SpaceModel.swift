@@ -59,65 +59,65 @@ extension Sweet {
 
 extension Sweet.SpaceModel: Codable {
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: Sweet.SpaceField.self)
-    self.id = try values.decode(String.self, forKey: .id)
+    let container = try decoder.container(keyedBy: Sweet.SpaceField.self)
+    self.id = try container.decode(String.self, forKey: .id)
 
-    let state = try values.decode(String.self, forKey: .state)
+    let state = try container.decode(String.self, forKey: .state)
     self.state = .init(rawValue: state)!
 
-    self.creatorID = try values.decode(String.self, forKey: .creatorID)
+    self.creatorID = try container.decode(String.self, forKey: .creatorID)
 
-    let hostIDs = try values.decodeIfPresent([String].self, forKey: .hostIDs)
+    let hostIDs = try container.decodeIfPresent([String].self, forKey: .hostIDs)
     self.hostIDs = hostIDs ?? []
 
-    self.isTicketed = try values.decodeIfPresent(Bool.self, forKey: .isTicketed)
+    self.isTicketed = try container.decodeIfPresent(Bool.self, forKey: .isTicketed)
 
-    self.participantCount = try values.decodeIfPresent(Int.self, forKey: .participantCount)
+    self.participantCount = try container.decodeIfPresent(Int.self, forKey: .participantCount)
 
-    self.lang = try values.decodeIfPresent(String.self, forKey: .lang)
-    self.title = try values.decodeIfPresent(String.self, forKey: .title)
+    self.lang = try container.decodeIfPresent(String.self, forKey: .lang)
+    self.title = try container.decodeIfPresent(String.self, forKey: .title)
 
     let formatter = Sweet.TwitterDateFormatter()
 
-    if let createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt) {
+    if let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt) {
       self.createdAt = formatter.date(from: createdAt)
     } else {
       self.createdAt = nil
     }
 
-    if let startedAt = try values.decodeIfPresent(String.self, forKey: .startedAt) {
+    if let startedAt = try container.decodeIfPresent(String.self, forKey: .startedAt) {
       self.startedAt = formatter.date(from: startedAt)
     } else {
       self.startedAt = nil
     }
 
-    if let updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt) {
+    if let updatedAt = try container.decodeIfPresent(String.self, forKey: .updatedAt) {
       self.updatedAt = formatter.date(from: updatedAt)
     } else {
       self.updatedAt = nil
     }
 
-    if let endedAt = try values.decodeIfPresent(String.self, forKey: .endedAt) {
+    if let endedAt = try container.decodeIfPresent(String.self, forKey: .endedAt) {
       self.endedAt = formatter.date(from: endedAt)
     } else {
       self.endedAt = nil
     }
 
-    if let scheduledStart = try values.decodeIfPresent(String.self, forKey: .scheduledStart) {
+    if let scheduledStart = try container.decodeIfPresent(String.self, forKey: .scheduledStart) {
       self.scheduledStart = formatter.date(from: scheduledStart)
     } else {
       self.scheduledStart = nil
     }
 
-    let invitedUserIDs = try values.decodeIfPresent([String].self, forKey: .invitedUserIDs)
+    let invitedUserIDs = try container.decodeIfPresent([String].self, forKey: .invitedUserIDs)
     self.invitedUserIDs = invitedUserIDs ?? []
 
-    let speakerIDs = try values.decodeIfPresent([String].self, forKey: .speakerIDs)
+    let speakerIDs = try container.decodeIfPresent([String].self, forKey: .speakerIDs)
     self.speakerIDs = speakerIDs ?? []
 
-    self.subscriberCount = try values.decodeIfPresent(Int.self, forKey: .subscriberCount)
+    self.subscriberCount = try container.decodeIfPresent(Int.self, forKey: .subscriberCount)
 
-    let topicIDs = try values.decodeIfPresent([String].self, forKey: .topicIDs)
+    let topicIDs = try container.decodeIfPresent([String].self, forKey: .topicIDs)
     self.topicIDs = topicIDs ?? []
   }
 

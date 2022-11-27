@@ -49,10 +49,15 @@ extension Sweet {
       self.senderID = try container.decodeIfPresent(String.self, forKey: .senderID)
 
       self.attachments = try container.decodeIfPresent(
-        DirectMessageAttachmentsModel.self, forKey: .attachments)
+        DirectMessageAttachmentsModel.self,
+        forKey: .attachments
+      )
 
       let referencedTweets = try container.decodeIfPresent(
-        [DirectMessageReferencedTweetModel].self, forKey: .referencedTweets)
+        [DirectMessageReferencedTweetModel].self,
+        forKey: .referencedTweets
+      )
+      
       self.referencedTweets = referencedTweets ?? []
     }
 

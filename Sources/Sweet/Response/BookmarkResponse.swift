@@ -19,8 +19,8 @@ extension Sweet.BookmarkResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let hideInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.bookmarked = try hideInfo.decode(Bool.self, forKey: .bookmarked)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let bookmarkContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.bookmarked = try bookmarkContainer.decode(Bool.self, forKey: .bookmarked)
   }
 }

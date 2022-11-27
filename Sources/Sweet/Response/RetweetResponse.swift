@@ -24,8 +24,8 @@ extension Sweet.RetweetResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let retweetedInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.retweeted = try retweetedInfo.decode(Bool.self, forKey: .retweeted)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let retweetContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.retweeted = try retweetContainer.decode(Bool.self, forKey: .retweeted)
   }
 }

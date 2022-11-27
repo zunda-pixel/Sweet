@@ -24,11 +24,11 @@ extension Sweet {
     }
 
     public init(from decoder: Decoder) throws {
-      let dataContainer = try decoder.container(keyedBy: DataCodingKeys.self)
+      let container = try decoder.container(keyedBy: DataCodingKeys.self)
 
-      let container = try dataContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-      self.conversationID = try container.decode(String.self, forKey: .conversationID)
-      self.eventID = try container.decode(String.self, forKey: .eventID)
+      let directMessageContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+      self.conversationID = try directMessageContainer.decode(String.self, forKey: .conversationID)
+      self.eventID = try directMessageContainer.decode(String.self, forKey: .eventID)
     }
   }
 }

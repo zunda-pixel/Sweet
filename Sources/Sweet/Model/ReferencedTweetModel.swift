@@ -27,9 +27,9 @@ extension Sweet.ReferencedTweetModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
-    self.id = try values.decode(String.self, forKey: .id)
-    let type = try values.decode(String.self, forKey: .type)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.id = try container.decode(String.self, forKey: .id)
+    let type = try container.decode(String.self, forKey: .type)
     self.type = .init(rawValue: type)!
   }
 

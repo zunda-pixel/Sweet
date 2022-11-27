@@ -26,19 +26,19 @@ extension Sweet.ListResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.list = try values.decode(Sweet.ListModel.self, forKey: .list)
+    self.list = try container.decode(Sweet.ListModel.self, forKey: .list)
 
-    guard
-      let includes = try? values.nestedContainer(
-        keyedBy: UserIncludesCodingKeys.self, forKey: .includes)
-    else {
+    guard let includeContainer = try? container.nestedContainer(
+      keyedBy: UserIncludesCodingKeys.self,
+      forKey: .includes
+    ) else {
       self.users = []
       return
     }
 
-    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }
@@ -64,9 +64,9 @@ extension Sweet.ListsResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.meta = try values.decode(Sweet.MetaModel.self, forKey: .meta)
+    self.meta = try container.decode(Sweet.MetaModel.self, forKey: .meta)
 
     if meta.resultCount == 0 {
       self.lists = []
@@ -74,17 +74,17 @@ extension Sweet.ListsResponse: Decodable {
       return
     }
 
-    self.lists = try values.decode([Sweet.ListModel].self, forKey: .lists)
+    self.lists = try container.decode([Sweet.ListModel].self, forKey: .lists)
 
-    guard
-      let includes = try? values.nestedContainer(
-        keyedBy: UserIncludesCodingKeys.self, forKey: .includes)
-    else {
+    guard let includeContainer = try? container.nestedContainer(
+      keyedBy: UserIncludesCodingKeys.self,
+      forKey: .includes
+    ) else {
       self.users = []
       return
     }
 
-    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }

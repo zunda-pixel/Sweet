@@ -30,14 +30,14 @@ extension Sweet.EditControl: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.isEditEligible = try values.decode(Bool.self, forKey: .isEditEligible)
+    self.isEditEligible = try container.decode(Bool.self, forKey: .isEditEligible)
 
-    let editableUntilString = try values.decode(String.self, forKey: .editableUntil)
+    let editableUntilString = try container.decode(String.self, forKey: .editableUntil)
     self.editableUntil = Sweet.TwitterDateFormatter().date(from: editableUntilString)!
 
-    let editsRemaining = try values.decode(Int.self, forKey: .editsRemaining)
+    let editsRemaining = try container.decode(Int.self, forKey: .editsRemaining)
     self.editsRemaining = editsRemaining
   }
 

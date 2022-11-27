@@ -31,19 +31,19 @@ extension Sweet {
 
 extension Sweet.PollModel: Codable {
   public init(from decoder: Decoder) throws {
-    let value = try decoder.container(keyedBy: Sweet.PollField.self)
+    let container = try decoder.container(keyedBy: Sweet.PollField.self)
 
-    self.id = try value.decode(String.self, forKey: .id)
+    self.id = try container.decode(String.self, forKey: .id)
 
-    let votingStatus = try value.decode(String.self, forKey: .votingStatus)
+    let votingStatus = try container.decode(String.self, forKey: .votingStatus)
     self.votingStatus = .init(rawValue: votingStatus)!
 
-    let endDateTime = try value.decode(String.self, forKey: .endDateTime)
+    let endDateTime = try container.decode(String.self, forKey: .endDateTime)
     self.endDateTime = Sweet.TwitterDateFormatter().date(from: endDateTime)!
 
-    self.durationMinutes = try value.decode(Int.self, forKey: .durationMinutes)
+    self.durationMinutes = try container.decode(Int.self, forKey: .durationMinutes)
 
-    self.options = try value.decode([Sweet.PollItem].self, forKey: .options)
+    self.options = try container.decode([Sweet.PollItem].self, forKey: .options)
   }
 
   public func encode(to encoder: Encoder) throws {

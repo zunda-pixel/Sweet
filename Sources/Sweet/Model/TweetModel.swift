@@ -74,54 +74,72 @@ extension Sweet {
 
 extension Sweet.TweetModel: Codable {
   public init(from decoder: Decoder) throws {
-    let value = try decoder.container(keyedBy: Sweet.TweetField.self)
+    let container = try decoder.container(keyedBy: Sweet.TweetField.self)
 
-    self.id = try value.decode(String.self, forKey: .id)
-    self.text = try value.decode(String.self, forKey: .text)
+    self.id = try container.decode(String.self, forKey: .id)
+    self.text = try container.decode(String.self, forKey: .text)
 
-    self.authorID = try value.decodeIfPresent(String.self, forKey: .authorID)
-    self.lang = try value.decodeIfPresent(String.self, forKey: .lang)
+    self.authorID = try container.decodeIfPresent(String.self, forKey: .authorID)
+    self.lang = try container.decodeIfPresent(String.self, forKey: .lang)
 
-    let replySetting = try value.decodeIfPresent(String.self, forKey: .replySettings)
+    let replySetting = try container.decodeIfPresent(String.self, forKey: .replySettings)
     self.replySetting = .init(rawValue: replySetting ?? "")
 
-    if let createdAt = try value.decodeIfPresent(String.self, forKey: .createdAt) {
+    if let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
     } else {
       self.createdAt = nil
     }
 
-    self.source = try value.decodeIfPresent(String.self, forKey: .source)
-    self.sensitive = try value.decodeIfPresent(Bool.self, forKey: .possiblySensitive)
-    self.conversationID = try value.decodeIfPresent(String.self, forKey: .conversationID)
-    self.replyUserID = try value.decodeIfPresent(String.self, forKey: .replyToUserID)
-    self.geo = try value.decodeIfPresent(Sweet.SimpleGeoModel.self, forKey: .geo)
+    self.source = try container.decodeIfPresent(String.self, forKey: .source)
+    self.sensitive = try container.decodeIfPresent(Bool.self, forKey: .possiblySensitive)
+    self.conversationID = try container.decodeIfPresent(String.self, forKey: .conversationID)
+    self.replyUserID = try container.decodeIfPresent(String.self, forKey: .replyToUserID)
+    self.geo = try container.decodeIfPresent(Sweet.SimpleGeoModel.self, forKey: .geo)
 
-    self.publicMetrics = try value.decodeIfPresent(
-      Sweet.TweetPublicMetrics.self, forKey: .publicMetrics)
-    self.organicMetrics = try value.decodeIfPresent(
-      Sweet.OrganicMetrics.self, forKey: .organicMetrics)
-    self.privateMetrics = try value.decodeIfPresent(
-      Sweet.PrivateMetrics.self, forKey: .privateMetrics)
-    self.attachments = try value.decodeIfPresent(Sweet.AttachmentsModel.self, forKey: .attachments)
-    self.promotedMetrics = try value.decodeIfPresent(
-      Sweet.PromotedMetrics.self, forKey: .promotedMetrics)
-    self.withheld = try value.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
+    self.publicMetrics = try container.decodeIfPresent(
+      Sweet.TweetPublicMetrics.self,
+      forKey: .publicMetrics
+    )
+    
+    self.organicMetrics = try container.decodeIfPresent(
+      Sweet.OrganicMetrics.self,
+      forKey: .organicMetrics
+    )
+    
+    self.privateMetrics = try container.decodeIfPresent(
+      Sweet.PrivateMetrics.self,
+      forKey: .privateMetrics
+    )
+    
+    self.attachments = try container.decodeIfPresent(Sweet.AttachmentsModel.self, forKey: .attachments)
+    
+    self.promotedMetrics = try container.decodeIfPresent(
+      Sweet.PromotedMetrics.self,
+      forKey: .promotedMetrics
+    )
+    self.withheld = try container.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
 
-    let contextAnnotations = try value.decodeIfPresent(
-      [Sweet.ContextAnnotationModel].self, forKey: .contextAnnotations)
+    let contextAnnotations = try container.decodeIfPresent(
+      [Sweet.ContextAnnotationModel].self,
+      forKey: .contextAnnotations
+    )
+    
     self.contextAnnotations = contextAnnotations ?? []
 
-    self.entity = try value.decodeIfPresent(Sweet.TweetEntityModel.self, forKey: .entities)
+    self.entity = try container.decodeIfPresent(Sweet.TweetEntityModel.self, forKey: .entities)
 
-    let referencedTweets = try value.decodeIfPresent(
-      [Sweet.ReferencedTweetModel].self, forKey: .referencedTweets)
+    let referencedTweets = try container.decodeIfPresent(
+      [Sweet.ReferencedTweetModel].self,
+      forKey: .referencedTweets
+    )
+    
     self.referencedTweets = referencedTweets ?? []
 
-    let editHistoryTweetIDs = try value.decodeIfPresent([String].self, forKey: .editHistoryTweetIDs)
+    let editHistoryTweetIDs = try container.decodeIfPresent([String].self, forKey: .editHistoryTweetIDs)
     self.editHistoryTweetIDs = editHistoryTweetIDs ?? []
 
-    self.editControl = try value.decodeIfPresent(Sweet.EditControl.self, forKey: .editControls)
+    self.editControl = try container.decodeIfPresent(Sweet.EditControl.self, forKey: .editControls)
   }
 
   public func encode(to encoder: Encoder) throws {

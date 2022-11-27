@@ -27,12 +27,12 @@ extension Sweet.AttachmentsModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let value = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let mediaKeys = try value.decodeIfPresent([String].self, forKey: .mediaKeys)
+    let mediaKeys = try container.decodeIfPresent([String].self, forKey: .mediaKeys)
     self.mediaKeys = mediaKeys ?? []
 
-    let pollIDs = try value.decodeIfPresent([String].self, forKey: .pollIDs)
+    let pollIDs = try container.decodeIfPresent([String].self, forKey: .pollIDs)
     self.pollID = pollIDs?.first
   }
 

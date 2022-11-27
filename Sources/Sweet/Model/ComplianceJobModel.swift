@@ -55,33 +55,33 @@ extension Sweet.ComplianceJobModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let typeRawValue = try values.decode(String.self, forKey: .type)
+    let typeRawValue = try container.decode(String.self, forKey: .type)
     self.type = .init(rawValue: typeRawValue)!
 
-    self.id = try values.decode(String.self, forKey: .id)
-    self.name = try values.decode(String.self, forKey: .name)
-    self.resumable = try values.decode(Bool.self, forKey: .resumable)
+    self.id = try container.decode(String.self, forKey: .id)
+    self.name = try container.decode(String.self, forKey: .name)
+    self.resumable = try container.decode(Bool.self, forKey: .resumable)
 
-    let status = try values.decode(String.self, forKey: .status)
+    let status = try container.decode(String.self, forKey: .status)
     self.status = .init(rawValue: status)!
 
-    let uploadURL = try values.decode(String.self, forKey: .uploadURL)
+    let uploadURL = try container.decode(String.self, forKey: .uploadURL)
     self.uploadURL = .init(string: uploadURL)!
 
-    let downloadURL: String = try values.decode(String.self, forKey: .downloadURL)
+    let downloadURL: String = try container.decode(String.self, forKey: .downloadURL)
     self.downloadURL = .init(string: downloadURL)!
 
     let formatter = Sweet.TwitterDateFormatter()
 
-    let uploadExpiresAt: String = try values.decode(String.self, forKey: .uploadExpiresAt)
+    let uploadExpiresAt: String = try container.decode(String.self, forKey: .uploadExpiresAt)
     self.uploadExpiresAt = formatter.date(from: uploadExpiresAt)!
 
-    let downloadExpiresAt: String = try values.decode(String.self, forKey: .downloadExpiresAt)
+    let downloadExpiresAt: String = try container.decode(String.self, forKey: .downloadExpiresAt)
     self.downloadExpiresAt = formatter.date(from: downloadExpiresAt)!
 
-    let createdAt: String = try values.decode(String.self, forKey: .createdAt)
+    let createdAt: String = try container.decode(String.self, forKey: .createdAt)
     self.createdAt = formatter.date(from: createdAt)!
   }
 

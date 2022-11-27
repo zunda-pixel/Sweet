@@ -42,16 +42,16 @@ extension Sweet {
 
 extension Sweet.ListModel: Codable {
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: Sweet.ListField.self)
-    self.id = try values.decode(String.self, forKey: .id)
-    self.name = try values.decode(String.self, forKey: .name)
-    self.followerCount = try values.decodeIfPresent(Int.self, forKey: .followerCount)
-    self.memberCount = try values.decodeIfPresent(Int.self, forKey: .memberCount)
-    self.ownerID = try values.decodeIfPresent(String.self, forKey: .ownerID)
-    self.description = try values.decodeIfPresent(String.self, forKey: .description)
-    self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: .isPrivate)
+    let container = try decoder.container(keyedBy: Sweet.ListField.self)
+    self.id = try container.decode(String.self, forKey: .id)
+    self.name = try container.decode(String.self, forKey: .name)
+    self.followerCount = try container.decodeIfPresent(Int.self, forKey: .followerCount)
+    self.memberCount = try container.decodeIfPresent(Int.self, forKey: .memberCount)
+    self.ownerID = try container.decodeIfPresent(String.self, forKey: .ownerID)
+    self.description = try container.decodeIfPresent(String.self, forKey: .description)
+    self.isPrivate = try container.decodeIfPresent(Bool.self, forKey: .isPrivate)
 
-    if let createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt) {
+    if let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt) {
       self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)
     } else {
       self.createdAt = nil

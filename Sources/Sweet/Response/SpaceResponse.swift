@@ -25,18 +25,18 @@ extension Sweet.SpacesResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.spaces = try values.decode([Sweet.SpaceModel].self, forKey: .spaces)
+    self.spaces = try container.decode([Sweet.SpaceModel].self, forKey: .spaces)
 
     guard
-      let includes = try? values.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
+      let includeContainer = try? container.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
     else {
       self.users = []
       return
     }
 
-    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }
@@ -59,18 +59,18 @@ extension Sweet.SpaceResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.space = try values.decode(Sweet.SpaceModel.self, forKey: .space)
+    self.space = try container.decode(Sweet.SpaceModel.self, forKey: .space)
 
     guard
-      let includes = try? values.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
+      let includeContainer = try? container.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
     else {
       self.users = []
       return
     }
 
-    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }

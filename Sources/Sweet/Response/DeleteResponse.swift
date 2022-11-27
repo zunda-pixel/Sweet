@@ -24,8 +24,8 @@ extension Sweet.DeleteResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.deleted = try usersInfo.decode(Bool.self, forKey: .deleted)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let deleteContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.deleted = try deleteContainer.decode(Bool.self, forKey: .deleted)
   }
 }

@@ -24,8 +24,8 @@ extension Sweet.LikeResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let retweetedInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.liked = try retweetedInfo.decode(Bool.self, forKey: .liked)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let likeContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.liked = try likeContainer.decode(Bool.self, forKey: .liked)
   }
 }

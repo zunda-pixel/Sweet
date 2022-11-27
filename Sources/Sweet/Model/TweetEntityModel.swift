@@ -39,21 +39,21 @@ extension Sweet.TweetEntityModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let annotations = try values.decodeIfPresent([Sweet.AnnotationModel].self, forKey: .annotations)
+    let annotations = try container.decodeIfPresent([Sweet.AnnotationModel].self, forKey: .annotations)
     self.annotations = annotations ?? []
 
-    let urls = try values.decodeIfPresent([Sweet.URLModel].self, forKey: .urls)
+    let urls = try container.decodeIfPresent([Sweet.URLModel].self, forKey: .urls)
     self.urls = urls ?? []
 
-    let hashtags = try values.decodeIfPresent([Sweet.HashTagModel].self, forKey: .hashtags)
+    let hashtags = try container.decodeIfPresent([Sweet.HashTagModel].self, forKey: .hashtags)
     self.hashtags = hashtags ?? []
 
-    let mentions = try values.decodeIfPresent([Sweet.MentionModel].self, forKey: .mentions)
+    let mentions = try container.decodeIfPresent([Sweet.MentionModel].self, forKey: .mentions)
     self.mentions = mentions ?? []
 
-    let cashtags = try values.decodeIfPresent([Sweet.CashTagModel].self, forKey: .cashtags)
+    let cashtags = try container.decodeIfPresent([Sweet.CashTagModel].self, forKey: .cashtags)
     self.cashtags = cashtags ?? []
   }
 

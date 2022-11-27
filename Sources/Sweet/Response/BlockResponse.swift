@@ -24,8 +24,8 @@ extension Sweet.BlockResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.blocking = try usersInfo.decode(Bool.self, forKey: .blocking)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let blockContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.blocking = try blockContainer.decode(Bool.self, forKey: .blocking)
   }
 }
