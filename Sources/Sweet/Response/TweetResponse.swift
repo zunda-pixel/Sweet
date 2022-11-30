@@ -36,9 +36,9 @@ extension Sweet.TweetsResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.meta = try? values.decode(Sweet.MetaModel.self, forKey: .meta)
+    self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
       self.tweets = []
@@ -50,33 +50,27 @@ extension Sweet.TweetsResponse: Decodable {
       return
     }
 
-    self.tweets = try values.decode([Sweet.TweetModel].self, forKey: .tweets)
+    self.tweets = try container.decode([Sweet.TweetModel].self, forKey: .tweets)
 
-    guard
-      let includes = try? values.nestedContainer(
-        keyedBy: TweetIncludesCodingKeys.self, forKey: .includes)
-    else {
-      self.medias = []
-      self.users = []
-      self.places = []
-      self.polls = []
-      self.relatedTweets = []
-      return
-    }
+    let includeContainer = try? container.nestedContainer(
+      keyedBy: TweetIncludesCodingKeys.self,
+      forKey: .includes
+    )
 
-    let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
+    let medias = try includeContainer?.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
 
-    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
 
-    let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places)
+    let places = try includeContainer?.decodeIfPresent([Sweet.PlaceModel].self, forKey: .places)
     self.places = places ?? []
 
-    let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
+    let polls = try includeContainer?.decodeIfPresent([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
 
-    let relatedTweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let relatedTweets = try includeContainer?.decodeIfPresent(
+      [Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
   }
 }
@@ -108,35 +102,29 @@ extension Sweet.TweetResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.tweet = try values.decode(Sweet.TweetModel.self, forKey: .tweet)
+    self.tweet = try container.decode(Sweet.TweetModel.self, forKey: .tweet)
 
-    guard
-      let includes = try? values.nestedContainer(
-        keyedBy: TweetIncludesCodingKeys.self, forKey: .includes)
-    else {
-      self.medias = []
-      self.users = []
-      self.places = []
-      self.polls = []
-      self.relatedTweets = []
-      return
-    }
+    let includeContainer = try? container.nestedContainer(
+      keyedBy: TweetIncludesCodingKeys.self,
+      forKey: .includes
+    )
 
-    let medias = try? includes.decode([Sweet.MediaModel].self, forKey: .media)
+    let medias = try includeContainer?.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
 
-    let users = try? includes.decode([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
 
-    let places = try? includes.decode([Sweet.PlaceModel].self, forKey: .places)
+    let places = try includeContainer?.decodeIfPresent([Sweet.PlaceModel].self, forKey: .places)
     self.places = places ?? []
 
-    let polls = try? includes.decode([Sweet.PollModel].self, forKey: .polls)
+    let polls = try includeContainer?.decodeIfPresent([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
 
-    let relatedTweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let relatedTweets = try includeContainer?.decodeIfPresent(
+      [Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
   }
 }

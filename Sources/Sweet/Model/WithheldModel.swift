@@ -27,12 +27,12 @@ extension Sweet.WithheldModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let value = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.copyright = try value.decodeIfPresent(Bool.self, forKey: .copyright)
-    self.countryCodes = try value.decode([String].self, forKey: .countryCodes)
+    self.copyright = try container.decodeIfPresent(Bool.self, forKey: .copyright)
+    self.countryCodes = try container.decode([String].self, forKey: .countryCodes)
 
-    let scope = try value.decode(String.self, forKey: .scope)
+    let scope = try container.decode(String.self, forKey: .scope)
     self.scope = .init(rawValue: scope)!
   }
 

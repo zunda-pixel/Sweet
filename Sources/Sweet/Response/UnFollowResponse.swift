@@ -24,8 +24,8 @@ extension Sweet.UnFollowResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.following = try usersInfo.decode(Bool.self, forKey: .following)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let followContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.following = try followContainer.decode(Bool.self, forKey: .following)
   }
 }

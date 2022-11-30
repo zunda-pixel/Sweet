@@ -56,27 +56,27 @@ extension Sweet.URLModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.start = try values.decode(Int.self, forKey: .start)
-    self.end = try values.decode(Int.self, forKey: .end)
+    self.start = try container.decode(Int.self, forKey: .start)
+    self.end = try container.decode(Int.self, forKey: .end)
 
-    let url = try values.decode(String.self, forKey: .url)
+    let url = try container.decode(String.self, forKey: .url)
     self.url = .init(string: url)!
 
-    self.expandedURL = try values.decode(String.self, forKey: .expandedURL)
+    self.expandedURL = try container.decode(String.self, forKey: .expandedURL)
 
-    self.displayURL = try values.decode(String.self, forKey: .displayURL)
+    self.displayURL = try container.decode(String.self, forKey: .displayURL)
 
-    self.unwoundURL = try values.decodeIfPresent(String.self, forKey: .unwoundURL)
+    self.unwoundURL = try container.decodeIfPresent(String.self, forKey: .unwoundURL)
 
-    let images = try values.decodeIfPresent([Sweet.ImageModel].self, forKey: .images)
+    let images = try container.decodeIfPresent([Sweet.ImageModel].self, forKey: .images)
     self.images = images ?? []
 
-    self.status = try values.decodeIfPresent(Int.self, forKey: .status)
+    self.status = try container.decodeIfPresent(Int.self, forKey: .status)
 
-    self.title = try values.decodeIfPresent(String.self, forKey: .title)
-    self.description = try values.decodeIfPresent(String.self, forKey: .description)
+    self.title = try container.decodeIfPresent(String.self, forKey: .title)
+    self.description = try container.decodeIfPresent(String.self, forKey: .description)
   }
 
   public func encode(to encoder: Encoder) throws {

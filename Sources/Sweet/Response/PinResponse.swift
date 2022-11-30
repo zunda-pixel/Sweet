@@ -24,8 +24,8 @@ extension Sweet.PinResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.pinned = try usersInfo.decode(Bool.self, forKey: .pinned)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let pinContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.pinned = try pinContainer.decode(Bool.self, forKey: .pinned)
   }
 }

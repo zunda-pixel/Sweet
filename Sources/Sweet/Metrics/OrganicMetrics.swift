@@ -39,12 +39,12 @@ extension Sweet.OrganicMetrics: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
-    self.likeCount = try values.decode(Int.self, forKey: .likeCount)
-    self.userProfileClicks = try values.decode(Int.self, forKey: .userProfileClicks)
-    self.replyCount = try values.decode(Int.self, forKey: .replyCount)
-    self.impressionCount = try values.decode(Int.self, forKey: .impressionCount)
-    self.retweetCount = try values.decode(Int.self, forKey: .retweetCount)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.likeCount = try container.decode(Int.self, forKey: .likeCount)
+    self.userProfileClicks = try container.decode(Int.self, forKey: .userProfileClicks)
+    self.replyCount = try container.decode(Int.self, forKey: .replyCount)
+    self.impressionCount = try container.decode(Int.self, forKey: .impressionCount)
+    self.retweetCount = try container.decode(Int.self, forKey: .retweetCount)
   }
 
   public func encode(to encoder: Encoder) throws {

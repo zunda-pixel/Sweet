@@ -24,8 +24,8 @@ extension Sweet.MemberResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.isMember = try usersInfo.decode(Bool.self, forKey: .isMember)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let memberContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.isMember = try memberContainer.decode(Bool.self, forKey: .isMember)
   }
 }

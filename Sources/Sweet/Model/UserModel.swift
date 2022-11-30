@@ -52,36 +52,31 @@ extension Sweet {
 
 extension Sweet.UserModel: Codable {
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: Sweet.UserField.self)
+    let container = try decoder.container(keyedBy: Sweet.UserField.self)
 
-    self.id = try values.decode(String.self, forKey: .id)
-    self.name = try values.decode(String.self, forKey: .name)
-    self.userName = try values.decode(String.self, forKey: .username)
-    self.verified = try values.decodeIfPresent(Bool.self, forKey: .verified)
-    self.description = try values.decodeIfPresent(String.self, forKey: .description)
-    self.metrics = try values.decodeIfPresent(Sweet.UserPublicMetrics.self, forKey: .publicMetrics)
-    self.protected = try values.decodeIfPresent(Bool.self, forKey: .protected)
-    self.location = try values.decodeIfPresent(String.self, forKey: .location)
-    self.pinnedTweetID = try values.decodeIfPresent(String.self, forKey: .pinnedTweetID)
-    self.withheld = try values.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
-    self.entity = try values.decodeIfPresent(Sweet.UserEntityModel.self, forKey: .entities)
+    self.id = try container.decode(String.self, forKey: .id)
+    self.name = try container.decode(String.self, forKey: .name)
+    self.userName = try container.decode(String.self, forKey: .username)
+    self.verified = try container.decodeIfPresent(Bool.self, forKey: .verified)
+    self.description = try container.decodeIfPresent(String.self, forKey: .description)
+    self.metrics = try container.decodeIfPresent(
+      Sweet.UserPublicMetrics.self, forKey: .publicMetrics)
+    self.protected = try container.decodeIfPresent(Bool.self, forKey: .protected)
+    self.location = try container.decodeIfPresent(String.self, forKey: .location)
+    self.pinnedTweetID = try container.decodeIfPresent(String.self, forKey: .pinnedTweetID)
+    self.withheld = try container.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
+    self.entity = try container.decodeIfPresent(Sweet.UserEntityModel.self, forKey: .entities)
 
-    if let profileImageURL = try values.decodeIfPresent(String.self, forKey: .profileImageURL) {
-      let removedNormalProfileImageURL: String =
-        profileImageURL.replacingOccurrences(of: "_normal", with: "")
-      self.profileImageURL = .init(string: removedNormalProfileImageURL)!
-    } else {
-      self.profileImageURL = nil
-    }
+    let profileImageURL = try container.decodeIfPresent(String.self, forKey: .profileImageURL)
+    let removedNormalProfileImageURL: String? = profileImageURL?.replacingOccurrences(
+      of: "_normal", with: "")
+    self.profileImageURL = removedNormalProfileImageURL.map { URL(string: $0)! }
 
-    let url: String? = try values.decodeIfPresent(String.self, forKey: .url)
-    self.url = URL(string: url ?? "")
+    let url: String? = try container.decodeIfPresent(String.self, forKey: .url)
+    self.url = url.map { URL(string: $0)! }
 
-    if let createdAt = try values.decodeIfPresent(String.self, forKey: .createdAt) {
-      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
-    } else {
-      self.createdAt = nil
-    }
+    let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
+    self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
   }
 
   public func encode(to encoder: Encoder) throws {

@@ -27,9 +27,9 @@ extension Sweet.DirectMessagesResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.meta = try? values.decode(Sweet.MetaModel.self, forKey: .meta)
+    self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
       self.directMessages = []
@@ -38,22 +38,20 @@ extension Sweet.DirectMessagesResponse: Decodable {
       return
     }
 
-    self.directMessages = try values.decode(
-      [Sweet.DirectMessageModel].self, forKey: .directMessages)
+    self.directMessages = try container.decode(
+      [Sweet.DirectMessageModel].self,
+      forKey: .directMessages
+    )
 
-    guard
-      let includes = try? values.nestedContainer(
-        keyedBy: TweetIncludesCodingKeys.self, forKey: .includes)
-    else {
-      self.medias = []
-      self.users = []
-      return
-    }
+    let includeContainer = try? container.nestedContainer(
+      keyedBy: TweetIncludesCodingKeys.self,
+      forKey: .includes
+    )
 
-    let medias = try includes.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
+    let medias = try includeContainer?.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
 
-    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }
