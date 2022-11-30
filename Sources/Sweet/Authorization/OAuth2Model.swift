@@ -7,7 +7,7 @@ import Foundation
 extension Sweet {
   public struct OAuth2Model {
     public let bearerToken: String
-    public let refreshToken: String
+    public let refreshToken: String?
     public let expiredSeconds: Int
   }
 }

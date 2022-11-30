@@ -48,7 +48,7 @@ extension Sweet {
     }
 
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
-      throw TwitterError.invalidRequest(error: response)
+      throw response.error
     }
 
     throw TwitterError.unknown(request: request, data: data, response: urlResponse)
@@ -78,12 +78,12 @@ extension Sweet {
       if response.muting {
         return
       } else {
-        throw TwitterError.muteError
+        throw TwitterError.muteUserError
       }
     }
 
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
-      throw TwitterError.invalidRequest(error: response)
+      throw response.error
     }
 
     throw TwitterError.unknown(request: request, data: data, response: urlResponse)
@@ -109,14 +109,14 @@ extension Sweet {
 
     if let response = try? JSONDecoder().decode(MuteResponse.self, from: data) {
       if response.muting {
-        throw TwitterError.muteError
+        throw TwitterError.muteUserError
       } else {
         return
       }
     }
 
     if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
-      throw TwitterError.invalidRequest(error: response)
+      throw response.error
     }
 
     throw TwitterError.unknown(request: request, data: data, response: urlResponse)

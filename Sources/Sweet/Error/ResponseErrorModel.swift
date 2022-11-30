@@ -19,6 +19,28 @@ extension Sweet {
     private struct ErrorMessageModel: Decodable, Sendable {
       public let message: String
     }
+
+    var error: TwitterError {
+      if detail
+        == "Your account is temporarily locked. Please log in to https://twitter.com to unlock your account."
+      {
+        return .accountLocked
+      }
+
+      if title == "Forbidden" {
+        return .forbidden(detail: detail)
+      }
+
+      if title == "Unauthorized" {
+        return .unAuthorized
+      }
+
+      if title == "Unsupported Authentication" {
+        return .unsupportedAuthentication(detail: detail)
+      }
+
+      return .invalidRequest(error: self)
+    }
   }
 }
 
