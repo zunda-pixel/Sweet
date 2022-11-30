@@ -35,7 +35,7 @@ extension Sweet {
 
     case unAuthorized
 
-    case forbidden
+    case forbidden(detail: String)
 
     case accountLocked
   }

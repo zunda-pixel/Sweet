@@ -28,7 +28,7 @@ extension Sweet {
       }
 
       if title == "Forbidden" {
-        return .forbidden
+        return .forbidden(detail: detail)
       }
 
       if title == "Unauthorized" {
