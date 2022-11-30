@@ -85,11 +85,8 @@ extension Sweet.TweetModel: Codable {
     let replySetting = try container.decodeIfPresent(String.self, forKey: .replySettings)
     self.replySetting = .init(rawValue: replySetting ?? "")
 
-    if let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt) {
-      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
-    } else {
-      self.createdAt = nil
-    }
+    let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
+    self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
 
     self.source = try container.decodeIfPresent(String.self, forKey: .source)
     self.sensitive = try container.decodeIfPresent(Bool.self, forKey: .possiblySensitive)

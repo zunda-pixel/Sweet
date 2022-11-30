@@ -66,22 +66,15 @@ extension Sweet.UserModel: Codable {
     self.withheld = try container.decodeIfPresent(Sweet.WithheldModel.self, forKey: .withheld)
     self.entity = try container.decodeIfPresent(Sweet.UserEntityModel.self, forKey: .entities)
 
-    if let profileImageURL = try container.decodeIfPresent(String.self, forKey: .profileImageURL) {
-      let removedNormalProfileImageURL: String =
-        profileImageURL.replacingOccurrences(of: "_normal", with: "")
-      self.profileImageURL = .init(string: removedNormalProfileImageURL)!
-    } else {
-      self.profileImageURL = nil
-    }
+    let profileImageURL = try container.decodeIfPresent(String.self, forKey: .profileImageURL)
+    let removedNormalProfileImageURL: String? = profileImageURL?.replacingOccurrences(of: "_normal", with: "")
+    self.profileImageURL = removedNormalProfileImageURL.map { URL(string: $0)! }
 
     let url: String? = try container.decodeIfPresent(String.self, forKey: .url)
-    self.url = URL(string: url ?? "")
+    self.url = url.map { URL(string: $0)! }
 
-    if let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt) {
-      self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
-    } else {
-      self.createdAt = nil
-    }
+    let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
+    self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
   }
 
   public func encode(to encoder: Encoder) throws {

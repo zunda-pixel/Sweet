@@ -30,15 +30,12 @@ extension Sweet.ListResponse: Decodable {
 
     self.list = try container.decode(Sweet.ListModel.self, forKey: .list)
 
-    guard let includeContainer = try? container.nestedContainer(
+    let includeContainer = try? container.nestedContainer(
       keyedBy: UserIncludesCodingKeys.self,
       forKey: .includes
-    ) else {
-      self.users = []
-      return
-    }
+    )
 
-    let users = try includeContainer.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }
@@ -76,15 +73,12 @@ extension Sweet.ListsResponse: Decodable {
 
     self.lists = try container.decode([Sweet.ListModel].self, forKey: .lists)
 
-    guard let includeContainer = try? container.nestedContainer(
+    let includeContainer = try? container.nestedContainer(
       keyedBy: UserIncludesCodingKeys.self,
       forKey: .includes
-    ) else {
-      self.users = []
-      return
-    }
+    )
 
-    let users = try includeContainer.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }

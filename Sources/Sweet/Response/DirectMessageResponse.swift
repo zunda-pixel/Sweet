@@ -43,19 +43,15 @@ extension Sweet.DirectMessagesResponse: Decodable {
       forKey: .directMessages
     )
 
-    guard let includes = try? container.nestedContainer(
+    let includeContainer = try? container.nestedContainer(
       keyedBy: TweetIncludesCodingKeys.self,
       forKey: .includes
-    ) else {
-      self.medias = []
-      self.users = []
-      return
-    }
+    )
 
-    let medias = try includes.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
+    let medias = try includeContainer?.decodeIfPresent([Sweet.MediaModel].self, forKey: .media)
     self.medias = medias ?? []
 
-    let users = try includes.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }

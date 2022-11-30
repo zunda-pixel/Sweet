@@ -63,23 +63,14 @@ extension Sweet.MediaModel: Codable {
     let width = try container.decode(Int.self, forKey: .width)
     self.size = .init(width: width, height: height)
 
-    if let previewImageURL = try container.decodeIfPresent(String.self, forKey: .previewImageURL) {
-      self.previewImageURL = .init(string: previewImageURL)
-    } else {
-      self.previewImageURL = nil
-    }
+    let previewImageURL = try container.decodeIfPresent(String.self, forKey: .previewImageURL)
+    self.previewImageURL = previewImageURL.map { URL(string: $0)! }
 
-    if let url = try container.decodeIfPresent(String.self, forKey: .url) {
-      self.url = .init(string: url)
-    } else {
-      self.url = nil
-    }
+    let url = try container.decodeIfPresent(String.self, forKey: .url)
+    self.url = url.map { URL(string: $0)! }
 
-    if let variants = try container.decodeIfPresent([Sweet.MediaVariant].self, forKey: .variants) {
-      self.variants = variants
-    } else {
-      self.variants = []
-    }
+    let variants = try container.decodeIfPresent([Sweet.MediaVariant].self, forKey: .variants)
+    self.variants = variants ?? []
 
     self.durationMicroSeconds = try container.decodeIfPresent(Int.self, forKey: .durationMicroSeconds)
     

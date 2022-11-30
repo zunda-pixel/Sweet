@@ -47,11 +47,8 @@ extension Sweet.PlaceModel: Codable {
     self.countryCode = try container.decodeIfPresent(String.self, forKey: .countryCode)
     self.geo = try container.decodeIfPresent(Sweet.GeoModel.self, forKey: .geo)
 
-    if let type = try container.decodeIfPresent(String.self, forKey: .placeType) {
-      self.type = .init(rawValue: type)!
-    } else {
-      self.type = nil
-    }
+    let type = try container.decodeIfPresent(String.self, forKey: .placeType)
+    self.type = type.map { Sweet.PlaceType(rawValue: $0)! }
 
     let containedWithin = try container.decodeIfPresent([String].self, forKey: .containedWithin)
     self.containedWithin = containedWithin ?? []

@@ -29,14 +29,9 @@ extension Sweet.SpacesResponse: Decodable {
 
     self.spaces = try container.decode([Sweet.SpaceModel].self, forKey: .spaces)
 
-    guard
-      let includeContainer = try? container.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
-    else {
-      self.users = []
-      return
-    }
+    let includeContainer = try? container.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
 
-    let users = try includeContainer.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }
@@ -63,14 +58,9 @@ extension Sweet.SpaceResponse: Decodable {
 
     self.space = try container.decode(Sweet.SpaceModel.self, forKey: .space)
 
-    guard
-      let includeContainer = try? container.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
-    else {
-      self.users = []
-      return
-    }
+    let includeContainer = try? container.nestedContainer(keyedBy: UserCodingKeys.self, forKey: .includes)
 
-    let users = try includeContainer.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
   }
 }
