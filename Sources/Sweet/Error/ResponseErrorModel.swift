@@ -21,6 +21,12 @@ extension Sweet {
     }
 
     var error: TwitterError {
+      if detail
+        == "Your account is temporarily locked. Please log in to https://twitter.com to unlock your account."
+      {
+        return .accountLocked
+      }
+
       if title == "Forbidden" {
         return .forbidden
       }

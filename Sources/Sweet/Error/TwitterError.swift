@@ -36,5 +36,7 @@ extension Sweet {
     case unAuthorized
 
     case forbidden
+
+    case accountLocked
   }
 }
