@@ -30,7 +30,7 @@ extension Sweet {
       if title == "Forbidden" {
         return .forbidden(detail: detail)
       }
-      
+
       if title == "Too Many Requests" {
         return .tooManyAccess
       }
