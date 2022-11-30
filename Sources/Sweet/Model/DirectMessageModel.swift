@@ -40,19 +40,21 @@ extension Sweet {
       self.text = try container.decode(String.self, forKey: .text)
       self.conversationID = try container.decodeIfPresent(String.self, forKey: .conversationID)
 
-      if let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt) {
-        self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
-      } else {
-        self.createdAt = nil
-      }
+      let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
+      self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
 
       self.senderID = try container.decodeIfPresent(String.self, forKey: .senderID)
 
       self.attachments = try container.decodeIfPresent(
-        DirectMessageAttachmentsModel.self, forKey: .attachments)
+        DirectMessageAttachmentsModel.self,
+        forKey: .attachments
+      )
 
       let referencedTweets = try container.decodeIfPresent(
-        [DirectMessageReferencedTweetModel].self, forKey: .referencedTweets)
+        [DirectMessageReferencedTweetModel].self,
+        forKey: .referencedTweets
+      )
+
       self.referencedTweets = referencedTweets ?? []
     }
 

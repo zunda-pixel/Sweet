@@ -1,14 +1,11 @@
 //
 //  UpdateResponseModel.swift
 //
-//
-//  Created by zunda on 2022/02/08.
-//
 
 import Foundation
 
 extension Sweet {
-  /// Update Reponse
+  /// Update Response
   struct UpdateResponse: Sendable {
     public let updated: Bool
   }
@@ -24,8 +21,8 @@ extension Sweet.UpdateResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.updated = try usersInfo.decode(Bool.self, forKey: .updated)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let updateContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.updated = try updateContainer.decode(Bool.self, forKey: .updated)
   }
 }

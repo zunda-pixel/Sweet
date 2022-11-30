@@ -24,8 +24,8 @@ extension Sweet.MuteResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let usersInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.muting = try usersInfo.decode(Bool.self, forKey: .muting)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let muteContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.muting = try muteContainer.decode(Bool.self, forKey: .muting)
   }
 }

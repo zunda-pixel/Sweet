@@ -32,17 +32,14 @@ extension Sweet.ResponseErrorModel: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    if let messages = try? values.decode([ErrorMessageModel].self, forKey: .errors) {
-      self.messages = messages.map(\.message)
-    } else {
-      self.messages = []
-    }
+    let messages = try container.decodeIfPresent([ErrorMessageModel].self, forKey: .errors)
+    self.messages = messages?.map(\.message) ?? []
 
-    self.title = try values.decode(String.self, forKey: .title)
-    self.detail = try values.decode(String.self, forKey: .detail)
-    self.type = try values.decode(String.self, forKey: .type)
-    self.status = try? values.decode(Int.self, forKey: .status)
+    self.title = try container.decode(String.self, forKey: .title)
+    self.detail = try container.decode(String.self, forKey: .detail)
+    self.type = try container.decode(String.self, forKey: .type)
+    self.status = try container.decodeIfPresent(Int.self, forKey: .status)
   }
 }

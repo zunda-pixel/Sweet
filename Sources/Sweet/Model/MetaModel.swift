@@ -39,12 +39,12 @@ extension Sweet.MetaModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
-    self.resultCount = try values.decode(Int.self, forKey: .resultCount)
-    self.oldestID = try values.decodeIfPresent(String.self, forKey: .oldestID)
-    self.newestID = try values.decodeIfPresent(String.self, forKey: .newestID)
-    self.nextToken = try values.decodeIfPresent(String.self, forKey: .nextToken)
-    self.previousToken = try values.decodeIfPresent(String.self, forKey: .previousToken)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.resultCount = try container.decode(Int.self, forKey: .resultCount)
+    self.oldestID = try container.decodeIfPresent(String.self, forKey: .oldestID)
+    self.newestID = try container.decodeIfPresent(String.self, forKey: .newestID)
+    self.nextToken = try container.decodeIfPresent(String.self, forKey: .nextToken)
+    self.previousToken = try container.decodeIfPresent(String.self, forKey: .previousToken)
   }
 
   public func encode(to encoder: Encoder) throws {

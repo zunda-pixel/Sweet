@@ -14,11 +14,13 @@ extension Sweet {
     public let cashTags: [CashTagModel]
 
     public init(
-      urls: [URLModel] = [], descriptionURLs: [URLModel], hashTags: [HashTagModel] = [],
-      mentions: [MentionModel] = [], cashTags: [CashTagModel] = []
+      urls: [URLModel] = [],
+      descriptionURLs: [URLModel],
+      hashTags: [HashTagModel] = [],
+      mentions: [MentionModel] = [],
+      cashTags: [CashTagModel] = []
     ) {
       self.urls = urls
-
       self.descriptionURLs = descriptionURLs
       self.hashTags = hashTags
       self.mentions = mentions
@@ -45,31 +47,43 @@ extension Sweet.UserEntityModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let urlData = try? values.nestedContainer(keyedBy: URLCodingKeys.self, forKey: .url)
+    let urlData = try? container.nestedContainer(keyedBy: URLCodingKeys.self, forKey: .url)
 
     let urls = try urlData?.decodeIfPresent([Sweet.URLModel].self, forKey: .urls)
 
     self.urls = urls ?? []
 
-    let descriptionData = try? values.nestedContainer(
-      keyedBy: DescriptionCodingKeys.self, forKey: .description)
+    let descriptionContainer = try? container.nestedContainer(
+      keyedBy: DescriptionCodingKeys.self,
+      forKey: .description
+    )
 
-    let descriptionURLs = try descriptionData?.decodeIfPresent([Sweet.URLModel].self, forKey: .urls)
+    let descriptionURLs = try descriptionContainer?.decodeIfPresent(
+      [Sweet.URLModel].self, forKey: .urls)
 
     self.descriptionURLs = descriptionURLs ?? []
 
-    let hashTags = try descriptionData?.decodeIfPresent(
-      [Sweet.HashTagModel].self, forKey: .hashTags)
+    let hashTags = try descriptionContainer?.decodeIfPresent(
+      [Sweet.HashTagModel].self,
+      forKey: .hashTags
+    )
+
     self.hashTags = hashTags ?? []
 
-    let mentions = try descriptionData?.decodeIfPresent(
-      [Sweet.MentionModel].self, forKey: .mentions)
+    let mentions = try descriptionContainer?.decodeIfPresent(
+      [Sweet.MentionModel].self,
+      forKey: .mentions
+    )
+
     self.mentions = mentions ?? []
 
-    let cashTags = try descriptionData?.decodeIfPresent(
-      [Sweet.CashTagModel].self, forKey: .cashTags)
+    let cashTags = try descriptionContainer?.decodeIfPresent(
+      [Sweet.CashTagModel].self,
+      forKey: .cashTags
+    )
+
     self.cashTags = cashTags ?? []
   }
 

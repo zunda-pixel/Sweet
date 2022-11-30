@@ -30,15 +30,15 @@ extension Sweet.CountTweetModel: Codable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
-    self.countTweet = try values.decode(Int.self, forKey: .countTweet)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.countTweet = try container.decode(Int.self, forKey: .countTweet)
 
     let formatter = Sweet.TwitterDateFormatter()
 
-    let startDateString = try values.decode(String.self, forKey: .startDate)
+    let startDateString = try container.decode(String.self, forKey: .startDate)
     self.startDate = formatter.date(from: startDateString)!
 
-    let endDateString = try values.decode(String.self, forKey: .endDate)
+    let endDateString = try container.decode(String.self, forKey: .endDate)
     self.endDate = formatter.date(from: endDateString)!
   }
 

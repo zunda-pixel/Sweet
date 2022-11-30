@@ -26,17 +26,13 @@ extension Sweet.UserResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
-    self.user = try values.decode(Sweet.UserModel.self, forKey: .user)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.user = try container.decode(Sweet.UserModel.self, forKey: .user)
 
-    guard
-      let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes)
-    else {
-      self.tweets = []
-      return
-    }
+    let includeContainer = try? container.nestedContainer(
+      keyedBy: TweetCodingKeys.self, forKey: .includes)
 
-    let tweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let tweets = try includeContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
   }
 }
@@ -62,9 +58,9 @@ extension Sweet.UsersResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    self.meta = try? values.decode(Sweet.MetaModel.self, forKey: .meta)
+    self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
       self.users = []
@@ -72,16 +68,12 @@ extension Sweet.UsersResponse: Decodable {
       return
     }
 
-    self.users = try values.decode([Sweet.UserModel].self, forKey: .users)
+    self.users = try container.decode([Sweet.UserModel].self, forKey: .users)
 
-    guard
-      let includes = try? values.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes)
-    else {
-      self.tweets = []
-      return
-    }
+    let nestedContainer = try? container.nestedContainer(
+      keyedBy: TweetCodingKeys.self, forKey: .includes)
 
-    let tweets = try? includes.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let tweets = try nestedContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
   }
 }

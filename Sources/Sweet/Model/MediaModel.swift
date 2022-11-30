@@ -52,45 +52,48 @@ extension Sweet {
 
 extension Sweet.MediaModel: Codable {
   public init(from decoder: Decoder) throws {
-    let value = try decoder.container(keyedBy: Sweet.MediaField.self)
+    let container = try decoder.container(keyedBy: Sweet.MediaField.self)
 
-    let type = try value.decode(String.self, forKey: .type)
+    let type = try container.decode(String.self, forKey: .type)
     self.type = .init(rawValue: type)!
 
-    self.key = try value.decode(String.self, forKey: .mediaKey)
+    self.key = try container.decode(String.self, forKey: .mediaKey)
 
-    let height = try value.decode(Int.self, forKey: .height)
-    let width = try value.decode(Int.self, forKey: .width)
+    let height = try container.decode(Int.self, forKey: .height)
+    let width = try container.decode(Int.self, forKey: .width)
     self.size = .init(width: width, height: height)
 
-    if let previewImageURL = try value.decodeIfPresent(String.self, forKey: .previewImageURL) {
-      self.previewImageURL = .init(string: previewImageURL)
-    } else {
-      self.previewImageURL = nil
-    }
+    let previewImageURL = try container.decodeIfPresent(String.self, forKey: .previewImageURL)
+    self.previewImageURL = previewImageURL.map { URL(string: $0)! }
 
-    if let url = try value.decodeIfPresent(String.self, forKey: .url) {
-      self.url = .init(string: url)
-    } else {
-      self.url = nil
-    }
+    let url = try container.decodeIfPresent(String.self, forKey: .url)
+    self.url = url.map { URL(string: $0)! }
 
-    if let variants = try value.decodeIfPresent([Sweet.MediaVariant].self, forKey: .variants) {
-      self.variants = variants
-    } else {
-      self.variants = []
-    }
+    let variants = try container.decodeIfPresent([Sweet.MediaVariant].self, forKey: .variants)
+    self.variants = variants ?? []
 
-    self.durationMicroSeconds = try value.decodeIfPresent(Int.self, forKey: .durationMicroSeconds)
-    self.alternateText = try value.decodeIfPresent(String.self, forKey: .alternateText)
+    self.durationMicroSeconds = try container.decodeIfPresent(
+      Int.self, forKey: .durationMicroSeconds)
 
-    self.metrics = try value.decodeIfPresent(Sweet.MediaPublicMetrics.self, forKey: .publicMetrics)
-    self.privateMetrics = try value.decodeIfPresent(
-      Sweet.MediaPrivateMetrics.self, forKey: .privateMetrics)
-    self.promotedMetrics = try value.decodeIfPresent(
-      Sweet.MediaPromotedMetrics.self, forKey: .promotedMetrics)
-    self.organicMetrics = try value.decodeIfPresent(
-      Sweet.MediaOrganicMetrics.self, forKey: .organicMetrics)
+    self.alternateText = try container.decodeIfPresent(String.self, forKey: .alternateText)
+
+    self.metrics = try container.decodeIfPresent(
+      Sweet.MediaPublicMetrics.self, forKey: .publicMetrics)
+
+    self.privateMetrics = try container.decodeIfPresent(
+      Sweet.MediaPrivateMetrics.self,
+      forKey: .privateMetrics
+    )
+
+    self.promotedMetrics = try container.decodeIfPresent(
+      Sweet.MediaPromotedMetrics.self,
+      forKey: .promotedMetrics
+    )
+
+    self.organicMetrics = try container.decodeIfPresent(
+      Sweet.MediaOrganicMetrics.self,
+      forKey: .organicMetrics
+    )
   }
 
   public func encode(to encoder: Encoder) throws {

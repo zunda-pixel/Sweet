@@ -24,8 +24,8 @@ extension Sweet.HideResponse: Decodable {
   }
 
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: DataCodingKeys.self)
-    let hideInfo = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-    self.hidden = try hideInfo.decode(Bool.self, forKey: .hidden)
+    let container = try decoder.container(keyedBy: DataCodingKeys.self)
+    let hideContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+    self.hidden = try hideContainer.decode(Bool.self, forKey: .hidden)
   }
 }
