@@ -38,5 +38,7 @@ extension Sweet {
     case forbidden(detail: String)
 
     case accountLocked
+    
+    case tooManyAccess
   }
 }
