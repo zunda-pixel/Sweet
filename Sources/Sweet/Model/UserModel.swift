@@ -59,7 +59,8 @@ extension Sweet.UserModel: Codable {
     self.userName = try container.decode(String.self, forKey: .username)
     self.verified = try container.decodeIfPresent(Bool.self, forKey: .verified)
     self.description = try container.decodeIfPresent(String.self, forKey: .description)
-    self.metrics = try container.decodeIfPresent(Sweet.UserPublicMetrics.self, forKey: .publicMetrics)
+    self.metrics = try container.decodeIfPresent(
+      Sweet.UserPublicMetrics.self, forKey: .publicMetrics)
     self.protected = try container.decodeIfPresent(Bool.self, forKey: .protected)
     self.location = try container.decodeIfPresent(String.self, forKey: .location)
     self.pinnedTweetID = try container.decodeIfPresent(String.self, forKey: .pinnedTweetID)
@@ -67,7 +68,8 @@ extension Sweet.UserModel: Codable {
     self.entity = try container.decodeIfPresent(Sweet.UserEntityModel.self, forKey: .entities)
 
     let profileImageURL = try container.decodeIfPresent(String.self, forKey: .profileImageURL)
-    let removedNormalProfileImageURL: String? = profileImageURL?.replacingOccurrences(of: "_normal", with: "")
+    let removedNormalProfileImageURL: String? = profileImageURL?.replacingOccurrences(
+      of: "_normal", with: "")
     self.profileImageURL = removedNormalProfileImageURL.map { URL(string: $0)! }
 
     let url: String? = try container.decodeIfPresent(String.self, forKey: .url)

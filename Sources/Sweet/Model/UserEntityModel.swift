@@ -60,7 +60,8 @@ extension Sweet.UserEntityModel: Codable {
       forKey: .description
     )
 
-    let descriptionURLs = try descriptionContainer?.decodeIfPresent([Sweet.URLModel].self, forKey: .urls)
+    let descriptionURLs = try descriptionContainer?.decodeIfPresent(
+      [Sweet.URLModel].self, forKey: .urls)
 
     self.descriptionURLs = descriptionURLs ?? []
 
@@ -68,21 +69,21 @@ extension Sweet.UserEntityModel: Codable {
       [Sweet.HashTagModel].self,
       forKey: .hashTags
     )
-    
+
     self.hashTags = hashTags ?? []
 
     let mentions = try descriptionContainer?.decodeIfPresent(
       [Sweet.MentionModel].self,
       forKey: .mentions
     )
-    
+
     self.mentions = mentions ?? []
 
     let cashTags = try descriptionContainer?.decodeIfPresent(
       [Sweet.CashTagModel].self,
       forKey: .cashTags
     )
-    
+
     self.cashTags = cashTags ?? []
   }
 

@@ -54,7 +54,7 @@ extension Sweet {
         [DirectMessageReferencedTweetModel].self,
         forKey: .referencedTweets
       )
-      
+
       self.referencedTweets = referencedTweets ?? []
     }
 

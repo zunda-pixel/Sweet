@@ -41,7 +41,8 @@ extension Sweet.TweetEntityModel: Codable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let annotations = try container.decodeIfPresent([Sweet.AnnotationModel].self, forKey: .annotations)
+    let annotations = try container.decodeIfPresent(
+      [Sweet.AnnotationModel].self, forKey: .annotations)
     self.annotations = annotations ?? []
 
     let urls = try container.decodeIfPresent([Sweet.URLModel].self, forKey: .urls)

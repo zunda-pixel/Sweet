@@ -98,19 +98,20 @@ extension Sweet.TweetModel: Codable {
       Sweet.TweetPublicMetrics.self,
       forKey: .publicMetrics
     )
-    
+
     self.organicMetrics = try container.decodeIfPresent(
       Sweet.OrganicMetrics.self,
       forKey: .organicMetrics
     )
-    
+
     self.privateMetrics = try container.decodeIfPresent(
       Sweet.PrivateMetrics.self,
       forKey: .privateMetrics
     )
-    
-    self.attachments = try container.decodeIfPresent(Sweet.AttachmentsModel.self, forKey: .attachments)
-    
+
+    self.attachments = try container.decodeIfPresent(
+      Sweet.AttachmentsModel.self, forKey: .attachments)
+
     self.promotedMetrics = try container.decodeIfPresent(
       Sweet.PromotedMetrics.self,
       forKey: .promotedMetrics
@@ -121,7 +122,7 @@ extension Sweet.TweetModel: Codable {
       [Sweet.ContextAnnotationModel].self,
       forKey: .contextAnnotations
     )
-    
+
     self.contextAnnotations = contextAnnotations ?? []
 
     self.entity = try container.decodeIfPresent(Sweet.TweetEntityModel.self, forKey: .entities)
@@ -130,10 +131,11 @@ extension Sweet.TweetModel: Codable {
       [Sweet.ReferencedTweetModel].self,
       forKey: .referencedTweets
     )
-    
+
     self.referencedTweets = referencedTweets ?? []
 
-    let editHistoryTweetIDs = try container.decodeIfPresent([String].self, forKey: .editHistoryTweetIDs)
+    let editHistoryTweetIDs = try container.decodeIfPresent(
+      [String].self, forKey: .editHistoryTweetIDs)
     self.editHistoryTweetIDs = editHistoryTweetIDs ?? []
 
     self.editControl = try container.decodeIfPresent(Sweet.EditControl.self, forKey: .editControls)

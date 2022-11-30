@@ -69,7 +69,8 @@ extension Sweet.TweetsResponse: Decodable {
     let polls = try includeContainer?.decodeIfPresent([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
 
-    let relatedTweets = try includeContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
+    let relatedTweets = try includeContainer?.decodeIfPresent(
+      [Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
   }
 }
@@ -122,7 +123,8 @@ extension Sweet.TweetResponse: Decodable {
     let polls = try includeContainer?.decodeIfPresent([Sweet.PollModel].self, forKey: .polls)
     self.polls = polls ?? []
 
-    let relatedTweets = try includeContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
+    let relatedTweets = try includeContainer?.decodeIfPresent(
+      [Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
   }
 }

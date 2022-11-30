@@ -26,7 +26,8 @@ extension Sweet {
     public init(from decoder: Decoder) throws {
       let container = try decoder.container(keyedBy: DataCodingKeys.self)
 
-      let directMessageContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
+      let directMessageContainer = try container.nestedContainer(
+        keyedBy: CodingKeys.self, forKey: .data)
       self.conversationID = try directMessageContainer.decode(String.self, forKey: .conversationID)
       self.eventID = try directMessageContainer.decode(String.self, forKey: .eventID)
     }

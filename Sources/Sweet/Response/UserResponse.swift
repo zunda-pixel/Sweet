@@ -29,7 +29,8 @@ extension Sweet.UserResponse: Decodable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.user = try container.decode(Sweet.UserModel.self, forKey: .user)
 
-    let includeContainer = try? container.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes)
+    let includeContainer = try? container.nestedContainer(
+      keyedBy: TweetCodingKeys.self, forKey: .includes)
 
     let tweets = try includeContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
@@ -69,7 +70,8 @@ extension Sweet.UsersResponse: Decodable {
 
     self.users = try container.decode([Sweet.UserModel].self, forKey: .users)
 
-    let nestedContainer = try? container.nestedContainer(keyedBy: TweetCodingKeys.self, forKey: .includes)
+    let nestedContainer = try? container.nestedContainer(
+      keyedBy: TweetCodingKeys.self, forKey: .includes)
 
     let tweets = try nestedContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
