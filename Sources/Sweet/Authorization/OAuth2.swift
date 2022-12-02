@@ -87,7 +87,7 @@ extension Sweet {
       let (data, urlResponse) = try await session.data(for: request)
 
       let decoder = JSONDecoder()
-      
+
       if let response = try? decoder.decode(OAuth2Model.self, from: data) {
         return response
       }
@@ -119,7 +119,7 @@ extension Sweet {
       let (data, urlResponse) = try await session.data(for: request)
 
       let decoder = JSONDecoder()
-      
+
       if let response = try? decoder.decode(OAuth2Model.self, from: data) {
         return response
       }

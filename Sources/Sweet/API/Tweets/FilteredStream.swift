@@ -35,7 +35,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(StreamRuleResponse.self, from: data) {
       return response.streamRules
     }
@@ -116,7 +116,7 @@ extension Sweet {
     let bodyData = try JSONEncoder().encode(body)
 
     let request: URLRequest = .request(
-      method:method,
+      method: method,
       url: url,
       queries: queries,
       headers: headers,
@@ -196,7 +196,7 @@ extension Sweet {
     let request: URLRequest = .request(
       method: method,
       url: url,
-      queries:queries,
+      queries: queries,
       headers: headers,
       body: bodyData
     )

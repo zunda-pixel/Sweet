@@ -48,7 +48,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(UsersResponse.self, from: data) {
       return response
     }
@@ -81,7 +81,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(BlockResponse.self, from: data) {
       if response.blocking {
         return
@@ -116,7 +116,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(BlockResponse.self, from: data) {
       if response.blocking {
         throw TwitterError.blockUserError

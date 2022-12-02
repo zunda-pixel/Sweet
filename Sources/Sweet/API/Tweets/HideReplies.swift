@@ -32,7 +32,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(HideResponse.self, from: data) {
       if hidden == response.hidden {
         return

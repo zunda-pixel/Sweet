@@ -33,7 +33,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(FollowResponseModel.self, from: data) {
       return (response.following, response.pendingFollow)
     }
@@ -64,7 +64,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(UnFollowResponse.self, from: data) {
       if response.following {
         throw TwitterError.followError
@@ -117,7 +117,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(UsersResponse.self, from: data) {
       return response
     }
@@ -166,7 +166,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(UsersResponse.self, from: data) {
       return response
     }
