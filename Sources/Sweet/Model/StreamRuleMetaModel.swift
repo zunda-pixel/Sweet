@@ -25,7 +25,7 @@ extension Sweet.StreamRuleMetaModel: Decodable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     self.sent = try container.decode(Date.self, forKey: .sent)
     self.resultCount = try container.decodeIfPresent(Int.self, forKey: .resultCount)
   }

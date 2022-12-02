@@ -187,7 +187,8 @@ final class TestCodableModel: XCTestCase {
     let space1 = Sweet.SpaceModel(
       id: "id", state: .all, creatorID: "createID", title: "title", hostIDs: ["hostID1"],
       lang: "lang", participantCount: 33, isTicketed: false, startedAt: Date(), updatedAt: Date(),
-      createdAt: Date(), endedAt: Date(), invitedUserIDs: ["42334234", "434343"], scheduledStart: Date(),
+      createdAt: Date(), endedAt: Date(), invitedUserIDs: ["42334234", "434343"],
+      scheduledStart: Date(),
       speakerIDs: ["32444334", "4343434"], subscriberCount: 3232,
       topicIDs: ["324234234", "43242342"])
 
