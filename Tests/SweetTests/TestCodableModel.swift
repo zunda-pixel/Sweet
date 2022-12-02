@@ -31,13 +31,10 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testUserModelCodableOffline() throws {
-    let twitterDateString = "2020-05-15T16:03:42.000Z"
-    let twitterDate = Sweet.TwitterDateFormatter().date(from: twitterDateString)!
-
     let user: Sweet.UserModel = .init(
       id: "id", name: "name", userName: "userName", verified: true,
       profileImageURL: .init(string: "https://twitter.com")!, description: "description",
-      protected: true, url: .init(string: "https://twitter.com")!, createdAt: twitterDate,
+      protected: true, url: .init(string: "https://twitter.com")!, createdAt: Date(),
       location: "location", pinnedTweetID: "pinnedTweetID",
       metrics: .init(followersCount: 1, followingCount: 2, tweetCount: 3, listedCount: 4),
       withheld: .init(
@@ -73,16 +70,13 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testTweetModelCodableOffline() throws {
-    let twitterDateString = "2020-05-15T16:03:42.000Z"
-    let twitterDate = Sweet.TwitterDateFormatter().date(from: twitterDateString)!
-
     let tweet: Sweet.TweetModel = .init(
       id: "id",
       text: "text",
       authorID: "authorID",
       lang: "lang",
       replySetting: .following,
-      createdAt: twitterDate,
+      createdAt: Date(),
       source: "source",
       sensitive: true,
       conversationID: "coversationID",
@@ -130,7 +124,7 @@ final class TestCodableModel: XCTestCase {
       ),
       referencedTweets: [.init(id: "id", type: .retweeted)],
       editHistoryTweetIDs: ["edit1", "edit2"],
-      editControl: .init(isEditEligible: true, editableUntil: twitterDate, editsRemaining: 3)
+      editControl: .init(isEditEligible: true, editableUntil: Date(), editsRemaining: 3)
     )
 
     let data = try JSONEncoder().encode(tweet)
