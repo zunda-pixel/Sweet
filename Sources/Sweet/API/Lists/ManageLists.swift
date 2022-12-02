@@ -37,7 +37,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(ListResponse.self, from: data) {
       return response.list
     }
@@ -74,7 +74,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(UpdateResponse.self, from: data) {
       if response.updated {
         return
@@ -104,9 +104,9 @@ extension Sweet {
     let request: URLRequest = .request(method: method, url: url, headers: headers)
 
     let (data, urlResponse) = try await session.data(for: request)
-    
+
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(DeleteResponse.self, from: data) {
       if response.deleted {
         return

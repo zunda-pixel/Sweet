@@ -35,7 +35,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(CompliancesResponse.self, from: data) {
       return response.compliances
     }
@@ -61,7 +61,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(ComplianceResponse.self, from: data) {
       return response.compliance
     }
@@ -112,7 +112,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(ComplianceResponse.self, from: data) {
       return response.compliance
     }
@@ -157,7 +157,8 @@ extension Sweet {
     var compliances: [ComplianceModel] = []
 
     for line in lines {
-      let compliance = try JSONDecoder.twitter.decode(ComplianceModel.self, from: line.data(using: .utf8)!)
+      let compliance = try JSONDecoder.twitter.decode(
+        ComplianceModel.self, from: line.data(using: .utf8)!)
       compliances.append(compliance)
     }
 

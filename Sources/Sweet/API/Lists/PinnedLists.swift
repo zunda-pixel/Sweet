@@ -32,7 +32,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(PinResponse.self, from: data) {
       if response.pinned {
         return
@@ -67,7 +67,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(PinResponse.self, from: data) {
       if response.pinned {
         throw TwitterError.pinnedListError
@@ -109,7 +109,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(ListsResponse.self, from: data) {
       return response
     }

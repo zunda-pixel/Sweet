@@ -44,7 +44,7 @@ extension Sweet {
     let (data, urlResponse) = try await session.data(for: request)
 
     let decoder = JSONDecoder.twitter
-    
+
     if let response = try? decoder.decode(TweetsResponse.self, from: data) {
       return response
     }
