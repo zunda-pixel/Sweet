@@ -39,10 +39,7 @@ extension Sweet {
       self.id = try container.decode(String.self, forKey: .id)
       self.text = try container.decode(String.self, forKey: .text)
       self.conversationID = try container.decodeIfPresent(String.self, forKey: .conversationID)
-
-      let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
-      self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
-
+      self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
       self.senderID = try container.decodeIfPresent(String.self, forKey: .senderID)
 
       self.attachments = try container.decodeIfPresent(

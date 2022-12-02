@@ -32,20 +32,13 @@ extension Sweet.CountTweetModel: Codable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.countTweet = try container.decode(Int.self, forKey: .countTweet)
-
-    let formatter = Sweet.TwitterDateFormatter()
-
-    let startDateString = try container.decode(String.self, forKey: .startDate)
-    self.startDate = formatter.date(from: startDateString)!
-
-    let endDateString = try container.decode(String.self, forKey: .endDate)
-    self.endDate = formatter.date(from: endDateString)!
+    self.startDate = try container.decode(Date.self, forKey: .startDate)
+    self.endDate = try container.decode(Date.self, forKey: .endDate)
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(countTweet, forKey: .countTweet)
-    let startDate = Sweet.TwitterDateFormatter().string(from: startDate)
     try container.encode(startDate, forKey: .startDate)
     try container.encode(endDate, forKey: .endDate)
   }

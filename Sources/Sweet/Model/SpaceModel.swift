@@ -76,23 +76,11 @@ extension Sweet.SpaceModel: Codable {
 
     self.lang = try container.decodeIfPresent(String.self, forKey: .lang)
     self.title = try container.decodeIfPresent(String.self, forKey: .title)
-
-    let formatter = Sweet.TwitterDateFormatter()
-
-    let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
-    self.createdAt = createdAt.map { formatter.date(from: $0)! }
-
-    let startedAt = try container.decodeIfPresent(String.self, forKey: .startedAt)
-    self.startedAt = startedAt.map { formatter.date(from: $0)! }
-
-    let updatedAt = try container.decodeIfPresent(String.self, forKey: .updatedAt)
-    self.updatedAt = updatedAt.map { formatter.date(from: $0)! }
-
-    let endedAt = try container.decodeIfPresent(String.self, forKey: .endedAt)
-    self.endedAt = endedAt.map { formatter.date(from: $0)! }
-
-    let scheduledStart = try container.decodeIfPresent(String.self, forKey: .scheduledStart)
-    self.scheduledStart = scheduledStart.map { formatter.date(from: $0)! }
+    self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
+    self.startedAt = try container.decodeIfPresent(Date.self, forKey: .startedAt)
+    self.updatedAt = try container.decodeIfPresent(Date.self, forKey: .updatedAt)
+    self.endedAt = try container.decodeIfPresent(Date.self, forKey: .endedAt)
+    self.scheduledStart = try container.decodeIfPresent(Date.self, forKey: .scheduledStart)
 
     let invitedUserIDs = try container.decodeIfPresent([String].self, forKey: .invitedUserIDs)
     self.invitedUserIDs = invitedUserIDs ?? []
@@ -116,30 +104,12 @@ extension Sweet.SpaceModel: Codable {
     try container.encodeIfPresent(lang, forKey: .lang)
     try container.encodeIfPresent(participantCount, forKey: .participantCount)
     try container.encodeIfPresent(isTicketed, forKey: .isTicketed)
-    let formatter = Sweet.TwitterDateFormatter()
-
-    if let startedAt {
-      try container.encode(formatter.string(from: startedAt), forKey: .startedAt)
-    }
-
-    if let updatedAt {
-      try container.encode(formatter.string(from: updatedAt), forKey: .updatedAt)
-    }
-
-    if let createdAt {
-      try container.encode(formatter.string(from: createdAt), forKey: .creatorID)
-    }
-
-    if let endedAt {
-      try container.encode(formatter.string(from: endedAt), forKey: .endedAt)
-    }
-
+    try container.encodeIfPresent(startedAt, forKey: .startedAt)
+    try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
+    try container.encodeIfPresent(createdAt, forKey: .creatorID)
+    try container.encodeIfPresent(endedAt, forKey: .endedAt)
+    try container.encodeIfPresent(scheduledStart, forKey: .scheduledStart)
     try container.encode(invitedUserIDs, forKey: .invitedUserIDs)
-
-    if let scheduledStart {
-      try container.encode(formatter.string(from: scheduledStart), forKey: .scheduledStart)
-    }
-
     try container.encode(speakerIDs, forKey: .speakerIDs)
     try container.encodeIfPresent(subscriberCount, forKey: .subscriberCount)
     try container.encode(topicIDs, forKey: .topicIDs)

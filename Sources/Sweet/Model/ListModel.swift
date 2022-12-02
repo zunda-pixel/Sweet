@@ -51,8 +51,7 @@ extension Sweet.ListModel: Codable {
     self.description = try container.decodeIfPresent(String.self, forKey: .description)
     self.isPrivate = try container.decodeIfPresent(Bool.self, forKey: .isPrivate)
 
-    let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
-    self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
+    self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -64,10 +63,6 @@ extension Sweet.ListModel: Codable {
     try container.encodeIfPresent(ownerID, forKey: .ownerID)
     try container.encodeIfPresent(description, forKey: .description)
     try container.encodeIfPresent(isPrivate, forKey: .isPrivate)
-
-    if let createdAt {
-      let date = Sweet.TwitterDateFormatter().string(from: createdAt)
-      try container.encode(date, forKey: .createdAt)
-    }
+    try container.encodeIfPresent(createdAt, forKey: .createdAt)
   }
 }

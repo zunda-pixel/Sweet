@@ -83,11 +83,9 @@ extension Sweet.TweetModel: Codable {
     self.lang = try container.decodeIfPresent(String.self, forKey: .lang)
 
     let replySetting = try container.decodeIfPresent(String.self, forKey: .replySettings)
-    self.replySetting = .init(rawValue: replySetting ?? "")
+    self.replySetting = replySetting.map { Sweet.ReplySetting(rawValue: $0)! }
 
-    let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
-    self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
-
+    self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
     self.source = try container.decodeIfPresent(String.self, forKey: .source)
     self.sensitive = try container.decodeIfPresent(Bool.self, forKey: .possiblySensitive)
     self.conversationID = try container.decodeIfPresent(String.self, forKey: .conversationID)
@@ -148,12 +146,7 @@ extension Sweet.TweetModel: Codable {
     try container.encodeIfPresent(authorID, forKey: .authorID)
     try container.encodeIfPresent(lang, forKey: .lang)
     try container.encodeIfPresent(replySetting?.rawValue, forKey: .replySettings)
-
-    if let createdAt {
-      let formatter = Sweet.TwitterDateFormatter()
-      try container.encode(formatter.string(from: createdAt), forKey: .createdAt)
-    }
-
+    try container.encodeIfPresent(createdAt, forKey: .createdAt)
     try container.encodeIfPresent(source, forKey: .source)
     try container.encodeIfPresent(sensitive, forKey: .possiblySensitive)
     try container.encodeIfPresent(conversationID, forKey: .conversationID)

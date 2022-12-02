@@ -75,8 +75,7 @@ extension Sweet.UserModel: Codable {
     let url: String? = try container.decodeIfPresent(String.self, forKey: .url)
     self.url = url.map { URL(string: $0)! }
 
-    let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
-    self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
+    self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -86,12 +85,7 @@ extension Sweet.UserModel: Codable {
     try container.encode(userName, forKey: .username)
     try container.encodeIfPresent(verified, forKey: .verified)
     try container.encodeIfPresent(profileImageURL, forKey: .profileImageURL)
-
-    if let createdAt {
-      let createdAtString = Sweet.TwitterDateFormatter().string(from: createdAt)
-      try container.encode(createdAtString, forKey: .createdAt)
-    }
-
+    try container.encodeIfPresent(createdAt, forKey: .createdAt)
     try container.encodeIfPresent(description, forKey: .description)
     try container.encodeIfPresent(protected, forKey: .protected)
     try container.encodeIfPresent(url, forKey: .url)

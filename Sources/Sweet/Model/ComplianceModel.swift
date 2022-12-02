@@ -29,8 +29,7 @@ extension Sweet.ComplianceModel: Codable {
     let action = try container.decode(String.self, forKey: .action)
     self.action = .init(rawValue: action)!
 
-    let createdAt = try container.decode(String.self, forKey: .createdAt)
-    self.createdAt = Sweet.TwitterDateFormatter().date(from: createdAt)!
+    self.createdAt = try container.decode(Date.self, forKey: .createdAt)
 
     let reason = try container.decode(String.self, forKey: .reason)
     self.reason = .init(rawValue: reason)!
@@ -40,10 +39,7 @@ extension Sweet.ComplianceModel: Codable {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(id, forKey: .id)
     try container.encode(action.rawValue, forKey: .action)
-
-    let createdAt = Sweet.TwitterDateFormatter().string(from: createdAt)
     try container.encode(createdAt, forKey: .createdAt)
-
     try container.encode(reason.rawValue, forKey: .reason)
   }
 }

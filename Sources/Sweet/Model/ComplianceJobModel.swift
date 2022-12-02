@@ -73,16 +73,11 @@ extension Sweet.ComplianceJobModel: Codable {
     let downloadURL: String = try container.decode(String.self, forKey: .downloadURL)
     self.downloadURL = .init(string: downloadURL)!
 
-    let formatter = Sweet.TwitterDateFormatter()
+    self.uploadExpiresAt = try container.decode(Date.self, forKey: .uploadExpiresAt)
 
-    let uploadExpiresAt: String = try container.decode(String.self, forKey: .uploadExpiresAt)
-    self.uploadExpiresAt = formatter.date(from: uploadExpiresAt)!
+    self.downloadExpiresAt = try container.decode(Date.self, forKey: .downloadExpiresAt)
 
-    let downloadExpiresAt: String = try container.decode(String.self, forKey: .downloadExpiresAt)
-    self.downloadExpiresAt = formatter.date(from: downloadExpiresAt)!
-
-    let createdAt: String = try container.decode(String.self, forKey: .createdAt)
-    self.createdAt = formatter.date(from: createdAt)!
+    self.createdAt = try container.decode(Date.self, forKey: .createdAt)
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -95,10 +90,9 @@ extension Sweet.ComplianceJobModel: Codable {
     try container.encode(status.rawValue, forKey: .status)
     try container.encode(downloadURL, forKey: .downloadURL)
 
-    let formatter = Sweet.TwitterDateFormatter()
-    try container.encode(formatter.string(from: uploadExpiresAt), forKey: .uploadExpiresAt)
-    try container.encode(formatter.string(from: createdAt), forKey: .createdAt)
-    try container.encode(formatter.string(from: downloadExpiresAt), forKey: .downloadExpiresAt)
-    try container.encode(formatter.string(from: createdAt), forKey: .createdAt)
+    try container.encode(uploadExpiresAt, forKey: .uploadExpiresAt)
+    try container.encode(createdAt, forKey: .createdAt)
+    try container.encode(downloadExpiresAt, forKey: .downloadExpiresAt)
+    try container.encode(createdAt, forKey: .createdAt)
   }
 }
