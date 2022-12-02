@@ -12,7 +12,7 @@ final class TestAuthorization: XCTestCase {
   let clientSecret = "FJcxPnw7P3aBv97HwGa3jid4H3UOzHc7WGxBXrbEFCg0oZ7ILy"
 
   let callbackURL = URL(string: "https://www.example.com/")!
-  let challenage = "challenge"
+  let challenge = "challenge"
   let state = "state"
 
   func testBasicAuthorization() {
@@ -39,7 +39,7 @@ final class TestAuthorization: XCTestCase {
     let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret)
 
     let authorizeURL = oauth2.getAuthorizeURL(
-      scopes: Sweet.AccessScope.allCases, callBackURL: callbackURL, challenge: challenage,
+      scopes: Sweet.AccessScope.allCases, callBackURL: callbackURL, challenge: challenge,
       state: state)
 
     print(authorizeURL)
@@ -52,7 +52,7 @@ final class TestAuthorization: XCTestCase {
     let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret)
 
     let response = try await oauth2.getUserBearerToken(
-      code: code, callBackURL: callbackURL, challenge: challenage)
+      code: code, callBackURL: callbackURL, challenge: challenge)
 
     print(response)
   }

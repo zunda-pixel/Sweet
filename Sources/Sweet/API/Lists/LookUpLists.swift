@@ -36,11 +36,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(ListResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+
+    if let response = try? decoder.decode(ListResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -79,11 +81,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(ListsResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+
+    if let response = try? decoder.decode(ListsResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 

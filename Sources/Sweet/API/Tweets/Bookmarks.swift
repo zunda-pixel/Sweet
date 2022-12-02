@@ -46,11 +46,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(TweetsResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+
+    if let response = try? decoder.decode(TweetsResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -74,7 +76,9 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(BookmarkResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+
+    if let response = try? decoder.decode(BookmarkResponse.self, from: data) {
       if response.bookmarked {
         throw TwitterError.bookmarkError
       } else {
@@ -82,7 +86,7 @@ extension Sweet {
       }
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -109,7 +113,9 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(BookmarkResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+
+    if let response = try? decoder.decode(BookmarkResponse.self, from: data) {
       if response.bookmarked {
         return
       } else {
@@ -117,7 +123,7 @@ extension Sweet {
       }
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 

@@ -16,8 +16,13 @@ extension Sweet {
     public let referencedTweets: [DirectMessageReferencedTweetModel]
 
     public init(
-      eventType: DirectMessageEventType, id: String, text: String, conversationID: String?,
-      createdAt: Date?, senderID: String?, attachments: DirectMessageAttachmentsModel? = nil,
+      eventType: DirectMessageEventType,
+      id: String,
+      text: String,
+      conversationID: String?,
+      createdAt: Date?,
+      senderID: String?,
+      attachments: DirectMessageAttachmentsModel? = nil,
       referencedTweets: [DirectMessageReferencedTweetModel] = []
     ) {
       self.eventType = eventType
@@ -39,10 +44,7 @@ extension Sweet {
       self.id = try container.decode(String.self, forKey: .id)
       self.text = try container.decode(String.self, forKey: .text)
       self.conversationID = try container.decodeIfPresent(String.self, forKey: .conversationID)
-
-      let createdAt = try container.decodeIfPresent(String.self, forKey: .createdAt)
-      self.createdAt = createdAt.map { Sweet.TwitterDateFormatter().date(from: $0)! }
-
+      self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
       self.senderID = try container.decodeIfPresent(String.self, forKey: .senderID)
 
       self.attachments = try container.decodeIfPresent(
@@ -64,11 +66,7 @@ extension Sweet {
       try container.encode(id, forKey: .id)
       try container.encode(text, forKey: .text)
       try container.encodeIfPresent(conversationID, forKey: .conversationID)
-
-      if let createdAt {
-        try container.encode(TwitterDateFormatter().string(from: createdAt), forKey: .createdAt)
-      }
-
+      try container.encodeIfPresent(createdAt, forKey: .createdAt)
       try container.encodeIfPresent(senderID, forKey: .senderID)
       try container.encodeIfPresent(attachments, forKey: .attachments)
       try container.encodeIfPresent(referencedTweets, forKey: .referencedTweets)

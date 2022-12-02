@@ -29,11 +29,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(TweetResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+
+    if let response = try? decoder.decode(TweetResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -55,7 +57,9 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(DeleteResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+
+    if let response = try? decoder.decode(DeleteResponse.self, from: data) {
       if response.deleted {
         return
       } else {
@@ -63,7 +67,7 @@ extension Sweet {
       }
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 

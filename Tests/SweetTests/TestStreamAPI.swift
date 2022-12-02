@@ -65,7 +65,7 @@ final class TestStreamAPI: XCTestCase {
 
 private class TestStream: NSObject, URLSessionDataDelegate {
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-    let response = try! JSONDecoder().decode(Sweet.TweetResponse.self, from: data)
+    let response = try! JSONDecoder.twitter.decode(Sweet.TweetResponse.self, from: data)
     print(response)
   }
 
