@@ -34,11 +34,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(StreamRuleResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(StreamRuleResponse.self, from: data) {
       return response.streamRules
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -79,7 +81,11 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
     return request
   }
@@ -110,11 +116,16 @@ extension Sweet {
     let bodyData = try JSONEncoder().encode(body)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: queries, headers: headers, body: bodyData)
+      method:method,
+      url: url,
+      queries: queries,
+      headers: headers,
+      body: bodyData
+    )
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    let decoder = JSONDecoder()
+    let decoder = JSONDecoder.twitter
 
     if let response = try? decoder.decode(CreateStreamRuleResponse.self, from: data) {
       return response.streamRules
@@ -150,7 +161,12 @@ extension Sweet {
     let bodyData = try JSONEncoder().encode(body)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: queries, headers: headers, body: bodyData)
+      method: method,
+      url: url,
+      queries: queries,
+      headers: headers,
+      body: bodyData
+    )
 
     let _ = try await session.data(for: request)
   }
@@ -178,7 +194,12 @@ extension Sweet {
     let bodyData = try JSONEncoder().encode(body)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: queries, headers: headers, body: bodyData)
+      method: method,
+      url: url,
+      queries:queries,
+      headers: headers,
+      body: bodyData
+    )
 
     let _ = try await session.data(for: request)
   }

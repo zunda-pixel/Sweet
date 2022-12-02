@@ -32,15 +32,21 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(UserResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(UserResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -68,15 +74,21 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(UserResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(UserResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -105,15 +117,21 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(UsersResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -142,15 +160,21 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(UsersResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(UsersResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -177,15 +201,21 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(UserResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(UserResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 

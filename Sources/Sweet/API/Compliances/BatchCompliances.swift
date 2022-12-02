@@ -34,11 +34,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(CompliancesResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(CompliancesResponse.self, from: data) {
       return response.compliances
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -58,11 +60,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(ComplianceResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(ComplianceResponse.self, from: data) {
       return response.compliance
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -107,11 +111,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(ComplianceResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(ComplianceResponse.self, from: data) {
       return response.compliance
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
@@ -148,12 +154,10 @@ extension Sweet {
 
     let lines = stringData.split(separator: "\n")
 
-    let decoder = JSONDecoder()
-
     var compliances: [ComplianceModel] = []
 
     for line in lines {
-      let compliance = try decoder.decode(ComplianceModel.self, from: line.data(using: .utf8)!)
+      let compliance = try JSONDecoder.twitter.decode(ComplianceModel.self, from: line.data(using: .utf8)!)
       compliances.append(compliance)
     }
 

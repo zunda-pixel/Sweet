@@ -31,7 +31,9 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(HideResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(HideResponse.self, from: data) {
       if hidden == response.hidden {
         return
       } else {
@@ -39,7 +41,7 @@ extension Sweet {
       }
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 

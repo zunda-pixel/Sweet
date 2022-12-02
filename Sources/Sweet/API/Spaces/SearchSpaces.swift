@@ -43,11 +43,13 @@ extension Sweet {
 
     let (data, urlResponse) = try await session.data(for: request)
 
-    if let response = try? JSONDecoder().decode(SpacesResponse.self, from: data) {
+    let decoder = JSONDecoder.twitter
+    
+    if let response = try? decoder.decode(SpacesResponse.self, from: data) {
       return response
     }
 
-    if let response = try? JSONDecoder().decode(ResponseErrorModel.self, from: data) {
+    if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
       throw response.error
     }
 
