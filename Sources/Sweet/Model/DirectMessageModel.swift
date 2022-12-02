@@ -16,8 +16,13 @@ extension Sweet {
     public let referencedTweets: [DirectMessageReferencedTweetModel]
 
     public init(
-      eventType: DirectMessageEventType, id: String, text: String, conversationID: String?,
-      createdAt: Date?, senderID: String?, attachments: DirectMessageAttachmentsModel? = nil,
+      eventType: DirectMessageEventType,
+      id: String,
+      text: String,
+      conversationID: String?,
+      createdAt: Date?,
+      senderID: String?,
+      attachments: DirectMessageAttachmentsModel? = nil,
       referencedTweets: [DirectMessageReferencedTweetModel] = []
     ) {
       self.eventType = eventType
@@ -61,11 +66,7 @@ extension Sweet {
       try container.encode(id, forKey: .id)
       try container.encode(text, forKey: .text)
       try container.encodeIfPresent(conversationID, forKey: .conversationID)
-
-      if let createdAt {
-        try container.encode(TwitterDateFormatter().string(from: createdAt), forKey: .createdAt)
-      }
-
+      try container.encodeIfPresent(createdAt, forKey: .createdAt)
       try container.encodeIfPresent(senderID, forKey: .senderID)
       try container.encodeIfPresent(attachments, forKey: .attachments)
       try container.encodeIfPresent(referencedTweets, forKey: .referencedTweets)
