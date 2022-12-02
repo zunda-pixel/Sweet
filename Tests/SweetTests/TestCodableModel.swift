@@ -174,7 +174,7 @@ final class TestCodableModel: XCTestCase {
   func testListModelCodable() throws {
     let list1 = Sweet.ListModel(
       id: "id", name: "name", followerCount: 123, memberCount: 1222, ownerID: "ownerID",
-      description: "description", isPrivate: true, createdAt: nil)
+      description: "description", isPrivate: true, createdAt: Date())
 
     let data = try JSONEncoder().encode(list1)
 
@@ -186,8 +186,8 @@ final class TestCodableModel: XCTestCase {
   func testSpaceModelCodable() throws {
     let space1 = Sweet.SpaceModel(
       id: "id", state: .all, creatorID: "createID", title: "title", hostIDs: ["hostID1"],
-      lang: "lang", participantCount: 33, isTicketed: false, startedAt: nil, updatedAt: nil,
-      createdAt: nil, endedAt: nil, invitedUserIDs: ["42334234", "434343"], scheduledStart: nil,
+      lang: "lang", participantCount: 33, isTicketed: false, startedAt: Date(), updatedAt: Date(),
+      createdAt: Date(), endedAt: Date(), invitedUserIDs: ["42334234", "434343"], scheduledStart: Date(),
       speakerIDs: ["32444334", "4343434"], subscriberCount: 3232,
       topicIDs: ["324234234", "43242342"])
 
@@ -201,7 +201,7 @@ final class TestCodableModel: XCTestCase {
   func testDirectMessageModelCodable() throws {
     let dm1 = Sweet.DirectMessageModel(
       eventType: .messageCreate, id: "id", text: "text", conversationID: "conversationID",
-      createdAt: nil, senderID: "senderID", attachments: .init(mediaKeys: ["1", "2"]),
+      createdAt: Date(), senderID: "senderID", attachments: .init(mediaKeys: ["1", "2"]),
       referencedTweets: [.init(id: "id")])
 
     let data = try JSONEncoder().encode(dm1)
