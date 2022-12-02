@@ -29,12 +29,23 @@ extension Sweet {
     public let topicIDs: [String]
 
     public init(
-      id: String, state: SpaceState, creatorID: String, title: String? = nil,
+      id: String,
+      state: SpaceState,
+      creatorID: String,
+      title: String? = nil,
       hostIDs: [String] = [],
-      lang: String? = nil, participantCount: Int? = nil, isTicketed: Bool? = nil,
-      startedAt: Date? = nil, updatedAt: Date? = nil, createdAt: Date? = nil, endedAt: Date? = nil,
-      invitedUserIDs: [String] = [], scheduledStart: Date? = nil, speakerIDs: [String],
-      subscriberCount: Int? = nil, topicIDs: [String] = []
+      lang: String? = nil,
+      participantCount: Int? = nil,
+      isTicketed: Bool? = nil,
+      startedAt: Date? = nil,
+      updatedAt: Date? = nil,
+      createdAt: Date? = nil,
+      endedAt: Date? = nil,
+      invitedUserIDs: [String] = [],
+      scheduledStart: Date? = nil,
+      speakerIDs: [String],
+      subscriberCount: Int? = nil,
+      topicIDs: [String] = []
     ) {
       self.id = id
       self.state = state
@@ -63,7 +74,7 @@ extension Sweet.SpaceModel: Codable {
     self.id = try container.decode(String.self, forKey: .id)
 
     let state = try container.decode(String.self, forKey: .state)
-    self.state = .init(rawValue: state)!
+    self.state = Sweet.SpaceState(rawValue: state)!
 
     self.creatorID = try container.decode(String.self, forKey: .creatorID)
 
@@ -106,7 +117,7 @@ extension Sweet.SpaceModel: Codable {
     try container.encodeIfPresent(isTicketed, forKey: .isTicketed)
     try container.encodeIfPresent(startedAt, forKey: .startedAt)
     try container.encodeIfPresent(updatedAt, forKey: .updatedAt)
-    try container.encodeIfPresent(createdAt, forKey: .creatorID)
+    try container.encodeIfPresent(createdAt, forKey: .createdAt)
     try container.encodeIfPresent(endedAt, forKey: .endedAt)
     try container.encodeIfPresent(scheduledStart, forKey: .scheduledStart)
     try container.encode(invitedUserIDs, forKey: .invitedUserIDs)
