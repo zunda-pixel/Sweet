@@ -5,7 +5,7 @@
 import Foundation
 
 extension JSONEncoder {
-  static var twitter: JSONEncoder {
+  static public var twitter: JSONEncoder {
     let encoder = JSONEncoder()
 
     encoder.dateEncodingStrategy = .custom { date, encoder in
@@ -19,7 +19,7 @@ extension JSONEncoder {
 }
 
 extension JSONDecoder {
-  static var twitter: JSONDecoder {
+  static public var twitter: JSONDecoder {
     let decoder = JSONDecoder()
 
     decoder.dateDecodingStrategy = .custom { decoder in
