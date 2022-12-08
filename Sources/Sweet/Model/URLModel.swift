@@ -13,8 +13,8 @@ extension Sweet {
     public let start: Int
     public let end: Int
     public let url: URL
-    public let expandedURL: String
-    public let displayURL: String
+    public let expandedURL: String?
+    public let displayURL: String?
     public let unwoundURL: String?
     public let images: [ImageModel]
     public let status: Int?
@@ -64,9 +64,9 @@ extension Sweet.URLModel: Codable {
     let url = try container.decode(String.self, forKey: .url)
     self.url = .init(string: url)!
 
-    self.expandedURL = try container.decode(String.self, forKey: .expandedURL)
+    self.expandedURL = try container.decodeIfPresent(String.self, forKey: .expandedURL)
 
-    self.displayURL = try container.decode(String.self, forKey: .displayURL)
+    self.displayURL = try container.decodeIfPresent(String.self, forKey: .displayURL)
 
     self.unwoundURL = try container.decodeIfPresent(String.self, forKey: .unwoundURL)
 
