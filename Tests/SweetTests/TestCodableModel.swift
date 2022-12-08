@@ -213,11 +213,13 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testJSONFileDecodable() throws {
-    let path = Bundle.module.path(forResource: "TweetsData", ofType: "json")!
-    let rawString = try String(contentsOfFile: path)
-    let rawData = rawString.data(using: .utf8)!
+    for i in (1..<3) {
+      let path = Bundle.module.path(forResource: "TweetsData\(i)", ofType: "json")!
+      let rawString = try String(contentsOfFile: path)
+      let rawData = rawString.data(using: .utf8)!
 
-    let response = try JSONDecoder.twitter.decode(Sweet.TweetsResponse.self, from: rawData)
-    response.tweets.forEach { print($0.text) }
+      let response = try JSONDecoder.twitter.decode(Sweet.TweetsResponse.self, from: rawData)
+      print(response)
+    }
   }
 }
