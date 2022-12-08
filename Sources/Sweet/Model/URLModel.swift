@@ -61,8 +61,7 @@ extension Sweet.URLModel: Codable {
     self.start = try container.decode(Int.self, forKey: .start)
     self.end = try container.decode(Int.self, forKey: .end)
 
-    let url = try container.decode(String.self, forKey: .url)
-    self.url = .init(string: url)!
+    self.url = try container.decode(URL.self, forKey: .url)
 
     self.expandedURL = try container.decodeIfPresent(String.self, forKey: .expandedURL)
 
