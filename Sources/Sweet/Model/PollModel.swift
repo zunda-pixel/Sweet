@@ -38,11 +38,8 @@ extension Sweet.PollModel: Codable {
     let votingStatus = try container.decode(String.self, forKey: .votingStatus)
     self.votingStatus = .init(rawValue: votingStatus)!
 
-    let endDateTime = try container.decode(String.self, forKey: .endDateTime)
-    self.endDateTime = Sweet.TwitterDateFormatter().date(from: endDateTime)!
-
+    self.endDateTime = try container.decode(Date.self, forKey: .endDateTime)
     self.durationMinutes = try container.decode(Int.self, forKey: .durationMinutes)
-
     self.options = try container.decode([Sweet.PollItem].self, forKey: .options)
   }
 
@@ -50,7 +47,6 @@ extension Sweet.PollModel: Codable {
     var container = encoder.container(keyedBy: Sweet.PollField.self)
     try container.encode(id, forKey: .id)
     try container.encode(votingStatus.rawValue, forKey: .votingStatus)
-    let endDateTime = Sweet.TwitterDateFormatter().string(from: endDateTime)
     try container.encode(endDateTime, forKey: .endDateTime)
     try container.encode(durationMinutes, forKey: .durationMinutes)
     try container.encode(options, forKey: .options)

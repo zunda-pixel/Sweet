@@ -31,13 +31,10 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testUserModelCodableOffline() throws {
-    let twitterDateString = "2020-05-15T16:03:42.000Z"
-    let twitterDate = Sweet.TwitterDateFormatter().date(from: twitterDateString)!
-
     let user: Sweet.UserModel = .init(
       id: "id", name: "name", userName: "userName", verified: true,
       profileImageURL: .init(string: "https://twitter.com")!, description: "description",
-      protected: true, url: .init(string: "https://twitter.com")!, createdAt: twitterDate,
+      protected: true, url: .init(string: "https://twitter.com")!, createdAt: Date(),
       location: "location", pinnedTweetID: "pinnedTweetID",
       metrics: .init(followersCount: 1, followingCount: 2, tweetCount: 3, listedCount: 4),
       withheld: .init(
@@ -73,16 +70,13 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testTweetModelCodableOffline() throws {
-    let twitterDateString = "2020-05-15T16:03:42.000Z"
-    let twitterDate = Sweet.TwitterDateFormatter().date(from: twitterDateString)!
-
     let tweet: Sweet.TweetModel = .init(
       id: "id",
       text: "text",
       authorID: "authorID",
       lang: "lang",
       replySetting: .following,
-      createdAt: twitterDate,
+      createdAt: Date(),
       source: "source",
       sensitive: true,
       conversationID: "coversationID",
@@ -130,7 +124,7 @@ final class TestCodableModel: XCTestCase {
       ),
       referencedTweets: [.init(id: "id", type: .retweeted)],
       editHistoryTweetIDs: ["edit1", "edit2"],
-      editControl: .init(isEditEligible: true, editableUntil: twitterDate, editsRemaining: 3)
+      editControl: .init(isEditEligible: true, editableUntil: Date(), editsRemaining: 3)
     )
 
     let data = try JSONEncoder().encode(tweet)
@@ -180,7 +174,7 @@ final class TestCodableModel: XCTestCase {
   func testListModelCodable() throws {
     let list1 = Sweet.ListModel(
       id: "id", name: "name", followerCount: 123, memberCount: 1222, ownerID: "ownerID",
-      description: "description", isPrivate: true, createdAt: nil)
+      description: "description", isPrivate: true, createdAt: Date())
 
     let data = try JSONEncoder().encode(list1)
 
@@ -192,8 +186,9 @@ final class TestCodableModel: XCTestCase {
   func testSpaceModelCodable() throws {
     let space1 = Sweet.SpaceModel(
       id: "id", state: .all, creatorID: "createID", title: "title", hostIDs: ["hostID1"],
-      lang: "lang", participantCount: 33, isTicketed: false, startedAt: nil, updatedAt: nil,
-      createdAt: nil, endedAt: nil, invitedUserIDs: ["42334234", "434343"], scheduledStart: nil,
+      lang: "lang", participantCount: 33, isTicketed: false, startedAt: Date(), updatedAt: Date(),
+      createdAt: Date(), endedAt: Date(), invitedUserIDs: ["42334234", "434343"],
+      scheduledStart: Date(),
       speakerIDs: ["32444334", "4343434"], subscriberCount: 3232,
       topicIDs: ["324234234", "43242342"])
 
@@ -207,7 +202,7 @@ final class TestCodableModel: XCTestCase {
   func testDirectMessageModelCodable() throws {
     let dm1 = Sweet.DirectMessageModel(
       eventType: .messageCreate, id: "id", text: "text", conversationID: "conversationID",
-      createdAt: nil, senderID: "senderID", attachments: .init(mediaKeys: ["1", "2"]),
+      createdAt: Date(), senderID: "senderID", attachments: .init(mediaKeys: ["1", "2"]),
       referencedTweets: [.init(id: "id")])
 
     let data = try JSONEncoder().encode(dm1)
@@ -218,11 +213,13 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testJSONFileDecodable() throws {
-    let path = Bundle.module.path(forResource: "TweetsData", ofType: "json")!
-    let rawString = try String(contentsOfFile: path)
-    let rawData = rawString.data(using: .utf8)!
+    for i in (1..<3) {
+      let path = Bundle.module.path(forResource: "TweetsData\(i)", ofType: "json")!
+      let rawString = try String(contentsOfFile: path)
+      let rawData = rawString.data(using: .utf8)!
 
-    let response = try JSONDecoder().decode(Sweet.TweetsResponse.self, from: rawData)
-    response.tweets.forEach { print($0.text) }
+      let response = try JSONDecoder.twitter.decode(Sweet.TweetsResponse.self, from: rawData)
+      print(response)
+    }
   }
 }
