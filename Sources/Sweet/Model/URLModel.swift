@@ -22,9 +22,15 @@ extension Sweet {
     public let description: String?
 
     public init(
-      start: Int, end: Int, url: URL, expandedURL: String, displayURL: String,
+      start: Int,
+      end: Int,
+      url: URL,
+      expandedURL: String,
+      displayURL: String,
       unwoundURL: String? = nil,
-      images: [ImageModel] = [], status: Int? = nil, title: String? = nil,
+      images: [ImageModel] = [],
+      status: Int? = nil,
+      title: String? = nil,
       description: String? = nil
     ) {
       self.start = start

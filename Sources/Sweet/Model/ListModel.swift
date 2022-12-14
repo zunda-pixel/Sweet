@@ -24,8 +24,13 @@ extension Sweet {
     public let createdAt: Date?
 
     public init(
-      id: String, name: String, followerCount: Int? = nil, memberCount: Int? = nil,
-      ownerID: String? = nil, description: String? = nil, isPrivate: Bool? = nil,
+      id: String,
+      name: String,
+      followerCount: Int? = nil,
+      memberCount: Int? = nil,
+      ownerID: String? = nil,
+      description: String? = nil,
+      isPrivate: Bool? = nil,
       createdAt: Date? = nil
     ) {
       self.id = id

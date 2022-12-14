@@ -29,10 +29,18 @@ extension Sweet {
     public let organicMetrics: MediaOrganicMetrics?
 
     public init(
-      key: String, type: MediaType, size: CGSize, previewImageURL: URL? = nil, url: URL? = nil,
-      variants: [MediaVariant] = [], durationMicroSeconds: Int? = nil, alternateText: String? = nil,
-      metrics: MediaPublicMetrics? = nil, privateMetrics: MediaPrivateMetrics? = nil,
-      promotedMetrics: MediaPromotedMetrics? = nil, organicMetrics: MediaOrganicMetrics? = nil
+      key: String,
+      type: MediaType,
+      size: CGSize? = nil,
+      previewImageURL: URL? = nil,
+      url: URL? = nil,
+      variants: [MediaVariant] = [],
+      durationMicroSeconds: Int? = nil,
+      alternateText: String? = nil,
+      metrics: MediaPublicMetrics? = nil,
+      privateMetrics: MediaPrivateMetrics? = nil,
+      promotedMetrics: MediaPromotedMetrics? = nil,
+      organicMetrics: MediaOrganicMetrics? = nil
     ) {
       self.key = key
       self.type = type

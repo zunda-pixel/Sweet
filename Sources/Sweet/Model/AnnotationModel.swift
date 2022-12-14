@@ -14,7 +14,11 @@ extension Sweet {
     public let normalizedText: String
 
     public init(
-      start: Int, end: Int, probability: Double, type: AnnotationType, normalizedText: String
+      start: Int,
+      end: Int,
+      probability: Double,
+      type: AnnotationType,
+      normalizedText: String
     ) {
       self.start = start
       self.end = end

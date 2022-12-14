@@ -17,7 +17,10 @@ extension Sweet {
     public let options: [PollItem]
 
     public init(
-      id: String, votingStatus: PollStatus, endDateTime: Date, durationMinutes: Int,
+      id: String,
+      votingStatus: PollStatus,
+      endDateTime: Date,
+      durationMinutes: Int,
       options: [PollItem] = []
     ) {
       self.id = id
