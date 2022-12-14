@@ -40,5 +40,7 @@ extension Sweet {
     case accountLocked
 
     case tooManyAccess
+    
+    case responseError(errors: [Sweet.ResponseErrorModel.DataError])
   }
 }
