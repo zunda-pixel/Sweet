@@ -61,7 +61,7 @@ extension Sweet.MediaModel: Codable {
 
     let height = try container.decodeIfPresent(Int.self, forKey: .height)
     let width = try container.decodeIfPresent(Int.self, forKey: .width)
-    
+
     if let height, let width {
       self.size = CGSize(width: width, height: height)
     } else {
