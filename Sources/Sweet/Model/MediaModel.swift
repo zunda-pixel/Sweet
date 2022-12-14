@@ -17,7 +17,7 @@ extension Sweet {
     public var id: String { key }
     public let key: String
     public let type: MediaType
-    public let size: CGSize
+    public let size: CGSize?
     public let previewImageURL: URL?
     public let url: URL?
     public let variants: [MediaVariant]
@@ -59,9 +59,14 @@ extension Sweet.MediaModel: Codable {
 
     self.key = try container.decode(String.self, forKey: .mediaKey)
 
-    let height = try container.decode(Int.self, forKey: .height)
-    let width = try container.decode(Int.self, forKey: .width)
-    self.size = .init(width: width, height: height)
+    let height = try container.decodeIfPresent(Int.self, forKey: .height)
+    let width = try container.decodeIfPresent(Int.self, forKey: .width)
+    
+    if let height, let width {
+      self.size = CGSize(width: width, height: height)
+    } else {
+      self.size = nil
+    }
 
     let previewImageURL = try container.decodeIfPresent(String.self, forKey: .previewImageURL)
     self.previewImageURL = previewImageURL.map { URL(string: $0)! }
@@ -100,8 +105,8 @@ extension Sweet.MediaModel: Codable {
     var container = encoder.container(keyedBy: Sweet.MediaField.self)
     try container.encode(type.rawValue, forKey: .type)
     try container.encode(key, forKey: .mediaKey)
-    try container.encode(size.width, forKey: .width)
-    try container.encode(size.height, forKey: .height)
+    try container.encodeIfPresent(size?.width, forKey: .width)
+    try container.encodeIfPresent(size?.height, forKey: .height)
     try container.encodeIfPresent(previewImageURL, forKey: .previewImageURL)
     try container.encodeIfPresent(url, forKey: .url)
     try container.encodeIfPresent(variants, forKey: .variants)
