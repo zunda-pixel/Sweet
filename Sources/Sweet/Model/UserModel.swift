@@ -26,11 +26,20 @@ extension Sweet {
     public let entity: UserEntityModel?
 
     public init(
-      id: String, name: String, userName: String, verified: Bool? = nil,
+      id: String,
+      name: String,
+      userName: String,
+      verified: Bool? = nil,
       profileImageURL: URL? = nil,
-      description: String? = nil, protected: Bool? = nil, url: URL? = nil, createdAt: Date? = nil,
-      location: String? = nil, pinnedTweetID: String? = nil, metrics: UserPublicMetrics? = nil,
-      withheld: WithheldModel? = nil, entity: UserEntityModel? = nil
+      description: String? = nil,
+      protected: Bool? = nil,
+      url: URL? = nil,
+      createdAt: Date? = nil,
+      location: String? = nil,
+      pinnedTweetID: String? = nil,
+      metrics: UserPublicMetrics? = nil,
+      withheld: WithheldModel? = nil,
+      entity: UserEntityModel? = nil
     ) {
       self.id = id
       self.name = name
