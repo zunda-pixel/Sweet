@@ -46,7 +46,7 @@ extension Sweet.AnnotationModel: Codable {
     self.normalizedText = try container.decode(String.self, forKey: .normalizedText)
 
     let type = try container.decode(String.self, forKey: .type)
-    self.type = .init(rawValue: type)!
+    self.type = Sweet.AnnotationType(rawValue: type)!
   }
 
   public func encode(to encoder: Encoder) throws {

@@ -39,7 +39,7 @@ extension Sweet {
       let container = try decoder.container(keyedBy: DirectMessageField.self)
 
       let eventType = try container.decode(String.self, forKey: .eventType)
-      self.eventType = .init(rawValue: eventType)!
+      self.eventType = Sweet.DirectMessageEventType(rawValue: eventType)!
 
       self.id = try container.decode(String.self, forKey: .id)
       self.text = try container.decode(String.self, forKey: .text)

@@ -62,10 +62,12 @@ extension Sweet {
 extension Sweet.UserModel: Codable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: Sweet.UserField.self)
-
-    self.id = try container.decode(String.self, forKey: .id)
-    self.name = try container.decode(String.self, forKey: .name)
-    self.userName = try container.decode(String.self, forKey: .username)
+    let id = try container.decode(String.self, forKey: .id)
+    self.id = id
+    let name = try container.decode(String.self, forKey: .name)
+    self.name = name
+    let userName = try container.decode(String.self, forKey: .username)
+    self.userName = userName
     self.verified = try container.decodeIfPresent(Bool.self, forKey: .verified)
     self.description = try container.decodeIfPresent(String.self, forKey: .description)
     self.metrics = try container.decodeIfPresent(
@@ -78,12 +80,13 @@ extension Sweet.UserModel: Codable {
 
     let profileImageURL = try container.decodeIfPresent(String.self, forKey: .profileImageURL)
     let removedNormalProfileImageURL: String? = profileImageURL?.replacingOccurrences(
-      of: "_normal", with: "")
-    self.profileImageURL = removedNormalProfileImageURL.map { URL(string: $0)! }
+      of: "_normal",
+      with: ""
+    )
+    
+    self.profileImageURL = removedNormalProfileImageURL.map { URL(string: $0) }!
 
-    let url: String? = try container.decodeIfPresent(String.self, forKey: .url)
-    self.url = url.map { URL(string: $0)! }
-
+    self.url = try container.decodeIfPresent(URL.self, forKey: .url)
     self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
   }
 

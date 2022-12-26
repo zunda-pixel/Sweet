@@ -26,7 +26,7 @@ extension Sweet.GeoModel: Codable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     let type = try container.decode(String.self, forKey: .type)
-    self.type = .init(rawValue: type)!
+    self.type = Sweet.GeoType(rawValue: type)!
 
     self.boundingBox = try container.decode([Double].self, forKey: .boundingBox)
   }

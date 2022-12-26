@@ -34,9 +34,8 @@ extension Sweet.MediaVariant: Codable {
 
     self.bitRate = try container.decodeIfPresent(Int.self, forKey: .bitRate)
     let contentType = try container.decode(String.self, forKey: .contentType)
-    self.contentType = .init(rawValue: contentType)!
+    self.contentType = Sweet.VideoType(rawValue: contentType)!
 
-    let urlString = try container.decode(String.self, forKey: .url)
-    self.url = URL(string: urlString)!
+    self.url = try container.decode(URL.self, forKey: .url)
   }
 }
