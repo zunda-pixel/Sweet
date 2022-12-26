@@ -81,7 +81,7 @@ final class TestCodableModel: XCTestCase {
       sensitive: true,
       conversationID: "coversationID",
       replyUserID: "replyUserID",
-      geo: .init(placeID: "01a9a39529b27f36"),
+      geo: .init(placeID: "01a9a39529b27f36", coordinates: .init(type: "", coordinates: [])),
       publicMetrics: .init(retweetCount: 1, replyCount: 2, likeCount: 3, quoteCount: 4),
       organicMetrics: .init(
         likeCount: 5, userProfileClicks: 6, replyCount: 7, impressionCount: 8, retweetCount: 9),
