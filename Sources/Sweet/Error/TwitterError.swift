@@ -9,6 +9,16 @@ import Foundation
 #endif
 
 extension Sweet {
+  public enum ResourceError: Error {
+    case userSuspend(userID: String)
+    case notFoundUser(userID: String)
+    case notFoundTweet(tweetID: String)
+    case notFoundList(listID: String)
+    case notFoundSpace(spaceID: String)
+    case notAuthorizedToSeeTweet(tweetID: String)
+    case unknown(Sweet.ErrorMessageModel)
+  }
+  
   /// Twitter Error
   public enum TwitterError: Error, Sendable {
     case invalidRequest(error: Sweet.ResponseErrorModel)
@@ -41,6 +51,6 @@ extension Sweet {
 
     case tooManyAccess
     
-    case responseError(errors: [Sweet.ResponseErrorModel.DataError])
+    case responseError(errors: [Sweet.ResourceError])
   }
 }
