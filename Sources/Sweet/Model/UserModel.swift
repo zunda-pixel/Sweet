@@ -83,7 +83,7 @@ extension Sweet.UserModel: Codable {
       of: "_normal",
       with: ""
     )
-    
+
     self.profileImageURL = removedNormalProfileImageURL.map { URL(string: $0) }!
 
     self.url = try container.decodeIfPresent(URL.self, forKey: .url)

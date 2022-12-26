@@ -9,7 +9,7 @@ extension Sweet {
   public struct SimpleGeoModel: Hashable, Sendable {
     public let placeID: String?
     public let coordinates: CoordinatesModel?
-    
+
     public init(placeID: String? = nil, coordinates: CoordinatesModel?) {
       self.placeID = placeID
       self.coordinates = coordinates

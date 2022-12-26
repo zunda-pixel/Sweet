@@ -31,7 +31,7 @@ extension Sweet.SpacesResponse: Decodable {
 
     let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
-    
+
     self.spaces = try container.decode([Sweet.SpaceModel].self, forKey: .spaces)
 
     let includeContainer = try? container.nestedContainer(

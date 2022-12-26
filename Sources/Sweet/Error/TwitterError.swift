@@ -18,7 +18,7 @@ extension Sweet {
     case notAuthorizedToSeeTweet(tweetID: String)
     case unknown(Sweet.ErrorMessageModel)
   }
-  
+
   /// Twitter Error
   public enum TwitterError: Error, Sendable {
     case invalidRequest(error: Sweet.ResponseErrorModel)
@@ -50,7 +50,7 @@ extension Sweet {
     case accountLocked
 
     case tooManyAccess
-    
+
     case responseError(errors: [Sweet.ResourceError])
   }
 }

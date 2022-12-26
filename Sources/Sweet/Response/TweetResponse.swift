@@ -42,7 +42,7 @@ extension Sweet.TweetsResponse: Decodable {
 
     let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
-    
+
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
