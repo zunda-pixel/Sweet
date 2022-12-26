@@ -22,8 +22,15 @@ extension Sweet {
     public let status: JobStatus
 
     public init(
-      id: String, name: String, createdAt: Date, type: JobType, resumable: Bool,
-      uploadURL: URL, uploadExpiresAt: Date, downloadExpiresAt: Date, downloadURL: URL,
+      id: String,
+      name: String,
+      createdAt: Date,
+      type: JobType,
+      resumable: Bool,
+      uploadURL: URL,
+      uploadExpiresAt: Date,
+      downloadExpiresAt: Date,
+      downloadURL: URL,
       status: JobStatus
     ) {
       self.id = id

@@ -34,17 +34,28 @@ extension Sweet {
     public let editControl: EditControl?
 
     public init(
-      id: String, text: String, authorID: String? = nil, lang: String? = nil,
+      id: String,
+      text: String,
+      authorID: String? = nil,
+      lang: String? = nil,
       replySetting: ReplySetting? = nil,
-      createdAt: Date? = nil, source: String? = nil, sensitive: Bool? = nil,
+      createdAt: Date? = nil,
+      source: String? = nil,
+      sensitive: Bool? = nil,
       conversationID: String? = nil,
-      replyUserID: String? = nil, geo: SimpleGeoModel? = nil,
+      replyUserID: String? = nil,
+      geo: SimpleGeoModel? = nil,
       publicMetrics: TweetPublicMetrics? = nil,
-      organicMetrics: OrganicMetrics? = nil, privateMetrics: PrivateMetrics? = nil,
-      attachments: AttachmentsModel? = nil, promotedMetrics: PromotedMetrics? = nil,
-      withheld: WithheldModel? = nil, contextAnnotations: [ContextAnnotationModel] = [],
-      entity: TweetEntityModel? = nil, referencedTweets: [ReferencedTweetModel] = [],
-      editHistoryTweetIDs: [String] = [], editControl: EditControl? = nil
+      organicMetrics: OrganicMetrics? = nil,
+      privateMetrics: PrivateMetrics? = nil,
+      attachments: AttachmentsModel? = nil,
+      promotedMetrics: PromotedMetrics? = nil,
+      withheld: WithheldModel? = nil,
+      contextAnnotations: [ContextAnnotationModel] = [],
+      entity: TweetEntityModel? = nil,
+      referencedTweets: [ReferencedTweetModel] = [],
+      editHistoryTweetIDs: [String] = [],
+      editControl: EditControl? = nil
     ) {
       self.id = id
       self.text = text

@@ -21,8 +21,13 @@ extension Sweet {
     public let containedWithin: [String]
 
     public init(
-      id: String, fullName: String, name: String? = nil, country: String? = nil,
-      countryCode: String? = nil, geo: GeoModel? = nil, type: PlaceType? = nil,
+      id: String,
+      fullName: String,
+      name: String? = nil,
+      country: String? = nil,
+      countryCode: String? = nil,
+      geo: GeoModel? = nil,
+      type: PlaceType? = nil,
       containedWithin: [String] = []
     ) {
       self.id = id

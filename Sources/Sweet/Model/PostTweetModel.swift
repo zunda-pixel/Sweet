@@ -21,10 +21,14 @@ extension Sweet {
     public let replySettings: Sweet.ReplySetting?
 
     public init(
-      text: String? = nil, directMessageDeepLink: URL? = nil, forSuperFollowersOnly: Bool = false,
-      geo: Sweet.PostGeoModel? = nil, media: Sweet.PostMediaModel? = nil,
+      text: String? = nil,
+      directMessageDeepLink: URL? = nil,
+      forSuperFollowersOnly: Bool = false,
+      geo: Sweet.PostGeoModel? = nil,
+      media: Sweet.PostMediaModel? = nil,
       poll: Sweet.PostPollModel? = nil,
-      quoteTweetID: String? = nil, reply: Sweet.ReplyModel? = nil,
+      quoteTweetID: String? = nil,
+      reply: Sweet.ReplyModel? = nil,
       replySettings: Sweet.ReplySetting? = nil
     ) {
       self.text = text

@@ -17,8 +17,11 @@ extension Sweet {
     public let cashtags: [CashTagModel]
 
     public init(
-      annotations: [AnnotationModel] = [], urls: [URLModel] = [], hashtags: [HashTagModel] = [],
-      mentions: [MentionModel] = [], cashtags: [CashTagModel] = []
+      annotations: [AnnotationModel] = [],
+      urls: [URLModel] = [],
+      hashtags: [HashTagModel] = [],
+      mentions: [MentionModel] = [],
+      cashtags: [CashTagModel] = []
     ) {
       self.annotations = annotations
       self.urls = urls
