@@ -6,13 +6,13 @@ import Foundation
 
 extension Sweet {
   /// SimpleGeo Model
-  public struct SimpleGeoModel: Hashable, Identifiable, Sendable {
-    public var id: String { placeID }
-
-    public let placeID: String
-
-    public init(placeID: String) {
+  public struct SimpleGeoModel: Hashable, Sendable {
+    public let placeID: String?
+    public let coordinates: CoordinatesModel
+    
+    public init(placeID: String? = nil, coordinates: CoordinatesModel) {
       self.placeID = placeID
+      self.coordinates = coordinates
     }
   }
 }
@@ -20,5 +20,6 @@ extension Sweet {
 extension Sweet.SimpleGeoModel: Codable {
   private enum CodingKeys: String, CodingKey {
     case placeID = "place_id"
+    case coordinates
   }
 }
