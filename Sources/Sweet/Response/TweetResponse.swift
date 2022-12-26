@@ -17,6 +17,7 @@ extension Sweet {
     public let places: [PlaceModel]
     public let polls: [PollModel]
     public let relatedTweets: [TweetModel]
+    public let errors: [ResourceError]
   }
 }
 
@@ -25,6 +26,7 @@ extension Sweet.TweetsResponse: Decodable {
     case tweets = "data"
     case includes
     case meta
+    case errors
   }
 
   private enum TweetIncludesCodingKeys: String, CodingKey {
@@ -47,6 +49,7 @@ extension Sweet.TweetsResponse: Decodable {
       self.places = []
       self.polls = []
       self.relatedTweets = []
+      self.errors = []
       return
     }
 
@@ -72,6 +75,9 @@ extension Sweet.TweetsResponse: Decodable {
     let relatedTweets = try includeContainer?.decodeIfPresent(
       [Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
+    
+    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
   }
 }
 
