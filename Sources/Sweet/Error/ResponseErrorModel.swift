@@ -106,7 +106,7 @@ extension Sweet.ResponseErrorModel: Decodable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
-    self.errors =  errors?.map(\.error) ?? []
+    self.errors = errors?.map(\.error) ?? []
 
     self.title = try container.decodeIfPresent(String.self, forKey: .title)
     self.detail = try container.decodeIfPresent(String.self, forKey: .detail)
