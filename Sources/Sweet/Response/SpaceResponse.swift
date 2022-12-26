@@ -12,12 +12,14 @@ extension Sweet {
   public struct SpacesResponse: Sendable {
     public let spaces: [SpaceModel]
     public let users: [UserModel]
+    public let errors: [ResourceError]
   }
 }
 
 extension Sweet.SpacesResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case spaces = "data"
+    case errors
     case includes
   }
   private enum UserCodingKeys: String, CodingKey {
@@ -27,10 +29,15 @@ extension Sweet.SpacesResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
+    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
+    
     self.spaces = try container.decode([Sweet.SpaceModel].self, forKey: .spaces)
 
     let includeContainer = try? container.nestedContainer(
-      keyedBy: UserCodingKeys.self, forKey: .includes)
+      keyedBy: UserCodingKeys.self,
+      forKey: .includes
+    )
 
     let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []

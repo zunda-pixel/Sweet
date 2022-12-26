@@ -8,7 +8,7 @@
 import Foundation
 
 extension Sweet {
-  /// Count Tweet Respose
+  /// Count Tweet Response
   public struct CountTweetResponse: Sendable {
     public let countTweets: [CountTweetModel]
     public let meta: CountTweetMetaModel

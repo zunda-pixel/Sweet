@@ -40,6 +40,9 @@ extension Sweet.TweetsResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
+    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
+    
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
@@ -49,7 +52,6 @@ extension Sweet.TweetsResponse: Decodable {
       self.places = []
       self.polls = []
       self.relatedTweets = []
-      self.errors = []
       return
     }
 
@@ -75,9 +77,6 @@ extension Sweet.TweetsResponse: Decodable {
     let relatedTweets = try includeContainer?.decodeIfPresent(
       [Sweet.TweetModel].self, forKey: .tweets)
     self.relatedTweets = relatedTweets ?? []
-    
-    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
-    self.errors = errors?.map(\.error) ?? []
   }
 }
 

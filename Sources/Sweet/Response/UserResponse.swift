@@ -43,12 +43,14 @@ extension Sweet {
     public var users: [UserModel]
     public let meta: MetaModel?
     public let tweets: [TweetModel]
+    public let errors: [ResourceError]
   }
 }
 
 extension Sweet.UsersResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case users = "data"
+    case errors
     case meta
     case includes
   }
@@ -60,6 +62,9 @@ extension Sweet.UsersResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
+    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
+    
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     if meta?.resultCount == 0 {
