@@ -62,18 +62,18 @@ extension Sweet.UsersResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
 
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     let users = try container.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
-    
+
     if self.errors.isEmpty && self.users.isEmpty {
       throw Sweet.InternalResourceError.noResource
     }
-    
+
     let nestedContainer = try? container.nestedContainer(
       keyedBy: TweetCodingKeys.self,
       forKey: .includes

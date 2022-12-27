@@ -29,16 +29,16 @@ extension Sweet.SpacesResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
 
     let spaces = try container.decodeIfPresent([Sweet.SpaceModel].self, forKey: .spaces)
     self.spaces = spaces ?? []
-    
+
     if self.errors.isEmpty && self.spaces.isEmpty {
       throw Sweet.InternalResourceError.noResource
     }
-    
+
     let includeContainer = try? container.nestedContainer(
       keyedBy: UserCodingKeys.self,
       forKey: .includes

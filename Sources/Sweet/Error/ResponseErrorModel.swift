@@ -13,13 +13,14 @@ extension Sweet {
     case unsupportedAuthentication(detail: String)
     case invalidRequest(response: ResponseErrorModel)
   }
-  
+
   /// Error that includes API Error
   public struct ResponseErrorModel: Sendable {
+    public let errors: [ResponseErrorMessage]
     public let title: String
     public let detail: String
-    public let type: String
-    public let status: Int
+    public let type: URL
+    public let status: Int?
 
     var error: RequestError {
       if detail
@@ -62,7 +63,9 @@ extension Sweet.ResponseErrorModel: Decodable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.title = try container.decode(String.self, forKey: .title)
     self.detail = try container.decode(String.self, forKey: .detail)
-    self.type = try container.decode(String.self, forKey: .type)
-    self.status = try container.decode(Int.self, forKey: .status)
+    self.type = try container.decode(URL.self, forKey: .type)
+    self.status = try container.decodeIfPresent(Int.self, forKey: .status)
+    let errors = try container.decodeIfPresent([Sweet.ResponseErrorMessage].self, forKey: .errors)
+    self.errors = errors ?? []
   }
 }

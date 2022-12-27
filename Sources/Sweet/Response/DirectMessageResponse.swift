@@ -30,19 +30,19 @@ extension Sweet.DirectMessagesResponse: Decodable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    
+
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
-    
-    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
 
     let directMessages = try container.decodeIfPresent(
       [Sweet.DirectMessageModel].self,
       forKey: .directMessages
     )
-    
+
     self.directMessages = directMessages ?? []
-    
+
     if self.errors.isEmpty && self.directMessages.isEmpty {
       throw Sweet.InternalResourceError.noResource
     }

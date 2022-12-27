@@ -1,11 +1,11 @@
 //
-//  ErrorMessageModel.swift
+//  ResourceErrorModel.swift
 //
 
 import Foundation
 
 extension Sweet {
-  public struct ErrorMessageModel: Decodable, Sendable {
+  public struct ResourceErrorModel: Decodable, Sendable {
     public let parameter: String?
     public let resourceID: String?
     public let value: String?
@@ -32,7 +32,7 @@ extension Sweet {
       if title == "Field Authorization Error" {
         return .fieldNotAuthorized(fields: field!)
       }
-      
+
       if detail.hasPrefix("User has been suspended") == true {
         return .userSuspend(userID: resourceID!)
       }

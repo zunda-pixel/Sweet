@@ -13,6 +13,6 @@ extension Sweet {
     case notFoundSpace(spaceID: String)
     case notAuthorizedToSeeTweet(tweetID: String)
     case fieldNotAuthorized(fields: String)
-    case unknown(Sweet.ErrorMessageModel)
+    case unknown(Sweet.ResourceErrorModel)
   }
 }

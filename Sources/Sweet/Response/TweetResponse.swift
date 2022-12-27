@@ -40,18 +40,18 @@ extension Sweet.TweetsResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
 
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
     let tweets = try container.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
-    
+
     if self.errors.isEmpty && self.tweets.isEmpty {
       throw Sweet.InternalResourceError.noResource
     }
-    
+
     let includeContainer = try? container.nestedContainer(
       keyedBy: TweetIncludesCodingKeys.self,
       forKey: .includes

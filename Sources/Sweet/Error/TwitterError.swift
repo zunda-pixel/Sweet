@@ -26,7 +26,7 @@ extension Sweet {
     case bookmarkError
     case uploadCompliance
   }
-  
+
   enum InternalResourceError: Error, Sendable {
     case noResource
   }

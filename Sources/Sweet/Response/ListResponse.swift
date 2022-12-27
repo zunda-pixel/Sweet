@@ -67,16 +67,16 @@ extension Sweet.ListsResponse: Decodable {
 
     self.meta = try container.decode(Sweet.MetaModel.self, forKey: .meta)
 
-    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
 
     let lists = try container.decodeIfPresent([Sweet.ListModel].self, forKey: .lists)
     self.lists = lists ?? []
-    
+
     if self.errors.isEmpty && self.lists.isEmpty {
       throw Sweet.InternalResourceError.noResource
     }
-    
+
     let includeContainer = try? container.nestedContainer(
       keyedBy: UserIncludesCodingKeys.self,
       forKey: .includes
