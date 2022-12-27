@@ -46,6 +46,7 @@ extension Sweet {
     public let lists: [ListModel]
     public let meta: MetaModel
     public let users: [UserModel]
+    public let errors: [ResourceError]
   }
 }
 
@@ -54,6 +55,7 @@ extension Sweet.ListsResponse: Decodable {
     case lists = "data"
     case meta
     case includes
+    case errors
   }
 
   private enum UserIncludesCodingKeys: String, CodingKey {
@@ -65,14 +67,16 @@ extension Sweet.ListsResponse: Decodable {
 
     self.meta = try container.decode(Sweet.MetaModel.self, forKey: .meta)
 
-    if meta.resultCount == 0 {
-      self.lists = []
-      self.users = []
-      return
+    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
+
+    let lists = try container.decodeIfPresent([Sweet.ListModel].self, forKey: .lists)
+    self.lists = lists ?? []
+    
+    if self.errors.isEmpty && self.lists.isEmpty {
+      throw Sweet.InternalResourceError.noResource
     }
-
-    self.lists = try container.decode([Sweet.ListModel].self, forKey: .lists)
-
+    
     let includeContainer = try? container.nestedContainer(
       keyedBy: UserIncludesCodingKeys.self,
       forKey: .includes

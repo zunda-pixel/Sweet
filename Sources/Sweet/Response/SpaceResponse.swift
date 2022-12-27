@@ -32,8 +32,13 @@ extension Sweet.SpacesResponse: Decodable {
     let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
 
-    self.spaces = try container.decode([Sweet.SpaceModel].self, forKey: .spaces)
-
+    let spaces = try container.decodeIfPresent([Sweet.SpaceModel].self, forKey: .spaces)
+    self.spaces = spaces ?? []
+    
+    if self.errors.isEmpty && self.spaces.isEmpty {
+      throw Sweet.InternalResourceError.noResource
+    }
+    
     let includeContainer = try? container.nestedContainer(
       keyedBy: UserCodingKeys.self,
       forKey: .includes
@@ -67,7 +72,9 @@ extension Sweet.SpaceResponse: Decodable {
     self.space = try container.decode(Sweet.SpaceModel.self, forKey: .space)
 
     let includeContainer = try? container.nestedContainer(
-      keyedBy: UserCodingKeys.self, forKey: .includes)
+      keyedBy: UserCodingKeys.self,
+      forKey: .includes
+    )
 
     let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []

@@ -67,16 +67,17 @@ extension Sweet.UsersResponse: Decodable {
 
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
-    if meta?.resultCount == 0 {
-      self.users = []
-      self.tweets = []
-      return
+    let users = try container.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
+    self.users = users ?? []
+    
+    if self.errors.isEmpty && self.users.isEmpty {
+      throw Sweet.InternalResourceError.noResource
     }
-
-    self.users = try container.decode([Sweet.UserModel].self, forKey: .users)
-
+    
     let nestedContainer = try? container.nestedContainer(
-      keyedBy: TweetCodingKeys.self, forKey: .includes)
+      keyedBy: TweetCodingKeys.self,
+      forKey: .includes
+    )
 
     let tweets = try nestedContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []

@@ -45,18 +45,13 @@ extension Sweet.TweetsResponse: Decodable {
 
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
-    if meta?.resultCount == 0 {
-      self.tweets = []
-      self.medias = []
-      self.users = []
-      self.places = []
-      self.polls = []
-      self.relatedTweets = []
-      return
+    let tweets = try container.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
+    self.tweets = tweets ?? []
+    
+    if self.errors.isEmpty && self.tweets.isEmpty {
+      throw Sweet.InternalResourceError.noResource
     }
-
-    self.tweets = try container.decode([Sweet.TweetModel].self, forKey: .tweets)
-
+    
     let includeContainer = try? container.nestedContainer(
       keyedBy: TweetIncludesCodingKeys.self,
       forKey: .includes
@@ -75,7 +70,9 @@ extension Sweet.TweetsResponse: Decodable {
     self.polls = polls ?? []
 
     let relatedTweets = try includeContainer?.decodeIfPresent(
-      [Sweet.TweetModel].self, forKey: .tweets)
+      [Sweet.TweetModel].self,
+      forKey: .tweets
+    )
     self.relatedTweets = relatedTweets ?? []
   }
 }
