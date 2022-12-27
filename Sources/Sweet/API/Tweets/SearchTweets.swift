@@ -84,7 +84,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Search Tweets By Query
@@ -163,6 +163,6 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 }

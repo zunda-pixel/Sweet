@@ -11,7 +11,6 @@ import Foundation
 extension Sweet {
   /// Twitter Error
   public enum TwitterError: Error, Sendable {
-    case unknown(request: URLRequest, data: Data, response: URLResponse)
     case followError
     case listMemberError
     case updateListError

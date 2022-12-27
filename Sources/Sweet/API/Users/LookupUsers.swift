@@ -50,7 +50,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Look Up User by Screen ID
@@ -92,7 +92,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Look Up Users by User IDs
@@ -135,7 +135,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Look Up Users by Screen IDs
@@ -178,7 +178,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Look Up Me(based Bearer Token)
@@ -219,6 +219,6 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 }

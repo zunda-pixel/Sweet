@@ -86,7 +86,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch Tweets composed by a single user, specified by the requested user ID.
@@ -164,7 +164,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch Tweets mentioning a single user specified by the requested user ID. By default, the most recent ten Tweets are returned per request. Using pagination, up to the most recent 800 Tweets can be retrieved.
@@ -239,6 +239,6 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 }

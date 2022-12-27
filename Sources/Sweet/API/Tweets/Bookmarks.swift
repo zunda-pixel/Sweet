@@ -56,7 +56,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Delete Tweets in Bookmark
@@ -90,7 +90,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Add Tweet to Bookmarks
@@ -127,6 +127,6 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 }

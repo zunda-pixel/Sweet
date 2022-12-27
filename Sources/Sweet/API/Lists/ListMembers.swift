@@ -45,7 +45,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Delete Member From List
@@ -79,7 +79,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch  List that users added
@@ -124,7 +124,7 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
   /// Fetch Members(Users) belonging to the List
@@ -169,6 +169,6 @@ extension Sweet {
       throw response.error
     }
 
-    throw TwitterError.unknown(request: request, data: data, response: urlResponse)
+    throw UnknownError(request: request, data: data, response: urlResponse)
   }
 }
