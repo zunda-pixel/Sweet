@@ -5,15 +5,23 @@
 import Foundation
 
 extension Sweet {
+  public enum RequestError: Error, Sendable {
+    case accountLocked
+    case forbidden(detail: String)
+    case tooManyAccess
+    case unAuthorized
+    case unsupportedAuthentication(detail: String)
+    case invalidRequest(response: ResponseErrorModel)
+  }
+  
   /// Error that includes API Error
   public struct ResponseErrorModel: Sendable {
-    public let errors: [ResourceError]
     public let title: String
     public let detail: String
     public let type: String
     public let status: Int
 
-    var error: TwitterError {
+    var error: RequestError {
       if detail
         == "Your account is temporarily locked. Please log in to https://twitter.com to unlock your account."
       {
@@ -36,11 +44,7 @@ extension Sweet {
         return .unsupportedAuthentication(detail: detail)
       }
 
-      if !errors.isEmpty {
-        return .responseError(errors: errors)
-      }
-
-      return .invalidRequest(error: self)
+      return .invalidRequest(response: self)
     }
   }
 }
@@ -56,10 +60,6 @@ extension Sweet.ResponseErrorModel: Decodable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-
-    let errors = try container.decodeIfPresent([Sweet.ErrorMessageModel].self, forKey: .errors)
-    self.errors = errors?.map(\.error) ?? []
-
     self.title = try container.decode(String.self, forKey: .title)
     self.detail = try container.decode(String.self, forKey: .detail)
     self.type = try container.decode(String.self, forKey: .type)

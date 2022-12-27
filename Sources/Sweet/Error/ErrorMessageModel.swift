@@ -9,10 +9,12 @@ extension Sweet {
     public let parameter: String?
     public let resourceID: String?
     public let value: String?
-    public let detail: String?
-    public let title: String?
-    public let resourceType: String?
-    public let type: String?
+    public let detail: String
+    public let title: String
+    public let resourceType: String
+    public let type: String
+    public let section: String?
+    public let field: String?
 
     enum CodingKeys: String, CodingKey {
       case parameter
@@ -22,30 +24,36 @@ extension Sweet {
       case title
       case resourceType = "resource_type"
       case type
+      case section
+      case field
     }
 
     var error: ResourceError {
-      if detail?.hasPrefix("User has been suspended") == true {
+      if title == "Field Authorization Error" {
+        return .fieldNotAuthorized(fields: field!)
+      }
+      
+      if detail.hasPrefix("User has been suspended") == true {
         return .userSuspend(userID: resourceID!)
       }
 
-      if detail?.hasPrefix("Could not find user") == true {
+      if detail.hasPrefix("Could not find user") == true {
         return .notFoundUser(userID: resourceID!)
       }
 
-      if detail?.hasPrefix("Could not find tweet") == true {
+      if detail.hasPrefix("Could not find tweet") == true {
         return .notFoundTweet(tweetID: resourceID!)
       }
 
-      if detail?.hasPrefix("Could not find list") == true {
+      if detail.hasPrefix("Could not find list") == true {
         return .notFoundList(listID: resourceID!)
       }
 
-      if detail?.hasPrefix("Could not find space") == true {
+      if detail.hasPrefix("Could not find space") == true {
         return .notFoundSpace(spaceID: resourceID!)
       }
 
-      if detail?.hasPrefix("Sorry, you are not authorized to see the Tweet") == true {
+      if detail.hasPrefix("Sorry, you are not authorized to see the Tweet") == true {
         return .notAuthorizedToSeeTweet(tweetID: resourceID!)
       }
 
