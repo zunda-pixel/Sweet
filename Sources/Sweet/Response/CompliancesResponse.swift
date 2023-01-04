@@ -34,7 +34,8 @@ extension Sweet.CompliancesResponse: Decodable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.meta = try container.decode(Sweet.ComplianceMeta.self, forKey: .meta)
 
-    let compliances = try container.decodeIfPresent([Sweet.ComplianceJobModel].self, forKey: .compliances)
+    let compliances = try container.decodeIfPresent(
+      [Sweet.ComplianceJobModel].self, forKey: .compliances)
     self.compliances = compliances ?? []
   }
 }

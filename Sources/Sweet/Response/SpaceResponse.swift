@@ -24,7 +24,7 @@ extension Sweet.SpacesResponse: Decodable {
     case includes
     case meta
   }
-  
+
   private enum UserCodingKeys: String, CodingKey {
     case users
   }
@@ -33,7 +33,7 @@ extension Sweet.SpacesResponse: Decodable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
-    
+
     let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
 
@@ -78,7 +78,7 @@ extension Sweet.SpaceResponse: Decodable {
 
     let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
-    
+
     self.space = try container.decode(Sweet.SpaceModel.self, forKey: .space)
 
     let includeContainer = try? container.nestedContainer(

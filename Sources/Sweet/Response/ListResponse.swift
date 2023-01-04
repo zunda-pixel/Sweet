@@ -34,7 +34,7 @@ extension Sweet.ListResponse: Decodable {
 
     let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
-    
+
     let includeContainer = try? container.nestedContainer(
       keyedBy: UserIncludesCodingKeys.self,
       forKey: .includes
@@ -85,7 +85,7 @@ extension Sweet.ListsResponse: Decodable {
 
     let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
-    
+
     if self.errors.isEmpty && self.lists.isEmpty && self.meta.resultCount != 0 {
       throw Sweet.InternalResourceError.noResource
     }

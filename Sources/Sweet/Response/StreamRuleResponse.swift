@@ -26,7 +26,8 @@ extension Sweet.StreamRuleResponse: Decodable {
 
     self.meta = try container.decode(Sweet.StreamRuleMetaModel.self, forKey: .meta)
 
-    let streamRules = try container.decodeIfPresent([Sweet.StreamRuleModel].self, forKey: .streamRules)
+    let streamRules = try container.decodeIfPresent(
+      [Sweet.StreamRuleModel].self, forKey: .streamRules)
     self.streamRules = streamRules ?? []
   }
 }

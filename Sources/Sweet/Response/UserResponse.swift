@@ -33,7 +33,7 @@ extension Sweet.UserResponse: Decodable {
 
     let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
-    
+
     let includeContainer = try? container.nestedContainer(
       keyedBy: TweetCodingKeys.self,
       forKey: .includes
