@@ -12,6 +12,7 @@ extension Sweet {
   public struct UserResponse: Sendable {
     public let user: UserModel
     public let tweets: [TweetModel]
+    public let errors: [ResourceError]
   }
 }
 
@@ -19,6 +20,7 @@ extension Sweet.UserResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case user = "data"
     case includes
+    case errors
   }
 
   private enum TweetCodingKeys: String, CodingKey {
@@ -29,8 +31,13 @@ extension Sweet.UserResponse: Decodable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.user = try container.decode(Sweet.UserModel.self, forKey: .user)
 
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
+    
     let includeContainer = try? container.nestedContainer(
-      keyedBy: TweetCodingKeys.self, forKey: .includes)
+      keyedBy: TweetCodingKeys.self,
+      forKey: .includes
+    )
 
     let tweets = try includeContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
