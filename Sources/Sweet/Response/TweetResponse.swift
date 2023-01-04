@@ -70,7 +70,7 @@ extension Sweet.TweetsResponse: Decodable {
       forKey: .tweets
     )
     self.relatedTweets = relatedTweets ?? []
-    
+
     if self.errors.isEmpty && self.tweets.isEmpty && self.meta?.resultCount != 0 {
       throw Sweet.InternalResourceError.noResource
     }
@@ -112,7 +112,7 @@ extension Sweet.TweetResponse: Decodable {
 
     let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
-    
+
     let includeContainer = try? container.nestedContainer(
       keyedBy: TweetIncludesCodingKeys.self,
       forKey: .includes
