@@ -13,6 +13,7 @@ extension Sweet {
     public let spaces: [SpaceModel]
     public let users: [UserModel]
     public let errors: [ResourceError]
+    public let meta: MetaModel?
   }
 }
 
@@ -21,7 +22,9 @@ extension Sweet.SpacesResponse: Decodable {
     case spaces = "data"
     case errors
     case includes
+    case meta
   }
+  
   private enum UserCodingKeys: String, CodingKey {
     case users
   }
@@ -29,13 +32,15 @@ extension Sweet.SpacesResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
+    self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
+    
     let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
     self.errors = errors?.map(\.error) ?? []
 
     let spaces = try container.decodeIfPresent([Sweet.SpaceModel].self, forKey: .spaces)
     self.spaces = spaces ?? []
 
-    if self.errors.isEmpty && self.spaces.isEmpty {
+    if self.errors.isEmpty && self.spaces.isEmpty && self.meta?.resultCount != 0 {
       throw Sweet.InternalResourceError.noResource
     }
 
