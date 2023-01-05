@@ -11,6 +11,7 @@ extension Sweet {
     public let meta: MetaModel?
     public let users: [UserModel]
     public let medias: [MediaModel]
+    public let errors: [ResourceError]
   }
 }
 
@@ -19,6 +20,7 @@ extension Sweet.DirectMessagesResponse: Decodable {
     case directMessages = "data"
     case includes
     case meta
+    case errors
   }
 
   private enum TweetIncludesCodingKeys: String, CodingKey {
@@ -31,17 +33,19 @@ extension Sweet.DirectMessagesResponse: Decodable {
 
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
-    if meta?.resultCount == 0 {
-      self.directMessages = []
-      self.medias = []
-      self.users = []
-      return
-    }
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
 
-    self.directMessages = try container.decode(
+    let directMessages = try container.decodeIfPresent(
       [Sweet.DirectMessageModel].self,
       forKey: .directMessages
     )
+
+    self.directMessages = directMessages ?? []
+
+    if self.errors.isEmpty && self.directMessages.isEmpty {
+      throw Sweet.InternalResourceError.noResource
+    }
 
     let includeContainer = try? container.nestedContainer(
       keyedBy: TweetIncludesCodingKeys.self,

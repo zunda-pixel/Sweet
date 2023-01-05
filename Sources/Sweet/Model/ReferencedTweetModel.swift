@@ -30,7 +30,7 @@ extension Sweet.ReferencedTweetModel: Codable {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.id = try container.decode(String.self, forKey: .id)
     let type = try container.decode(String.self, forKey: .type)
-    self.type = .init(rawValue: type)!
+    self.type = Sweet.ReferencedType(rawValue: type)!
   }
 
   public func encode(to encoder: Encoder) throws {

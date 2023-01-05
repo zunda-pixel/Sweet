@@ -1,26 +1,34 @@
 //
 //  ResponseErrorModel.swift
 //
-//
-//  Created by zunda on 2022/03/13.
-//
 
 import Foundation
 
 extension Sweet {
+  public struct UnknownError: Error {
+    public let request: URLRequest
+    public let data: Data
+    public let response: URLResponse
+  }
+
+  public enum RequestError: Error, Sendable {
+    case accountLocked
+    case forbidden(detail: String)
+    case tooManyAccess
+    case unAuthorized
+    case unsupportedAuthentication(detail: String)
+    case invalidRequest(response: ResponseErrorModel)
+  }
+
   /// Error that includes API Error
   public struct ResponseErrorModel: Sendable {
-    public let messages: [String]
+    public let errors: [ResponseErrorMessage]
     public let title: String
     public let detail: String
-    public let type: String
+    public let type: URL
     public let status: Int?
 
-    private struct ErrorMessageModel: Decodable, Sendable {
-      public let message: String
-    }
-
-    var error: TwitterError {
+    var error: RequestError {
       if detail
         == "Your account is temporarily locked. Please log in to https://twitter.com to unlock your account."
       {
@@ -43,7 +51,7 @@ extension Sweet {
         return .unsupportedAuthentication(detail: detail)
       }
 
-      return .invalidRequest(error: self)
+      return .invalidRequest(response: self)
     }
   }
 }
@@ -59,13 +67,11 @@ extension Sweet.ResponseErrorModel: Decodable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-
-    let messages = try container.decodeIfPresent([ErrorMessageModel].self, forKey: .errors)
-    self.messages = messages?.map(\.message) ?? []
-
     self.title = try container.decode(String.self, forKey: .title)
     self.detail = try container.decode(String.self, forKey: .detail)
-    self.type = try container.decode(String.self, forKey: .type)
+    self.type = try container.decode(URL.self, forKey: .type)
     self.status = try container.decodeIfPresent(Int.self, forKey: .status)
+    let errors = try container.decodeIfPresent([Sweet.ResponseErrorMessage].self, forKey: .errors)
+    self.errors = errors ?? []
   }
 }

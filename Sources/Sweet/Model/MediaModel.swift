@@ -63,7 +63,7 @@ extension Sweet.MediaModel: Codable {
     let container = try decoder.container(keyedBy: Sweet.MediaField.self)
 
     let type = try container.decode(String.self, forKey: .type)
-    self.type = .init(rawValue: type)!
+    self.type = Sweet.MediaType(rawValue: type)!
 
     self.key = try container.decode(String.self, forKey: .mediaKey)
 
@@ -76,11 +76,9 @@ extension Sweet.MediaModel: Codable {
       self.size = nil
     }
 
-    let previewImageURL = try container.decodeIfPresent(String.self, forKey: .previewImageURL)
-    self.previewImageURL = previewImageURL.map { URL(string: $0)! }
+    self.previewImageURL = try container.decodeIfPresent(URL.self, forKey: .previewImageURL)
 
-    let url = try container.decodeIfPresent(String.self, forKey: .url)
-    self.url = url.map { URL(string: $0)! }
+    self.url = try container.decodeIfPresent(URL.self, forKey: .url)
 
     let variants = try container.decodeIfPresent([Sweet.MediaVariant].self, forKey: .variants)
     self.variants = variants ?? []

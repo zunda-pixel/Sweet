@@ -81,7 +81,7 @@ final class TestCodableModel: XCTestCase {
       sensitive: true,
       conversationID: "coversationID",
       replyUserID: "replyUserID",
-      geo: .init(placeID: "01a9a39529b27f36"),
+      geo: .init(placeID: "01a9a39529b27f36", coordinates: .init(type: "", coordinates: [])),
       publicMetrics: .init(retweetCount: 1, replyCount: 2, likeCount: 3, quoteCount: 4),
       organicMetrics: .init(
         likeCount: 5, userProfileClicks: 6, replyCount: 7, impressionCount: 8, retweetCount: 9),
@@ -213,13 +213,12 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testJSONFileDecodable() throws {
-    for i in (1..<4) {
+    for i in (1..<7) {
       let path = Bundle.module.path(forResource: "TweetsData\(i)", ofType: "json")!
       let rawString = try String(contentsOfFile: path)
       let rawData = rawString.data(using: .utf8)!
 
-      let response = try JSONDecoder.twitter.decode(Sweet.TweetsResponse.self, from: rawData)
-      print(response)
+      _ = try JSONDecoder.twitter.decode(Sweet.TweetsResponse.self, from: rawData)
     }
   }
 }

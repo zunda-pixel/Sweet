@@ -34,13 +34,12 @@ extension Sweet.ImageModel: Codable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    let url = try container.decode(String.self, forKey: .url)
-    self.url = .init(string: url)!
+    self.url = try container.decode(URL.self, forKey: .url)
 
     let height = try container.decode(Int.self, forKey: .height)
     let width = try container.decode(Int.self, forKey: .width)
 
-    self.size = .init(width: width, height: height)
+    self.size = CGSize(width: width, height: height)
   }
 
   public func encode(to encoder: Encoder) throws {

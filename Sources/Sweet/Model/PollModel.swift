@@ -39,7 +39,7 @@ extension Sweet.PollModel: Codable {
     self.id = try container.decode(String.self, forKey: .id)
 
     let votingStatus = try container.decode(String.self, forKey: .votingStatus)
-    self.votingStatus = .init(rawValue: votingStatus)!
+    self.votingStatus = Sweet.PollStatus(rawValue: votingStatus)!
 
     self.endDateTime = try container.decode(Date.self, forKey: .endDateTime)
     self.durationMinutes = try container.decode(Int.self, forKey: .durationMinutes)

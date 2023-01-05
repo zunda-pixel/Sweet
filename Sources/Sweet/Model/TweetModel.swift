@@ -144,7 +144,9 @@ extension Sweet.TweetModel: Codable {
     self.referencedTweets = referencedTweets ?? []
 
     let editHistoryTweetIDs = try container.decodeIfPresent(
-      [String].self, forKey: .editHistoryTweetIDs)
+      [String].self,
+      forKey: .editHistoryTweetIDs
+    )
     self.editHistoryTweetIDs = editHistoryTweetIDs ?? []
 
     self.editControl = try container.decodeIfPresent(Sweet.EditControl.self, forKey: .editControls)

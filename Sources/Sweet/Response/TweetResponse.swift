@@ -17,6 +17,7 @@ extension Sweet {
     public let places: [PlaceModel]
     public let polls: [PollModel]
     public let relatedTweets: [TweetModel]
+    public let errors: [ResourceError]
   }
 }
 
@@ -25,6 +26,7 @@ extension Sweet.TweetsResponse: Decodable {
     case tweets = "data"
     case includes
     case meta
+    case errors
   }
 
   private enum TweetIncludesCodingKeys: String, CodingKey {
@@ -38,19 +40,13 @@ extension Sweet.TweetsResponse: Decodable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
+
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)
 
-    if meta?.resultCount == 0 {
-      self.tweets = []
-      self.medias = []
-      self.users = []
-      self.places = []
-      self.polls = []
-      self.relatedTweets = []
-      return
-    }
-
-    self.tweets = try container.decode([Sweet.TweetModel].self, forKey: .tweets)
+    let tweets = try container.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
+    self.tweets = tweets ?? []
 
     let includeContainer = try? container.nestedContainer(
       keyedBy: TweetIncludesCodingKeys.self,
@@ -70,8 +66,14 @@ extension Sweet.TweetsResponse: Decodable {
     self.polls = polls ?? []
 
     let relatedTweets = try includeContainer?.decodeIfPresent(
-      [Sweet.TweetModel].self, forKey: .tweets)
+      [Sweet.TweetModel].self,
+      forKey: .tweets
+    )
     self.relatedTweets = relatedTweets ?? []
+
+    if self.errors.isEmpty && self.tweets.isEmpty && self.meta?.resultCount != 0 {
+      throw Sweet.InternalResourceError.noResource
+    }
   }
 }
 
@@ -84,6 +86,7 @@ extension Sweet {
     public let places: [PlaceModel]
     public let polls: [PollModel]
     public let relatedTweets: [TweetModel]
+    public let errors: [ResourceError]
   }
 }
 
@@ -91,6 +94,7 @@ extension Sweet.TweetResponse: Decodable {
   private enum CodingKeys: String, CodingKey {
     case tweet = "data"
     case includes
+    case errors
   }
 
   private enum TweetIncludesCodingKeys: String, CodingKey {
@@ -106,6 +110,9 @@ extension Sweet.TweetResponse: Decodable {
 
     self.tweet = try container.decode(Sweet.TweetModel.self, forKey: .tweet)
 
+    let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
+    self.errors = errors?.map(\.error) ?? []
+
     let includeContainer = try? container.nestedContainer(
       keyedBy: TweetIncludesCodingKeys.self,
       forKey: .includes
@@ -124,7 +131,9 @@ extension Sweet.TweetResponse: Decodable {
     self.polls = polls ?? []
 
     let relatedTweets = try includeContainer?.decodeIfPresent(
-      [Sweet.TweetModel].self, forKey: .tweets)
+      [Sweet.TweetModel].self,
+      forKey: .tweets
+    )
     self.relatedTweets = relatedTweets ?? []
   }
 }

@@ -27,7 +27,7 @@ extension Sweet {
       let container = try decoder.container(keyedBy: CodingKeys.self)
 
       let conversationType = try container.decode(String.self, forKey: .conversationType)
-      self.conversationType = .init(rawValue: conversationType)!
+      self.conversationType = ConversationType(rawValue: conversationType)!
       self.participantIDs = try container.decode([String].self, forKey: .participantIDs)
       self.message = try container.decode(Message.self, forKey: .message)
     }

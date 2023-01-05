@@ -9,7 +9,7 @@ extension Sweet {
   public struct WithheldModel: Hashable, Sendable {
     public let copyright: Bool?
     public let countryCodes: [String]
-    public let scope: WithheldScope
+    public let scope: WithheldScope?
 
     public init(copyright: Bool? = nil, countryCodes: [String] = [], scope: WithheldScope) {
       self.copyright = copyright
@@ -32,14 +32,14 @@ extension Sweet.WithheldModel: Codable {
     self.copyright = try container.decodeIfPresent(Bool.self, forKey: .copyright)
     self.countryCodes = try container.decode([String].self, forKey: .countryCodes)
 
-    let scope = try container.decode(String.self, forKey: .scope)
-    self.scope = .init(rawValue: scope)!
+    let scope = try container.decodeIfPresent(String.self, forKey: .scope)
+    self.scope = scope.map { Sweet.WithheldScope(rawValue: $0)! }
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encodeIfPresent(copyright, forKey: .copyright)
     try container.encode(countryCodes, forKey: .countryCodes)
-    try container.encode(scope.rawValue, forKey: .scope)
+    try container.encodeIfPresent(scope?.rawValue, forKey: .scope)
   }
 }
