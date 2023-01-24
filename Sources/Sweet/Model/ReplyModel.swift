@@ -22,7 +22,7 @@ extension Sweet {
 
 extension Sweet.ReplyModel: Encodable {
   private enum CodingKeys: String, CodingKey {
-    case excludeReplyUserIDs = "exclude_replay_user_ids"
+    case excludeReplyUserIDs = "exclude_reply_user_ids"
     case replyToTweetIDs = "in_reply_to_tweet_id"
   }
   
