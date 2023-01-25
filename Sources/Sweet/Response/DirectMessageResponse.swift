@@ -43,10 +43,6 @@ extension Sweet.DirectMessagesResponse: Decodable {
 
     self.directMessages = directMessages ?? []
 
-    if self.errors.isEmpty && self.directMessages.isEmpty {
-      throw Sweet.InternalResourceError.noResource
-    }
-
     let includeContainer = try? container.nestedContainer(
       keyedBy: TweetIncludesCodingKeys.self,
       forKey: .includes
@@ -57,5 +53,9 @@ extension Sweet.DirectMessagesResponse: Decodable {
 
     let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
+    
+    if self.errors.isEmpty && self.directMessages.isEmpty && self.meta?.resultCount != 0  {
+      throw Sweet.InternalResourceError.noResource
+    }
   }
 }
