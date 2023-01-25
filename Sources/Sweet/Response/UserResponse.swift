@@ -77,10 +77,6 @@ extension Sweet.UsersResponse: Decodable {
     let users = try container.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
 
-    if self.errors.isEmpty && self.users.isEmpty {
-      throw Sweet.InternalResourceError.noResource
-    }
-
     let nestedContainer = try? container.nestedContainer(
       keyedBy: TweetCodingKeys.self,
       forKey: .includes
@@ -88,5 +84,9 @@ extension Sweet.UsersResponse: Decodable {
 
     let tweets = try nestedContainer?.decodeIfPresent([Sweet.TweetModel].self, forKey: .tweets)
     self.tweets = tweets ?? []
+    
+    if self.errors.isEmpty && self.users.isEmpty && self.meta?.resultCount != 0 {
+      throw Sweet.InternalResourceError.noResource
+    }
   }
 }
