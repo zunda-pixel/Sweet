@@ -11,6 +11,18 @@ extension Sweet {
     public let action: ComplianceAction
     public let createdAt: Date
     public let reason: ComplianceReason
+    
+    public init(
+      id: String,
+      action: ComplianceAction,
+      createdAt: Date,
+      reason: ComplianceReason
+    ) {
+      self.id = id
+      self.action = action
+      self.createdAt = createdAt
+      self.reason = reason
+    }
   }
 }
 

@@ -16,7 +16,11 @@ extension Sweet {
     public let label: String
     public let votes: Int
 
-    public init(position: Int, label: String, votes: Int) {
+    public init(
+      position: Int,
+      label: String,
+      votes: Int
+    ) {
       self.position = position
       self.label = label
       self.votes = votes
