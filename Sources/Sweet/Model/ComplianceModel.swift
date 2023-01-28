@@ -11,7 +11,7 @@ extension Sweet {
     public let action: ComplianceAction
     public let createdAt: Date
     public let reason: ComplianceReason
-    
+
     public init(
       id: String,
       action: ComplianceAction,
