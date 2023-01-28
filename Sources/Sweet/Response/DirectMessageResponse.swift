@@ -53,8 +53,8 @@ extension Sweet.DirectMessagesResponse: Decodable {
 
     let users = try includeContainer?.decodeIfPresent([Sweet.UserModel].self, forKey: .users)
     self.users = users ?? []
-    
-    if self.errors.isEmpty && self.directMessages.isEmpty && self.meta?.resultCount != 0  {
+
+    if self.errors.isEmpty && self.directMessages.isEmpty && self.meta?.resultCount != 0 {
       throw Sweet.InternalResourceError.noResource
     }
   }
