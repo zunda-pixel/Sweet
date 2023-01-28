@@ -84,12 +84,16 @@ extension Sweet.MediaModel: Codable {
     self.variants = variants ?? []
 
     self.durationMicroSeconds = try container.decodeIfPresent(
-      Int.self, forKey: .durationMicroSeconds)
+      Int.self,
+      forKey: .durationMicroSeconds
+    )
 
     self.alternateText = try container.decodeIfPresent(String.self, forKey: .alternateText)
 
     self.metrics = try container.decodeIfPresent(
-      Sweet.MediaPublicMetrics.self, forKey: .publicMetrics)
+      Sweet.MediaPublicMetrics.self,
+      forKey: .publicMetrics
+    )
 
     self.privateMetrics = try container.decodeIfPresent(
       Sweet.MediaPrivateMetrics.self,

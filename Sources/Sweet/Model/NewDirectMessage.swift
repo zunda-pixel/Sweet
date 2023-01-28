@@ -10,8 +10,11 @@ extension Sweet {
     public let message: Message
     public let participantIDs: [String]
 
-    public init(conversationType: ConversationType, message: Message, participantIDs: [String] = [])
-    {
+    public init(
+      conversationType: ConversationType,
+      message: Message,
+      participantIDs: [String] = []
+    ) {
       self.conversationType = conversationType
       self.message = message
       self.participantIDs = participantIDs

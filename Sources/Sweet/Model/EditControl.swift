@@ -14,7 +14,11 @@ extension Sweet {
     public let editableUntil: Date
     public let editsRemaining: Int
 
-    public init(isEditEligible: Bool, editableUntil: Date, editsRemaining: Int) {
+    public init(
+      isEditEligible: Bool,
+      editableUntil: Date,
+      editsRemaining: Int
+    ) {
       self.isEditEligible = isEditEligible
       self.editableUntil = editableUntil
       self.editsRemaining = editsRemaining
