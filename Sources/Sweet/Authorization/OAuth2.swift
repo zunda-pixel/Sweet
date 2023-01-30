@@ -124,8 +124,8 @@ extension Sweet {
         return response
       }
 
-      if let response = try? decoder.decode(Sweet.ResponseErrorModel.self, from: data) {
-        throw response.error
+      if let response = try? decoder.decode(Sweet.AuthorizationErrorResponse.self, from: data) {
+        throw response.authorizationError
       }
 
       throw UnknownError(request: request, data: data, response: urlResponse)
