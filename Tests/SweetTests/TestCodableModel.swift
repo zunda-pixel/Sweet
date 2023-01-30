@@ -77,7 +77,6 @@ final class TestCodableModel: XCTestCase {
       lang: "lang",
       replySetting: .following,
       createdAt: Date(),
-      source: "source",
       sensitive: true,
       conversationID: "coversationID",
       replyUserID: "replyUserID",

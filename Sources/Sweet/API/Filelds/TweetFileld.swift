@@ -25,7 +25,6 @@ extension Sweet {
     case possiblySensitive = "possibly_sensitive"
     case referencedTweets = "referenced_tweets"
     case replySettings = "reply_settings"
-    case source
     case withheld
     case publicMetrics = "public_metrics"
     case privateMetrics = "non_public_metrics"

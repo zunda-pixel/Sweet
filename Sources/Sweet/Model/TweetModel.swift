@@ -16,7 +16,6 @@ extension Sweet {
     public let lang: String?
     public let replySetting: ReplySetting?
     public let createdAt: Date?
-    public let source: String?
     public let sensitive: Bool?
     public let conversationID: String?
     public let replyUserID: String?
@@ -40,7 +39,6 @@ extension Sweet {
       lang: String? = nil,
       replySetting: ReplySetting? = nil,
       createdAt: Date? = nil,
-      source: String? = nil,
       sensitive: Bool? = nil,
       conversationID: String? = nil,
       replyUserID: String? = nil,
@@ -63,7 +61,6 @@ extension Sweet {
       self.lang = lang
       self.replySetting = replySetting
       self.createdAt = createdAt
-      self.source = source
       self.sensitive = sensitive
       self.conversationID = conversationID
       self.replyUserID = replyUserID
@@ -97,7 +94,6 @@ extension Sweet.TweetModel: Codable {
     self.replySetting = replySetting.map { Sweet.ReplySetting(rawValue: $0)! }
 
     self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
-    self.source = try container.decodeIfPresent(String.self, forKey: .source)
     self.sensitive = try container.decodeIfPresent(Bool.self, forKey: .possiblySensitive)
     self.conversationID = try container.decodeIfPresent(String.self, forKey: .conversationID)
     self.replyUserID = try container.decodeIfPresent(String.self, forKey: .replyToUserID)
@@ -160,7 +156,6 @@ extension Sweet.TweetModel: Codable {
     try container.encodeIfPresent(lang, forKey: .lang)
     try container.encodeIfPresent(replySetting?.rawValue, forKey: .replySettings)
     try container.encodeIfPresent(createdAt, forKey: .createdAt)
-    try container.encodeIfPresent(source, forKey: .source)
     try container.encodeIfPresent(sensitive, forKey: .possiblySensitive)
     try container.encodeIfPresent(conversationID, forKey: .conversationID)
     try container.encodeIfPresent(replyUserID, forKey: .replyToUserID)
