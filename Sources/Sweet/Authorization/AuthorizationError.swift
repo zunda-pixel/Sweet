@@ -14,8 +14,8 @@ extension Sweet {
 
 extension Sweet {
   public struct AuthorizationErrorResponse: Decodable {
-    let error: String
-    let errorDescription: String
+    public let error: String
+    public let errorDescription: String
     
     var authorizationError: Sweet.AuthorizationError {
       if error == "invalid_client" {
