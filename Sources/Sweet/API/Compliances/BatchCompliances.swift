@@ -129,7 +129,7 @@ extension Sweet {
 
   public static func uploadComplianceData(
     uploadURL: URL,
-    ids: [String],
+    ids: some Sequence<String>,
     config: URLSessionConfiguration = .default
   ) async throws {
     let headers = ["Content-Type": "text/plain"]
