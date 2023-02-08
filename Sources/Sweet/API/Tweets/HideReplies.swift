@@ -15,7 +15,10 @@ extension Sweet {
   /// - Parameters:
   ///   - tweetID: Tweet ID
   ///   - hidden: Hidden Status
-  public func hideReply(tweetID: String, hidden: Bool) async throws {
+  public func hideReply(
+    tweetID: String,
+    hidden: Bool
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
 
     let method: HTTPMethod = .put

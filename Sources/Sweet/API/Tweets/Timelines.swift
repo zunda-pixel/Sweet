@@ -24,10 +24,14 @@ extension Sweet {
   ///   - exclude: Exclude Tweet Type
   /// - Returns: Tweets
   public func reverseChronological(
-    userID: String, maxResults: Int = 100,
-    startTime: Date? = nil, endTime: Date? = nil,
-    untilID: String? = nil, sinceID: String? = nil,
-    paginationToken: String? = nil, exclude: TweetExclude? = nil
+    userID: String,
+    maxResults: Int = 100,
+    startTime: Date? = nil,
+    endTime: Date? = nil,
+    untilID: String? = nil,
+    sinceID: String? = nil,
+    paginationToken: String? = nil,
+    exclude: TweetExclude? = nil
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-reverse-chronological
 
@@ -103,10 +107,14 @@ extension Sweet {
   ///   - exclude: Exclude Tweet Type
   /// - Returns: Tweets
   public func timeLine(
-    userID: String, maxResults: Int = 100,
-    startTime: Date? = nil, endTime: Date? = nil,
-    untilID: String? = nil, sinceID: String? = nil,
-    paginationToken: String? = nil, exclude: TweetExclude? = nil
+    userID: String,
+    maxResults: Int = 100,
+    startTime: Date? = nil,
+    endTime: Date? = nil,
+    untilID: String? = nil,
+    sinceID: String? = nil,
+    paginationToken: String? = nil,
+    exclude: TweetExclude? = nil
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
 
@@ -180,9 +188,13 @@ extension Sweet {
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   /// - Returns: Tweets
   public func mentions(
-    userID: String, maxResults: Int = 100,
-    startTime: Date? = nil, endTime: Date? = nil,
-    untilID: String? = nil, sinceID: String? = nil, paginationToken: String? = nil
+    userID: String,
+    maxResults: Int = 100,
+    startTime: Date? = nil,
+    endTime: Date? = nil,
+    untilID: String? = nil,
+    sinceID: String? = nil,
+    paginationToken: String? = nil
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
 

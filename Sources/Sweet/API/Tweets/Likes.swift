@@ -18,7 +18,9 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
   public func likingTweetUsers(
-    tweetID: String, maxResults: Int = 100, paginationToken: String? = nil
+    tweetID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-tweets-id-liking_users
 
@@ -66,9 +68,11 @@ extension Sweet {
   ///   - maxResults: Max Tweet Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Tweets
-  public func likedTweet(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
-    async throws -> TweetsResponse
-  {
+  public func likedTweet(
+    userID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
+  ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/get-users-id-liked_tweets
 
     let method: HTTPMethod = .get
@@ -116,7 +120,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: User ID
   ///   - tweetID: Tweet ID
-  public func like(userID: String, tweetID: String) async throws {
+  public func like(
+    userID: String,
+    tweetID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/post-users-id-likes
 
     let method: HTTPMethod = .post
@@ -153,7 +160,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: User ID
   ///   - tweetID: Tweet ID
-  public func unLike(userID: String, tweetID: String) async throws {
+  public func unLike(
+    userID: String,
+    tweetID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/api-reference/delete-users-id-likes-tweet_id
 
     let method: HTTPMethod = .delete

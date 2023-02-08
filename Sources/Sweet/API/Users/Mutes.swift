@@ -17,9 +17,11 @@ extension Sweet {
   ///   - maxResults: Max User Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func mutingUsers(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
-    async throws -> UsersResponse
-  {
+  public func mutingUsers(
+    userID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
+  ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/get-users-muting
 
     let method: HTTPMethod = .get
@@ -64,7 +66,10 @@ extension Sweet {
   /// - Parameters:
   ///   - fromUserID: Muting User ID
   ///   - toUserID: Muted User ID
-  public func muteUser(from fromUserID: String, to toUserID: String) async throws {
+  public func muteUser(
+    from fromUserID: String,
+    to toUserID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/post-users-user_id-muting
 
     let method: HTTPMethod = .post
@@ -101,7 +106,10 @@ extension Sweet {
   /// - Parameters:
   ///   - fromUserID: Un Muting User ID
   ///   - toUserID: Un Muted User ID
-  public func unMuteUser(from fromUserID: String, to toUserID: String) async throws {
+  public func unMuteUser(
+    from fromUserID: String,
+    to toUserID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/mutes/api-reference/delete-users-user_id-muting
 
     let method: HTTPMethod = .delete

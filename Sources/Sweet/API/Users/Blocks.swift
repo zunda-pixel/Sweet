@@ -17,9 +17,11 @@ extension Sweet {
   ///   - maxResults: Max Space Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func blockingUsers(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
-    async throws -> UsersResponse
-  {
+  public func blockingUsers(
+    userID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
+  ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/get-users-blocking
 
     let method: HTTPMethod = .get
@@ -64,7 +66,10 @@ extension Sweet {
   /// - Parameters:
   ///   - fromUserID: Blocking User ID
   ///   - toUserID: Blocked User iD
-  public func blockUser(from fromUserID: String, to toUserID: String) async throws {
+  public func blockUser(
+    from fromUserID: String,
+    to toUserID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/post-users-user_id-blocking
 
     let method: HTTPMethod = .post
@@ -101,7 +106,10 @@ extension Sweet {
   /// - Parameters:
   ///   - fromUserID: Blocking User ID
   ///   - toUserID: Blocked User ID
-  public func unBlockUser(from fromUserID: String, to toUserID: String) async throws {
+  public func unBlockUser(
+    from fromUserID: String,
+    to toUserID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/blocks/api-reference/delete-users-user_id-blocking
 
     let method: HTTPMethod = .delete

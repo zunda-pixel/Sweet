@@ -18,7 +18,9 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
   public func retweetUsers(
-    tweetID: String, maxResults: Int = 100, paginationToken: String? = nil
+    tweetID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/get-tweets-id-retweeted_by
 
@@ -64,7 +66,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: User ID
   ///   - tweetID: Tweet ID
-  public func retweet(userID: String, tweetID: String) async throws {
+  public func retweet(
+    userID: String,
+    tweetID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/post-users-id-retweets
 
     let method: HTTPMethod = .post
@@ -101,7 +106,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: User ID
   ///   - tweetID: Tweet ID
-  public func deleteRetweet(userID: String, tweetID: String) async throws {
+  public func deleteRetweet(
+    userID: String,
+    tweetID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/retweets/api-reference/delete-users-id-retweets-tweet_id
 
     let method: HTTPMethod = .delete

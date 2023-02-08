@@ -17,7 +17,10 @@ extension Sweet {
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
   public func streamUsersComplianceRequest(
-    partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil
+    partition: Int,
+    backfillMinutes: Int? = nil,
+    startTime: Date? = nil,
+    endTime: Date? = nil
   ) -> URLRequest {
     let method: HTTPMethod = .get
 
@@ -61,10 +64,11 @@ extension Sweet {
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
   public func streamTweetsComplianceRequest(
-    partition: Int, backfillMinutes: Int? = nil, startTime: Date? = nil, endTime: Date? = nil
-  )
-    -> URLRequest
-  {
+    partition: Int,
+    backfillMinutes: Int? = nil,
+    startTime: Date? = nil,
+    endTime: Date? = nil
+  ) -> URLRequest {
     let method: HTTPMethod = .get
 
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/compliance/stream")!

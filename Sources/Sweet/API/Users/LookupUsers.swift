@@ -98,7 +98,7 @@ extension Sweet {
   /// Look Up Users by User IDs
   /// - Parameter userIDs: User IDs
   /// - Returns: Users
-  public func users(userIDs: [String]) async throws -> UsersResponse {
+  public func users(userIDs: some Sequence<String>) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
 
     let method: HTTPMethod = .get
@@ -141,7 +141,7 @@ extension Sweet {
   /// Look Up Users by Screen IDs
   /// - Parameter screenIDs: Screen User IDs
   /// - Returns: Users
-  public func users(screenIDs: [String]) async throws -> UsersResponse {
+  public func users(screenIDs: some Sequence<String>) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by
 
     let method: HTTPMethod = .get

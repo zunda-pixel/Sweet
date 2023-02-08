@@ -55,9 +55,11 @@ extension Sweet {
   ///   - maxResults: Max List Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Lists
-  public func ownedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
-    async throws -> ListsResponse
-  {
+  public func ownedLists(
+    userID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
+  ) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/api-reference/get-users-id-owned_lists
 
     let method: HTTPMethod = .get

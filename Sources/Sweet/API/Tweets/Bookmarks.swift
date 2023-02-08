@@ -17,9 +17,11 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   ///   - maxResults: Max Bookmark Count
   /// - Returns: Tweets
-  public func bookmarks(userID: String, paginationToken: String? = nil, maxResults: Int = 100)
-    async throws -> TweetsResponse
-  {
+  public func bookmarks(
+    userID: String,
+    paginationToken: String? = nil,
+    maxResults: Int = 100
+  ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/get-users-id-bookmarks
 
     let method: HTTPMethod = .get
@@ -63,7 +65,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: User ID that has Bookmark
   ///   - tweetID: Tweet ID
-  public func deleteBookmark(userID: String, tweetID: String) async throws {
+  public func deleteBookmark(
+    userID: String,
+    tweetID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id
 
     let method: HTTPMethod = .delete
@@ -97,7 +102,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: User ID that has Bookmark
   ///   - tweetID: Tweet ID
-  public func addBookmark(userID: String, tweetID: String) async throws {
+  public func addBookmark(
+    userID: String,
+    tweetID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/bookmarks/api-reference/delete-users-id-bookmarks-tweet_id
 
     let method: HTTPMethod = .post

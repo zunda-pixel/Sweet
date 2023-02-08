@@ -21,9 +21,12 @@ extension Sweet {
   ///   - granularity: This is the granularity that you want the time series count data to be grouped by. You can request minute, hour, or day granularity. The default granularity, if not specified is hour.
   /// - Returns: TweetCount
   public func recentCountTweet(
-    query: String, startTime: Date? = nil,
-    endTime: Date? = nil, untilID: String? = nil,
-    sinceID: String? = nil, granularity: DateGranularity = .hour
+    query: String,
+    startTime: Date? = nil,
+    endTime: Date? = nil,
+    untilID: String? = nil,
+    sinceID: String? = nil,
+    granularity: DateGranularity = .hour
   ) async throws -> CountTweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
 
@@ -88,9 +91,13 @@ extension Sweet {
   ///   - granularity: This is the granularity that you want the time series count data to be grouped by. You can request minute, hour, or day granularity. The default granularity, if not specified is hour.
   /// - Returns: TweetCount
   public func countTweet(
-    query: String, nextToken: String? = nil,
-    startTime: Date? = nil, endTime: Date? = nil, untilID: String? = nil,
-    sinceID: String? = nil, granularity: DateGranularity = .hour
+    query: String,
+    nextToken: String? = nil,
+    startTime: Date? = nil,
+    endTime: Date? = nil,
+    untilID: String? = nil,
+    sinceID: String? = nil,
+    granularity: DateGranularity = .hour
   ) async throws -> CountTweetResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
     // This endpoint is only available for Academic Research access.

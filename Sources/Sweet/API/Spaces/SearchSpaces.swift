@@ -16,9 +16,10 @@ extension Sweet {
   ///   - query: Query
   ///   - state: Space State
   /// - Returns: Spaces
-  public func searchSpaces(by query: String, state: SpaceState = .all) async throws
-    -> SpacesResponse
-  {
+  public func searchSpaces(
+    by query: String,
+    state: SpaceState = .all
+  ) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/search/api-reference/get-spaces-search
 
     let method: HTTPMethod = .get

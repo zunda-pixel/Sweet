@@ -18,7 +18,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: UnFollowing by This User
   ///   - listID: UnFollowed List ID
-  public func unFollowList(userID: String, listID: String) async throws {
+  public func unFollowList(
+    userID: String,
+    listID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/delete-users-id-followed-lists-list_id
 
     let method: HTTPMethod = .delete
@@ -53,7 +56,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: Following by This User
   ///   - listID: Following List ID
-  public func followList(userID: String, listID: String) async throws {
+  public func followList(
+    userID: String,
+    listID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/post-users-id-followed-lists
 
     let method: HTTPMethod = .post
@@ -93,7 +99,9 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Followers(Users)
   public func listFollowers(
-    listID: String, maxResults: Int = 100, paginationToken: String? = nil
+    listID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-lists-id-followers
 
@@ -138,7 +146,9 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Lists
   public func listsFollowed(
-    by userID: String, maxResults: Int = 100, paginationToken: String? = nil
+    by userID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
   ) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-follows/api-reference/get-users-id-followed_lists
 

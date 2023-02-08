@@ -17,9 +17,11 @@ extension Sweet {
   ///   - description: List Description
   ///   - isPrivate: isPrivate
   /// - Returns: Created List
-  public func createList(name: String, description: String? = nil, isPrivate: Bool = false)
-    async throws -> ListModel
-  {
+  public func createList(
+    name: String,
+    description: String? = nil,
+    isPrivate: Bool = false
+  ) async throws -> ListModel {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/post-lists
 
     let method: HTTPMethod = .post
@@ -56,7 +58,10 @@ extension Sweet {
   ///   - description: List Description
   ///   - isPrivate: isPrivate
   public func updateList(
-    listID: String, name: String? = nil, description: String? = nil, isPrivate: Bool? = false
+    listID: String,
+    name: String? = nil,
+    description: String? = nil,
+    isPrivate: Bool? = false
   ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/api-reference/put-lists-id
 

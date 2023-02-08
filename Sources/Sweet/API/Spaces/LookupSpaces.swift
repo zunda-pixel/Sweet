@@ -53,7 +53,7 @@ extension Sweet {
   /// Fetch Spaces by Space IDs
   /// - Parameter spaceIDs: Space IDs
   /// - Returns: Spaces
-  public func spaces(spaceIDs: [String]) async throws -> SpacesResponse {
+  public func spaces(spaceIDs: some Sequence<String>) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces
 
     let method: HTTPMethod = .get
@@ -93,7 +93,7 @@ extension Sweet {
   /// Fetch Spaces that created by user ids
   /// - Parameter creatorIDs: Creator User IDs
   /// - Returns: Spaces
-  public func spaces(creatorIDs: [String]) async throws -> SpacesResponse {
+  public func spaces(creatorIDs: some Sequence<String>) async throws -> SpacesResponse {
     // https://developer.twitter.com/en/docs/twitter-api/spaces/lookup/api-reference/get-spaces-by-creator-ids
 
     let method: HTTPMethod = .get
