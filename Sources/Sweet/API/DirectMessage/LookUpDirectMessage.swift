@@ -17,7 +17,9 @@ extension Sweet {
   ///   - maxResults: The maximum number of results to be returned in a page. Must be between 1 and 100. The default is 100.
   ///   - paginationToken: Contains either the next_token or previous_token value.
   public func directMessageEvents(
-    eventType: DirectMessageEventType? = nil, maxResults: Int = 100, paginationToken: String? = nil
+    eventType: DirectMessageEventType? = nil,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
   ) async throws -> DirectMessagesResponse {
     let method: HTTPMethod = .get
 
@@ -64,7 +66,9 @@ extension Sweet {
   ///   - maxResults: The maximum number of results to be returned in a page. Must be between 1 and 100. The default is 100.
   ///   - paginationToken: Contains either the next_token or previous_token value.
   public func directMessageConversations(
-    participantID: String, eventType: DirectMessageEventType? = nil, maxResults: Int = 100,
+    participantID: String,
+    eventType: DirectMessageEventType? = nil,
+    maxResults: Int = 100,
     paginationToken: String? = nil
   ) async throws -> DirectMessagesResponse {
     let method: HTTPMethod = .get
@@ -113,7 +117,9 @@ extension Sweet {
   ///   - maxResults: The maximum number of results to be returned in a page. Must be between 1 and 100. The default is 100.
   ///   - paginationToken: Contains either the next_token or previous_token value.
   public func directMessageConversations(
-    conversationID: String, eventType: DirectMessageEventType? = nil, maxResults: Int = 100,
+    conversationID: String,
+    eventType: DirectMessageEventType? = nil,
+    maxResults: Int = 100,
     paginationToken: String? = nil
   ) async throws -> DirectMessagesResponse {
     let method: HTTPMethod = .get

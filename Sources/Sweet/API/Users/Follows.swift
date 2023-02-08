@@ -16,7 +16,10 @@ extension Sweet {
   ///   - fromUserID: Following User ID
   ///   - toUserID: Followed User ID
   /// - Returns: Success, Pending State(Awaiting Approval)
-  public func follow(from fromUserID: String, to toUserID: String) async throws -> (Bool, Bool) {
+  public func follow(
+    from fromUserID: String,
+    to toUserID: String
+  ) async throws -> (Bool, Bool) {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
 
     let method: HTTPMethod = .post
@@ -49,7 +52,10 @@ extension Sweet {
   /// - Parameters:
   ///   - fromUserID: Un Following User ID
   ///   - toUserID: Un Followed User ID
-  public func unFollow(from fromUserID: String, to toUserID: String) async throws {
+  public func unFollow(
+    from fromUserID: String,
+    to toUserID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following
 
     let method: HTTPMethod = .delete
@@ -86,9 +92,11 @@ extension Sweet {
   ///   - maxResults: Max User Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func followingUsers(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
-    async throws -> UsersResponse
-  {
+  public func followingUsers(
+    userID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
+  ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
 
     let method: HTTPMethod = .get
@@ -135,9 +143,11 @@ extension Sweet {
   ///   - maxResults: Max User Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Users
-  public func followerUsers(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
-    async throws -> UsersResponse
-  {
+  public func followerUsers(
+    userID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
+  ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers
 
     let method: HTTPMethod = .get

@@ -15,7 +15,10 @@ extension Sweet {
   /// - Parameters:
   ///   - listID: List ID
   ///   - userID: User(Member) ID
-  public func addListMember(to listID: String, userID: String) async throws {
+  public func addListMember(
+    to listID: String,
+    userID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/post-lists-id-members
 
     let method: HTTPMethod = .post
@@ -52,7 +55,10 @@ extension Sweet {
   /// - Parameters:
   ///   - listID: List ID
   ///   - userID: User ID
-  public func deleteListMember(listID: String, userID: String) async throws {
+  public func deleteListMember(
+    listID: String,
+    userID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/delete-lists-id-members-user_id
 
     let method: HTTPMethod = .delete
@@ -88,9 +94,11 @@ extension Sweet {
   ///   - maxResults: Max List Count
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Lists
-  public func addedLists(userID: String, maxResults: Int = 100, paginationToken: String? = nil)
-    async throws -> ListsResponse
-  {
+  public func addedLists(
+    userID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
+  ) async throws -> ListsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-users-id-list_memberships
 
     let method: HTTPMethod = .get
@@ -134,7 +142,9 @@ extension Sweet {
   ///   - paginationToken: Next Page Token for loading more than maxResults Count
   /// - Returns: Members(Users)
   public func listMembers(
-    listID: String, maxResults: Int = 100, paginationToken: String? = nil
+    listID: String,
+    maxResults: Int = 100,
+    paginationToken: String? = nil
   ) async throws -> UsersResponse {
     // https://developer.twitter.com/en/docs/twitter-api/lists/list-members/api-reference/get-lists-id-members
 

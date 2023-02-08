@@ -51,9 +51,9 @@ extension Sweet {
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func streamTweetsRequest(backfillMinutes: Int? = nil)
-    -> URLRequest
-  {
+  public func streamTweetsRequest(
+    backfillMinutes: Int? = nil
+  ) -> URLRequest {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
 
     let method: HTTPMethod = .get

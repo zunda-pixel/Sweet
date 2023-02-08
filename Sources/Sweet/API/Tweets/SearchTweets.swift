@@ -23,8 +23,13 @@ extension Sweet {
   ///   - nextToken: This parameter is used to get the next 'page' of results. The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   /// - Returns: Tweets
   public func searchRecentTweet(
-    query: String, maxResults: Int = 100, startTime: Date? = nil, endTime: Date? = nil,
-    untilID: String? = nil, sinceID: String? = nil, sortOrder: SortOrder? = nil,
+    query: String,
+    maxResults: Int = 100,
+    startTime: Date? = nil,
+    endTime: Date? = nil,
+    untilID: String? = nil,
+    sinceID: String? = nil,
+    sortOrder: SortOrder? = nil,
     nextToken: String? = nil
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
@@ -100,10 +105,14 @@ extension Sweet {
   ///   The value used with the parameter is pulled directly from the response provided by the API, and should not be modified.
   /// - Returns: Tweets
   public func searchTweet(
-    query: String, maxResults: Int = 500,
-    startTime: Date? = nil, endTime: Date? = nil,
-    untilID: String? = nil, sinceID: String? = nil,
-    sortOrder: SortOrder? = nil, nextToken: String? = nil
+    query: String,
+    maxResults: Int = 500,
+    startTime: Date? = nil,
+    endTime: Date? = nil,
+    untilID: String? = nil,
+    sinceID: String? = nil,
+    sortOrder: SortOrder? = nil,
+    nextToken: String? = nil
   ) async throws -> TweetsResponse {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
     // This endpoint is only available for Academic Research access.

@@ -11,9 +11,10 @@ import HTTPMethod
 #endif
 
 extension Sweet {
-  public func complianceJobs(type: JobType, status: JobStatus? = nil) async throws
-    -> [ComplianceJobModel]
-  {
+  public func complianceJobs(
+    type: JobType,
+    status: JobStatus? = nil
+  ) async throws -> [ComplianceJobModel] {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/get-compliance-jobs
 
     let method: HTTPMethod = .get
@@ -73,9 +74,11 @@ extension Sweet {
     throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
-  public func createComplianceJob(type: JobType, name: String? = nil, resumable: Bool = false)
-    async throws -> ComplianceJobModel
-  {
+  public func createComplianceJob(
+    type: JobType,
+    name: String? = nil,
+    resumable: Bool = false
+  ) async throws -> ComplianceJobModel {
     // https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/api-reference/post-compliance-jobs
 
     let method: HTTPMethod = .post
@@ -125,7 +128,9 @@ extension Sweet {
   }
 
   public static func uploadComplianceData(
-    uploadURL: URL, ids: [String], config: URLSessionConfiguration = .default
+    uploadURL: URL,
+    ids: [String],
+    config: URLSessionConfiguration = .default
   ) async throws {
     let headers = ["Content-Type": "text/plain"]
 
@@ -142,10 +147,9 @@ extension Sweet {
   }
 
   public static func downloadComplianceData(
-    downloadURL: URL, config: URLSessionConfiguration = .default
-  )
-    async throws -> [ComplianceModel]
-  {
+    downloadURL: URL,
+    config: URLSessionConfiguration = .default
+  ) async throws -> [ComplianceModel] {
     let request: URLRequest = .get(url: downloadURL)
 
     let (data, _) = try await URLSession(configuration: config).data(for: request)

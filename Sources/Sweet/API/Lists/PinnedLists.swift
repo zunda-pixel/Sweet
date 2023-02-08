@@ -15,7 +15,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: Pinned From This User
   ///   - listID: List ID
-  public func pinList(userID: String, listID: String) async throws {
+  public func pinList(
+    userID: String,
+    listID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/post-users-id-pinned-lists
 
     let method: HTTPMethod = .post
@@ -52,7 +55,10 @@ extension Sweet {
   /// - Parameters:
   ///   - userID: UnPinned From This User
   ///   - listID: UnPinned List ID
-  public func unPinList(userID: String, listID: String) async throws {
+  public func unPinList(
+    userID: String,
+    listID: String
+  ) async throws {
     // https://developer.twitter.com/en/docs/twitter-api/lists/pinned-lists/api-reference/delete-users-id-pinned-lists-list_id
 
     let method: HTTPMethod = .delete
