@@ -4,11 +4,12 @@ import PackageDescription
 
 var package = Package(
   name: "Sweet",
-  platforms: [.iOS(.v13), .macOS(.v10_15), .tvOS(.v13), .watchOS(.v6)],
+  platforms: [.iOS(.v13), .macOS(.v10_15), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
   products: [
     .library(
       name: "Sweet",
-      targets: ["Sweet"]),
+      targets: ["Sweet"]
+    ),
   ],
   dependencies: [
     .package(url: "https://github.com/zunda-pixel/HTTPClient", .upToNextMajor(from: "1.3.3")),
