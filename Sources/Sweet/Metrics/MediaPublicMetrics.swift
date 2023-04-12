@@ -6,7 +6,7 @@ import Foundation
 
 extension Sweet {
   public struct MediaPublicMetrics: Sendable, Hashable {
-    public let viewCount: Int
+    public let viewCount: Int?
   }
 }
 
