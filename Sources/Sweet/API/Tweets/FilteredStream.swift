@@ -14,7 +14,7 @@ extension Sweet {
   /// Fetch Stream Rule with ids
   /// - Parameter ids: Stream Rule IDs
   /// - Returns: Stream Rules
-  public func streamRule(ids: (some Sequence<String>)? = nil) async throws -> [StreamRuleModel] {
+  public func streamRule(ids: some Sequence<String> = []) async throws -> [StreamRuleModel] {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
 
     let method: HTTPMethod = .get
@@ -22,7 +22,7 @@ extension Sweet {
     let url: URL = .init(string: "https://api.twitter.com/2/tweets/search/stream/rules")!
 
     let queries: [String: String?] = [
-      "ids": ids?.joined(separator: ",")
+      "ids": ids.joined(separator: ",")
     ]
 
     let removedEmptyQueries = queries.removedEmptyValue

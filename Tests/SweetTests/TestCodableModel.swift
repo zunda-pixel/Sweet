@@ -135,8 +135,15 @@ final class TestCodableModel: XCTestCase {
 
   func testPlaceModelCodable() throws {
     let place1 = Sweet.PlaceModel(
-      id: "id", fullName: "fullName", name: "name", country: "country", countryCode: "countryCode",
-      geo: .init(type: .feature, boundingBox: [100.0]), type: .admin, containedWithin: ["1", "2"])
+      id: "id",
+      fullName: "fullName",
+      name: "name",
+      country: "country",
+      countryCode: "countryCode",
+      geo: .init(type: .feature, boundingBox: [100.0]),
+      type: "city",
+      containedWithin: ["1", "2"]
+    )
 
     let data = try JSONEncoder().encode(place1)
 
@@ -212,7 +219,7 @@ final class TestCodableModel: XCTestCase {
   }
 
   func testJSONFileDecodable() throws {
-    for i in (1..<7) {
+    for i in (1..<8) {
       let path = Bundle.module.path(forResource: "TweetsData\(i)", ofType: "json")!
       let rawString = try String(contentsOfFile: path)
       let rawData = rawString.data(using: .utf8)!

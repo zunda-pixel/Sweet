@@ -17,7 +17,7 @@ extension Sweet {
     public let country: String?
     public let countryCode: String?
     public let geo: GeoModel?
-    public let type: PlaceType?
+    public let type: String?
     public let containedWithin: [String]
 
     public init(
@@ -27,7 +27,7 @@ extension Sweet {
       country: String? = nil,
       countryCode: String? = nil,
       geo: GeoModel? = nil,
-      type: PlaceType? = nil,
+      type: String? = nil,
       containedWithin: [String] = []
     ) {
       self.id = id
@@ -51,9 +51,7 @@ extension Sweet.PlaceModel: Codable {
     self.country = try container.decodeIfPresent(String.self, forKey: .country)
     self.countryCode = try container.decodeIfPresent(String.self, forKey: .countryCode)
     self.geo = try container.decodeIfPresent(Sweet.GeoModel.self, forKey: .geo)
-
-    let type = try container.decodeIfPresent(String.self, forKey: .placeType)
-    self.type = type.map { Sweet.PlaceType(rawValue: $0)! }
+    self.type = try container.decodeIfPresent(String.self, forKey: .placeType)
 
     let containedWithin = try container.decodeIfPresent([String].self, forKey: .containedWithin)
     self.containedWithin = containedWithin ?? []
@@ -67,7 +65,7 @@ extension Sweet.PlaceModel: Codable {
     try container.encodeIfPresent(country, forKey: .country)
     try container.encodeIfPresent(countryCode, forKey: .countryCode)
     try container.encodeIfPresent(geo, forKey: .geo)
-    try container.encodeIfPresent(type?.rawValue, forKey: .placeType)
+    try container.encodeIfPresent(type, forKey: .placeType)
     try container.encodeIfPresent(containedWithin, forKey: .containedWithin)
   }
 }
