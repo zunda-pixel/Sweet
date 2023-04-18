@@ -19,7 +19,7 @@ final class TestStreamAPI: XCTestCase {
     }
   }
 
-  func testFetchStream() async throws {    
+  func testFetchStream() async throws {
     for try await response in Sweet.test.streamTweets() {
       print(response.tweet.text)
     }

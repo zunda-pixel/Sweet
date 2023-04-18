@@ -30,7 +30,11 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -96,7 +100,7 @@ extension Sweet {
           continuation.finish(throwing: error)
         }
       }
-      
+
       continuation.onTermination = { @Sendable _ in
         stream.task.cancel()
       }

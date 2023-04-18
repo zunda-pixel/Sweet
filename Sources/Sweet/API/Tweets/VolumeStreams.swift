@@ -60,7 +60,7 @@ extension Sweet {
           continuation.finish(throwing: error)
         }
       }
-      
+
       continuation.onTermination = { @Sendable _ in
         stream.task.cancel()
       }
