@@ -50,10 +50,10 @@ extension Sweet {
   /// Fetch Stream
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
-  /// - Returns: URLRequest
-  public func streamTweetsRequest(
+  /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
+  public func streamTweets(
     backfillMinutes: Int? = nil
-  ) -> URLRequest {
+  ) -> AsyncThrowingStream<Sweet.TweetResponse, Error> {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
 
     let method: HTTPMethod = .get
@@ -87,7 +87,22 @@ extension Sweet {
       headers: headers
     )
 
-    return request
+    return AsyncThrowingStream { continuation in
+      let stream = StreamExecution(request: request) { data in
+        do {
+          let response = try JSONDecoder.twitter.decode(Sweet.TweetResponse.self, from: data)
+          continuation.yield(response)
+        } catch {
+          continuation.finish(throwing: error)
+        }
+      }
+      
+      continuation.onTermination = { @Sendable _ in
+        stream.task.cancel()
+      }
+
+      stream.start()
+    }
   }
 
   /// Create Stream Rule

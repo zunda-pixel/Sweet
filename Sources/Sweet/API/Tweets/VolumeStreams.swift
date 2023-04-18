@@ -14,10 +14,10 @@ extension Sweet {
   /// Stream Volume
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
-  /// - Returns: URLRequest
-  public func streamVolumeRequest(
+  /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
+  public func streamVolume(
     backfillMinutes: Int? = nil
-  ) -> URLRequest {
+  ) -> AsyncThrowingStream<Sweet.TweetResponse, Error> {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
 
     let method: HTTPMethod = .get
@@ -45,8 +45,27 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
-    return request
+    return AsyncThrowingStream { continuation in
+      let stream = StreamExecution(request: request) { data in
+        do {
+          let response = try JSONDecoder.twitter.decode(Sweet.TweetResponse.self, from: data)
+          continuation.yield(response)
+        } catch {
+          continuation.finish(throwing: error)
+        }
+      }
+      
+      continuation.onTermination = { @Sendable _ in
+        stream.task.cancel()
+      }
+
+      stream.start()
+    }
   }
 }
