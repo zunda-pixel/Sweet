@@ -55,7 +55,7 @@ extension Sweet {
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
-  public func streamTweets(
+  public func filteredStream(
     backfillMinutes: Int? = nil
   ) -> AsyncThrowingStream<Sweet.TweetResponse, Error> {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream

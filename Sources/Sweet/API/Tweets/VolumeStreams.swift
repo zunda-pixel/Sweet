@@ -15,7 +15,7 @@ extension Sweet {
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
-  public func streamVolume(
+  public func volumeStream(
     backfillMinutes: Int? = nil
   ) -> AsyncThrowingStream<Sweet.TweetResponse, Error> {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
