@@ -199,10 +199,10 @@ extension Sweet {
   ///   - values: Values
   ///   - dryRun: Set to true to test a the syntax of your rule without submitting it.
   ///   useful if you want to check the syntax of a rule before removing one or more of your existing rules.
-  public func deleteStreamRule<S: Sequence>(
-    values: S,
+  public func deleteStreamRule<Values: Sequence>(
+    values: Values,
     dryRun: Bool = false
-  ) async throws where S.Element == String, S: Encodable {
+  ) async throws where Values.Element == String, Values: Encodable {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
 
     let method: HTTPMethod = .post
