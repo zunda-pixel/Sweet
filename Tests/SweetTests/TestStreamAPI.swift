@@ -20,8 +20,11 @@ final class TestStreamAPI: XCTestCase {
   }
 
   func testFetchStream() async throws {
-    for try await response in Sweet.test.filteredStream() {
-      print(response.tweet.text)
+    for try await result in Sweet.test.filteredStream() {
+      switch result {
+      case .success(let response): print(response.tweet.text)
+      case .failure(let error): print(error)
+      }
     }
   }
 
@@ -55,8 +58,11 @@ final class TestStreamAPI: XCTestCase {
   }
 
   func testFetchStreamVolume() async throws {
-    for try await response in Sweet.test.volumeStream() {
-      print(response.tweet.text)
+    for try await result in Sweet.test.volumeStream() {
+      switch result {
+      case .success(let response): print(response.tweet.text)
+      case .failure(let error): print(error)
+      }
     }
   }
 }
