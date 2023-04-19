@@ -17,7 +17,7 @@ extension Sweet {
   /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
   public func volumeStream(
     backfillMinutes: Int? = nil
-  ) -> AsyncThrowingStream<Sweet.TweetResponse, Error> {
+  ) -> AsyncStream<Result<Sweet.TweetResponse, Error>> {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
 
     let method: HTTPMethod = .get
@@ -51,13 +51,13 @@ extension Sweet {
       headers: headers
     )
 
-    return AsyncThrowingStream { continuation in
+    return AsyncStream { continuation in
       let stream = StreamExecution(request: request) { data in
         do {
           let response = try JSONDecoder.twitter.decode(Sweet.TweetResponse.self, from: data)
-          continuation.yield(response)
+          continuation.yield(.success(response))
         } catch {
-          continuation.finish(throwing: error)
+          continuation.yield(.failure(error))
         }
       }
 
