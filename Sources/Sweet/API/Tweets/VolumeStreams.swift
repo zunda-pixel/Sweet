@@ -53,12 +53,18 @@ extension Sweet {
 
     return AsyncThrowingStream { continuation in
       let stream = StreamExecution(request: request) { data in
-        do {
-          let response = try JSONDecoder.twitter.decode(Sweet.TweetResponse.self, from: data)
+        let decoder = JSONDecoder.twitter
+
+        if let response = try? decoder.decode(TweetResponse.self, from: data) {
           continuation.yield(.success(response))
-        } catch {
-          continuation.yield(.failure(error))
         }
+
+        if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
+          continuation.yield(.failure(response.error))
+        }
+
+        let unknownError = UnknownError(request: request, data: data, response: nil)
+        continuation.yield(.failure(unknownError))
       } errorHandler: { error in
         continuation.finish(throwing: error)
       }
