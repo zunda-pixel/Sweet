@@ -95,9 +95,9 @@ extension Sweet {
   /// Fetch Stream
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
-  /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
+  /// - Returns: AsyncThrowingStream<Result<Sweet.TweetResponse, any Error>, any Error>
   public func filteredStream(backfillMinutes: Int? = nil)
-    -> AsyncThrowingStream<Result<Sweet.TweetResponse, Error>, Error>
+    -> AsyncThrowingStream<Result<Sweet.TweetResponse, any Error>, any Error>
   {
     let request = filteredStreamRequest(backfillMinutes: backfillMinutes)
 

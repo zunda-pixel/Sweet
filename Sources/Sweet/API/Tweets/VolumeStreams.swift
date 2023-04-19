@@ -54,9 +54,9 @@ extension Sweet {
   /// Stream Volume
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
-  /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
+  /// - Returns: AsyncThrowingStream<Result<Sweet.TweetResponse, any Error>, any Error>
   public func volumeStream(backfillMinutes: Int? = nil)
-    -> AsyncThrowingStream<Result<Sweet.TweetResponse, Error>, Error>
+    -> AsyncThrowingStream<Result<Sweet.TweetResponse, any Error>, any Error>
   {
     let request = volumeStreamRequest(backfillMinutes: backfillMinutes)
 
