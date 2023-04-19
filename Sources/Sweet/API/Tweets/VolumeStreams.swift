@@ -11,13 +11,11 @@ import HTTPMethod
 #endif
 
 extension Sweet {
-  /// Stream Volume
+  /// Stream Volume Request
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
-  /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
-  public func volumeStream(
-    backfillMinutes: Int? = nil
-  ) -> AsyncThrowingStream<Result<Sweet.TweetResponse, Error>, Error> {
+  /// - Returns: URLRequest
+  public func volumeStreamRequest(backfillMinutes: Int? = nil) -> URLRequest {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
 
     let method: HTTPMethod = .get
@@ -50,6 +48,17 @@ extension Sweet {
       queries: removedEmptyQueries,
       headers: headers
     )
+    return request
+  }
+
+  /// Stream Volume
+  /// - Parameters:
+  ///   - backfillMinutes: Recovering missed data after a disconnection
+  /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
+  public func volumeStream(backfillMinutes: Int? = nil) -> AsyncThrowingStream<
+    Result<Sweet.TweetResponse, Error>, Error
+  > {
+    let request = volumeStreamRequest(backfillMinutes: backfillMinutes)
 
     return AsyncThrowingStream { continuation in
       let stream = StreamExecution(request: request) { data in

@@ -51,13 +51,11 @@ extension Sweet {
     throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
-  /// Fetch Stream
+  /// Fetch Stream Request
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
-  /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
-  public func filteredStream(
-    backfillMinutes: Int? = nil
-  ) -> AsyncThrowingStream<Result<Sweet.TweetResponse, Error>, Error> {
+  /// - Returns: URLRequest
+  public func filteredStreamRequest(backfillMinutes: Int? = nil) -> URLRequest {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
 
     let method: HTTPMethod = .get
@@ -90,6 +88,18 @@ extension Sweet {
       queries: removedEmptyQueries,
       headers: headers
     )
+
+    return request
+  }
+
+  /// Fetch Stream
+  /// - Parameters:
+  ///   - backfillMinutes: Recovering missed data after a disconnection
+  /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
+  public func filteredStream(backfillMinutes: Int? = nil) -> AsyncThrowingStream<
+    Result<Sweet.TweetResponse, Error>, Error
+  > {
+    let request = filteredStreamRequest(backfillMinutes: backfillMinutes)
 
     return AsyncThrowingStream { continuation in
       let stream = StreamExecution(request: request) { data in
