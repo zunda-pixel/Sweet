@@ -55,25 +55,33 @@ extension Sweet {
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: AsyncThrowingStream<Sweet.TweetResponse, Error>
-  public func volumeStream(backfillMinutes: Int? = nil) -> AsyncThrowingStream<
-    Result<Sweet.TweetResponse, Error>, Error
-  > {
+  public func volumeStream(backfillMinutes: Int? = nil)
+    -> AsyncThrowingStream<Result<Sweet.TweetResponse, Error>, Error>
+  {
     let request = volumeStreamRequest(backfillMinutes: backfillMinutes)
 
     return AsyncThrowingStream { continuation in
       let stream = StreamExecution(request: request) { data in
+        let stringData = String(data: data, encoding: .utf8)!
+        let strings = stringData.split(whereSeparator: \.isNewline)
         let decoder = JSONDecoder.twitter
 
-        if let response = try? decoder.decode(TweetResponse.self, from: data) {
-          continuation.yield(.success(response))
-        }
+        for string in strings {
+          let data = string.data(using: .utf8)!
 
-        if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
-          continuation.yield(.failure(response.error))
-        }
+          if let response = try? decoder.decode(TweetResponse.self, from: data) {
+            continuation.yield(.success(response))
+            continue
+          }
 
-        let unknownError = UnknownError(request: request, data: data, response: nil)
-        continuation.yield(.failure(unknownError))
+          if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
+            continuation.yield(.failure(response.error))
+            continue
+          }
+
+          let unknownError = UnknownError(request: request, data: data, response: nil)
+          continuation.yield(.failure(unknownError))
+        }
       } errorHandler: { error in
         continuation.finish(throwing: error)
       }
