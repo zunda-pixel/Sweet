@@ -20,10 +20,12 @@ final class TestStreamAPI: XCTestCase {
   }
 
   func testFetchStream() async throws {
-    let stream = TestStream()
-    stream.testFilteredStreams()
-    let timeoutSeconds: UInt64 = 60 * 3 * 1_000_000_000
-    try await Task.sleep(nanoseconds: timeoutSeconds)
+    for try await result in Sweet.test.filteredStream() {
+      switch result {
+      case .success(let response): print(response.tweet.text)
+      case .failure(let error): print(error)
+      }
+    }
   }
 
   func testCreateStreamRule() async throws {
@@ -56,28 +58,11 @@ final class TestStreamAPI: XCTestCase {
   }
 
   func testFetchStreamVolume() async throws {
-    let testStream = TestStream()
-    testStream.testVolumeStreams()
-    let timeoutSeconds: UInt64 = 60 * 3 * 1_000_000_000
-    try await Task.sleep(nanoseconds: timeoutSeconds)
-  }
-}
-
-private class TestStream: NSObject, URLSessionDataDelegate {
-  func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-    let response = try! JSONDecoder.twitter.decode(Sweet.TweetResponse.self, from: data)
-    print(response)
-  }
-
-  func testVolumeStreams() {
-    let request = Sweet.test.streamVolumeRequest(backfillMinutes: nil)
-    let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-    session.dataTask(with: request).resume()
-  }
-
-  func testFilteredStreams() {
-    let request = Sweet.test.streamTweetsRequest(backfillMinutes: nil)
-    let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-    session.dataTask(with: request).resume()
+    for try await result in Sweet.test.volumeStream() {
+      switch result {
+      case .success(let response): print(response.tweet.text)
+      case .failure(let error): print(error)
+      }
+    }
   }
 }

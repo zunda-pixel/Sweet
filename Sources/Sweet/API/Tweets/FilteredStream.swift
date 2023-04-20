@@ -30,7 +30,11 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
 
     let (data, urlResponse) = try await session.data(for: request)
 
@@ -47,13 +51,11 @@ extension Sweet {
     throw UnknownError(request: request, data: data, response: urlResponse)
   }
 
-  /// Fetch Stream
+  /// Fetch Stream Request
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func streamTweetsRequest(
-    backfillMinutes: Int? = nil
-  ) -> URLRequest {
+  public func filteredStreamRequest(backfillMinutes: Int? = nil) -> URLRequest {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
 
     let method: HTTPMethod = .get
@@ -88,6 +90,49 @@ extension Sweet {
     )
 
     return request
+  }
+
+  /// Fetch Stream
+  /// - Parameters:
+  ///   - backfillMinutes: Recovering missed data after a disconnection
+  /// - Returns: AsyncThrowingStream<Result<Sweet.TweetResponse, any Error>, any Error>
+  public func filteredStream(backfillMinutes: Int? = nil)
+    -> AsyncThrowingStream<Result<Sweet.TweetResponse, any Error>, any Error>
+  {
+    let request = filteredStreamRequest(backfillMinutes: backfillMinutes)
+
+    return AsyncThrowingStream { continuation in
+      let stream = StreamExecution(request: request) { data in
+        let stringData = String(data: data, encoding: .utf8)!
+        let strings = stringData.split(whereSeparator: \.isNewline)
+        let decoder = JSONDecoder.twitter
+
+        for string in strings {
+          let data = string.data(using: .utf8)!
+
+          if let response = try? decoder.decode(TweetResponse.self, from: data) {
+            continuation.yield(.success(response))
+            continue
+          }
+
+          if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
+            continuation.yield(.failure(response.error))
+            continue
+          }
+
+          let unknownError = UnknownError(request: request, data: data, response: nil)
+          continuation.yield(.failure(unknownError))
+        }
+      } errorHandler: { error in
+        continuation.finish(throwing: error)
+      }
+
+      continuation.onTermination = { @Sendable _ in
+        stream.task.cancel()
+      }
+
+      stream.start()
+    }
   }
 
   /// Create Stream Rule
@@ -180,10 +225,10 @@ extension Sweet {
   ///   - values: Values
   ///   - dryRun: Set to true to test a the syntax of your rule without submitting it.
   ///   useful if you want to check the syntax of a rule before removing one or more of your existing rules.
-  public func deleteStreamRule<S: Sequence>(
-    values: S,
+  public func deleteStreamRule<Values: Sequence>(
+    values: Values,
     dryRun: Bool = false
-  ) async throws where S.Element == String, S: Encodable {
+  ) async throws where Values.Element == String, Values: Encodable {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
 
     let method: HTTPMethod = .post

@@ -8,7 +8,7 @@ extension Sweet {
   public struct UnknownError: Error {
     public let request: URLRequest
     public let data: Data
-    public let response: URLResponse
+    public let response: URLResponse?
   }
 
   public enum RequestError: Error, Sendable {

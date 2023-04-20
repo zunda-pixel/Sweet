@@ -11,13 +11,11 @@ import HTTPMethod
 #endif
 
 extension Sweet {
-  /// Stream Volume
+  /// Stream Volume Request
   /// - Parameters:
   ///   - backfillMinutes: Recovering missed data after a disconnection
   /// - Returns: URLRequest
-  public func streamVolumeRequest(
-    backfillMinutes: Int? = nil
-  ) -> URLRequest {
+  public func volumeStreamRequest(backfillMinutes: Int? = nil) -> URLRequest {
     // https://developer.twitter.com/en/docs/twitter-api/tweets/volume-streams/api-reference/get-tweets-sample-stream
 
     let method: HTTPMethod = .get
@@ -45,8 +43,54 @@ extension Sweet {
     let headers = getBearerHeaders(httpMethod: method, url: url, queries: removedEmptyQueries)
 
     let request: URLRequest = .request(
-      method: method, url: url, queries: removedEmptyQueries, headers: headers)
-
+      method: method,
+      url: url,
+      queries: removedEmptyQueries,
+      headers: headers
+    )
     return request
+  }
+
+  /// Stream Volume
+  /// - Parameters:
+  ///   - backfillMinutes: Recovering missed data after a disconnection
+  /// - Returns: AsyncThrowingStream<Result<Sweet.TweetResponse, any Error>, any Error>
+  public func volumeStream(backfillMinutes: Int? = nil)
+    -> AsyncThrowingStream<Result<Sweet.TweetResponse, any Error>, any Error>
+  {
+    let request = volumeStreamRequest(backfillMinutes: backfillMinutes)
+
+    return AsyncThrowingStream { continuation in
+      let stream = StreamExecution(request: request) { data in
+        let stringData = String(data: data, encoding: .utf8)!
+        let strings = stringData.split(whereSeparator: \.isNewline)
+        let decoder = JSONDecoder.twitter
+
+        for string in strings {
+          let data = string.data(using: .utf8)!
+
+          if let response = try? decoder.decode(TweetResponse.self, from: data) {
+            continuation.yield(.success(response))
+            continue
+          }
+
+          if let response = try? decoder.decode(ResponseErrorModel.self, from: data) {
+            continuation.yield(.failure(response.error))
+            continue
+          }
+
+          let unknownError = UnknownError(request: request, data: data, response: nil)
+          continuation.yield(.failure(unknownError))
+        }
+      } errorHandler: { error in
+        continuation.finish(throwing: error)
+      }
+
+      continuation.onTermination = { @Sendable _ in
+        stream.task.cancel()
+      }
+
+      stream.start()
+    }
   }
 }

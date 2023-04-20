@@ -4,7 +4,13 @@ import PackageDescription
 
 var package = Package(
   name: "Sweet",
-  platforms: [.iOS(.v13), .macOS(.v10_15), .tvOS(.v13), .watchOS(.v6), .macCatalyst(.v13)],
+  platforms: [
+    .iOS(.v13),
+    .macOS(.v10_15),
+    .tvOS(.v13),
+    .watchOS(.v6),
+    .macCatalyst(.v13)
+  ],
   products: [
     .library(
       name: "Sweet",
@@ -12,9 +18,9 @@ var package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/zunda-pixel/HTTPClient", .upToNextMajor(from: "1.3.3")),
-    .package(url: "https://github.com/apple/swift-format", branch: "main"),
-    .package(url: "https://github.com/zunda-pixel/OAuth1", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/zunda-pixel/HTTPClient", .upToNextMajor(from: "1.4.2")),
+    .package(url: "https://github.com/apple/swift-format", .upToNextMajor(from: "508.0.0")),
+    .package(url: "https://github.com/zunda-pixel/OAuth1", .upToNextMajor(from: "1.0.6"))
   ],
   targets: [
     .target(
