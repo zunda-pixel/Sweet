@@ -4,7 +4,7 @@
 
 import Foundation
 
-class StreamExecution: NSObject, URLSessionDataDelegate {
+final class StreamExecution: NSObject, URLSessionDataDelegate {
   let handler: (Data) -> Void
   let errorHandle: (Error) -> Void
 
