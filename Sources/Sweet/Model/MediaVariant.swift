@@ -14,9 +14,9 @@ extension Sweet {
     public let bitRate: Int?
 
     public init(
-      url: URL
+      url: URL,
       contentType: VideoType,
-      bitRate: Int? = nil,
+      bitRate: Int? = nil
     ) {
       self.bitRate = bitRate
       self.contentType = contentType
