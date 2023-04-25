@@ -13,7 +13,10 @@ extension Sweet {
     public let totalTweetCount: Int
     public let nextToken: String?
 
-    public init(totalTweetCount: Int, nextToken: String? = nil) {
+    public init(
+      totalTweetCount: Int,
+      nextToken: String? = nil
+    ) {
       self.totalTweetCount = totalTweetCount
       self.nextToken = nextToken
     }

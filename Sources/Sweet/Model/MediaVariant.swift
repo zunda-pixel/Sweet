@@ -9,14 +9,14 @@ import Foundation
 
 extension Sweet {
   public struct MediaVariant: Hashable, Sendable {
-    public let bitRate: Int?
-    public let contentType: VideoType
     public let url: URL
+    public let contentType: VideoType
+    public let bitRate: Int?
 
     public init(
-      bitRate: Int? = nil,
-      contentType: VideoType,
       url: URL
+      contentType: VideoType,
+      bitRate: Int? = nil,
     ) {
       self.bitRate = bitRate
       self.contentType = contentType

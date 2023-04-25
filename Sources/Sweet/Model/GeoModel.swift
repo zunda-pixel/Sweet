@@ -10,7 +10,10 @@ extension Sweet {
     public let type: GeoType
     public let boundingBox: [Double]
 
-    public init(type: GeoType, boundingBox: [Double] = []) {
+    public init(
+      type: GeoType,
+      boundingBox: [Double] = []
+    ) {
       self.type = type
       self.boundingBox = boundingBox
     }

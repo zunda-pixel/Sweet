@@ -14,7 +14,10 @@ extension Sweet {
     public let value: String
     public let tag: String?
 
-    public init(value: String, tag: String? = nil) {
+    public init(
+      value: String,
+      tag: String? = nil
+    ) {
       self.id = ""
       self.tag = tag
       self.value = value
