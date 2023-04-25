@@ -17,7 +17,10 @@ extension Sweet {
     public let replyCount: Int
 
     public init(
-      impressionCount: Int, urlLinkClicks: Int, userProfileClicks: Int, retweetCount: Int,
+      impressionCount: Int,
+      urlLinkClicks: Int,
+      userProfileClicks: Int,
+      retweetCount: Int,
       replyCount: Int
     ) {
       self.impressionCount = impressionCount

@@ -11,7 +11,11 @@ extension Sweet {
     public let countryCodes: [String]
     public let scope: WithheldScope?
 
-    public init(copyright: Bool? = nil, countryCodes: [String] = [], scope: WithheldScope) {
+    public init(
+      copyright: Bool? = nil,
+      countryCodes: [String] = [],
+      scope: WithheldScope? = nil
+    ) {
       self.copyright = copyright
       self.countryCodes = countryCodes
       self.scope = scope
