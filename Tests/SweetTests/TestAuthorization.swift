@@ -36,7 +36,7 @@ final class TestAuthorization: XCTestCase {
   }
 
   func testAuthorizationURL() {
-    let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret)
+    let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret, configuration: .default)
 
     let authorizeURL = oauth2.getAuthorizeURL(
       scopes: Sweet.AccessScope.allCases, callBackURL: callbackURL, challenge: challenge,
@@ -49,7 +49,7 @@ final class TestAuthorization: XCTestCase {
     let code =
       "SjJBWDVtakZoa3E5RGJOSms1aHpiVDZGVkxhdV9vOUhmcVRJUEdGZVV1X25nOjE2NjUzNTE2OTA5MDI6MTowOmFjOjE"
 
-    let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret)
+    let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret, configuration: .default)
 
     let response = try await oauth2.getUserBearerToken(
       code: code, callBackURL: callbackURL, challenge: challenge)
@@ -61,7 +61,7 @@ final class TestAuthorization: XCTestCase {
     let refreshToken =
       "LW13RzJtRVplVTRPZUFjTTY4MUFCVGFKdzB2ZzJodHJwcVdDejJIMVZxU0JIOjE2NjUzNTE3MDY3MTg6MTowOnJ0OjE"
 
-    let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret)
+    let oauth2 = Sweet.OAuth2(clientID: clientID, clientSecret: clientSecret, configuration: .default)
 
     let response = try await oauth2.refreshUserBearerToken(with: refreshToken)
 

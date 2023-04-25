@@ -16,7 +16,9 @@ extension Sweet {
     let configuration: URLSessionConfiguration
 
     public init(
-      clientID: String, clientSecret: String, configuration: URLSessionConfiguration = .default
+      clientID: String,
+      clientSecret: String,
+      configuration: URLSessionConfiguration
     ) {
       self.clientID = clientID
       self.clientSecret = clientSecret
