@@ -11,8 +11,8 @@ extension Sweet {
     public let participantIDs: [String]
 
     public init(
-      conversationType: ConversationType,
       message: Message,
+      conversationType: ConversationType,
       participantIDs: [String] = []
     ) {
       self.conversationType = conversationType
@@ -55,7 +55,10 @@ extension Sweet.NewDirectMessage {
     public let text: String?
     public let attachments: [Attachment]
 
-    public init(text: String? = nil, attachments: [Attachment] = []) {
+    public init(
+      text: String? = nil,
+      attachments: [Attachment] = []
+    ) {
       self.text = text
       self.attachments = attachments
     }

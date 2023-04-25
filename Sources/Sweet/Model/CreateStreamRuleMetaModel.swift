@@ -10,7 +10,10 @@ extension Sweet {
     public let sent: Date
     public let summary: StreamRuleSummary
 
-    public init(sent: Date, summary: StreamRuleSummary) {
+    public init(
+      sent: Date,
+      summary: StreamRuleSummary
+    ) {
       self.sent = sent
       self.summary = summary
     }

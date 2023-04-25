@@ -10,7 +10,10 @@ extension Sweet {
     public let placeID: String?
     public let coordinates: CoordinatesModel?
 
-    public init(placeID: String? = nil, coordinates: CoordinatesModel?) {
+    public init(
+      placeID: String? = nil,
+      coordinates: CoordinatesModel? = nil
+    ) {
       self.placeID = placeID
       self.coordinates = coordinates
     }

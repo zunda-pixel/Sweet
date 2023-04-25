@@ -22,11 +22,11 @@ extension Sweet {
     public let description: String?
 
     public init(
+      url: URL,
       start: Int,
       end: Int,
-      url: URL,
-      expandedURL: String,
-      displayURL: String,
+      expandedURL: String? = nil,
+      displayURL: String? = nil,
       unwoundURL: String? = nil,
       images: [ImageModel] = [],
       status: Int? = nil,

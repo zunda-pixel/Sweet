@@ -14,7 +14,7 @@ extension Sweet {
     public init(
       id: String,
       name: String,
-      description: String
+      description: String? = nil
     ) {
       self.id = id
       self.name = name

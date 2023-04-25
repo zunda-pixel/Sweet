@@ -23,7 +23,7 @@ extension Sweet {
     public init(
       text: String? = nil,
       directMessageDeepLink: URL? = nil,
-      forSuperFollowersOnly: Bool = false,
+      forSuperFollowersOnly: Bool,
       geo: Sweet.PostGeoModel? = nil,
       media: Sweet.PostMediaModel? = nil,
       poll: Sweet.PostPollModel? = nil,

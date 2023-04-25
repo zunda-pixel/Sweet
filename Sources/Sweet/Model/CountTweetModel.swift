@@ -14,7 +14,11 @@ extension Sweet {
     public let startDate: Date
     public let endDate: Date
 
-    public init(countTweet: Int, startDate: Date, endDate: Date) {
+    public init(
+      countTweet: Int,
+      startDate: Date,
+      endDate: Date
+    ) {
       self.countTweet = countTweet
       self.startDate = startDate
       self.endDate = endDate

@@ -19,9 +19,9 @@ extension Sweet {
       eventType: DirectMessageEventType,
       id: String,
       text: String,
-      conversationID: String?,
-      createdAt: Date?,
-      senderID: String?,
+      conversationID: String? = nil,
+      createdAt: Date? = nil,
+      senderID: String? = nil,
       attachments: DirectMessageAttachmentsModel? = nil,
       referencedTweets: [DirectMessageReferencedTweetModel] = []
     ) {

@@ -42,7 +42,7 @@ final class TestCodableModel: XCTestCase {
       entity: .init(
         urls: [
           .init(
-            start: 1, end: 2, url: .init(string: "https://twitter.com")!,
+            url: .init(string: "https://twitter.com")!, start: 1, end: 2,
             expandedURL: "https://twitter.com", displayURL: "https://twitter.com",
             unwoundURL: "https://twitter.com",
             images: [
@@ -52,7 +52,7 @@ final class TestCodableModel: XCTestCase {
         ],
         descriptionURLs: [
           .init(
-            start: 3, end: 4, url: .init(string: "https://twitter.com")!,
+            url: .init(string: "https://twitter.com")!, start: 3, end: 4,
             expandedURL: "https://twitter.com", displayURL: "https://twitter.com",
             unwoundURL: "https://twitter.com",
             images: [
@@ -102,9 +102,9 @@ final class TestCodableModel: XCTestCase {
         ],
         urls: [
           .init(
+            url: .init(string: "https://twitter.com")!,
             start: 4,
             end: 5,
-            url: .init(string: "https://twitter.com")!,
             expandedURL: "https://twitter.com",
             displayURL: "https://twitter.com",
             unwoundURL: "https://twitter.com",
@@ -158,7 +158,7 @@ final class TestCodableModel: XCTestCase {
       previewImageURL: .init(string: "https://twitter.com")!,
       url: .init(string: "https://twitter.com")!,
       variants: [
-        .init(bitRate: 100, contentType: .mp4, url: .init(string: "https://twitter.com")!)
+        .init(url: .init(string: "https://twitter.com")!, contentType: .mp4, bitRate: 4)
       ], durationMicroSeconds: 100, alternateText: "alternateText", metrics: .init(viewCount: 200),
       privateMetrics: .init(
         viewCount: 1, playback0Count: 2, playback25Count: 3, playback50Count: 4, playback75Count: 5,

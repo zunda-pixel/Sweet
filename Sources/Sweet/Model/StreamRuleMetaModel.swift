@@ -10,7 +10,10 @@ extension Sweet {
     public let sent: Date
     public let resultCount: Int?
 
-    public init(sent: Date, resultCount: Int?) {
+    public init(
+      sent: Date,
+      resultCount: Int? = nil
+    ) {
       self.sent = sent
       self.resultCount = resultCount
     }

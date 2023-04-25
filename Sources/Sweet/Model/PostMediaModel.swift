@@ -13,7 +13,10 @@ extension Sweet {
     public var mediaIDs: [String]
     public var taggedUserIDs: [String]
 
-    public init(mediaIDs: [String] = [], taggedUserIDs: [String] = []) {
+    public init(
+      mediaIDs: [String] = [],
+      taggedUserIDs: [String] = []
+    ) {
       self.mediaIDs = mediaIDs
       self.taggedUserIDs = taggedUserIDs
     }
