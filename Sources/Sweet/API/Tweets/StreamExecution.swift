@@ -4,6 +4,10 @@
 
 import Foundation
 
+#if os(Linux) || os(Windows)
+  import FoundationNetworking
+#endif
+
 final class StreamExecution: NSObject, URLSessionDataDelegate {
   let handler: (Data) -> Void
   let errorHandle: (Error) -> Void

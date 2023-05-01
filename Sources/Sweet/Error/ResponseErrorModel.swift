@@ -4,6 +4,10 @@
 
 import Foundation
 
+#if os(Linux) || os(Windows)
+  import FoundationNetworking
+#endif
+
 extension Sweet {
   public struct UnknownError: Error {
     public let request: URLRequest
