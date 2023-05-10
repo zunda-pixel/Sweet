@@ -136,8 +136,11 @@ extension Sweet {
 
     let body = Data(ids.joined(separator: "\n").utf8)
 
-    let (_, response) = try await URLSession(configuration: config).data(
-      for: .put(url: uploadURL, body: body, headers: headers))
+    let session = URLSession(configuration: config)
+
+    let (_, response) = try await session.data(
+      for: .put(url: uploadURL, body: body, headers: headers)
+    )
 
     let httpResponse = response as! HTTPURLResponse
 
