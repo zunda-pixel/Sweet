@@ -31,7 +31,7 @@ extension Sweet {
     let encodedID = id.addingPercentEncoding(withAllowedCharacters: allowedCharacter)!
     let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: allowedCharacter)!
     let value = "\(encodedID):\(encodedPassword)"
-    let encodedValue = value.data(using: .utf8)!
+    let encodedValue = Data(value.utf8)
     let encoded64Value = encodedValue.base64EncodedString()
     return encoded64Value
   }

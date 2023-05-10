@@ -134,10 +134,13 @@ extension Sweet {
   ) async throws {
     let headers = ["Content-Type": "text/plain"]
 
-    let body = ids.joined(separator: "\n").data(using: .utf8)!
+    let body = Data(ids.joined(separator: "\n").utf8)
 
-    let (_, response) = try await URLSession(configuration: config).data(
-      for: .put(url: uploadURL, body: body, headers: headers))
+    let session = URLSession(configuration: config)
+
+    let (_, response) = try await session.data(
+      for: .put(url: uploadURL, body: body, headers: headers)
+    )
 
     let httpResponse = response as! HTTPURLResponse
 
@@ -162,7 +165,9 @@ extension Sweet {
 
     for line in lines {
       let compliance = try JSONDecoder.twitter.decode(
-        ComplianceModel.self, from: line.data(using: .utf8)!)
+        ComplianceModel.self,
+        from: Data(line.utf8)
+      )
       compliances.append(compliance)
     }
 

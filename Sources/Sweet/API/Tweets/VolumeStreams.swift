@@ -67,7 +67,7 @@ extension Sweet {
         let decoder = JSONDecoder.twitter
 
         for string in strings {
-          let data = string.data(using: .utf8)!
+          let data = Data(string.utf8)
 
           if let response = try? decoder.decode(TweetResponse.self, from: data) {
             continuation.yield(.success(response))
