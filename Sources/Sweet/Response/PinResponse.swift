@@ -23,7 +23,7 @@ extension Sweet.PinResponse: Decodable {
     case pinned
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let pinContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.pinned = try pinContainer.decode(Bool.self, forKey: .pinned)

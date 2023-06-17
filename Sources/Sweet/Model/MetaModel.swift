@@ -41,7 +41,7 @@ extension Sweet.MetaModel: Codable {
     case previousToken = "previous_token"
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.resultCount = try container.decode(Int.self, forKey: .resultCount)
     self.oldestID = try container.decodeIfPresent(String.self, forKey: .oldestID)
@@ -50,7 +50,7 @@ extension Sweet.MetaModel: Codable {
     self.previousToken = try container.decodeIfPresent(String.self, forKey: .previousToken)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(resultCount, forKey: .resultCount)
     try container.encodeIfPresent(oldestID, forKey: .oldestID)

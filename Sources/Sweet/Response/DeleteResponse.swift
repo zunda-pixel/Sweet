@@ -23,7 +23,7 @@ extension Sweet.DeleteResponse: Decodable {
     case deleted
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let deleteContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.deleted = try deleteContainer.decode(Bool.self, forKey: .deleted)

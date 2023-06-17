@@ -23,7 +23,7 @@ extension Sweet {
       case eventID = "dm_event_id"
     }
 
-    public init(from decoder: Decoder) throws {
+    public init(from decoder: any Decoder) throws {
       let container = try decoder.container(keyedBy: DataCodingKeys.self)
 
       let directMessageContainer = try container.nestedContainer(

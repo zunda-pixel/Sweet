@@ -46,7 +46,7 @@ extension Sweet {
 }
 
 extension Sweet.ListModel: Codable {
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: Sweet.ListField.self)
     self.id = try container.decode(String.self, forKey: .id)
     self.name = try container.decode(String.self, forKey: .name)
@@ -59,7 +59,7 @@ extension Sweet.ListModel: Codable {
     self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.ListField.self)
     try container.encode(id, forKey: .id)
     try container.encode(name, forKey: .name)

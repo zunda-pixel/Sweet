@@ -20,7 +20,7 @@ extension Sweet.UpdateResponse: Decodable {
     case updated
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let updateContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.updated = try updateContainer.decode(Bool.self, forKey: .updated)

@@ -32,14 +32,14 @@ extension Sweet.MediaVariant: Codable {
     case url
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encodeIfPresent(bitRate, forKey: .bitRate)
     try container.encode(contentType.rawValue, forKey: .contentType)
     try container.encode(url, forKey: .url)
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.bitRate = try container.decodeIfPresent(Int.self, forKey: .bitRate)

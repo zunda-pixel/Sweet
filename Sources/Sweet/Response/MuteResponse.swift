@@ -23,7 +23,7 @@ extension Sweet.MuteResponse: Decodable {
     case muting
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let muteContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.muting = try muteContainer.decode(Bool.self, forKey: .muting)

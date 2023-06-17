@@ -18,7 +18,7 @@ extension Sweet {
       case id
     }
 
-    public init(from decoder: Decoder) throws {
+    public init(from decoder: any Decoder) throws {
       let container = try decoder.container(keyedBy: CodingKeys.self)
       self.messages = try container.decode(String.self, forKey: .message)
 

@@ -26,13 +26,13 @@ extension Sweet.CreateStreamRuleMetaModel: Decodable {
     case summary
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.sent = try container.decode(Date.self, forKey: .sent)
     self.summary = try container.decode(Sweet.StreamRuleSummary.self, forKey: .summary)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(sent, forKey: .sent)
     try container.encode(summary, forKey: .summary)

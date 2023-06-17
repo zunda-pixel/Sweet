@@ -25,7 +25,7 @@ extension Sweet.FollowResponseModel: Decodable {
     case pendingFollow = "pending_follow"
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let followContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.following = try followContainer.decode(Bool.self, forKey: .following)

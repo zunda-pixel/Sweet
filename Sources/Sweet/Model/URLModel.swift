@@ -61,7 +61,7 @@ extension Sweet.URLModel: Codable {
     case description
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.start = try container.decode(Int.self, forKey: .start)
@@ -84,7 +84,7 @@ extension Sweet.URLModel: Codable {
     self.description = try container.decodeIfPresent(String.self, forKey: .description)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(start, forKey: .start)
     try container.encode(end, forKey: .end)

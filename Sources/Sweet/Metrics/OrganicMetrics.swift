@@ -41,7 +41,7 @@ extension Sweet.OrganicMetrics: Codable {
     case retweetCount = "retweet_count"
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.likeCount = try container.decode(Int.self, forKey: .likeCount)
     self.userProfileClicks = try container.decode(Int.self, forKey: .userProfileClicks)
@@ -50,7 +50,7 @@ extension Sweet.OrganicMetrics: Codable {
     self.retweetCount = try container.decode(Int.self, forKey: .retweetCount)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(likeCount, forKey: .likeCount)
     try container.encode(userProfileClicks, forKey: .userProfileClicks)

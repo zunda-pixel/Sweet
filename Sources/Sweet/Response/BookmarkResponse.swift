@@ -18,7 +18,7 @@ extension Sweet.BookmarkResponse: Decodable {
     case bookmarked
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let bookmarkContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.bookmarked = try bookmarkContainer.decode(Bool.self, forKey: .bookmarked)

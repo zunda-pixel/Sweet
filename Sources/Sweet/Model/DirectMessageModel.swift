@@ -35,7 +35,7 @@ extension Sweet {
       self.referencedTweets = referencedTweets
     }
 
-    public init(from decoder: Decoder) throws {
+    public init(from decoder: any Decoder) throws {
       let container = try decoder.container(keyedBy: DirectMessageField.self)
 
       let eventType = try container.decode(String.self, forKey: .eventType)
@@ -60,7 +60,7 @@ extension Sweet {
       self.referencedTweets = referencedTweets ?? []
     }
 
-    public func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: any Encoder) throws {
       var container = encoder.container(keyedBy: DirectMessageField.self)
       try container.encode(eventType.rawValue, forKey: .eventType)
       try container.encode(id, forKey: .id)

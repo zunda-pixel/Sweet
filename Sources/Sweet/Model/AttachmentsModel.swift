@@ -26,7 +26,7 @@ extension Sweet.AttachmentsModel: Codable {
     case pollIDs = "poll_ids"
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     let mediaKeys = try container.decodeIfPresent([String].self, forKey: .mediaKeys)
@@ -36,7 +36,7 @@ extension Sweet.AttachmentsModel: Codable {
     self.pollID = pollIDs?.first
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(mediaKeys, forKey: .mediaKeys)
     try container.encode([pollID].compactMap { $0 }, forKey: .pollIDs)

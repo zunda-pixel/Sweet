@@ -23,7 +23,7 @@ extension Sweet.LikeResponse: Decodable {
     case liked
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let likeContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.liked = try likeContainer.decode(Bool.self, forKey: .liked)

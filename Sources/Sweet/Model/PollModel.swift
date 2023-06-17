@@ -33,7 +33,7 @@ extension Sweet {
 }
 
 extension Sweet.PollModel: Codable {
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: Sweet.PollField.self)
 
     self.id = try container.decode(String.self, forKey: .id)
@@ -46,7 +46,7 @@ extension Sweet.PollModel: Codable {
     self.options = try container.decode([Sweet.PollItem].self, forKey: .options)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.PollField.self)
     try container.encode(id, forKey: .id)
     try container.encode(votingStatus.rawValue, forKey: .votingStatus)

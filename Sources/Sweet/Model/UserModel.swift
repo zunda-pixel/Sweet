@@ -60,7 +60,7 @@ extension Sweet {
 }
 
 extension Sweet.UserModel: Codable {
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: Sweet.UserField.self)
     let id = try container.decode(String.self, forKey: .id)
     self.id = id
@@ -90,7 +90,7 @@ extension Sweet.UserModel: Codable {
     self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.UserField.self)
     try container.encode(id, forKey: .id)
     try container.encode(name, forKey: .name)

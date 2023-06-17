@@ -23,7 +23,7 @@ extension Sweet.BlockResponse: Decodable {
     case blocking
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let blockContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.blocking = try blockContainer.decode(Bool.self, forKey: .blocking)
