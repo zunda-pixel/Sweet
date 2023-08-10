@@ -75,7 +75,7 @@ final class TestCompliancesAPI: XCTestCase {
 
 private class TestStream: NSObject, URLSessionDataDelegate {
   func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-    print(String(data: data, encoding: .utf8)!)
+    print(String(decoding: data, as: UTF8.self))
   }
 
   func testStreamUsersCompliance() {

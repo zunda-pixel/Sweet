@@ -62,7 +62,7 @@ extension Sweet {
 
     return AsyncThrowingStream { continuation in
       let stream = StreamExecution(request: request) { data in
-        let stringData = String(data: data, encoding: .utf8)!
+        let stringData = String(decoding: data, as: UTF8.self)
         let strings = stringData.split(whereSeparator: \.isNewline)
         let decoder = JSONDecoder.twitter
 
