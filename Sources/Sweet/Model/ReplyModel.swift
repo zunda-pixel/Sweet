@@ -26,7 +26,7 @@ extension Sweet.ReplyModel: Encodable {
     case replyToTweetID = "in_reply_to_tweet_id"
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(replyToTweetID, forKey: .replyToTweetID)
 

@@ -26,7 +26,7 @@ extension Sweet {
       case participantIDs = "participant_ids"
     }
 
-    public init(from decoder: Decoder) throws {
+    public init(from decoder: any Decoder) throws {
       let container = try decoder.container(keyedBy: CodingKeys.self)
 
       let conversationType = try container.decode(String.self, forKey: .conversationType)
@@ -35,7 +35,7 @@ extension Sweet {
       self.message = try container.decode(Message.self, forKey: .message)
     }
 
-    public func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: any Encoder) throws {
       var container = encoder.container(keyedBy: CodingKeys.self)
       try container.encode(conversationType.rawValue, forKey: .conversationType)
       try container.encode(participantIDs, forKey: .participantIDs)

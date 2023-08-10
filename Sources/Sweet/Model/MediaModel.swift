@@ -59,7 +59,7 @@ extension Sweet {
 }
 
 extension Sweet.MediaModel: Codable {
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: Sweet.MediaField.self)
 
     let type = try container.decode(String.self, forKey: .type)
@@ -111,7 +111,7 @@ extension Sweet.MediaModel: Codable {
     )
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.MediaField.self)
     try container.encode(type.rawValue, forKey: .type)
     try container.encode(key, forKey: .mediaKey)

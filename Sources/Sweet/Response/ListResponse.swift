@@ -27,7 +27,7 @@ extension Sweet.ListResponse: Decodable {
     case users
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.list = try container.decode(Sweet.ListModel.self, forKey: .list)
@@ -67,7 +67,7 @@ extension Sweet.ListsResponse: Decodable {
     case users
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.meta = try container.decode(Sweet.MetaModel.self, forKey: .meta)

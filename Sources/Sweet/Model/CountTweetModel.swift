@@ -33,14 +33,14 @@ extension Sweet.CountTweetModel: Codable {
     case endDate = "end"
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.countTweet = try container.decode(Int.self, forKey: .countTweet)
     self.startDate = try container.decode(Date.self, forKey: .startDate)
     self.endDate = try container.decode(Date.self, forKey: .endDate)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(countTweet, forKey: .countTweet)
     try container.encode(startDate, forKey: .startDate)

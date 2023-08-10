@@ -57,7 +57,7 @@ extension Sweet.PostTweetModel: Encodable {
     case replySettings = "reply_settings"
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encodeIfPresent(text, forKey: .text)
     try container.encodeIfPresent(directMessageDeepLink, forKey: .directMessageDeepLink)

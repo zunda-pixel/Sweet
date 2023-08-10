@@ -30,7 +30,7 @@ extension Sweet.WithheldModel: Codable {
     case scope
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.copyright = try container.decodeIfPresent(Bool.self, forKey: .copyright)
@@ -40,7 +40,7 @@ extension Sweet.WithheldModel: Codable {
     self.scope = scope.map { Sweet.WithheldScope(rawValue: $0)! }
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encodeIfPresent(copyright, forKey: .copyright)
     try container.encode(countryCodes, forKey: .countryCodes)

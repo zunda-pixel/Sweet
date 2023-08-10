@@ -30,7 +30,7 @@ extension Sweet.CompliancesResponse: Decodable {
     case compliances = "data"
   }
 
-  init(from decoder: Decoder) throws {
+  init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.meta = try container.decode(Sweet.ComplianceMeta.self, forKey: .meta)
 

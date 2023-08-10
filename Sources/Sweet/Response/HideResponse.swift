@@ -23,7 +23,7 @@ extension Sweet.HideResponse: Decodable {
     case hidden
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: DataCodingKeys.self)
     let hideContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
     self.hidden = try hideContainer.decode(Bool.self, forKey: .hidden)

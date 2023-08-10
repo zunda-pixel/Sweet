@@ -34,7 +34,7 @@ extension Sweet.ComplianceModel: Codable {
     case reason
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.id = try container.decode(String.self, forKey: .id)
 
@@ -47,7 +47,7 @@ extension Sweet.ComplianceModel: Codable {
     self.reason = .init(rawValue: reason)!
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(id, forKey: .id)
     try container.encode(action.rawValue, forKey: .action)

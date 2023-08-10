@@ -96,7 +96,7 @@ extension Sweet {
         case resumable
       }
 
-      public func encode(to encoder: Encoder) throws {
+      public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type.rawValue, forKey: .type)
         try container.encodeIfPresent(name, forKey: .name)

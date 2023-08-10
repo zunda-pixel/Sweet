@@ -21,7 +21,7 @@ extension Sweet.StreamRuleResponse: Decodable {
     case meta
   }
 
-  init(from decoder: Decoder) throws {
+  init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.meta = try container.decode(Sweet.StreamRuleMetaModel.self, forKey: .meta)

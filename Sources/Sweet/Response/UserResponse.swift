@@ -27,7 +27,7 @@ extension Sweet.UserResponse: Decodable {
     case tweets
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.user = try container.decode(Sweet.UserModel.self, forKey: .user)
 
@@ -66,7 +66,7 @@ extension Sweet.UsersResponse: Decodable {
     case tweets
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)

@@ -28,7 +28,7 @@ extension Sweet.DirectMessagesResponse: Decodable {
     case users
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.meta = try container.decodeIfPresent(Sweet.MetaModel.self, forKey: .meta)

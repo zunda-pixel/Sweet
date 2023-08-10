@@ -46,7 +46,7 @@ extension Sweet.UserEntityModel: Codable {
     case cashTags = "cashtags"
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     let urlData = try? container.nestedContainer(keyedBy: URLCodingKeys.self, forKey: .url)
@@ -87,7 +87,7 @@ extension Sweet.UserEntityModel: Codable {
     self.cashTags = cashTags ?? []
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
 
     var urlContainer = container.nestedContainer(keyedBy: URLCodingKeys.self, forKey: .url)

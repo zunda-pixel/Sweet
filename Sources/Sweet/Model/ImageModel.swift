@@ -31,7 +31,7 @@ extension Sweet.ImageModel: Codable {
     case height
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.url = try container.decode(URL.self, forKey: .url)
@@ -42,7 +42,7 @@ extension Sweet.ImageModel: Codable {
     self.size = CGSize(width: width, height: height)
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(url, forKey: .url)
     try container.encode(size.height, forKey: .height)

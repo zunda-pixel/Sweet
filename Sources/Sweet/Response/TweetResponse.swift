@@ -37,7 +37,7 @@ extension Sweet.TweetsResponse: Decodable {
     case tweets
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     let errors = try container.decodeIfPresent([Sweet.ResourceErrorModel].self, forKey: .errors)
@@ -105,7 +105,7 @@ extension Sweet.TweetResponse: Decodable {
     case tweets
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
     self.tweet = try container.decode(Sweet.TweetModel.self, forKey: .tweet)

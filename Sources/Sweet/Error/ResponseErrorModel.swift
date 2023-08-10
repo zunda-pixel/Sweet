@@ -69,7 +69,7 @@ extension Sweet.ResponseErrorModel: Decodable {
     case status
   }
 
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.title = try container.decode(String.self, forKey: .title)
     self.detail = try container.decode(String.self, forKey: .detail)

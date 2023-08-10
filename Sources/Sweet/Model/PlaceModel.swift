@@ -43,7 +43,7 @@ extension Sweet {
 }
 
 extension Sweet.PlaceModel: Codable {
-  public init(from decoder: Decoder) throws {
+  public init(from decoder: any Decoder) throws {
     let container = try decoder.container(keyedBy: Sweet.PlaceField.self)
     self.id = try container.decode(String.self, forKey: .id)
     self.fullName = try container.decode(String.self, forKey: .fullName)
@@ -57,7 +57,7 @@ extension Sweet.PlaceModel: Codable {
     self.containedWithin = containedWithin ?? []
   }
 
-  public func encode(to encoder: Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: Sweet.PlaceField.self)
     try container.encode(id, forKey: .id)
     try container.encode(fullName, forKey: .fullName)
