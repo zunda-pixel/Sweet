@@ -15,7 +15,8 @@ final class StreamExecution: NSObject, URLSessionDataDelegate {
   var task: URLSessionDataTask!
 
   init(
-    request: URLRequest, handler: @escaping (Data) -> Void, errorHandler: @escaping (any Error) -> Void
+    request: URLRequest, handler: @escaping (Data) -> Void,
+    errorHandler: @escaping (any Error) -> Void
   ) {
     self.handler = handler
     self.errorHandle = errorHandler
@@ -34,7 +35,9 @@ final class StreamExecution: NSObject, URLSessionDataDelegate {
     handler(data)
   }
 
-  func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
+  func urlSession(
+    _ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?
+  ) {
     guard let error else { return }
     errorHandle(error)
   }
