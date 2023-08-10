@@ -157,7 +157,7 @@ extension Sweet {
 
     let (data, _) = try await URLSession(configuration: config).data(for: request)
 
-    let stringData = String(data: data, encoding: .utf8)!
+    let stringData = String(decoding: data, as: UTF8.self)
 
     let lines = stringData.split(separator: "\n")
 

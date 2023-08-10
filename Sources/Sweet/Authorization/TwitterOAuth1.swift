@@ -24,7 +24,7 @@ extension Sweet {
 
       let (data, _) = try await URLSession.shared.data(for: request)
 
-      let stringData = String(data: data, encoding: .utf8)!
+      let stringData = String(decoding: data, as: UTF8.self)
 
       let values = stringData.split(separator: "&").reduce(into: [String: String]()) {
         partialResult, next in
@@ -60,7 +60,7 @@ extension Sweet {
 
       let (data, _) = try await URLSession.shared.data(for: request)
 
-      let stringData = String(data: data, encoding: .utf8)!
+      let stringData = String(decoding: data, as: UTF8.self)
 
       let values = stringData.split(separator: "&").reduce(into: [String: String]()) {
         partialResult, next in
