@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "httpclient",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zunda-pixel/HTTPClient",
+      "state" : {
+        "revision" : "843a1416003cf7ad8ff1bdd30219ffafa757c350",
+        "version" : "1.4.2"
+      }
+    },
+    {
+      "identity" : "httpmethod",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/thii/HTTPMethod",
+      "state" : {
+        "revision" : "5cb356f4cdd00f1c79f52250f697a4007be22d55",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "oauth1",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zunda-pixel/OAuth1",
+      "state" : {
+        "revision" : "f96a150dfdcf2d77cf0e66050485d354e18bc01a",
+        "version" : "1.0.6"
+      }
+    }
+  ],
+  "version" : 2
+}
