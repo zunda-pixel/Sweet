@@ -4,6 +4,4 @@
 /*.xcodeproj
 xcuserdata/
 DerivedData/
-.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
-Sources/Sweet/Sweet.swift
-Package.resolved
+.swiftpm
