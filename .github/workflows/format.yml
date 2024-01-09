@@ -9,10 +9,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: swift-actions/setup-swift@v1
+    - name: Install swift-format
+      run: |
+        git clone https://github.com/apple/swift-format.git
+        cd swift-format
+        git checkout "tags/509.0.0"
+        swift build -c release
     - name: Format And Lint
       run: |
-        swift run -c release swift-format format Sources Tests -r -p -i
-        swift run -c release swift-format lint   Sources Tests -r -p -s
+        swift-format format Sources Tests -r -p -i
+        swift-format lint   Sources Tests -r -p -s
     - name: Git Setting
       run: |
         git config --global user.email "swift-formatter[bot]@swift.com"
